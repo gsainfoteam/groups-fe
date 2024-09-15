@@ -1,3 +1,370 @@
 export const main = {
-  title: "Hello, World!",
+  lang: "en",
+  metadata: {
+    title: "Ziggle",
+    description: "All Notices in GIST at a glance",
+  },
+  common: {
+    optional: "Optional",
+    sortByDeadline: "Sort by deadline",
+  },
+  navbar: {
+    all: "All Notices",
+    write: "Write Notice",
+    query: "Search Notice",
+    login: "Login",
+  },
+  navbarWrite: {
+    edit: "Edit",
+    goBack: "Go back",
+    submit: "Submit",
+  },
+  sidebar: {
+    home: "Home",
+    urgent: "Near Deadline",
+    zigglepick: "Ziggle-Pick",
+    recruit: "Recruit",
+    event: "Events",
+    general: "General",
+    academic: "Academic",
+    write: "Write Notice",
+    groups: "Groups",
+  },
+  alertResponse: {
+    yes: "Yes",
+    no: "No",
+    cancel: "Cancel",
+    confirm: "Confirm",
+    submit: "Submit",
+  },
+  footer: {
+    infoteam: "GIST Student Council - Information Department",
+    copyright: "ⓒ 2024. INFOTEAM all rights reserved.",
+    sections: [
+      {
+        title: "Introduction",
+        links: [
+          {
+            name: "Introduce Infoteam",
+            link: "https://introduce.gistory.me",
+          },
+          {
+            name: "Bug Report",
+            link: "https://cs.gistory.me/?service=Ziggle",
+          },
+        ],
+      },
+      {
+        title: "Terms",
+        links: [
+          {
+            name: "Terms of Service",
+            link: "https://infoteam-rulrudino.notion.site/6177be6369e44280a23a65866c51b257",
+          },
+          {
+            name: "Privacy Policy",
+            link: "https://infoteam-rulrudino.notion.site/ceb9340c0b514497b6d916c4a67590a1",
+          },
+          {
+            name: "FAQ",
+            link: "mailto:ziggle@gistory.me",
+          },
+        ],
+      },
+      {
+        title: "Shortcuts",
+        links: [
+          {
+            name: "GIST House",
+            link: "https://sites.google.com/view/gisthouse/home",
+          },
+          {
+            name: "GIST Homepage",
+            link: "https://www.gist.ac.kr/kr/main.html",
+          },
+          {
+            name: "Gijol",
+            link: "https://gijol.im",
+          },
+        ],
+      },
+    ],
+  },
+  zabo: {
+    dateView: "{{date}}\u00a0<strong>· {{views}} views</strong>",
+    clickPoster: "Click on the poster to read more",
+    downloadAll: "Download All",
+    close: "Close",
+    author: "Author <strong>{{- author}}</strong>",
+    createdAt: "Created on {{createdAt}}",
+    views: "{{views}} views",
+    copyLink: {
+      action: "copy link",
+      content: "{{title}}\n\nCheck the notice in Ziggle!\n{{- link}}",
+      success:
+        "The notice link has been copied!<small>Share the notice with your friends.</small>",
+    },
+    dueAt: "Due at {{dueAt}}",
+    timeLeft: "{{timeLeft}} left",
+    noContent: "No Content",
+    share: {
+      action: "Share",
+      content: "{{title}}\nCheck the notice in Ziggle!",
+      unsupported: "Your browser doesn't support sharing.",
+    },
+    backToMain: "Go back to main page",
+    images: "Photos",
+
+    additionalNotices: {
+      title: "Additional Notices",
+      deadlineChanged: "Deadline Changed",
+      addAdditionalNotice: "Write an additional notice",
+      noDeadline: "No Deadline",
+      changeDeadline: "Change Deadline",
+      koreanAdditionalNotice: "Korean Additional Notice",
+      englishAdditionalNotice: "English Additional Notice",
+      additionalNoticePlaceholder: "Write an additional notice here",
+      enAdditionalNoticePlaceholder:
+        "Write an additional notice in English here",
+      cancel: "Cancel",
+      submit: "Submit",
+      alertToReminded: "Alert to those who have been reminded",
+      alertToAll: "Alert to everyone",
+    },
+
+    writeEnglishNotice: {
+      title: "Write English Notice",
+      writeTitle: "Write a title of English notice here",
+    },
+
+    authorActions: {
+      edit: "Edit / Add English Version",
+      remove: "Remove",
+      removeSure: "Are you sure you want to delete this notice?",
+      writeEnglishNotice: "Write English notice",
+      alreadyWroteEnglishNotice: "You've already written an English notice!",
+      writeAdditionalNotice: "Write Additional Notice",
+      writeAdditionalNoticeDescription:
+        "Create an additional notice when you need to make a correction to an existing notice, or when you want to change a deadline.",
+    },
+  },
+  emptyNotices: "No content. =ㅅ=",
+  loading: "Loading! -ㅅ-",
+  ddayPlus: "OVERDUE",
+  notices: {
+    all: {
+      label: "All Notices",
+      description: "All notices are sorted in chronological order.",
+    },
+    deadline: {
+      label: "🌟 Near Deadline",
+      description:
+        "Here's a roundup of notices that are due in less than a week.",
+    },
+    hot: {
+      label: "🔥 Today's boiling notices",
+      description:
+        "Notices with over 150 views in the past week have been sizzling here.",
+    },
+    event: {
+      label: "🎈 $t(notices.event.name)",
+      name: "Events",
+      description: "GIST is hot today.",
+    },
+    recruit: {
+      label: "🎯 $t(notices.recruit.name)",
+      name: "Recruiting",
+      description: "Opportunities are always open to you",
+    },
+    general: {
+      label: "🔔 $t(notices.general.name)",
+      name: "General",
+      description: "GISTian Must-Dos",
+    },
+    academic: {
+      label: "📰 $t(notices.academic.name)",
+      name: "Academic Notices",
+    },
+    written: {
+      label: "✍️ My Notices",
+      description: "Here are the notices you've written.",
+    },
+    reminded: {
+      label: "🔔 Reminded Notices",
+      description: "Here are the notices you've set reminders for.",
+    },
+    club: {
+      label: "Club Notices",
+      description: "Club notices",
+    },
+    etc: {
+      label: "etc",
+      description: "etc",
+    },
+  },
+  mypage: {
+    info: "Account Info",
+    name: "Name",
+    email: "Email",
+    id: "Student ID",
+    myNotice: "My Notices",
+    remindNotice: "Reminded Notices",
+    totalList: "view all",
+    logout: "Log Out",
+    quit: "Withdrawal",
+    switchLanguage: "Enable English",
+    switchDarkMode: "Enable Dark Mode",
+    feedback: "Feedback or Report Bug",
+  },
+  searchPage: {
+    searchBar: {
+      placeholder: "Search",
+      collapse: "Cancel",
+    },
+    prompt: "Please enter a search term",
+    noResult: "There are no search results.",
+    title: "♨ Ziggle Announcements",
+    loginRequired: "Login is required",
+  },
+  write: {
+    koreanTitle: "Korean Title",
+    englishTitle: "English Title",
+    writeTitle: "Enter a title here",
+    setupDeadline: "Set a deadline",
+    changeDeadline: "Change deadline",
+    writeEnglishNotice: "Write English Notice too",
+    koreanNotice: "Korean",
+    englishNotice: "English",
+    noticeType: "Type",
+    noticeTypes: {
+      recruit: {
+        label: "Recruiting",
+        description: {
+          title: "🎯 Recruiting notice",
+          content:
+            "If you're looking to recruit people to your club, group, or event, try creating a recruitment announcement.",
+          example:
+            "Ex) club recruitment, student association recruitment, Infinite Challenge team member recruitment, contests, competitions, etc.",
+        },
+      },
+      event: {
+        label: "Events",
+        description: {
+          title: "🎈 Event notice",
+          content: "Feel free to promote your event in the event notice.",
+          example:
+            "Ex) festivals, exhibitions, performances, seminars, lectures, workshops",
+        },
+      },
+      general: {
+        label: "General",
+        description: {
+          title: "🔔 General notice",
+          content:
+            "Notices that are not part of a recruitment or event notices.",
+          example:
+            "Ex) GIST House notices, student association notices, notifications, etc.",
+        },
+      },
+    },
+    setupTags: "Set Tags",
+    writeTagsDescription:
+      "Separate them with a space; you don't need to type #.",
+    writeTags: "Enter tags.",
+
+    setupLanguage: "Additional Languages",
+    languages: {
+      korean: "Korean",
+      english: "English",
+    },
+
+    koreanContent: "Content - Korean",
+    englishContent: "Content - English",
+    enterEnglishContent: "Enter Content - English",
+    translateWithDeepL: "Translate with DeepL",
+
+    attachPhoto: "Attach Photos",
+    photoDescription:
+      "The first of the attached photos is set as the representative photo.",
+    dragToAddPhoto: "Drag to add photos",
+    orAddFromPC: "...or browse files",
+
+    submit: "Submit Notice",
+    submitDescription:
+      "You can edit your notice in 15 mins. \n Please double-check your content before submitting.",
+
+    hasSavedNotice:
+      "You have saved notices. Would you like to continue writing?",
+    autoSaveDescription: "Drafts are saved to your computer",
+
+    editDescription:
+      "You only have 15 minutes to edit the original notice. However, you can always write an English version.",
+    editDisabled:
+      "Editing original notice is disabled! 👇 Why not try an additional announcement?",
+    editableTimer: "Uneditable after",
+    uneditable: "The editable deadline has passed.",
+    contentUneditable: "It's past due and can't be edited.",
+
+    alerts: {
+      title: "Please enter a title",
+      enTitle: "Please enter an English title",
+      titleLengthLessThan:
+        "Please enter a title of no more than {{titleMaxLength}} characters",
+      deadline: "Please set the deadline after the current time",
+      body: "Please enter the content",
+      koreanBody: "Please enter Korean text content",
+      englishBody: "Please enter English text content",
+      bodyLengthLessThan:
+        "Please enter body content within {{bodyMaxLength}} characters",
+      koreanBodyLengthLessThan:
+        "Please enter Korean body content within {{bodyMaxLength}} characters",
+      englishBodyLengthLessThan:
+        "Please enter English body content within {{bodyMaxLength}} characters",
+      bothBodyLengthLessThan:
+        "Please enter both Korean and English content within {{bodyMaxLength}} characters",
+      numberOfCharacter: "({{length}}/{{maxLength}} characters)",
+      needKoreanAdditionalNotice: "Please write a Korean additional notice",
+      submittingNotice: "Creating a notice...",
+      submitSuccess: "The notice was submitted successfully",
+      submitFail: "Failed to submit notice",
+      deleteSuccess: "The notice was deleted successfully",
+      deleteFail: "Failed to delete notice",
+      tagCreationFail: "Failed to create tag",
+      fetchNoticeFail: "Failed to fetch notice information",
+      attachInternationalFail:
+        "Failed to post English version. Please try posting it again.",
+      copyEnglishContent: "Copy English content",
+      copySuccess:
+        "The content has been copied! Paste it in the editor -> Tools -> Source code",
+      attachAdditionalNoticeFail:
+        "Failed to post additional notice. Please try posting it again.",
+      copyAdditionalNotice: "Copy additional notice",
+      attachInternationalAdditionalNoticeFail:
+        "Failed to post English additional notice. Please try posting it again.",
+      copyInternationalAdditionalNotice: "Copy En. add. notice",
+    },
+  },
+  group: {
+    mainTitle: "My Groups",
+    mainLogo: "You are not a member of any groups.",
+    mainDescription:
+      "If you want to join a specific group, please contact the group administrator.",
+    createGroup: "Create Group",
+    manageGroup: "Manage Group",
+    leaveGroup: "Leave Group",
+    favorite: "Favorite",
+    memberCount: "{{count}} members",
+    noticeCount: "{{count}} notices",
+    tabs: {
+      intro: "Intro",
+      notices: "Notices",
+      members: "Members",
+    },
+  },
+  installApp: {
+    title: "Install the mobile app!",
+    text: "You can use more convenient service.",
+    open: "Open App or Install App",
+    cancel: "Never mind",
+  },
 };
