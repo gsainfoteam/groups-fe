@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.20",
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "i18next": "^23.7.16",
@@ -57,11 +58,11 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-storybook": "^0.8.0",
-    "postcss": "^8.4.38",
+    "postcss": "^8.4.47",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "storybook": "^8.3.0",
     "tailwind-merge": "^2.3.0",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^3.4.11",
     "typescript": "^5.3.3",
     "vite": "^5.0.11",
     "vite-plugin-checker": "^0.6.2",
