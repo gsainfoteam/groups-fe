@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-import BonFire from "@/assets/logos/bonfire.svg";
+import BonFire from "@/assets/illustrations/bonfire.svg?react";
 
 const NotInGroup = () => {
   const { t } = useTranslation();
