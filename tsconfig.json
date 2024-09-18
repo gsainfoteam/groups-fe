@@ -18,11 +18,10 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
-      "@types/*": ["src/@types/*"],
-      "@types": ["src/@types"]
+      "@/*": ["./src/*"],
     },
-    "typeRoots": ["./node_modules/@types/", "./src/@types/"]
+    "typeRoots": ["./node_modules/@types/", "./src/@types/"],
   },
   "include": ["src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "references": [{ "path": "./tsconfig.node.json" }],
 }
