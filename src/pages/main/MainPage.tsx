@@ -16,7 +16,11 @@ const MainPage = () => {
   const { data: groupList } = useSWR("groupContainingMe", getGroupContainingMe);
 
   if (!groupList) {
-    return null; // TODO: loading or error page
+    return <div>
+      <p className={"text-5xl"}>
+        Loading...
+      </p>
+    </div>; // TODO: loading or error page
   }
 
   return (
