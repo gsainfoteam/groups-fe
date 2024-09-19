@@ -11,7 +11,7 @@ import Button from "../button/Button";
 
 type ZaboActionsProps = Notice;
 
-interface FireButtonProps { 
+interface FireButtonProps {
   id: number;
   fire: Reaction;
 }
@@ -25,11 +25,9 @@ const FireButton = ({ id, fire }: FireButtonProps) => {
     <div className={"flex items-center gap-1"}>
       <Fire
         width={36}
-        className="stroke-text duration-150 hover:scale-125 dark:stroke-dark_white"
+        className="stroke-text duration-150 hover:scale-125 dark:stroke-d_white"
       />
-      <p className={"font-semibold dark:text-dark_white"}>
-        {currentFire.count}
-      </p>
+      <p className={"font-semibold dark:text-d_white"}>{currentFire.count}</p>
     </div>
   );
 };
@@ -61,7 +59,7 @@ const ShareButton = ({ title }: ShareButtonProps) => {
     >
       <ShareIcon
         width={26}
-        className="stroke-text stroke-2 duration-150 hover:scale-125 dark:stroke-dark_white"
+        className="stroke-text stroke-2 duration-150 hover:scale-125 dark:stroke-d_white"
       />
     </Button>
   );
@@ -76,8 +74,8 @@ const ZaboActions = ({ id, title, reactions }: ZaboActionsProps) => {
 
   return (
     <div className={"flex items-center justify-between"}>
-      <FireButton id={id} fire={fire}  />
-      <ShareButton title={title}  />
+      <FireButton id={id} fire={fire} />
+      <ShareButton title={title} />
     </div>
   );
 };

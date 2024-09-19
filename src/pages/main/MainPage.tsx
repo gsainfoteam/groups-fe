@@ -32,7 +32,7 @@ const MainPage = () => {
             return <GroupItem key={group.name} groupParams={{ group }} />;
           })
         )}
-        <div className="my-10 w-full rounded-[15px] bg-greyLight p-6 text-base font-normal text-greyDark dark:bg-dark_greyDark">
+        <div className="my-10 w-full rounded-[15px] bg-greyLight p-6 text-base font-normal text-greyDark dark:bg-d_greyDark">
           {t("group.mainDescription")}
         </div>
         <Button variant="contained" className="mb-4 w-60 rounded-[10px] py-2">

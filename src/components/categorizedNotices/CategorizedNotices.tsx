@@ -17,7 +17,7 @@ const CategorizedNotices = ({ page }: CategorizedNoticesProps) => {
             {...notices.list.map((notice) => (
               <React.Fragment key={notice.id}>
                 <Zabo key={notice.id} {...notice} lng={lng} />
-                <div className="my-[30px] h-[1px] bg-greyLight dark:bg-dark_greyBorder" />
+                <div className="my-[30px] h-[1px] bg-greyLight dark:bg-d_greyBorder" />
               </React.Fragment>
             ))}
           </div>
