@@ -15,11 +15,9 @@ export const main = {
     write: "Write Notice",
     query: "Search Notice",
     login: "Login",
-  },
-  navbarWrite: {
-    edit: "Edit",
-    goBack: "Go back",
-    submit: "Submit",
+    button: {
+      goBackToZiggle: "Back to Main",
+    },
   },
   sidebar: {
     home: "Home",

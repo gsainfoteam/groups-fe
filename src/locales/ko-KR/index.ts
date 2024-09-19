@@ -15,11 +15,9 @@ export const main = {
     write: "공지 작성",
     query: "공지 검색",
     login: "로그인",
-  },
-  navbarWrite: {
-    edit: "수정",
-    goBack: "돌아가기",
-    submit: "제출",
+    button: {
+      goBackToZiggle: "메인으로",
+    },
   },
   sidebar: {
     home: "홈",
