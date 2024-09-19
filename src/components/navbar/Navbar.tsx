@@ -5,8 +5,13 @@ import ZiggleLogo from "@/assets/logos/ziggle.svg?react";
 import ZiggleCompactLogo from "@/assets/logos/ziggle-compact.svg?react";
 import ZiggleCompactLogoDark from "@/assets/logos/ziggle-compact-dark.svg?react";
 import ZiggleLogoDark from "@/assets/logos/ziggle-dark.svg?react";
+import Button from "../button/Button";
 
-const Navbar = () => {
+interface NavbarProps {
+  to: string;
+}
+
+const Navbar = ({ to }: NavbarProps) => {
   return (
     <header
       className={twMerge(
@@ -26,6 +31,16 @@ const Navbar = () => {
             <ZiggleCompactLogoDark className="h-8 overflow-visible md:hidden" />
           </div>
         </Link>
+
+        <div
+          className={
+            "mr-[10px] flex h-full flex-row-reverse items-center md:mr-[20px] md:w-full"
+          }
+        >
+          <Link to={to}>
+            <Button variant="outlined">돌아가기</Button>
+          </Link>
+        </div>
       </div>
     </header>
   );
