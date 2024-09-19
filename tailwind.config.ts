@@ -23,6 +23,9 @@ export default {
         d_white: "var(--d_white)",
         d_secondary: "var(--d_secondary)",
       },
+      spacing: {
+        pageSide: "20vw",
+      },
     },
   },
   plugins: [],

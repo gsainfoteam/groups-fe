@@ -1,5 +1,21 @@
 @import "./variables.css";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .area {
+    @apply flex flex-col items-center;
+  }
+
+  .content {
+    @apply w-[calc(100%-40px)];
+    @apply md:w-[calc(100%-2*theme(spacing.pageSide))];
+    @apply max-w-[1240px];
+  }
+}
+
 body {
   background-color: var(--white);
   color: var(--dark);
