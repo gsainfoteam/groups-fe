@@ -6,12 +6,17 @@ import ZiggleCompactLogo from "@/assets/logos/ziggle-compact.svg?react";
 import ZiggleCompactLogoDark from "@/assets/logos/ziggle-compact-dark.svg?react";
 import ZiggleLogoDark from "@/assets/logos/ziggle-dark.svg?react";
 import Button from "../button/Button";
+import AccountIcon from "@/assets/icons/account.svg?react";
+import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
   to: string;
 }
 
 const Navbar = ({ to }: NavbarProps) => {
+  const user = null;
+  const { t } = useTranslation();
+
   return (
     <header
       className={twMerge(
@@ -41,6 +46,16 @@ const Navbar = ({ to }: NavbarProps) => {
             <Button variant="outlined">돌아가기</Button>
           </Link>
         </div>
+
+        <Link
+          to={user ? `/mypage` : `/login`}
+          className="hidden items-center justify-center gap-2 md:flex"
+        >
+          <AccountIcon className="flex h-6" />
+          <div className="whitespace-nowrap align-middle font-medium text-primary">
+            {user ?? t("navbar.login")}
+          </div>
+        </Link>
       </div>
     </header>
   );
