@@ -36,13 +36,13 @@ const Zabo = (props: ZaboProps) => {
     <Link to={`/notice/${id}`}>
       <div
         className={
-          "flex flex-col rounded-[10px] py-[10px] text-text transition hover:bg-greyLight dark:hover:bg-dark_greyDark"
+          "flex flex-col rounded-[10px] py-[10px] text-text transition hover:bg-greyLight dark:hover:bg-d_greyDark"
         }
       >
         <div className={"mx-3 my-[10px] flex flex-wrap items-center gap-y-3"}>
           <DefaultProfile width={36} height={36} />
 
-          <p className={"ml-2 text-lg font-medium dark:text-dark_white"}>
+          <p className={"ml-2 text-lg font-medium dark:text-d_white"}>
             {author.name}
           </p>
 
@@ -60,11 +60,7 @@ const Zabo = (props: ZaboProps) => {
           )}
         </div>
 
-        <p
-          className={
-            "mx-4 mb-[10px] text-xl font-semibold dark:text-dark_white"
-          }
-        >
+        <p className={"mx-4 mb-[10px] text-xl font-semibold dark:text-d_white"}>
           {title}
         </p>
 
@@ -100,7 +96,7 @@ const Zabo = (props: ZaboProps) => {
         {hasImage && <ZaboTags notice={props} />}
 
         <div
-          className={"mx-4 mt-[10px] line-clamp-3 text-lg dark:text-dark_white"}
+          className={"mx-4 mt-[10px] line-clamp-3 text-lg dark:text-d_white"}
         >
           {props.content}
         </div>

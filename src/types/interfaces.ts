@@ -1,20 +1,20 @@
 import dayjs from "dayjs";
 
+export interface UserInfo {
+  uuid: string;
+  name: string;
+  email: string;
+  createdAt: dayjs.Dayjs | string;
+}
+
 export interface GroupInfo {
   uuid: string;
   name: string;
   description: string;
   createdAt: dayjs.Dayjs | string;
   presidentUuid: string;
-  president: GroupUser;
+  president: UserInfo;
   memberCount: number;
-}
-
-export interface GroupUser {
-  uuid: string;
-  name: string;
-  email: string;
-  createdAt: dayjs.Dayjs | string;
 }
 
 export interface Notice {
@@ -44,9 +44,9 @@ export interface Reaction {
 }
 
 export enum EmojiString {
-  FIRE = '🔥',
-  CRYING = '😭',
-  ANGUISHED = '😧',
-  THINKING = '🤔',
-  SURPRISED = '😮',
+  FIRE = "🔥",
+  CRYING = "😭",
+  ANGUISHED = "😧",
+  THINKING = "🤔",
+  SURPRISED = "😮",
 }

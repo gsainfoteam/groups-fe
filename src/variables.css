@@ -1,28 +1,27 @@
 :root {
   --primary: #ff4500;
   --secondary: #fff4f0;
-  --dark: #252525;
-  --secondaryText: #959595;
+  --grey100: #f5f5f7; /* 원래 이름: greyLight */
+  --grey200: #d6d6d6; /* 원래 이름: deselected, greyBorder */
+  --grey300: #b3b3b3; /* 원래 이름: grey */
+  --grey400: #959595; /* 원래 이름: secondaryText */
+  --grey500: #6e6e73; /* 원래 이름: greyDark */
+  --grey900: #252525; /* 원래 이름: dark */
   --white: #ffffff;
-  --deselected: #d6d6d6;
-  --grey: #b3b3b3;
-  --greyDark: #6e6e73;
-  --greyBorder: #d6d6d6;
-  --greyLight: #f5f5f7;
 
-  --d_dark: #252525;
-  --d_greyDark: #3b3b3b;
-  --d_greyBorder: #5d5d5d;
-  --d_grey: #919191;
+  --d_grey100: #3b3b3b; /* 원래 이름: d_greyDark */
+  --d_grey300: #5d5d5d; /* 원래 이름: d_greyBorder */
+  --d_grey500: #919191; /* 원래 이름: d_grey */
+  --d_grey900: #252525; /* 원래 이름: d_dark */
   --d_white: #ffffff;
   --d_secondary: #432b22;
 
   /* Dark mode variables. These are just for convenience. Overwrite them when that's proper. No accurate 1:1 mapping exist. */
   @media (prefers-color-scheme: dark) {
     --dark: var(--d_white);
-    --white: var(--d_dark);
-    --greyLight: var(--d_greyDark);
-    --greyDark: var(--d_grey);
+    --white: var(--d_grey900);
+    --grey100: var(--d_grey100);
+    --grey500: var(--d_grey500);
     --secondary: var(--d_secondary);
   }
 }

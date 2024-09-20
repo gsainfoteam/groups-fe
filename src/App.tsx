@@ -12,6 +12,7 @@ import CreateLayout from "./pages/create/CreateLayout";
 import CreateMembersPage from "./pages/create/CreateMembersPage";
 import CreateNamePage from "./pages/create/CreateNamePage";
 import GroupDetailPage from "./pages/detail/DetailPage";
+import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
 import Path from "./types/Paths";
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path={Path.Onboarding} element={<OnboardingPage />} />
+      <Route path={Path.Login} element={<LoginPage />} />
     </Route>,
   ),
 );
