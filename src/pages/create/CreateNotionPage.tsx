@@ -13,9 +13,7 @@ import {
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
 
-interface CreateNotionPageProps {}
-
-const CreateNotionPage = ({}: CreateNotionPageProps) => {
+const CreateNotionPage = () => {
   const { t } = useTranslation();
   const { setLink, isValidLink, isInvalidNotionLink, isNextButtonValid } =
     useGroupNotionSequence();

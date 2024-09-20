@@ -133,7 +133,7 @@ export const main = {
       stepName: "Write Brief Group Description",
       title: "Write a brief group description",
       description:
-        "Please write a brief group description within 2 lines. \nThe group description you write will be posted at the top of the group main page.",
+        "Please write a brief group description within 2 sentences. \nThe group description you write will be posted at the top of the group main page.",
       placeholder: "Write a brief group description",
     },
     notion: {
@@ -155,7 +155,7 @@ export const main = {
       description: "You can now write a notice under the group name.",
     },
     cancelAlert: {
-      title: "Are you sure cancelling the creation?",
+      title: "Are you sure you want to cancel the creation?",
       description: "The process will be lost.",
       no: "No",
       yes: "Yes",

@@ -11,9 +11,7 @@ import {
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
 
-interface CreateDescriptionPageProps {}
-
-const CreateDescriptionPage = ({}: CreateDescriptionPageProps) => {
+const CreateDescriptionPage = () => {
   const { t } = useTranslation();
   const { descriptionLength, setDescription, isNextButtonValid } =
     useGroupDescriptionSequence();

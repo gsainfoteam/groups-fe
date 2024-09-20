@@ -8,7 +8,6 @@ enum Path {
   CreateDescription = "/create/description",
   CreateNotion = "/create/notion",
   CreateComplete = "/create/complete",
-  CreateMembers = "/create/members",
 }
 
 export default Path;

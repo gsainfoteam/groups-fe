@@ -35,6 +35,22 @@ const CreateGroupSequenceName = () => {
     }, 600);
   };
 
+  const isValidImage = (file: File) => {
+    const maxSizeInBytes = 10 * 1024 * 1024; // 10MB
+    const validFormats = [
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+      "image/webp",
+      "image/svg+xml",
+      "image/jpg",
+      "image/svg",
+      "image/heic",
+      "image/heif",
+    ];
+
+    return file.size <= maxSizeInBytes && validFormats.includes(file.type);
+  };
   return (
     <>
       <div className="w-full md:flex md:h-[500px] md:flex-col md:items-center max-w-[685px]">
@@ -63,7 +79,7 @@ const CreateGroupSequenceName = () => {
                     accept={"image/*"}
                     onChange={(e) => {
                       const file = e.target.files?.[0];
-                      if (file) {
+                      if (file && isValidImage(file)) {
                         setProfileImage(file);
                       }
                     }}

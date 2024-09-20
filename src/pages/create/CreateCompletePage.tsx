@@ -1,9 +1,16 @@
 import Button from "@/components/button/Button";
+import Path from "@/types/paths";
 import { Trans, useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import CompleteAnimation from "./components/CompleteAnimation";
 
 const CreateGroupSequenceComplete = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const handlePreviousClick = () => {
+    navigate(Path.CreateNotion);
+  };
 
   return (
     <>
@@ -22,6 +29,7 @@ const CreateGroupSequenceComplete = () => {
         variant="contained"
         className="w-full py-[15px] text-[18px] md:w-[240px]"
         isBig
+        onClick={handlePreviousClick}
       >
         {t("createGroup.goBack")}
       </Button>

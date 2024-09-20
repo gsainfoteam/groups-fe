@@ -28,6 +28,7 @@ const Input = forwardRef(
           <input
             ref={ref}
             {...rest}
+            aria-label={title}
             className={[
               "grow rounded-[10px] border-[1.5px] border-solid border-primary py-1 pl-4 pr-[10px] bg-white",
               rest.className,

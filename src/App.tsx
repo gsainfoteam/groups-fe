@@ -10,7 +10,6 @@ import Layout from "./layout/Layout";
 import CreateCompletePage from "./pages/create/CreateCompletePage";
 import CreateDescriptionPage from "./pages/create/CreateDescriptionPage";
 import CreateLayout from "./pages/create/CreateLayout";
-import CreateMembersPage from "./pages/create/CreateMembersPage";
 import CreateNamePage from "./pages/create/CreateNamePage";
 import CreateNotionPage from "./pages/create/CreateNotionPage";
 import GroupDetailPage from "./pages/detail/DetailPage";
@@ -35,7 +34,6 @@ const router = createBrowserRouter(
         />
         <Route path={Path.CreateNotion} element={<CreateNotionPage />} />
         <Route path={Path.CreateComplete} element={<CreateCompletePage />} />
-        <Route path={Path.CreateMembers} element={<CreateMembersPage />} />
       </Route>
 
       <Route path={Path.Onboarding} element={<OnboardingPage />} />
