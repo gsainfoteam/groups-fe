@@ -5,8 +5,10 @@ enum Path {
   Login = "/login",
   Create = "/create",
   CreateName = "/create/name",
-  CreateMembers = "/create/members",
+  CreateDescription = "/create/description",
+  CreateNotion = "/create/notion",
   CreateComplete = "/create/complete",
+  CreateMembers = "/create/members",
 }
 
 export default Path;

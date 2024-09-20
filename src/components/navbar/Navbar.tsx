@@ -1,13 +1,13 @@
+import AccountIcon from "@/assets/icons/account.svg?react";
+import GroupsCompactLogoDark from "@/assets/logos/groups-compact-dark.svg?react";
+import GroupsCompactLogo from "@/assets/logos/groups-compact.svg?react";
+import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
+import GroupsLogo from "@/assets/logos/groups.svg?react";
 import Path from "@/types/paths";
+import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
-import GroupsLogo from "@/assets/logos/groups.svg?react";
-import GroupsCompactLogo from "@/assets/logos/groups-compact.svg?react";
-import GroupsCompactLogoDark from "@/assets/logos/groups-compact-dark.svg?react";
-import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import Button from "../button/Button";
-import AccountIcon from "@/assets/icons/account.svg?react";
-import { useTranslation } from "react-i18next";
 
 interface NavbarProps {
   to: string;

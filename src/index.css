@@ -14,6 +14,10 @@
     @apply md:w-[calc(100%-2*theme(spacing.pageSide))];
     @apply max-w-[1240px];
   }
+
+  .create-subtitle {
+    @apply text-2xl font-bold md:text-[28px];
+  }
 }
 
 body {
@@ -28,4 +32,11 @@ svg {
 
 a {
   text-decoration: none;
+}
+
+p strong {
+  /* for in case where text highlight is needed with i18n, I replaced <strong> tag with that style. */
+  /* use <b> tag for bold text */
+  font-weight: inherit;
+  color: var(--primary);
 }

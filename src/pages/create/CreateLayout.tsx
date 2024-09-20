@@ -28,7 +28,7 @@ const Layout = () => {
         </div>
 
         <div className="mt-[14px] w-full">
-          <StatusBar maxStep={2} currentStep={step.step} />
+          <StatusBar maxStep={4} currentStep={step.step} />
         </div>
       </div>
 

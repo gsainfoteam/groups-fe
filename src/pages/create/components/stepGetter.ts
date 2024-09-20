@@ -29,9 +29,23 @@ const stepGetter = (stepParam: string | undefined): Step | never => {
         stepNameTranslation: t("createGroup.name.stepName"),
       };
       break;
-    case "complete":
+    case "description":
       step = {
         step: 2,
+        stepTranslation: t("createGroup.description.step"),
+        stepNameTranslation: t("createGroup.description.stepName"),
+      };
+      break;
+    case "notion":
+      step = {
+        step: 3,
+        stepTranslation: t("createGroup.notion.step"),
+        stepNameTranslation: t("createGroup.notion.stepName"),
+      };
+      break;
+    case "complete":
+      step = {
+        step: 4,
         stepTranslation: t("createGroup.complete.step"),
         stepNameTranslation: t("createGroup.complete.stepName"),
       };

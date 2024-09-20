@@ -6,15 +6,23 @@ import {
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
 
+import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
+import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import useGroupNameValidation from "./components/useGroupNameValidation";
+import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
+
 const CreateGroupSequenceName = () => {
   const { t } = useTranslation();
-  const { setGroupName, isGroupNameExists, isNextButtonValid } =
-    useGroupNameValidation();
+  const {
+    setName,
+    isNameExists,
+    isNextButtonValid,
+    profileImageUrl,
+    setProfileImage,
+  } = useGroupProfileSequence();
 
   const [isExiting, setIsExiting] = useState(false);
 
@@ -23,13 +31,13 @@ const CreateGroupSequenceName = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate("/create/complete");
+      navigate(Path.CreateDescription);
     }, 600);
   };
 
   return (
     <>
-      <div className="w-full md:flex md:h-[500px] md:flex-col md:items-center">
+      <div className="w-full md:flex md:h-[500px] md:flex-col md:items-center max-w-[685px]">
         <AnimatePresence>
           {!isExiting && (
             <motion.section
@@ -37,32 +45,65 @@ const CreateGroupSequenceName = () => {
               animate="visible"
               exit="out"
               className={[
-                "md:flex md:h-[500px] md:w-[400px] md:flex-col md:justify-center md:p-0",
+                "md:flex md:h-[500px] md:p-0 md:gap-[45px] items-center",
                 "w-full py-[60px]",
               ].join(" ")}
             >
-              <motion.h2
-                variants={ITEM_VARIANT}
-                className="mb-[20px] text-2xl font-bold md:text-[28px]"
-              >
-                {t("createGroup.name.enterGroupName")}
-              </motion.h2>
-
-              <motion.div variants={ITEM_VARIANT}>
-                <Input
-                  placeholder={t("createGroup.name.placeholder")}
-                  width="100%"
-                  className="w-full"
-                  title={t("createGroup.name.groupName")}
-                  onChange={(e) => {
-                    setGroupName(e.target.value);
-                  }}
-                  errorText={
-                    isGroupNameExists
-                      ? t("createGroup.name.exceptions.groupNameAlreadyExist")
-                      : undefined
-                  }
+              <motion.div className={"flex flex-col gap-[27px]"}>
+                <motion.img
+                  src={profileImageUrl || GroupProfileDefault}
+                  width={200}
+                  height={200}
+                  className={"mx-5 object-cover aspect-square rounded-full"}
                 />
+
+                <motion.label variants={ITEM_VARIANT}>
+                  <motion.input
+                    type={"file"}
+                    accept={"image/*"}
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        setProfileImage(file);
+                      }
+                    }}
+                    className={"hidden"}
+                  />
+
+                  <motion.p
+                    className={
+                      "box-content border border-primary rounded-[10px] text-primary text-center text-lg py-[10px]"
+                    }
+                  >
+                    {t("createGroup.name.chooseGroupProfile")}
+                  </motion.p>
+                </motion.label>
+              </motion.div>
+
+              <motion.div className={"flex flex-col flex-grow mb-10"}>
+                <motion.h2
+                  variants={ITEM_VARIANT}
+                  className="mb-[20px] create-subtitle"
+                >
+                  {t("createGroup.name.enterGroupName")}
+                </motion.h2>
+
+                <motion.div variants={ITEM_VARIANT}>
+                  <Input
+                    placeholder={t("createGroup.name.placeholder")}
+                    width="100%"
+                    className="w-full text-dark"
+                    title={t("createGroup.name.groupName")}
+                    onChange={(e) => {
+                      setName(e.target.value);
+                    }}
+                    errorText={
+                      isNameExists
+                        ? t("createGroup.name.exceptions.groupNameAlreadyExist")
+                        : undefined
+                    }
+                  />
+                </motion.div>
               </motion.div>
             </motion.section>
           )}
