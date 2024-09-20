@@ -7,6 +7,7 @@ export const main = {
   common: {
     optional: "Optional",
     sortByDeadline: "Sort by deadline",
+    error: "Frontend Error Occured",
   },
   navbar: {
     all: "All Notices",
@@ -361,6 +362,38 @@ export const main = {
       members: "Members",
     },
   },
+
+  createGroup: {
+    createGroup: "Create Group",
+    previous: "Prev",
+    next: "Next",
+    skip: "Skip",
+    goBack: "Go back",
+    enter: "Enter",
+    name: {
+      step: "Step 1",
+      stepName: "Setup Group Profile",
+      enterGroupName: "Enter Group Name",
+      groupName: "Group Name",
+      placeholder: "ex) 인포팀 (Infoteam)",
+      exceptions: {
+        groupNameAlreadyExist: "The group name already exists.",
+      },
+    },
+    complete: {
+      step: "Step 2",
+      stepName: "Creation Complete!",
+      title: '"{{groupName}}" group has been created!',
+      description: "You can now write a notice under the group name.",
+    },
+    cancelAlert: {
+      title: "Are you sure cancelling the creation?",
+      description: "The process will be lost.",
+      no: "No",
+      yes: "Yes",
+    },
+  },
+
   installApp: {
     title: "Install the mobile app!",
     text: "You can use more convenient service.",
