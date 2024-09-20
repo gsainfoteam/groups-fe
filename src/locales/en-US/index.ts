@@ -19,16 +19,9 @@ export const main = {
       goBackToZiggle: "Back to Main",
     },
   },
-  sidebar: {
-    home: "Home",
-    urgent: "Near Deadline",
-    zigglepick: "Ziggle-Pick",
-    recruit: "Recruit",
-    event: "Events",
-    general: "General",
-    academic: "Academic",
-    write: "Write Notice",
-    groups: "Groups",
+  onboarding: {
+    description: "Easily create Club announcements with Ziggle",
+    cta: "Start with GIST Mail",
   },
   alertResponse: {
     yes: "Yes",

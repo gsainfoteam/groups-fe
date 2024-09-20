@@ -19,16 +19,9 @@ export const main = {
       goBackToZiggle: "메인으로",
     },
   },
-  sidebar: {
-    home: "홈",
-    urgent: "마감임박",
-    zigglepick: "지글픽",
-    recruit: "모집",
-    event: "행사",
-    general: "일반",
-    academic: "학사",
-    write: "공지 작성",
-    groups: "그룹",
+  onboarding: {
+    description: "이젠 동아리 공지도 지글에서 간편하게",
+    cta: "지스트 메일로 시작하기",
   },
   alertResponse: {
     yes: "네",
