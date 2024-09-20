@@ -7,7 +7,7 @@ export const main = {
   common: {
     optional: "Optional",
     sortByDeadline: "Sort by deadline",
-    error: "Frontend Error Occured",
+    error: "Frontend Error Occurred",
     loading: "Loading...",
     overdue: "OVERDUE",
   },
