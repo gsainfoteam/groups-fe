@@ -1,12 +1,16 @@
+import LocalstorageKeys from "@/types/localstorage";
 import axios from "axios";
 
-const groupsApi = axios.create({
+const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
-groupsApi.interceptors.request.use((config) => {
-  config.headers["Authorization"] = `Bearer ${localStorage.getItem("token")}`;
+api.interceptors.request.use((config) => {
+  const accessToken = localStorage.getItem(LocalstorageKeys.AccessToken);
+  if (!accessToken) return config;
+
+  config.headers["Authorization"] = `Bearer ${accessToken}`;
   return config;
 });
 
-export default groupsApi;
+export default api;

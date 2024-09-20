@@ -1,4 +1,4 @@
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
