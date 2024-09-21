@@ -14,6 +14,7 @@ type IsAuthFailedState = boolean | null;
 
 const LoginPage = () => {
   const { t } = useTranslation();
+  const navigator = useNavigate();
 
   const [isAuthFailed, setIsAuthFailed] = useState<IsAuthFailedState>(null);
 
@@ -49,7 +50,14 @@ const LoginPage = () => {
 
               <div className="h-1" />
 
-              <Button variant="outlined">{t("onboarding.error.goBack")}</Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  navigator(Path.Onboarding);
+                }}
+              >
+                {t("onboarding.error.goBack")}
+              </Button>
             </>
           )}
         </div>
