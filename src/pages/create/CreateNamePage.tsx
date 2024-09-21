@@ -13,6 +13,7 @@ import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
+import isValidImage from "./utils/isValidImage";
 
 const CreateGroupSequenceName = () => {
   const { t } = useTranslation();
@@ -35,22 +36,6 @@ const CreateGroupSequenceName = () => {
     }, 600);
   };
 
-  const isValidImage = (file: File) => {
-    const maxSizeInBytes = 10 * 1024 * 1024; // 10MB
-    const validFormats = [
-      "image/jpeg",
-      "image/png",
-      "image/gif",
-      "image/webp",
-      "image/svg+xml",
-      "image/jpg",
-      "image/svg",
-      "image/heic",
-      "image/heif",
-    ];
-
-    return file.size <= maxSizeInBytes && validFormats.includes(file.type);
-  };
   return (
     <>
       <div className="w-full md:flex md:h-[500px] md:flex-col md:items-center max-w-[685px]">

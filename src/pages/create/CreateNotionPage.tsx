@@ -12,14 +12,18 @@ import {
   GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
+import { NotionRenderer } from "react-notion-x";
 
 const CreateNotionPage = () => {
   const { t } = useTranslation();
-  const { setLink, isValidLink, isInvalidNotionLink, isNextButtonValid } =
-    useGroupNotionSequence();
+  const {
+    setLink,
+    isValidLink,
+    isInvalidNotionLink,
+    isNextButtonValid,
+    notionRecordMap,
+  } = useGroupNotionSequence();
   const navigate = useNavigate();
-
-  console.log(isValidLink, isInvalidNotionLink);
 
   const [isExiting, setIsExiting] = useState(false);
 
@@ -41,7 +45,7 @@ const CreateNotionPage = () => {
 
   return (
     <>
-      <div className={"w-full md:h-[500px]"}>
+      <div className={"w-full md:h-[500px] max-w-[685px]"}>
         <AnimatePresence>
           {!isExiting && (
             <motion.section
@@ -82,6 +86,8 @@ const CreateNotionPage = () => {
           )}
         </AnimatePresence>
       </div>
+
+      {notionRecordMap && <NotionRenderer recordMap={notionRecordMap} />}
 
       <div className={"flex gap-[10px]"}>
         <Button
