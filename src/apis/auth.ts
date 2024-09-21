@@ -40,3 +40,9 @@ export const oAuthGetToken = async (code: string) => {
 
   return response.data;
 };
+
+export const getUserInfo = async () => {
+  const response = await api.get<UserInfo>(apiKeys.auth.info);
+
+  return response.data;
+};

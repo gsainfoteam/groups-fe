@@ -9,13 +9,14 @@ import Button from "../button/Button";
 import AccountIcon from "@/assets/icons/account.svg?react";
 import { useTranslation } from "react-i18next";
 import { oAuthLoginURL } from "@/apis/auth";
+import useAuth from "@/hooks/useAuth";
 
 interface NavbarProps {
   to: string;
 }
 
 const Navbar = ({ to }: NavbarProps) => {
-  const user = null;
+  const { userInfo } = useAuth();
   const { t } = useTranslation();
 
   return (
@@ -51,12 +52,12 @@ const Navbar = ({ to }: NavbarProps) => {
         </div>
 
         <Link
-          to={user ? `/mypage` : oAuthLoginURL()}
+          to={userInfo ? `/mypage` : oAuthLoginURL()}
           className="hidden items-center justify-center gap-2 md:flex"
         >
           <AccountIcon className="flex h-6" />
           <div className="whitespace-nowrap align-middle font-medium text-primary">
-            {user ?? t("navbar.login")}
+            {userInfo?.name ?? t("navbar.login")}
           </div>
         </Link>
       </div>
