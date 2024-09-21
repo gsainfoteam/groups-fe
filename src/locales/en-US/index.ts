@@ -22,6 +22,10 @@ export const main = {
   onboarding: {
     description: "Easily create Club announcements with Ziggle",
     cta: "Start with GIST Mail",
+    error: {
+      description: "An error occured while authentication.",
+      goBack: "Back to Main",
+    },
   },
   alertResponse: {
     yes: "Yes",

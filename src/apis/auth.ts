@@ -1,13 +1,14 @@
 import { UserInfo } from "@/types/interfaces";
 import LocalstorageKeys from "@/types/localstorage";
 import generateRandomString from "@/utils/generateRandomString";
-import axios from "axios";
+import api from "./interceptor";
+import apiKeys from "@/types/api-keys";
 
 const IDP_BASE_URL = import.meta.env.VITE_IDP_BASE_URL;
 const CLIENT_ID = import.meta.env.VITE_IDP_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_IDP_REDIRECT_URI;
 
-export const oAuthLogin = () => {
+export const oAuthLoginURL = () => {
   const state = generateRandomString();
   localStorage.setItem(LocalstorageKeys.OauthState, state);
 
@@ -22,38 +23,20 @@ export const oAuthLogin = () => {
 
   const authUrl = `${IDP_BASE_URL}authorize?${params.toString()}`;
 
-  window.location.href = authUrl;
+  return authUrl;
 };
 
-export interface TokenResponse {
-  access_token: string;
-  token_type: string;
-  expires_in: number;
-  refresh_token?: string;
-  scope: string;
+export interface OAuthGetTokenResponse {
+  accessToken: string;
 }
 
-export const oAuthExchangeCodeForToken = async (code: string) => {
-  const response = await axios.post<TokenResponse>(
-    `${IDP_BASE_URL}oauth2/token`,
-    {
-      grant_type: "authorization_code",
+export const oAuthGetToken = async (code: string) => {
+  const response = await api.get<OAuthGetTokenResponse>(apiKeys.auth.login, {
+    params: {
       code,
-      redirect_uri: REDIRECT_URI,
-      client_id: CLIENT_ID,
-    },
-    {
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-    },
-  );
-};
-
-export const oAuthGetUserInfoByAccessToken = async (accessToken: string) => {
-  const response = await axios.get<UserInfo>(`${IDP_BASE_URL}oauth/userinfo`, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
+      redirectUri: REDIRECT_URI,
     },
   });
+
+  return response.data;
 };

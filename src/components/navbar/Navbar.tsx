@@ -8,6 +8,7 @@ import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import Button from "../button/Button";
 import AccountIcon from "@/assets/icons/account.svg?react";
 import { useTranslation } from "react-i18next";
+import { oAuthLoginURL } from "@/apis/auth";
 
 interface NavbarProps {
   to: string;
@@ -50,7 +51,7 @@ const Navbar = ({ to }: NavbarProps) => {
         </div>
 
         <Link
-          to={user ? `/mypage` : `/login`}
+          to={user ? `/mypage` : oAuthLoginURL()}
           className="hidden items-center justify-center gap-2 md:flex"
         >
           <AccountIcon className="flex h-6" />
