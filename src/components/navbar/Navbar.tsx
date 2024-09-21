@@ -40,9 +40,11 @@ const Navbar = ({ to }: NavbarProps) => {
         </Link>
 
         <div
-          className={
-            "mr-[10px] flex h-full flex-row-reverse items-center md:mr-[20px] md:w-full"
-          }
+          className={twMerge([
+            "flex h-full flex-row-reverse items-center",
+            "mr-2.5",
+            "md:mr-5 md:w-full",
+          ])}
         >
           <Link to={to}>
             <Button variant="outlined">
