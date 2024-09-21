@@ -1,12 +1,16 @@
 import Navbar from "@/components/navbar/Navbar";
-import "@/globals.css";
+import Path from "@/types/paths";
 
 import { Outlet } from "react-router-dom";
 
-const Layout = () => {
+interface LayoutProps {
+  to?: string;
+}
+
+const Layout = ({ to = Path.Home }: LayoutProps) => {
   return (
     <>
-      <Navbar />
+      <Navbar to={to} />
 
       <Outlet />
     </>

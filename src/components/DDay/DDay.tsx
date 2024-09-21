@@ -21,7 +21,7 @@ const DDay = ({ deadline, className }: DDayProps) => {
       }
     >
       {isClosed ? (
-        t("ddayPlus")
+        t("common.overdue")
       ) : (
         <Trans t={t} i18nKey={"zabo.timeLeft"}>
           {/* @ts-ignore */}

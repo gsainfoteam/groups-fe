@@ -11,7 +11,7 @@ const LoadingCatAnimation = () => {
       <div className="h-12" />
       <Lottie animationData={CatBounceAnimation} loop className="w-40" />
       <div className="text-2xl font-medium text-secondaryText">
-        {t("loading")}
+        {t("common.loading")}
       </div>
     </div>
   );

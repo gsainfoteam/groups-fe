@@ -7,28 +7,22 @@ export const main = {
   common: {
     optional: "선택",
     sortByDeadline: "마감시간 순으로 보기",
+    error: "프론트엔드 에러 발생",
+    loading: "로딩 중...",
+    overdue: "기한 지남",
   },
   navbar: {
     all: "전체 공지",
     write: "공지 작성",
     query: "공지 검색",
     login: "로그인",
+    button: {
+      goBackToZiggle: "메인으로",
+    },
   },
-  navbarWrite: {
-    edit: "수정",
-    goBack: "돌아가기",
-    submit: "제출",
-  },
-  sidebar: {
-    home: "홈",
-    urgent: "마감임박",
-    zigglepick: "지글픽",
-    recruit: "모집",
-    event: "행사",
-    general: "일반",
-    academic: "학사",
-    write: "공지 작성",
-    groups: "그룹",
+  onboarding: {
+    description: "이젠 동아리 공지도 지글에서 간편하게",
+    cta: "지스트 메일로 시작하기",
   },
   alertResponse: {
     yes: "네",
@@ -82,243 +76,12 @@ export const main = {
     ],
   },
   zabo: {
-    dateView: "{{date}}\u00a0<strong>· 조회수 {{views}}</strong>",
-    clickPoster: "포스터 클릭하여 자세히 보기",
-    downloadAll: "전체 다운로드하기",
-    close: "닫기",
-    author: "글쓴이 <strong>{{- author}}</strong>",
-    createdAt: "작성일 {{createdAt}}",
-    views: "조회수 {{views}}",
-    copyLink: {
-      action: "주소 복사하기",
-      content: "{{title}}\n\nZiggle에서 공지를 확인해주세요\n{{- link}}",
-      success:
-        "공지 주소가 복사되었습니다!<small>친구들에게 공지를 공유해보세요</small>",
-    },
-    dueAt: "마감시간 {{dueAt}}",
-    timeLeft: "{{timeLeft}} 남음",
-    noContent: "내용 없음",
     share: {
       action: "공유하기",
       content: "{{title}}\nZiggle에서 공지를 확인해보세요",
       unsupported: "공유하기를 지원하지 않는 브라우저입니다",
     },
-    backToMain: "메인 페이지로 돌아가기",
-    images: "첨부 사진",
-
-    additionalNotices: {
-      title: "추가 공지",
-      deadlineChanged: "마감시간 변경",
-      addAdditionalNotice: "추가 공지 작성하기",
-      noDeadline: "마감시간 없음",
-      changeDeadline: "마감시간 변경하기",
-      koreanAdditionalNotice: "한국어 추가 공지",
-      englishAdditionalNotice: "영어 추가 공지",
-      additionalNoticePlaceholder: "여기에 한국어 추가 공지를 입력하세요",
-      enAdditionalNoticePlaceholder: "여기에 영어 추가 공지를 입력하세요",
-      cancel: "취소하기",
-      submit: "제출하기",
-      alertToReminded: "리마인드 설정한 사람들에게만 알림 보내기",
-      alertToAll: "모든 사람들에게 알림 보내기",
-    },
-
-    writeEnglishNotice: {
-      title: "영어 공지 작성하기",
-      writeTitle: "영어 공지 제목을 입력하세요",
-    },
-
-    authorActions: {
-      edit: "수정 / 영어공지 작성",
-      remove: "삭제",
-      removeSure: "정말로 이 공지를 삭제하시겠습니까?",
-      writeEnglishNotice: "영어 공지 작성하기",
-      alreadyWroteEnglishNotice: "영어 공지를 작성하셨습니다!",
-      writeAdditionalNotice: "추가 공지 작성하기",
-      writeAdditionalNoticeDescription:
-        "기존 공지사항에서 정정해야 할 부분이 있거나, 마감 시간을 변경하고 싶을 때 추가 공지를 작성해보세요.",
-    },
-  },
-  emptyNotices: "글이 없습니다. =ㅅ=",
-  loading: "로딩 중입니다! -ㅅ-",
-  ddayPlus: "기한 지남",
-  notices: {
-    all: {
-      label: "전체 공지",
-      description: "모든 공지들이 시간 순으로 정렬되어 있습니다.",
-    },
-    deadline: {
-      label: "🌟 마감임박",
-      description: "마감 시간이 일주일도 안 남은 공지를 모아서 보여 드려요",
-    },
-    hot: {
-      label: "🔥 오늘 끓는 공지",
-      description:
-        "지난 일주일 동안 조회수가 150이 넘은 공지들이 여기서 지글지글 끓고 있어요",
-    },
-    event: {
-      name: "행사",
-      description: "지스트는 오늘도 뜨겁습니다",
-    },
-    recruit: {
-      name: "모집",
-      description: "언제나 여러분께 열린 기회",
-    },
-    general: {
-      name: "일반",
-      description: "지스트인들이 해야 하는 일들",
-    },
-    academic: {
-      name: "학사공지",
-    },
-    written: {
-      label: "✍️ 내가 게시한 공지",
-      description: "내가 작성한 공지들을 모아서 보여드려요",
-    },
-    reminded: {
-      label: "🔔 리마인더 설정한 공지",
-      description: "알림을 설정한 공지들을 모아서 보여드려요",
-    },
-    club: {
-      label: "동아리 공지",
-      description: "동아리 공지",
-    },
-    etc: {
-      label: "기타",
-      description: "기타",
-    },
-  },
-  mypage: {
-    info: "계정 정보",
-    name: "이름",
-    email: "이메일",
-    id: "학번",
-    myNotice: "내 공지",
-    remindNotice: "리마인드한 공지",
-    totalList: "전체보기",
-    logout: "로그아웃",
-    quit: "회원탈퇴",
-    switchLanguage: "언어 설정을 영어로 변경",
-    switchDarkMode: "다크 모드 켜기",
-    feedback: "피드백 및 버그 제보",
-  },
-  searchPage: {
-    searchBar: {
-      placeholder: "검색",
-      collapse: "취소",
-    },
-    prompt: "검색어를 입력해주세요",
-    noResult: "검색 결과가 존재하지 않습니다.",
-    title: "♨ 지글 공지",
-    loginRequired: "로그인이 필요합니다",
-  },
-  write: {
-    koreanTitle: "한글 제목",
-    englishTitle: "영어 제목",
-    writeTitle: "제목을 입력하세요",
-    setupDeadline: "마감시간 설정",
-    changeDeadline: "마감시간 변경",
-    writeEnglishNotice: "영어 공지 작성",
-    koreanNotice: "한글 공지",
-    englishNotice: "영어 공지",
-    noticeType: "분류",
-    noticeTypes: {
-      recruit: {
-        label: "모집",
-        description: {
-          title: "🎯 모집 공지",
-          content:
-            "동아리, 그룹이나 행사에 사람들을 모집하고 싶으시다면, 모집 공지를 작성해보세요.",
-          example:
-            "예시) 동아리 신규부원 모집, 학생회 모집, 무한도전 팀원 구인, 공모전, 대회",
-        },
-      },
-      event: {
-        label: "행사",
-        description: {
-          title: "🎈 행사 공지",
-          content:
-            "여러분이 진행하시는 행사를 행사 공지에서 마음껏 홍보하세요.",
-          example: "예시) 축제, 전시회, 공연, 세미나, 강연, 워크숍",
-        },
-      },
-      general: {
-        label: "일반",
-        description: {
-          title: "🔔 일반 공지",
-          content: "모집이나 행사 공지에 해당되지 않는 공지들입니다.",
-          example: "예시) 하우스 공지, 학생회 공지, 통보 등",
-        },
-      },
-    },
-    setupTags: "태그 설정",
-    writeTagsDescription:
-      "띄어쓰기로 구분해주세요. #은 입력하지 않으셔도 됩니다.",
-    writeTags: "태그를 입력하세요.",
-
-    setupLanguage: "추가 언어",
-    languages: {
-      korean: "한국어",
-      english: "영어",
-    },
-
-    koreanContent: "한글 본문",
-    englishContent: "영어 본문",
-    enterEnglishContent: "본문 내용 입력하기 - 영어",
-    translateWithDeepL: "DeepL로 번역하기",
-
-    attachPhoto: "사진 첨부",
-    photoDescription: "첨부된 사진 중 첫 번째 사진이 대표 사진으로 설정됩니다.",
-    dragToAddPhoto: "끌어서 사진 추가",
-    orAddFromPC: "...또는 파일 선택",
-
-    submit: "공지 제출하기",
-    submitDescription:
-      "공지 제출 시 15분 내로 수정이 가능합니다.\n 제출 전에 내용을 다시 한 번 확인해주세요.",
-
-    hasSavedNotice: "저장된 공지가 있습니다. 이어서 작성하시겠습니까?",
-    autoSaveDescription: "초안은 컴퓨터에 자동 저장됩니다.",
-
-    editDescription:
-      "원본에 작성된 공지는 15분 내에만 수정하실 수 있습니다. 다만, 영어 공지는 언제나 추가로 작성 가능합니다.",
-    editDisabled:
-      "원문 수정이 비활성화되었군요! 👇 추가 공지를 이용해보는건 어떠신가요?",
-    editableTimer: "수정 불가능까지 남은 시간",
-    uneditable: "수정 가능한 기한이 지났습니다.",
-
-    alerts: {
-      title: "제목을 입력해주세요",
-      enTitle: "영어 제목을 입력해주세요",
-      titleLengthLessThan: "제목은 {{titleMaxLength}}자 이내로 입력해주세요",
-      deadline: "마감 시간은 현재 시간 이후로 설정해주세요",
-      body: "본문 내용을 입력해주세요",
-      koreanBody: "한국어 본문 내용을 입력해주세요",
-      englishBody: "영어 본문 내용을 입력해주세요",
-      bodyLengthLessThan: "본문 내용은 {{bodyMaxLength}}자 이내로 입력해주세요",
-      koreanBodyLengthLessThan:
-        "한국어 본문을 {{bodyMaxLength}}자 이내로 입력해주세요",
-      englishBodyLengthLessThan:
-        "영어 본문을 {{bodyMaxLength}}자 이내로 입력해주세요",
-      bothBodyLengthLessThan:
-        "한국어와 영어 본문 모두 {{bodyMaxLength}}자 이내로 입력해주세요",
-      numberOfCharacter: "({{length}}/{{maxLength}} 자)",
-      needKoreanAdditionalNotice: "한국어 추가 공지를 입력해주세요",
-      submittingNotice: "공지를 작성 중입니다",
-      submitSuccess: "공지가 성공적으로 작성되었습니다",
-      submitFail: "공지 작성에 실패했습니다",
-      deleteSuccess: "공지가 성공적으로 삭제되었습니다",
-      deleteFail: "공지 삭제에 실패했습니다",
-      tagCreationFail: "태그 생성에 실패했습니다",
-      fetchNoticeFail: "공지를 불러오는데 실패했습니다",
-      attachInternationalFail:
-        "영어 버전 작성에 실패했습니다. 다시 시도해주세요",
-      copyEnglishContent: "영어 본문 복사",
-      copySuccess: "복사 완료. 에디터의 Tools -> Source code에 붙여넣으세요.",
-      attachAdditionalNoticeFail: "추가 공지 작성에 실패했습니다",
-      copyAdditionalNotice: "추가 공지 복사",
-      attachInternationalAdditionalNoticeFail:
-        "영어 추가 공지 작성에 실패했습니다",
-      copyInternationalAdditionalNotice: "영어 추가 공지 복사",
-    },
+    timeLeft: "{{timeLeft}}일 남음",
   },
   group: {
     mainTitle: "내가 속한 그룹들",
@@ -335,6 +98,57 @@ export const main = {
       intro: "소개",
       notices: "공지",
       members: "멤버",
+    },
+  },
+  createGroup: {
+    createGroup: "그룹 생성",
+    previous: "이전",
+    next: "다음",
+    skip: "건너뛰기",
+    goBack: "돌아가기",
+    enter: "입력",
+    name: {
+      step: "1단계",
+      stepName: "그룹 프로필 설정",
+      enterGroupName: "그룹명 입력",
+      groupName: "그룹명",
+      placeholder: "예시) 인포팀 (Infoteam)",
+      chooseGroupProfile: "그룹 프로필 사진 선택",
+      exceptions: {
+        groupNameAlreadyExist: "이미 존재하는 그룹명입니다.",
+      },
+    },
+    description: {
+      step: "2단계",
+      stepName: "간단한 그룹 소개 작성",
+      title: "간단한 그룹 소개 작성",
+      description:
+        "2줄 내외의 간단한 그룹 소개를 작성해주세요. <br />작성해주신 그룹 설명은 그룹 메인 페이지 최상단에 게재됩니다.",
+      placeholder: "간단한 그룹 소개를 작성해주세요",
+    },
+    notion: {
+      step: "3단계",
+      stepName: "그룹 소개 노션 링크 첨부",
+      title: "그룹 소개 노션 링크",
+      description:
+        "그룹 소개에 여러분의 예쁜 노션 링크를 붙여넣을 수 있습니다. <br /><strong>작성하신 그룹 소개 노션을 웹에 퍼블리싱</strong>하신 다음, 그 링크를 여기에 붙여넣어 주세요.",
+      placeholder: "그룹 소개 노션 링크를 입력해주세요",
+      exceptions: {
+        invalidNotionLink: "유효하지 않은 노션 링크입니다.",
+        customDomainNotSupported: "커스텀 도메인은 지원하지 않습니다.",
+      },
+    },
+    complete: {
+      step: "4단계",
+      stepName: "생성 완료",
+      title: '"{{groupName}}" 그룹 생성이 완료되었습니다!',
+      description: "이제 그룹 명의로 공지를 작성하실 수 있습니다.",
+    },
+    cancelAlert: {
+      title: "정말 그룹 생성을 취소하시겠습니까?",
+      description: "그룹 생성 진행 상황이 폐기됩니다.",
+      no: "아니오",
+      yes: "네",
     },
   },
   installApp: {
