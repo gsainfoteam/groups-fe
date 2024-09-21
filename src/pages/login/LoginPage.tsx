@@ -1,5 +1,5 @@
 import Lottie from "lottie-react";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import JoinGroupAnimation from "@/assets/animations/JoinGroup.json";
 import WarningSign from "@/assets/illustrations/warning-sign.svg?react";
 
@@ -17,6 +17,10 @@ const LoginPage = () => {
   const navigator = useNavigate();
 
   const { authStatus } = useOAuthSequence();
+
+  useEffect(() => {
+    if (authStatus === "success") navigator(Path.Home);
+  }, [authStatus]);
 
   return (
     <>
@@ -67,18 +71,12 @@ const LoginPage = () => {
 const useOAuthSequence = () => {
   const [authStatus, setAuthStatus] = useState<AuthStatus>("loading");
 
-  const navigator = useNavigate();
-
   useEffect(() => {
     const performOAuthSequence = async () => {
       try {
         const result = await oauthSequence();
-        if (result) {
-          setAuthStatus("success");
-          navigator(Path.Home);
-        } else {
-          setAuthStatus("failed");
-        }
+
+        setAuthStatus(result ? "success" : "failed");
       } catch (error) {
         console.error("OAuth sequence failed:", error);
         setAuthStatus("failed");
@@ -96,7 +94,13 @@ const useOAuthSequence = () => {
 const oauthSequence = async (): Promise<boolean> => {
   const urlParams = new URLSearchParams(window.location.search);
 
-  localStorage.removeItem(LocalStorageKeys.OauthState);
+  const state = urlParams.get("state");
+  const oauthStateFromLocal = localStorage.getItem(LocalStorageKeys.OAuthState);
+  if (state !== oauthStateFromLocal) {
+    console.log(state, oauthStateFromLocal);
+    return false;
+  }
+  localStorage.removeItem(LocalStorageKeys.OAuthState);
 
   const code = urlParams.get("code");
 

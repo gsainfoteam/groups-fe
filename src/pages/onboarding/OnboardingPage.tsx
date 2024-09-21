@@ -3,8 +3,8 @@ import GroupsLogo from "@/assets/logos/groups.svg?react";
 import { useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
 
-import { oAuthLoginURL } from "@/apis/auth";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { generateOAuthLoginURL } from "@/apis/auth";
 
 const OnboardingPage = () => {
   const { t } = useTranslation();
@@ -31,9 +31,14 @@ const OnboardingPage = () => {
 
             <div className="h-8" />
 
-            <Link to={oAuthLoginURL()}>
-              <Button variant="outlined">{t("onboarding.cta")}</Button>
-            </Link>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                window.location.href = generateOAuthLoginURL();
+              }}
+            >
+              {t("onboarding.cta")}
+            </Button>
           </div>
         </div>
       </main>
