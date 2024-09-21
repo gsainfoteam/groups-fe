@@ -10,21 +10,19 @@ import { useNavigate } from "react-router-dom";
 import Path from "@/types/paths";
 import Button from "@/components/button/Button";
 
-type IsAuthFailedState = boolean | null;
+type AuthStatus = "loading" | "success" | "failed";
 
 const LoginPage = () => {
   const { t } = useTranslation();
   const navigator = useNavigate();
 
-  const [isAuthFailed, setIsAuthFailed] = useState<IsAuthFailedState>(null);
-
-  useOAuthSequence(isAuthFailed, setIsAuthFailed);
+  const { authStatus } = useOAuthSequence();
 
   return (
     <>
       <main className="area h-dvh">
         <div className="h-full flex flex-col justify-center items-center">
-          {isAuthFailed === null && (
+          {authStatus === "loading" && (
             <>
               <Lottie
                 animationData={JoinGroupAnimation}
@@ -38,7 +36,7 @@ const LoginPage = () => {
             </>
           )}
 
-          {isAuthFailed === true && (
+          {authStatus === "failed" && (
             <>
               <WarningSign className="w-[200px] h-fit" />
 
@@ -66,28 +64,36 @@ const LoginPage = () => {
   );
 };
 
-const useOAuthSequence = (
-  isAuthFailed: IsAuthFailedState,
-  setIsAuthFailed: Dispatch<SetStateAction<IsAuthFailedState>>,
-) => {
+const useOAuthSequence = () => {
+  const [authStatus, setAuthStatus] = useState<AuthStatus>("loading");
+
   const navigator = useNavigate();
 
   useEffect(() => {
-    oauthSequence(setIsAuthFailed);
+    const performOAuthSequence = async () => {
+      try {
+        const result = await oauthSequence();
+        if (result) {
+          setAuthStatus("success");
+          navigator(Path.Home);
+        } else {
+          setAuthStatus("failed");
+        }
+      } catch (error) {
+        console.error("OAuth sequence failed:", error);
+        setAuthStatus("failed");
+      }
+    };
+
+    performOAuthSequence();
   }, []);
 
-  useEffect(() => {
-    if (isAuthFailed === false) {
-      navigator(Path.Home);
-    }
-  }, [isAuthFailed]);
-
-  return null;
+  return {
+    authStatus,
+  };
 };
 
-const oauthSequence = async (
-  setIsAuthFailed: Dispatch<SetStateAction<IsAuthFailedState>>,
-) => {
+const oauthSequence = async (): Promise<boolean> => {
   const urlParams = new URLSearchParams(window.location.search);
 
   localStorage.removeItem(LocalStorageKeys.OauthState);
@@ -95,18 +101,25 @@ const oauthSequence = async (
   const code = urlParams.get("code");
 
   if (!code) {
-    setIsAuthFailed(true);
-    return;
+    return false;
   }
 
-  const tokenResponse = await oAuthGetToken(code);
-  if (!tokenResponse.accessToken) {
-    setIsAuthFailed(true);
-    return;
-  }
+  try {
+    const tokenResponse = await oAuthGetToken(code);
+    if (!tokenResponse.accessToken) {
+      return false;
+    }
 
-  localStorage.setItem(LocalStorageKeys.AccessToken, tokenResponse.accessToken);
-  setIsAuthFailed(false);
+    localStorage.setItem(
+      LocalStorageKeys.AccessToken,
+      tokenResponse.accessToken,
+    );
+
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };
 
 export default LoginPage;
