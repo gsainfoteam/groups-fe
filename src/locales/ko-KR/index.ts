@@ -23,6 +23,10 @@ export const main = {
   onboarding: {
     description: "이젠 동아리 공지도 지글에서 간편하게",
     cta: "지스트 메일로 시작하기",
+    error: {
+      description: "인증 도중 오류가 발생하였습니다.",
+      goBack: "돌아가기",
+    },
   },
   alertResponse: {
     yes: "네",

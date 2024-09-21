@@ -1,8 +1,10 @@
-import { cn } from "@/utils/clsx";
 import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
 import { useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
+
+import { useNavigate } from "react-router-dom";
+import { generateOAuthLoginURL } from "@/apis/auth";
 
 const OnboardingPage = () => {
   const { t } = useTranslation();
@@ -29,7 +31,14 @@ const OnboardingPage = () => {
 
             <div className="h-8" />
 
-            <Button variant="outlined">{t("onboarding.cta")}</Button>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                window.location.href = generateOAuthLoginURL();
+              }}
+            >
+              {t("onboarding.cta")}
+            </Button>
           </div>
         </div>
       </main>

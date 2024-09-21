@@ -20,25 +20,31 @@ import Path from "./types/paths";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Layout />}>
-      <Route path={"*"} element={<Navigate to={Path.Home} replace />} />
-      <Route path={Path.Home} element={<MainPage />} />
-      <Route path={Path.Group + ":uuid"} element={<GroupDetailPage />} />
+    <>
+      <Route element={<Layout />}>
+        <Route path={"*"} element={<Navigate to={Path.Home} replace />} />
+        <Route path={Path.Home} element={<MainPage />} />
+        <Route path={Path.Group + ":uuid"} element={<GroupDetailPage />} />
 
-      <Route element={<CreateLayout />}>
-        <Route path={Path.Create} element={<Navigate to={Path.CreateName} />} />
-        <Route path={Path.CreateName} element={<CreateNamePage />} />
-        <Route
-          path={Path.CreateDescription}
-          element={<CreateDescriptionPage />}
-        />
-        <Route path={Path.CreateNotion} element={<CreateNotionPage />} />
-        <Route path={Path.CreateComplete} element={<CreateCompletePage />} />
+        <Route element={<CreateLayout />}>
+          <Route
+            path={Path.Create}
+            element={<Navigate to={Path.CreateName} />}
+          />
+          <Route path={Path.CreateName} element={<CreateNamePage />} />
+          <Route
+            path={Path.CreateDescription}
+            element={<CreateDescriptionPage />}
+          />
+          <Route path={Path.CreateNotion} element={<CreateNotionPage />} />
+          <Route path={Path.CreateComplete} element={<CreateCompletePage />} />
+        </Route>
+
+        <Route path={Path.Onboarding} element={<OnboardingPage />} />
       </Route>
 
-      <Route path={Path.Onboarding} element={<OnboardingPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
-    </Route>,
+    </>,
   ),
 );
 
