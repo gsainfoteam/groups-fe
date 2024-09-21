@@ -1,7 +1,7 @@
 import Lottie from "lottie-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import JoinGroupAnimation from "@/assets/animations/JoinGroup.json";
-import FireWarningSign from "@/assets/illustrations/warning-sign.svg?react";
+import WarningSign from "@/assets/illustrations/warning-sign.svg?react";
 
 import { useTranslation } from "react-i18next";
 import LocalstorageKeys from "@/types/localstorage";
@@ -40,15 +40,15 @@ const LoginPage = () => {
 
           {isAuthFailed === true && (
             <>
-              <FireWarningSign className="w-[240px]" />
+              <WarningSign className="w-[200px] h-fit" />
 
-              <div className="h-1" />
+              <div className="h-3" />
 
               <p className="text-lg text-greyDark">
                 {t("onboarding.error.description")}
               </p>
 
-              <div className="h-1" />
+              <div className="h-5" />
 
               <Button
                 variant="outlined"
@@ -88,39 +88,25 @@ const useOAuthSequence = (
 const oauthSequence = async (
   setIsAuthFailed: Dispatch<SetStateAction<IsAuthFailedState>>,
 ) => {
-  try {
-    const urlParams = new URLSearchParams(window.location.search);
-    const state = urlParams.get("state");
-    const stateFromLocal = localStorage.getItem(LocalstorageKeys.OauthState);
+  const urlParams = new URLSearchParams(window.location.search);
 
-    if (state !== stateFromLocal) {
-      setIsAuthFailed(true);
-      return;
-    }
-    localStorage.removeItem(LocalstorageKeys.OauthState);
+  localStorage.removeItem(LocalstorageKeys.OauthState);
 
-    const code = urlParams.get("code");
+  const code = urlParams.get("code");
 
-    if (!code) {
-      setIsAuthFailed(true);
-      return;
-    }
-
-    const tokenResponse = await oAuthGetToken(code);
-    if (!tokenResponse.accessToken) {
-      setIsAuthFailed(true);
-      return;
-    }
-
-    localStorage.setItem(
-      LocalstorageKeys.AccessToken,
-      tokenResponse.accessToken,
-    );
-    setIsAuthFailed(false);
-  } catch (error) {
-    console.error(error);
+  if (!code) {
     setIsAuthFailed(true);
+    return;
   }
+
+  const tokenResponse = await oAuthGetToken(code);
+  if (!tokenResponse.accessToken) {
+    setIsAuthFailed(true);
+    return;
+  }
+
+  localStorage.setItem(LocalstorageKeys.AccessToken, tokenResponse.accessToken);
+  setIsAuthFailed(false);
 };
 
 export default LoginPage;

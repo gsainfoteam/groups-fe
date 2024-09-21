@@ -1,4 +1,3 @@
-import Path from "@/types/paths";
 import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
@@ -10,6 +9,7 @@ import AccountIcon from "@/assets/icons/account.svg?react";
 import { useTranslation } from "react-i18next";
 import { oAuthLoginURL } from "@/apis/auth";
 import useAuth from "@/hooks/useAuth";
+import Path from "@/types/paths";
 
 interface NavbarProps {
   to: string;
