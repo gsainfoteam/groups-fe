@@ -45,7 +45,7 @@ const CreateDescriptionPage = () => {
               variants={CONTAINER_VARIANT}
               animate="visible"
               exit="out"
-              className={"flex flex-col mt-20 gap-[15px]"}
+              className={"w-full flex flex-col mt-20 gap-[15px]"}
             >
               <motion.h2 className={"create-subtitle"} variants={ITEM_VARIANT}>
                 {t("createGroup.description.title")}
@@ -56,7 +56,7 @@ const CreateDescriptionPage = () => {
 
               <motion.textarea
                 className={
-                  "rounded-[10px] border-[1.5px] border-solid border-primary py-1 pl-4 pr-[10px] bg-white"
+                  "w-full rounded-[10px] border-[1.5px] border-solid border-primary py-1 pl-4 pr-[10px] bg-white"
                 }
                 placeholder={t("createGroup.description.placeholder")}
                 rows={3}

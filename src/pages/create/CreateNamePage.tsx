@@ -108,7 +108,7 @@ const CreateGroupSequenceName = () => {
                   <Input
                     placeholder={t("createGroup.name.placeholder")}
                     width="100%"
-                    className="w-full text-dark"
+                    className="w-full"
                     title={t("createGroup.name.groupName")}
                     onChange={(e) => {
                       setName(e.target.value);
