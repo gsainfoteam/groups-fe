@@ -73,12 +73,7 @@ const useOAuthSequence = (
   const navigator = useNavigate();
 
   useEffect(() => {
-    try {
-      oauthSequence(setIsAuthFailed);
-    } catch (error) {
-      console.error(error);
-      setIsAuthFailed(true);
-    }
+    oauthSequence(setIsAuthFailed);
   }, []);
 
   useEffect(() => {
@@ -93,31 +88,39 @@ const useOAuthSequence = (
 const oauthSequence = async (
   setIsAuthFailed: Dispatch<SetStateAction<IsAuthFailedState>>,
 ) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const state = urlParams.get("state");
-  const stateFromLocal = localStorage.getItem(LocalstorageKeys.OauthState);
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const state = urlParams.get("state");
+    const stateFromLocal = localStorage.getItem(LocalstorageKeys.OauthState);
 
-  if (state !== stateFromLocal) {
+    if (state !== stateFromLocal) {
+      setIsAuthFailed(true);
+      return;
+    }
+    localStorage.removeItem(LocalstorageKeys.OauthState);
+
+    const code = urlParams.get("code");
+
+    if (!code) {
+      setIsAuthFailed(true);
+      return;
+    }
+
+    const tokenResponse = await oAuthGetToken(code);
+    if (!tokenResponse.accessToken) {
+      setIsAuthFailed(true);
+      return;
+    }
+
+    localStorage.setItem(
+      LocalstorageKeys.AccessToken,
+      tokenResponse.accessToken,
+    );
+    setIsAuthFailed(false);
+  } catch (error) {
+    console.error(error);
     setIsAuthFailed(true);
-    return;
   }
-  localStorage.removeItem(LocalstorageKeys.OauthState);
-
-  const code = urlParams.get("code");
-
-  if (!code) {
-    setIsAuthFailed(true);
-    return;
-  }
-
-  const tokenResponse = await oAuthGetToken(code);
-  if (!tokenResponse.accessToken) {
-    setIsAuthFailed(true);
-    return;
-  }
-
-  localStorage.setItem(LocalstorageKeys.AccessToken, tokenResponse.accessToken);
-  setIsAuthFailed(false);
 };
 
 export default LoginPage;
