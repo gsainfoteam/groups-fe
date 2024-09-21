@@ -7,6 +7,7 @@ export const main = {
   common: {
     optional: "선택",
     sortByDeadline: "마감시간 순으로 보기",
+    error: "프론트엔드 에러 발생",
     loading: "로딩 중...",
     overdue: "기한 지남",
   },
@@ -101,6 +102,57 @@ export const main = {
       intro: "소개",
       notices: "공지",
       members: "멤버",
+    },
+  },
+  createGroup: {
+    createGroup: "그룹 생성",
+    previous: "이전",
+    next: "다음",
+    skip: "건너뛰기",
+    goBack: "돌아가기",
+    enter: "입력",
+    name: {
+      step: "1단계",
+      stepName: "그룹 프로필 설정",
+      enterGroupName: "그룹명 입력",
+      groupName: "그룹명",
+      placeholder: "예시) 인포팀 (Infoteam)",
+      chooseGroupProfile: "그룹 프로필 사진 선택",
+      exceptions: {
+        groupNameAlreadyExist: "이미 존재하는 그룹명입니다.",
+      },
+    },
+    description: {
+      step: "2단계",
+      stepName: "간단한 그룹 소개 작성",
+      title: "간단한 그룹 소개 작성",
+      description:
+        "2줄 내외의 간단한 그룹 소개를 작성해주세요. <br />작성해주신 그룹 설명은 그룹 메인 페이지 최상단에 게재됩니다.",
+      placeholder: "간단한 그룹 소개를 작성해주세요",
+    },
+    notion: {
+      step: "3단계",
+      stepName: "그룹 소개 노션 링크 첨부",
+      title: "그룹 소개 노션 링크",
+      description:
+        "그룹 소개에 여러분의 예쁜 노션 링크를 붙여넣을 수 있습니다. <br /><strong>작성하신 그룹 소개 노션을 웹에 퍼블리싱</strong>하신 다음, 그 링크를 여기에 붙여넣어 주세요.",
+      placeholder: "그룹 소개 노션 링크를 입력해주세요",
+      exceptions: {
+        invalidNotionLink: "유효하지 않은 노션 링크입니다.",
+        customDomainNotSupported: "커스텀 도메인은 지원하지 않습니다.",
+      },
+    },
+    complete: {
+      step: "4단계",
+      stepName: "생성 완료",
+      title: '"{{groupName}}" 그룹 생성이 완료되었습니다!',
+      description: "이제 그룹 명의로 공지를 작성하실 수 있습니다.",
+    },
+    cancelAlert: {
+      title: "정말 그룹 생성을 취소하시겠습니까?",
+      description: "그룹 생성 진행 상황이 폐기됩니다.",
+      no: "아니오",
+      yes: "네",
     },
   },
   installApp: {

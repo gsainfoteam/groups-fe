@@ -7,6 +7,7 @@ export const main = {
   common: {
     optional: "Optional",
     sortByDeadline: "Sort by deadline",
+    error: "Frontend Error Occurred",
     loading: "Loading...",
     overdue: "OVERDUE",
   },
@@ -112,6 +113,59 @@ export const main = {
       members: "Members",
     },
   },
+
+  createGroup: {
+    createGroup: "Create Group",
+    previous: "Prev",
+    next: "Next",
+    skip: "Skip",
+    goBack: "Go back",
+    enter: "Enter",
+    name: {
+      step: "Step 1",
+      stepName: "Setup Group Profile",
+      enterGroupName: "Enter Group Name",
+      groupName: "Group Name",
+      placeholder: "ex) 인포팀 (Infoteam)",
+      chooseGroupProfile: "Choose Group Profile Image",
+      exceptions: {
+        groupNameAlreadyExist: "The group name already exists.",
+      },
+    },
+    description: {
+      step: "Step 2",
+      stepName: "Write Brief Group Description",
+      title: "Write a brief group description",
+      description:
+        "Please write a brief group description within 2 sentences. \nThe group description you write will be posted at the top of the group main page.",
+      placeholder: "Write a brief group description",
+    },
+    notion: {
+      step: "Step 3",
+      stepName: "Attach Group Intro Notion Link",
+      title: "Group Intro Notion Link",
+      description:
+        "You can attach your beautiful Notion link to the group introduction. \nAfter publishing your group introduction Notion on the web, please paste the link here.",
+      placeholder: "Paste your Notion link here",
+      exceptions: {
+        invalidLink: "Invalid Notion link.",
+        customDomain: "Custom domains are not supported.",
+      },
+    },
+    complete: {
+      step: "Step 4",
+      stepName: "Creation Complete!",
+      title: '"{{groupName}}" group has been created!',
+      description: "You can now write a notice under the group name.",
+    },
+    cancelAlert: {
+      title: "Are you sure you want to cancel the creation?",
+      description: "The process will be lost.",
+      no: "No",
+      yes: "Yes",
+    },
+  },
+
   installApp: {
     title: "Install the mobile app!",
     text: "You can use more convenient service.",
