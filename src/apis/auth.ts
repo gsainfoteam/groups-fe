@@ -1,6 +1,4 @@
 import { UserInfo } from "@/types/interfaces";
-import LocalstorageKeys from "@/types/localstorage";
-import generateRandomString from "@/utils/generateRandomString";
 import api from "./interceptor";
 import apiKeys from "@/types/api-keys";
 

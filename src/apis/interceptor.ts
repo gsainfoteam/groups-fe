@@ -1,4 +1,4 @@
-import LocalstorageKeys from "@/types/localstorage";
+import LocalStorageKeys from "@/types/localstorage";
 import axios from "axios";
 
 const api = axios.create({
@@ -6,7 +6,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem(LocalstorageKeys.AccessToken);
+  const accessToken = localStorage.getItem(LocalStorageKeys.AccessToken);
   if (!accessToken) return config;
 
   config.headers["Authorization"] = `Bearer ${accessToken}`;

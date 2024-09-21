@@ -4,7 +4,7 @@ import JoinGroupAnimation from "@/assets/animations/JoinGroup.json";
 import WarningSign from "@/assets/illustrations/warning-sign.svg?react";
 
 import { useTranslation } from "react-i18next";
-import LocalstorageKeys from "@/types/localstorage";
+import LocalStorageKeys from "@/types/localstorage";
 import { oAuthGetToken } from "@/apis/auth";
 import { useNavigate } from "react-router-dom";
 import Path from "@/types/paths";
@@ -90,7 +90,7 @@ const oauthSequence = async (
 ) => {
   const urlParams = new URLSearchParams(window.location.search);
 
-  localStorage.removeItem(LocalstorageKeys.OauthState);
+  localStorage.removeItem(LocalStorageKeys.OauthState);
 
   const code = urlParams.get("code");
 
@@ -105,7 +105,7 @@ const oauthSequence = async (
     return;
   }
 
-  localStorage.setItem(LocalstorageKeys.AccessToken, tokenResponse.accessToken);
+  localStorage.setItem(LocalStorageKeys.AccessToken, tokenResponse.accessToken);
   setIsAuthFailed(false);
 };
 
