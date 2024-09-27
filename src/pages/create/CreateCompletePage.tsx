@@ -1,17 +1,15 @@
 import Button from "@/components/button/Button";
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
 import { Trans, useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CompleteAnimation from "./components/CompleteAnimation";
 
 const CreateGroupSequenceComplete = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const groupName = location.state.groupName || "Your Group";
 
-  const handleCompeleteClick = () => {
-    navigate(Path.Home);
+  const handlePreviousClick = () => {
+    navigate(Path.CreateNotion);
   };
 
   return (
@@ -21,7 +19,7 @@ const CreateGroupSequenceComplete = () => {
 
         <h2 className="mb-[10px] mt-[15px] break-keep text-center text-[28px] font-bold">
           <Trans t={t} i18nKey="createGroup.complete.title">
-            {{ groupName }}
+            {{ groupName: "asasdfsddf" }}
           </Trans>
         </h2>
         <p className="text-greyDark">{t("createGroup.complete.description")}</p>
@@ -31,7 +29,7 @@ const CreateGroupSequenceComplete = () => {
         variant="contained"
         className="w-full py-[15px] text-[18px] md:w-[240px]"
         isBig
-        onClick={handleCompeleteClick}
+        onClick={handlePreviousClick}
       >
         {t("createGroup.goBack")}
       </Button>

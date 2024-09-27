@@ -16,7 +16,7 @@ import GroupDetailPage from "./pages/detail/DetailPage";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
-import Path from "./types/Paths";
+import Path from "./types/paths";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

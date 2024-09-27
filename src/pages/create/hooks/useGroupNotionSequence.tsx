@@ -12,10 +12,6 @@ const useGroupNotionSequence = () => {
   const urlRegex = /^https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*.*/;
   const isValidLink = urlRegex.test(link) || link.length === 0;
 
-  const notionPageId = notionRegex.test(link)
-    ? link.match(notionRegex)?.[1]
-    : null;
-
   useEffect(() => {
     fetchPagePreview();
   }, [link]);
@@ -25,7 +21,6 @@ const useGroupNotionSequence = () => {
   };
 
   return {
-    notionPageId,
     setLink,
     isValidLink,
     isInvalidNotionLink,

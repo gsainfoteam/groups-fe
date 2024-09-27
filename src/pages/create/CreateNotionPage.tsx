@@ -1,10 +1,10 @@
 import NotionIcon from "@/assets/icons/notion.svg?react";
 import Input from "@/components/input/Input";
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useGroupNotionSequence from "./hooks/useGroupNotionSequence";
 
 import Button from "@/components/button/Button";
@@ -13,7 +13,6 @@ import {
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
 import { NotionRenderer } from "react-notion-x";
-import { createGroup } from "@/apis/group";
 
 const CreateNotionPage = () => {
   const { t } = useTranslation();
@@ -23,10 +22,8 @@ const CreateNotionPage = () => {
     isInvalidNotionLink,
     isNextButtonValid,
     notionRecordMap,
-    notionPageId,
   } = useGroupNotionSequence();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [isExiting, setIsExiting] = useState(false);
 
@@ -38,22 +35,12 @@ const CreateNotionPage = () => {
     }, 600);
   };
 
-  const handleNextClick = async () => {
+  const handleNextClick = () => {
     setIsExiting(true);
-    try {
-      await createGroup({
-        name: location.state.groupName,
-        description: location.state.description,
-        notionPageId: notionPageId || "No notion page.",
-      });
-      setTimeout(() => {
-        navigate(Path.CreateComplete, {
-          state: { groupName: location.state.groupName },
-        });
-      }, 600);
-    } catch (error) {
-      console.error("Failed to create group:", error);
-    }
+
+    setTimeout(() => {
+      navigate(Path.CreateComplete);
+    }, 600);
   };
 
   return (
@@ -100,13 +87,7 @@ const CreateNotionPage = () => {
         </AnimatePresence>
       </div>
 
-      {notionRecordMap && Object.keys(notionRecordMap).length > 0 && (
-        <NotionRenderer
-          recordMap={notionRecordMap}
-          fullPage={true}
-          darkMode={false}
-        />
-      )}
+      {notionRecordMap && <NotionRenderer recordMap={notionRecordMap} />}
 
       <div className={"flex gap-[10px]"}>
         <Button
