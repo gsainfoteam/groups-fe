@@ -50,3 +50,9 @@ export enum EmojiString {
   THINKING = "🤔",
   SURPRISED = "😮",
 }
+
+export interface GroupData {
+  name: string;
+  description: string;
+  notionPageId: string;
+}

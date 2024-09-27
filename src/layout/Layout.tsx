@@ -1,5 +1,5 @@
 import Navbar from "@/components/navbar/Navbar";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 
 import { Outlet } from "react-router-dom";
 

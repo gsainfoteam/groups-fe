@@ -9,7 +9,7 @@ import {
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
@@ -23,6 +23,7 @@ const CreateGroupSequenceName = () => {
     isNextButtonValid,
     profileImageUrl,
     setProfileImage,
+    debouncedName,
   } = useGroupProfileSequence();
 
   const [isExiting, setIsExiting] = useState(false);
@@ -32,7 +33,7 @@ const CreateGroupSequenceName = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateDescription);
+      navigate(Path.CreateDescription, { state: { groupName: debouncedName } });
     }, 600);
   };
 
