@@ -1,9 +1,9 @@
 import Button from "@/components/button/Button";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useGroupDescriptionSequence from "./hooks/useGroupDescriptionSequence";
 
 import {
@@ -13,12 +13,13 @@ import {
 
 const CreateDescriptionPage = () => {
   const { t } = useTranslation();
-  const { descriptionLength, setDescription, isNextButtonValid } =
+  const { descriptionLength, setDescription, isNextButtonValid, description } =
     useGroupDescriptionSequence();
 
   const [isExiting, setIsExiting] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handlePreviousClick = () => {
     setIsExiting(true);
@@ -32,7 +33,12 @@ const CreateDescriptionPage = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateNotion);
+      navigate(Path.CreateNotion, {
+        state: {
+          groupName: location.state.groupName,
+          description: description,
+        },
+      });
     }, 600);
   };
 
