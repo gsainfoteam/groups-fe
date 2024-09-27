@@ -1,6 +1,8 @@
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import "react-datetime-picker/dist/DateTimePicker.css";
+import { useNavigate } from "react-router-dom";
+import Path from "@/types/Paths";
 
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
@@ -12,6 +14,7 @@ import GroupItem from "./GroupItem";
 import NotInGroup from "./NotInGroup";
 const MainPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { data: groupList } = useSWR("groupContainingMe", getGroupContainingMe);
 
@@ -35,7 +38,11 @@ const MainPage = () => {
         <div className="my-10 w-full rounded-[15px] bg-greyLight p-6 text-base font-normal text-greyDark dark:bg-d_greyDark">
           {t("group.mainDescription")}
         </div>
-        <Button variant="contained" className="mb-4 w-60 rounded-[10px] py-2">
+        <Button
+          variant="contained"
+          className="mb-4 w-60 rounded-[10px] py-2"
+          onClick={() => navigate(Path.CreateName)}
+        >
           <p className="mx-3 my-1 text-base font-bold">
             {t("group.createGroup")}
           </p>

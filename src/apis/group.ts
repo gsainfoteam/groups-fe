@@ -22,3 +22,11 @@ export const generateInviteCode = async (uuid: string): Promise<InviteCode> => {
     .get<InviteCode>(`/group/${uuid}/invite`)
     .then(({ data }) => data);
 };
+
+export const createGroup = async (groupData: {
+  name: string;
+  description: string;
+  notionPageId: string;
+}) => {
+  return groupsApi.post(`/group`, groupData);
+};
