@@ -1,3 +1,4 @@
+import Navigator from './components/Navigator';
 import './index.css';
 import ArrowRight from '@/assets/icons/arrow-right.svg?react';
 
@@ -13,14 +14,10 @@ const ManageGroupInfoPage = () => {
                             <ArrowRight className="h-6 w-6 stroke-primary scale-x-[-1]" />
                             <p className="text-primary text-xl font-medium">뒤로</p>
                         </div>
-                        <p className="text-4xl font-bold leading-normal">그룹 이름</p>
+                        <p className="text-dark text-4xl font-bold">그룹 이름</p>
                     </div>
                     {/* 네비게이터 */}
-                    <div className="flex items-start h-[50px] w-full border-b-[3px] border-grey">
-                        <div className="box-border h-[50px] flex p-2.5 justify-center items-center text-grey font-medium">기본 정보</div>
-                        <div className="box-border h-[50px] flex p-2.5 justify-center items-center text-primary font-medium border-b-[3px] border-primary">소개 페이지</div>
-                        <div className="box-border h-[50px] flex p-2.5 justify-center items-center text-grey font-medium">멤버</div>
-                    </div>
+                    <Navigator />
                 </div>
                 {/* 프로필 사진 변경 */}
                 <div className="flex flex-col items-center gap-[27px] self-stretch">
