@@ -1,6 +1,6 @@
 import { getUserInfo } from "@/apis/auth";
 import apiKeys, { Methods } from "@/types/api-keys";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";

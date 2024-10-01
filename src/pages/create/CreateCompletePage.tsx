@@ -1,5 +1,5 @@
 import Button from "@/components/button/Button";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 import { Trans, useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import CompleteAnimation from "./components/CompleteAnimation";
