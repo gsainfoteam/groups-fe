@@ -1,13 +1,12 @@
 import axios from 'axios';
+import groupsApi from "./interceptor";
+import { NotionAPI } from 'notion-client';
 
 export const getNotionPage = async (pageId: string) => {
-  // const notion = new NotionAPI();
-
-  // const recordMap = await notion.getPage(
-  //   pageId,
-  // );
-  
-  const recordMap = axios.get("https://notion-api.splitbee.io/v1/page/" + pageId ).then( res => res.data );
-
+  const recordMap = groupsApi.get(`/notion/${pageId}`).then( 
+    (res) => {
+      console.log(res)
+      return res.data
+    } );
   return recordMap;
 }

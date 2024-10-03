@@ -19,16 +19,19 @@ interface GroupDetailPageProps {
 const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { uuid } = useParams<{ uuid: string }>();
 
-  const { data: group } = useSWR(uuid, getGroup);
-
+  const { data: group, error, isLoading } = useSWR(uuid, getGroup);
   const { t } = useTranslation();
 
   const [tab, setTab] = useState("info");
 
-  if (!group) {
-    return null; // TODO: loading or error page
+  if (error) {
+    console.log(error)
+    return <div>failed to load</div>;
   }
-
+  else if(isLoading){
+    return <div>loading...</div>
+  }
+  else{
   return (
     <main className={"flex flex-col items-center"}>
       <div className={"content flex max-w-[800px] flex-col"}>
@@ -41,11 +44,11 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
           />
 
           <div className={"flex flex-col items-start"}>
-            <p className={"text-[34px] font-bold leading-9"}>{group.name}</p>
+            <p className={"text-[34px] font-bold leading-9"}>{group!.name}</p>
 
             <p className={"mt-1 text-greyDark"}>
               {t("group.memberCount", {
-                count: group.memberCount,
+                count: group!.memberCount,
               })}
               {" · "}
               {t("group.noticeCount", {
@@ -67,7 +70,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
             "my-6 w-full rounded-2xl bg-greyLight px-5 py-[15px] text-lg text-greyDark"
           }
         >
-          {group.description}
+          {group!.description}
         </p>
 
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
@@ -78,6 +81,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
       </div>
     </main>
   );
+}
 };
 
 export default GroupDetailPage;

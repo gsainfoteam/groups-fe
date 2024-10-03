@@ -9,12 +9,15 @@ import "./styles.css";
 import useSWR from "swr";
 import { getNotionPage } from "../../apis/notion";
 import NotionWrapper from "./NotionWrapper";
+import { useParams } from "react-router-dom";
+import { getGroup } from "@/apis/group";
 
 interface GroupIntroTabProps {}
 
 const GroupIntroTab = ({}: GroupIntroTabProps) => {
-
-  const { data: recordMap } = useSWR('2024-GIST-Developers-Night-1292632ae49843a79fb3e554c6a926c1', getNotionPage);
+  const { uuid } = useParams<{ uuid: string }>();
+  const { data: group, error, isLoading } = useSWR(uuid, getGroup);
+  const { data: recordMap } = useSWR(`${group!.notionPageId}`, getNotionPage);
 
   if (recordMap == null) {
     return <div>Notion page not found</div>;
