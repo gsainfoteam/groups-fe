@@ -97,7 +97,7 @@ const CreateNotionPage = () => {
           onClick={handlePreviousClick}
         >
           {t("createGroup.previous")}
-        </Button>{" "}
+        </Button>
         <Button
           variant={isNextButtonValid ? "contained" : "outlined"}
           className="w-full py-[15px] text-[18px] md:w-[240px]"

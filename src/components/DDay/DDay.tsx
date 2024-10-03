@@ -1,6 +1,20 @@
+import { cn } from "@/utils/clsx";
+import { cva, VariantProps } from "class-variance-authority";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
 import { Trans } from "react-i18next/TransWithoutContext";
+
+const DDayVariants = cva(
+  "h-fit rounded-md px-[10px] py-[3px] text-sm text-white",
+  {
+    variants: {
+      isClosed: {
+        true: ["bg-greyDark"],
+        false: ["bg-primary"],
+      },
+    },
+  },
+);
 
 interface DDayProps {
   deadline: dayjs.Dayjs | string;
@@ -13,13 +27,7 @@ const DDay = ({ deadline, className }: DDayProps) => {
   const { t } = useTranslation();
 
   return (
-    <p
-      className={
-        `h-fit rounded-md ${
-          isClosed ? "bg-greyDark" : "bg-primary"
-        } px-[10px] py-[3px] text-[14px] text-white dark:text-text ` + className
-      }
-    >
+    <p className={cn(DDayVariants({ isClosed }))}>
       {isClosed ? (
         t("common.overdue")
       ) : (
