@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Suspense } from "react";
 import { I18nextProvider } from "react-i18next";
@@ -18,15 +18,38 @@ const preview: Preview = {
   },
 };
 
+export const globalTypes = {
+  locale: {
+    name: "Locale",
+    description: "Internationalization locale",
+    toolbar: {
+      icon: "globe",
+      items: [
+        { value: "en-US", title: "English" },
+        { value: "ko-KR", title: "Korean" },
+      ],
+      showName: true,
+    },
+  },
+};
+
 const TranslationSuspenseFallback = () => <div>translation loading</div>;
 
-const withI18next = (Story) => (
-  <Suspense fallback={<TranslationSuspenseFallback />}>
-    <I18nextProvider i18n={i18n}>
-      <Story />
-    </I18nextProvider>
-  </Suspense>
-);
+const withI18next = (Story, context) => {
+  const { locale } = context.globals;
+
+  useEffect(() => {
+    i18n.changeLanguage(locale);
+  }, [locale]);
+
+  return (
+    <Suspense fallback={<TranslationSuspenseFallback />}>
+      <I18nextProvider i18n={i18n}>
+        <Story />
+      </I18nextProvider>
+    </Suspense>
+  );
+};
 
 export const decorators = [withI18next];
 
