@@ -49,9 +49,12 @@ const router = createBrowserRouter(
 
       <Route path={Path.Login} element={<LoginPage />} />
 
-      <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
-      <Route path={Path.ManageNotionLink} element={<ManageNotionLinkPage />} />
-      <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
+      <Route element={<ManageLayout />}>
+        <Route path={Path.Manage} element={<Navigate to={Path.ManageGroupInfo} />} />
+        <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
+        <Route path={Path.ManageNotionLink} element={<ManageNotionLinkPage />} />
+        <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
+      </Route>
     </>,
   ),
 );

@@ -1,22 +1,30 @@
-import { useTranslation } from "react-i18next";
-import { Outlet, useLocation } from "react-router-dom";
+import Navigator from './components/Navigator';
+import ArrowRight from '@/assets/icons/arrow-right.svg?react';
+import { Outlet } from 'react-router-dom';
 
-const Layout = () => {
-  const { t } = useTranslation();
+const ManageLayout = () => {
+    return (
+        <div className="flex flex-col items-center">
+            <div className="flex w-full px-[18px] md:w-[600px] md:px-0 pt-10 pb-10 flex-col items-center gap-[30px] md:gap-16">
+                {/* 상단 바 */}
+                <div className="flex flex-col items-start gap-5 self-stretch">
+                    {/* 뒤로 가기 및 그룹 이름 */}
+                    <div className="flex flex-col items-start gap-2.5 self-stretch">
+                        <div className="flex items-center">
+                            <ArrowRight className="h-5 w-5 md:h-6 md:w-6 stroke-primary scale-x-[-1]" />
+                            <p className="text-primary text-base md:text-xl font-medium">뒤로</p>
+                        </div>
+                        <p className="text-dark text-[26px] md:text-4xl font-bold">그룹 이름</p>
+                    </div>
+                    {/* 네비게이터 */}
+                    <Navigator />
+                </div>
 
-  return (
-    <main className="flex flex-col items-center py-10">
-      <div className="content flex max-w-[800px] flex-col">
-        <h1 className="mb-[25px] text-4xl font-bold">
-          {t("createGroup.createGroup")}
-        </h1>
-      </div>
-
-      <div className="content flex max-w-[800px] flex-col items-center">
-        <Outlet />
-      </div>
-    </main>
-  );
+                {/* 개별 페이지의 콘텐츠 */}
+                <Outlet />
+            </div>
+        </div>
+    );
 };
 
-export default Layout;
+export default ManageLayout;
