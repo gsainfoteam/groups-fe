@@ -31,3 +31,6 @@ const args = {
 
 export const Default = Template.bind({});
 Default.args = { ...args };
+
+export const WithButton = Template.bind({});
+WithButton.args = { ...args, buttonValue: "button" };
