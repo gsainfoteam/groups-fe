@@ -1,11 +1,8 @@
 import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
-import Button from "src/components/button/Button";
 import useSWR from "swr";
 
 import { getGroup } from "@/apis/group";
-import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 
 import GroupDetailTabs from "./GroupDetailTabs";
 
@@ -43,7 +40,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
         </p>
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
         {/* disabled intro notion tab since not working */}
-        {/* {tab === "info" && <GroupIntroTab />} */}{" "}
+        {/* {tab === "info" && <GroupIntroTab />} */}
         {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
         {tab === "member" && <GroupMembersTab />}
       </div>
