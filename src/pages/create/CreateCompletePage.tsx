@@ -28,7 +28,7 @@ const CreateGroupSequenceComplete = () => {
       <Button
         variant="contained"
         className="w-full py-[15px] text-[18px] md:w-[240px]"
-        isBig
+        size="cta"
         onClick={handlePreviousClick}
       >
         {t("createGroup.goBack")}

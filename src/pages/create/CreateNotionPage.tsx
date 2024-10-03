@@ -89,11 +89,11 @@ const CreateNotionPage = () => {
 
       {notionRecordMap && <NotionRenderer recordMap={notionRecordMap} />}
 
-      <div className={"flex gap-[10px]"}>
+      <div className={"flex gap-[10px] w-full mt-[30px] justify-center"}>
         <Button
           variant={"outlined"}
           className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          size="cta"
           onClick={handlePreviousClick}
         >
           {t("createGroup.previous")}
@@ -101,7 +101,7 @@ const CreateNotionPage = () => {
         <Button
           variant={isNextButtonValid ? "contained" : "outlined"}
           className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          size="cta"
           onClick={handleNextClick}
         >
           {isNextButtonValid ? t("createGroup.next") : t("createGroup.skip")}

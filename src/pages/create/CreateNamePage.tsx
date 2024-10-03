@@ -50,7 +50,11 @@ const CreateGroupSequenceName = () => {
                 "w-full py-[60px]",
               ].join(" ")}
             >
-              <motion.div className={"flex flex-col gap-[27px]"}>
+              <motion.div
+                className={
+                  "flex flex-col gap-[27px] items-center w-full md:w-auto mb-[60px] md:mb-0"
+                }
+              >
                 <motion.img
                   src={profileImageUrl || GroupProfileDefault}
                   width={200}
@@ -71,13 +75,11 @@ const CreateGroupSequenceName = () => {
                     className={"hidden"}
                   />
 
-                  <motion.p
-                    className={
-                      "box-content border border-primary rounded-[10px] text-primary text-center text-lg py-[10px]"
-                    }
-                  >
-                    {t("createGroup.name.chooseGroupProfile")}
-                  </motion.p>
+                  <motion.div>
+                    <Button variant="outlined" size="big">
+                      {t("createGroup.name.chooseGroupProfile")}
+                    </Button>
+                  </motion.div>
                 </motion.label>
               </motion.div>
 
@@ -113,7 +115,7 @@ const CreateGroupSequenceName = () => {
       <Button
         variant={isNextButtonValid ? "contained" : "disabled"}
         className="w-full py-[15px] text-[18px] md:w-[240px]"
-        isBig
+        size="cta"
         disabled={!isNextButtonValid}
         onClick={handleNextClick}
       >
