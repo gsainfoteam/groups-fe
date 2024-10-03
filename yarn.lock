@@ -1524,6 +1524,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-styling-webpack@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@storybook/addon-styling-webpack@npm:1.0.0"
+  dependencies:
+    "@storybook/node-logger": ^8.0.0-alpha.10
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: fa907064a42b255fad274ae898b48cb1ce53d969cf79b48e8e0d761ae05500ab9e486d54b2aac625f57c78347daa51828a864497955cd4b0b650e67e8196a341
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-themes@npm:^8.3.4":
+  version: 8.3.4
+  resolution: "@storybook/addon-themes@npm:8.3.4"
+  dependencies:
+    ts-dedent: ^2.0.0
+  peerDependencies:
+    storybook: ^8.3.4
+  checksum: c3d5f312e36f1842dd1e6df60afa34cc8e2654ebf4f92489acbc345bc191fb58729643bd16b8894551ecf9174569d3ada861c858ed82d179067243dca82172e8
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-toolbars@npm:8.3.0":
   version: 8.3.0
   resolution: "@storybook/addon-toolbars@npm:8.3.0"
@@ -1698,6 +1720,15 @@ __metadata:
   peerDependencies:
     storybook: ^8.3.0
   checksum: f44e8d428bf94a4d0e306fcc0d887cdd2564ee1b1dfd5a48392cee71be6ae3e065628d5ca44d9307b8b071f9929c4a9ac7a44d7035e52fb17cb94dd9b810a399
+  languageName: node
+  linkType: hard
+
+"@storybook/node-logger@npm:^8.0.0-alpha.10":
+  version: 8.3.4
+  resolution: "@storybook/node-logger@npm:8.3.4"
+  peerDependencies:
+    storybook: ^8.3.4
+  checksum: 572351aad7973073fac89b46f46ee2b44baf13e38b80539498a067d3a363adaed7b6e3fafe96d311312fbf6216adf9419d93565890aee1f2059416f485357867
   languageName: node
   linkType: hard
 
@@ -8544,6 +8575,8 @@ __metadata:
     "@storybook/addon-interactions": ^8.3.0
     "@storybook/addon-links": ^8.3.0
     "@storybook/addon-onboarding": ^8.3.0
+    "@storybook/addon-styling-webpack": ^1.0.0
+    "@storybook/addon-themes": ^8.3.4
     "@storybook/blocks": ^8.3.0
     "@storybook/react": ^8.3.0
     "@storybook/react-vite": ^8.3.0
