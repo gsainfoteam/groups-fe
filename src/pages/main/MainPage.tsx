@@ -26,6 +26,7 @@ const MainPage = () => {
         <div className="title mb-10 w-full text-4xl font-bold text-text">
           {t("group.mainTitle")}
         </div>
+
         {groupList.length === 0 ? (
           <NotInGroup />
         ) : (
@@ -34,7 +35,9 @@ const MainPage = () => {
           })
         )}
 
-        <Card className="text-base">{t("group.mainDescription")}</Card>
+        <Card className="text-base my-[40px]">
+          {t("group.mainDescription")}
+        </Card>
 
         <Button variant="contained" className="mb-4 w-60 rounded-[10px] py-2">
           <p className="mx-3 my-1 text-base font-bold">

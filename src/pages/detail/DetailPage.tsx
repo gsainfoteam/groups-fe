@@ -33,7 +33,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
       <div className={"content flex max-w-[800px] flex-col"}>
         <GroupProfile group={group} />
 
-        <Card>{group.description}</Card>
+        <Card className="my-[25px]">{group.description}</Card>
 
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
         {/* disabled intro notion tab since not working */}

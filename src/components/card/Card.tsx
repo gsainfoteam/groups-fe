@@ -10,7 +10,7 @@ const Card = ({ children, className }: CardProps) => {
   return (
     <p
       className={cn(
-        "my-6 w-full rounded-2xl bg-greyLight px-5 py-[15px] text-base text-greyDark",
+        "w-full rounded-2xl bg-greyLight px-5 py-[15px] text-base text-greyDark",
         className,
       )}
     >
