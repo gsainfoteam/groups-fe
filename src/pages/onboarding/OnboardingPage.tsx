@@ -32,6 +32,7 @@ const OnboardingPage = () => {
 
             <Button
               variant="outlined"
+              size="cta"
               onClick={() => {
                 window.location.href = generateOAuthLoginURL();
               }}

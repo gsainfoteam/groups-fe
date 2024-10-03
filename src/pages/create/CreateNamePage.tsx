@@ -76,7 +76,7 @@ const CreateGroupSequenceName = () => {
                   />
 
                   <motion.div>
-                    <Button variant="outlined" size="big">
+                    <Button variant="enabled" size="big">
                       {t("createGroup.name.chooseGroupProfile")}
                     </Button>
                   </motion.div>
