@@ -1,7 +1,7 @@
 import LoadingCatAnimation from "./LoadingCatAnimation";
 
 export default {
-  title: "templates/LoadingCatAnimation",
+  title: "components/LoadingCatAnimation",
   component: LoadingCatAnimation,
 };
 

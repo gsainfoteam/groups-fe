@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import DDay from "./DDay";
 
 export default {
-  title: "molecules/DDay",
+  title: "components/DDay",
   component: DDay,
 } as Meta<typeof DDay>;
 
