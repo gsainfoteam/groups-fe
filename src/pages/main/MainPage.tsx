@@ -10,6 +10,7 @@ import Button from "@/components/button/Button";
 
 import GroupItem from "./GroupItem";
 import NotInGroup from "./NotInGroup";
+import Card from "@/components/card/Card";
 const MainPage = () => {
   const { t } = useTranslation();
 
@@ -32,9 +33,9 @@ const MainPage = () => {
             return <GroupItem key={group.name} groupParams={{ group }} />;
           })
         )}
-        <div className="my-10 w-full rounded-[15px] bg-greyLight p-6 text-base font-normal text-greyDark dark:bg-d_greyDark">
-          {t("group.mainDescription")}
-        </div>
+
+        <Card className="text-base">{t("group.mainDescription")}</Card>
+
         <Button variant="contained" className="mb-4 w-60 rounded-[10px] py-2">
           <p className="mx-3 my-1 text-base font-bold">
             {t("group.createGroup")}

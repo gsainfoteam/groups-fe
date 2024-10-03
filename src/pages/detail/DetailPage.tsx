@@ -11,6 +11,7 @@ import GroupNoticesTab from "./tabs/notices/GroupNoticesTab";
 import GroupIntroTab from "./tabs/intro/GroupIntroTab";
 import GroupProfile from "./GroupProfile";
 import Loading from "@/components/loading/Loading";
+import Card from "@/components/card/Card";
 
 interface GroupDetailPageProps {
   searchParams?: { tab: string; page: string };
@@ -31,13 +32,9 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
     <main className={"flex flex-col items-center mt-[20px] md:mt-[48px]"}>
       <div className={"content flex max-w-[800px] flex-col"}>
         <GroupProfile group={group} />
-        <p
-          className={
-            "my-6 w-full rounded-2xl bg-greyLight px-5 py-[15px] text-lg text-greyDark"
-          }
-        >
-          {group.description}
-        </p>
+
+        <Card>{group.description}</Card>
+
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
         {/* disabled intro notion tab since not working */}
         {/* {tab === "info" && <GroupIntroTab />} */}
