@@ -11,7 +11,8 @@ const ButtonVariants = cva("font-semibold transition", {
       disabled: ["bg-greyLight text-grey"],
     },
     size: {
-      default: ["px-[15px] py-[7px] rounded-[5px]"],
+      default: [],
+      small: ["px-[15px] py-[7px] rounded-[5px]"],
       big: ["px-[25px] py-[10px] rounded-[5px]"],
       cta: ["px-[30px] py-[15px] rounded-[10px]"],
     },
@@ -19,6 +20,11 @@ const ButtonVariants = cva("font-semibold transition", {
       default: [],
       true: ["active:scale-95"],
     },
+  },
+  defaultVariants: {
+    variant: "default",
+    size: "default",
+    animated: "default",
   },
 });
 
