@@ -30,8 +30,8 @@ const ManageNotionLinkPage = () => {
                     </div>
                 </div>
                 {/* 미리보기 */}
-                <div className="h-[159px] p-[25px] bg-[#f5f5f7] rounded-[10px] flex-col justify-center items-center gap-2.5 flex">
-                    <div className="text-center text-[#6e6e73] text-base font-semibold font-['Pretendard']">노션 불러오는 중...</div>
+                <div className="h-[159px] p-[25px] bg-greyLight rounded-[10px] flex-col justify-center items-center gap-2.5 flex">
+                    <div className="text-center text-greyDark text-base font-semibold">노션 불러오는 중...</div>
                 </div>
             </div>
             {/* 완료 버튼 */}

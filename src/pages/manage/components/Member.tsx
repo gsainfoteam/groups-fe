@@ -16,7 +16,7 @@ const Member = ({ name, email, role }: MemberProps) => {
       {/* 역할 */}
       <div className="flex justify-start p-2.5 w-[220px] md:w-[220px] h-[50px] border-b-2 border-greyBorder">
         <div className="w-full h-[30px] pl-3 pr-2.5 py-[5px] bg-greyLight rounded-[5px] flex justify-start items-center gap-2.5">
-          <div className={`grow shrink basis-0 text-base font-medium ${(role === "관리자" || role === "매니저") ? "text-[#ff4500]" : "text-[#6e6e73]"}`}>
+          <div className={`grow shrink basis-0 text-base font-medium ${(role === "관리자" || role === "매니저") ? "text-primary" : "text-greyDark"}`}>
             {role}
           </div>
           <ArrowRight className="stroke-dark w-5 h-5 rotate-90" />
