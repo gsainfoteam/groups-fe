@@ -41,16 +41,22 @@ const Button = ({
   variant,
   size,
   animated,
+  disabled,
 
   children,
   className,
   ...props
 }: ButtonProps) => {
+  const _variant = disabled ? "disabled" : variant;
+
   return (
     <button
-      className={cn(ButtonVariants({ variant, size, animated }), className)}
+      className={cn(
+        ButtonVariants({ variant: _variant, size, animated }),
+        className,
+      )}
       {...props}
-      disabled={variant === "disabled"}
+      disabled={disabled}
     >
       {children}
     </button>
