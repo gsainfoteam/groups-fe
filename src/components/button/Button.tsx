@@ -21,14 +21,14 @@ const ButtonVariants = cva("font-semibold transition", {
       cta: ["px-[30px] py-[15px] rounded-[10px]"],
     },
     animated: {
-      default: [],
+      false: [],
       true: ["active:scale-95"],
     },
   },
   defaultVariants: {
     variant: "default",
     size: "default",
-    animated: "default",
+    animated: false,
   },
 });
 
