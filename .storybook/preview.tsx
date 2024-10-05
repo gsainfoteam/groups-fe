@@ -5,7 +5,7 @@ import { I18nextProvider } from "react-i18next";
 import i18n from "../src/locales/index";
 import "../src/index.css";
 
-import type { Preview } from "@storybook/react";
+import type { Preview, StoryContext, StoryFn } from "@storybook/react";
 
 const preview: Preview = {
   parameters: {
@@ -35,7 +35,7 @@ export const globalTypes = {
 
 const TranslationSuspenseFallback = () => <div>translation loading</div>;
 
-const withI18next = (Story, context) => {
+const withI18next = (Story: StoryFn, context: StoryContext) => {
   const { locale } = context.globals;
 
   useEffect(() => {
