@@ -96,7 +96,7 @@ export const main = {
     manageGroup: "그룹 관리",
     leaveGroup: "그룹 나가기",
     favorite: "즐겨찾기",
-    memberCount: "구독자 {{count}}명",
+    memberCount: "멤버 {{count}}명",
     noticeCount: "게시글 {{count}}개",
     tabs: {
       intro: "소개",
