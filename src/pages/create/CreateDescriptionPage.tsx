@@ -84,7 +84,7 @@ const CreateDescriptionPage = () => {
           {t("createGroup.previous")}
         </Button>
         <Button
-          variant={isNextButtonValid ? "contained" : "disabled"}
+          variant={isNextButtonValid ? "emphasized" : "disabled"}
           className="w-full py-[15px] text-[18px] max-w-[240px]"
           size="cta"
           disabled={!isNextButtonValid}

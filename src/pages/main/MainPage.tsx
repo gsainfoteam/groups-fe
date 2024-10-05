@@ -39,7 +39,7 @@ const MainPage = () => {
           {t("group.mainDescription")}
         </Card>
 
-        <Button variant="contained" className="mb-4 w-60 rounded-[10px] py-2">
+        <Button variant="emphasized" className="mb-4 w-60 rounded-[10px] py-2">
           <p className="mx-3 my-1 text-base font-bold">
             {t("group.createGroup")}
           </p>

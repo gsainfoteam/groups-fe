@@ -33,7 +33,7 @@ const GroupProfile = ({ group }: GroupProfileProps) => {
         </p>
 
         <Button
-          variant="contained"
+          variant="emphasized"
           className={"mt-3 rounded-[10px] md:px-6 md:py-2"}
         >
           <p>{t("group.favorite")}</p>

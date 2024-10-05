@@ -7,8 +7,8 @@ export default {
   component: Button,
   argTypes: {
     variant: {
-      options: ["default", "contained", "outlined", "disabled", "enabled"],
-      mapping: [undefined, "contained", "outlined", "disabled", "enabled"],
+      options: ["default", "outlined", "contained", "emphasized", "disabled"],
+      mapping: [undefined, "outlined", "contained", "emphasized", "disabled"],
       control: { type: "select" },
     },
     size: {
@@ -37,14 +37,14 @@ const args = {
 export const Default = Template.bind({});
 Default.args = { ...args, size: "small" };
 
-export const Contained = Template.bind({});
-Contained.args = { ...args, variant: "contained", size: "small" };
-
 export const Outlined = Template.bind({});
 Outlined.args = { ...args, variant: "outlined", size: "small" };
 
+export const Contained = Template.bind({});
+Contained.args = { ...args, variant: "contained", size: "small" };
+
+export const Emphasized = Template.bind({});
+Emphasized.args = { ...args, variant: "emphasized", size: "small" };
+
 export const Disabled = Template.bind({});
 Disabled.args = { ...args, variant: "disabled", size: "small" };
-
-export const Enabled = Template.bind({});
-Enabled.args = { ...args, variant: "enabled", size: "small" };

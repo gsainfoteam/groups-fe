@@ -37,7 +37,7 @@ const Input = forwardRef(
 
           {buttonValue && (
             <Button
-              variant="contained"
+              variant="emphasized"
               onClick={onButtonClick}
               size="big"
               className="px-[20px] rounded-[10px]"

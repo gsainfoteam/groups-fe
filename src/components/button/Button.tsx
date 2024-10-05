@@ -7,12 +7,12 @@ const ButtonVariants = cva("font-semibold transition", {
     variant: {
       default: [],
       outlined: ["border border-primary text-primary", "hover:bg-secondary"],
-      contained: ["bg-primary text-white", "hover:brightness-90"],
-      disabled: ["bg-greyLight text-grey"],
-      enabled: [
+      contained: [
         "border border-greyBorder bg-greyLight text-dark",
         "dark:border-grey dark:text-d_white",
       ],
+      emphasized: ["bg-primary text-white", "hover:brightness-90"],
+      disabled: ["bg-greyLight text-grey"],
     },
     size: {
       default: [],

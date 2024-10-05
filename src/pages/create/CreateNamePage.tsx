@@ -76,7 +76,7 @@ const CreateGroupSequenceName = () => {
                   />
 
                   <motion.div>
-                    <Button variant="enabled" size="big">
+                    <Button variant="contained" size="big">
                       {t("createGroup.name.chooseGroupProfile")}
                     </Button>
                   </motion.div>
@@ -113,7 +113,7 @@ const CreateGroupSequenceName = () => {
         </AnimatePresence>
       </div>
       <Button
-        variant={isNextButtonValid ? "contained" : "disabled"}
+        variant={isNextButtonValid ? "emphasized" : "disabled"}
         className="w-full py-[15px] text-[18px] md:w-[240px]"
         size="cta"
         disabled={!isNextButtonValid}
