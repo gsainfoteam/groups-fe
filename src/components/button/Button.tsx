@@ -11,7 +11,7 @@ const ButtonVariants = cva("font-semibold transition", {
       disabled: ["bg-greyLight text-grey"],
       enabled: [
         "border border-greyBorder bg-greyLight text-dark",
-        "dark:border-grey text-d_white",
+        "dark:border-grey dark:text-d_white",
       ],
     },
     size: {
@@ -46,31 +46,6 @@ const Button = ({
   className,
   ...props
 }: ButtonProps) => {
-  // return (
-  //   <button
-  //     className={twMerge(
-  //       [
-  //         "font-semibold transition",
-  //         ...(variant ? ["rounded-[10px] px-2.5 py-1 md:px-5 md:py-2.5"] : []),
-  //         ...(isBig ? ["rounded-[10px]"] : ["rounded-[5px]"]),
-  //         ...(variant === "outlined"
-  //           ? ["border border-primary text-primary hover:bg-secondary"]
-  //           : []),
-  //         ...(variant === "contained"
-  //           ? ["bg-primary text-white hover:brightness-90"]
-  //           : []),
-  //         ...(variant === "disabled" ? ["bg-greyLight text-grey"] : []),
-  //         ...(animated ? ["active:scale-95"] : []),
-  //       ].join(" "),
-  //       className,
-  //     )}
-  //     {...props}
-  //     disabled={variant === "disabled"}
-  //   >
-  //     {children}
-  //   </button>
-  // );
-
   return (
     <button
       className={cn(ButtonVariants({ variant, size, animated }), className)}
