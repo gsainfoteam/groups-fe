@@ -8,14 +8,14 @@ interface CardProps extends PropsWithChildren {
 
 const Card = ({ children, className }: CardProps) => {
   return (
-    <p
+    <div
       className={cn(
         "w-full rounded-2xl bg-greyLight px-5 py-[15px] text-base text-greyDark",
         className,
       )}
     >
       {children}
-    </p>
+    </div>
   );
 };
 
