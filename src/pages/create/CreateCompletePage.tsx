@@ -10,7 +10,7 @@ const CreateGroupSequenceComplete = () => {
   const location = useLocation();
   const groupName = location.state.groupName || "Your Group";
 
-  const handleCompeleteClick = () => {
+  const handleCompleteClick = () => {
     navigate(Path.Home);
   };
 
@@ -31,7 +31,7 @@ const CreateGroupSequenceComplete = () => {
         variant="contained"
         className="w-full py-[15px] text-[18px] md:w-[240px]"
         isBig
-        onClick={handleCompeleteClick}
+        onClick={handleCompleteClick}
       >
         {t("createGroup.goBack")}
       </Button>

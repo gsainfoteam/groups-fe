@@ -1,17 +1,15 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 import {
   GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
-
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import Path from "@/types/Paths";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
 import isValidImage from "./utils/isValidImage";
 
@@ -19,21 +17,42 @@ const CreateGroupSequenceName = () => {
   const { t } = useTranslation();
   const {
     setName,
+    debouncedName,
     isNameExists,
     isNextButtonValid,
     profileImageUrl,
     setProfileImage,
-    debouncedName,
+    setProfileImageUrl,
   } = useGroupProfileSequence();
 
   const [isExiting, setIsExiting] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const groupNameFromState = location.state?.groupName || "";
+  const profileImageFromState = location.state?.profileImageUrl || "";
+
+  useEffect(() => {
+    if (groupNameFromState) {
+      setName(groupNameFromState);
+    }
+    if (profileImageFromState) {
+      setProfileImageUrl(profileImageFromState);
+    }
+  }, [groupNameFromState, profileImageFromState, setName]);
+
   const handleNextClick = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateDescription, { state: { groupName: debouncedName } });
+      navigate(Path.CreateDescription, {
+        state: {
+          groupName: debouncedName,
+          description: location.state?.description || "",
+          notionPageId: location.state?.notionPageId || "",
+          profileImageUrl: profileImageUrl || profileImageFromState,
+        },
+      });
     }, 600);
   };
 
@@ -66,7 +85,7 @@ const CreateGroupSequenceName = () => {
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file && isValidImage(file)) {
-                        setProfileImage(file);
+                        setProfileImage(file); // Only set a file here, not a URL
                       }
                     }}
                     className={"hidden"}
@@ -96,6 +115,7 @@ const CreateGroupSequenceName = () => {
                     width="100%"
                     className="w-full"
                     title={t("createGroup.name.groupName")}
+                    value={debouncedName}
                     onChange={(e) => {
                       setName(e.target.value);
                     }}

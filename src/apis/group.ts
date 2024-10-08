@@ -28,5 +28,12 @@ export const createGroup = async (groupData: {
   description: string;
   notionPageId: string;
 }) => {
-  return groupsApi.post(`/group`, groupData);
+  return groupsApi.post(`/group`, groupData).then(({ data }) => data);
+};
+
+export const setGroupProfileImage = async (id: string, image: File) => {
+  const formData = new FormData();
+  formData.append("file", image);
+
+  const response = await groupsApi.post(`/group/${id}/image`, formData);
 };

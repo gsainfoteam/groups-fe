@@ -1,7 +1,7 @@
 import Button from "@/components/button/Button";
 import Path from "@/types/Paths";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGroupDescriptionSequence from "./hooks/useGroupDescriptionSequence";
@@ -20,12 +20,26 @@ const CreateDescriptionPage = () => {
 
   const navigate = useNavigate();
   const location = useLocation();
+  const groupDesFromState = location.state?.description || "";
+
+  useEffect(() => {
+    if (groupDesFromState) {
+      setDescription(groupDesFromState);
+    }
+  }, [groupDesFromState, setDescription]);
 
   const handlePreviousClick = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateName);
+      navigate(Path.CreateName, {
+        state: {
+          groupName: location.state.groupName,
+          description: description || "",
+          notionPageId: location.state?.notionPageId || "",
+          profileImageUrl: location.state.profileImageUrl,
+        },
+      });
     }, 600);
   };
 
@@ -37,6 +51,8 @@ const CreateDescriptionPage = () => {
         state: {
           groupName: location.state.groupName,
           description: description,
+          notionPageId: location.state?.notionPageId || "",
+          profileImageUrl: location.state.profileImageUrl,
         },
       });
     }, 600);
@@ -66,6 +82,7 @@ const CreateDescriptionPage = () => {
                 }
                 placeholder={t("createGroup.description.placeholder")}
                 rows={3}
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 variants={ITEM_VARIANT}
               />

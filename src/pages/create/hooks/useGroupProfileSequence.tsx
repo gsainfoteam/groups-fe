@@ -39,6 +39,10 @@ const useGroupProfileSequence = () => {
       reader.onload = () => {
         setProfileImageUrl(reader.result as string);
       };
+      reader.onerror = () => {
+        console.error("Failed to read file as data URL");
+        setProfileImageUrl(null);
+      };
       reader.readAsDataURL(profileImage);
     }
   }, [profileImage]);
@@ -47,6 +51,7 @@ const useGroupProfileSequence = () => {
     debouncedName,
     profileImageUrl,
     setProfileImage,
+    setProfileImageUrl,
     setName,
     isNameExists,
     isNextButtonValid,

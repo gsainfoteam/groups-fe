@@ -2,7 +2,7 @@ import NotionIcon from "@/assets/icons/notion.svg?react";
 import Input from "@/components/input/Input";
 import Path from "@/types/Paths";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGroupNotionSequence from "./hooks/useGroupNotionSequence";
@@ -13,7 +13,7 @@ import {
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
 import { NotionRenderer } from "react-notion-x";
-import { createGroup } from "@/apis/group";
+import { createGroup, setGroupProfileImage } from "@/apis/group";
 
 const CreateNotionPage = () => {
   const { t } = useTranslation();
@@ -29,23 +29,44 @@ const CreateNotionPage = () => {
   const location = useLocation();
 
   const [isExiting, setIsExiting] = useState(false);
+  const notionPageIdFromState = location.state?.notionPageId || "";
+
+  useEffect(() => {
+    if (notionPageIdFromState) {
+      setLink(notionPageIdFromState);
+    }
+  }, [notionPageIdFromState, setLink]);
 
   const handlePreviousClick = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateDescription);
+      navigate(Path.CreateDescription, {
+        state: {
+          groupName: location.state.groupName,
+          description: location.state.description,
+          notionPageId: notionPageId || "",
+          profileImageUrl: location.state.profileImageUrl,
+        },
+      });
     }, 600);
   };
 
   const handleNextClick = async () => {
     setIsExiting(true);
     try {
-      await createGroup({
+      const response = await createGroup({
         name: location.state.groupName,
         description: location.state.description,
-        notionPageId: notionPageId || "No notion page.",
+        notionPageId: notionPageId || "",
       });
+
+      const groupUuid = response?.data?.uuid;
+
+      if (groupUuid && location.state.profileImage) {
+        await setGroupProfileImage(groupUuid, location.state.profileImage);
+      }
+
       setTimeout(() => {
         navigate(Path.CreateComplete, {
           state: { groupName: location.state.groupName },
