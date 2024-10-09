@@ -1,6 +1,6 @@
 import { cn } from "@/utils/clsx";
 import { cva } from "class-variance-authority";
-import { ClassArray, ClassValue } from "clsx";
+import { ClassValue } from "clsx";
 import dayjs, { Dayjs } from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useTranslation } from "react-i18next";
