@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import { useTranslation } from "react-i18next";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { Link } from "react-router-dom";
 
 import DefaultProfile from "@/assets/default-profile.svg?react";
@@ -22,13 +22,13 @@ export type ZaboProps = Notice & {
   height?: number; // migration ongoing | remove after migration complete
 };
 
+dayjs.extend(relativeTime);
+
 const Zabo = (props: ZaboProps) => {
   const { createdAt, author, deadline, reactions, title, imageUrls, tags, id } =
     props;
-  // @ts-ignore | dayjs.fromNow is a valid function but it is not recognized by TypeScript for some reason, remove it when the issue is resolved
-  const timeAgo = dayjs(createdAt).fromNow();
 
-  const { t } = useTranslation();
+  const timeAgo = dayjs(createdAt).fromNow();
 
   const hasImage = imageUrls.length > 0;
 
