@@ -8,16 +8,16 @@ import {
 
 import Layout from "./layout/Layout";
 
-import CreateGroupLayout from "./pages/create/CreateGroupLayout";
+import CreateGroupLayout from "./pages/createGroup/CreateGroupLayout";
 import GroupDetailPage from "./pages/detail/DetailPage";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
 import Path from "./types/paths";
-import CreateGroupName from "./pages/create/pages/name/CreateGroupNamePage";
-import CreateGroupDescriptionPage from "./pages/create/pages/description/CreateGroupDescriptionPage";
-import CreateGroupNotionPage from "./pages/create/pages/notion/CreateGroupNotionPage";
-import CreateGroupCompletePage from "./pages/create/pages/complete/CreateGroupCompletePage";
+import CreateGroupName from "./pages/createGroup/pages/name/CreateGroupNamePage";
+import CreateGroupDescriptionPage from "./pages/createGroup/pages/description/CreateGroupDescriptionPage";
+import CreateGroupNotionPage from "./pages/createGroup/pages/notion/CreateGroupNotionPage";
+import CreateGroupCompletePage from "./pages/createGroup/pages/complete/CreateGroupCompletePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import {
   GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
-} from "@/pages/create/animations/animations";
+} from "@/pages/createGroup/animations/animations";
+
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";

@@ -10,7 +10,7 @@ import Button from "@/components/button/Button";
 import {
   GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
-} from "@/pages/create/animations/animations";
+} from "@/pages/createGroup/animations/animations";
 import { NotionRenderer } from "react-notion-x";
 import { createGroup, setGroupProfileImage } from "@/apis/group";
 import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
