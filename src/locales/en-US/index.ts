@@ -166,6 +166,18 @@ export const main = {
     },
   },
 
+  manageGroup: {
+    groupinfo: {
+      name: "group info",
+    },
+    notionlink: {
+      name: "notion link",
+    },
+    members: {
+      name: "member",
+    },
+  },
+
   installApp: {
     title: "Install the mobile app!",
     text: "You can use more convenient service.",

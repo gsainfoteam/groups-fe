@@ -155,6 +155,17 @@ export const main = {
       yes: "네",
     },
   },
+  manageGroup: {
+    groupinfo: {
+      name: "기본 정보",
+    },
+    notionlink: {
+      name: "소개 페이지",
+    },
+    members: {
+      name: "멤버",
+    },
+  },
   installApp: {
     title: "모바일 앱을 설치해보세요!",
     text: "더욱 편리한 서비스를 이용하실 수 있습니다.",
