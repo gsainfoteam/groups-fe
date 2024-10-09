@@ -5,7 +5,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import useGroupNotionSequence from "./hooks/useGroupNotionSequence";
 
 import Button from "@/components/button/Button";
 import {
@@ -14,8 +13,9 @@ import {
 } from "@/pages/create/animations/animations";
 import { NotionRenderer } from "react-notion-x";
 import { createGroup, setGroupProfileImage } from "@/apis/group";
+import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
 
-const CreateNotionPage = () => {
+const CreateGroupNotionPage = () => {
   const { t } = useTranslation();
   const {
     setLink,
@@ -151,4 +151,4 @@ const CreateNotionPage = () => {
   );
 };
 
-export default CreateNotionPage;
+export default CreateGroupNotionPage;

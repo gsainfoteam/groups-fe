@@ -10,10 +10,10 @@ import Input from "@/components/input/Input";
 import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
-import isValidImage from "./utils/isValidImage";
+import useGroupProfileSequence from "../../hooks/useGroupProfileSequence";
+import isValidImage from "../../utils/isValidImage";
 
-const CreateGroupSequenceName = () => {
+const CreateGroupName = () => {
   const { t } = useTranslation();
   const {
     name,
@@ -147,4 +147,4 @@ const CreateGroupSequenceName = () => {
   );
 };
 
-export default CreateGroupSequenceName;
+export default CreateGroupName;

@@ -4,14 +4,14 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import useGroupDescriptionSequence from "./hooks/useGroupDescriptionSequence";
 
 import {
   GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
+import useGroupDescriptionSequence from "../../hooks/useGroupDescriptionSequence";
 
-const CreateDescriptionPage = () => {
+const CreateGroupDescriptionPage = () => {
   const { t } = useTranslation();
   const { descriptionLength, setDescription, isNextButtonValid, description } =
     useGroupDescriptionSequence();
@@ -120,4 +120,4 @@ const CreateDescriptionPage = () => {
   );
 };
 
-export default CreateDescriptionPage;
+export default CreateGroupDescriptionPage;

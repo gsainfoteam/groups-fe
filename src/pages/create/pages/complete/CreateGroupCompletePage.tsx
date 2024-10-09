@@ -2,9 +2,9 @@ import Button from "@/components/button/Button";
 import Path from "@/types/paths";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import CompleteAnimation from "./components/CompleteAnimation";
+import CompleteAnimation from "../../components/CompleteAnimation";
 
-const CreateGroupSequenceComplete = () => {
+const CreateGroupComplete = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
@@ -39,4 +39,4 @@ const CreateGroupSequenceComplete = () => {
   );
 };
 
-export default CreateGroupSequenceComplete;
+export default CreateGroupComplete;
