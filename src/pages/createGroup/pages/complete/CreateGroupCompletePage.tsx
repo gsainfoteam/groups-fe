@@ -3,6 +3,7 @@ import Path from "@/types/paths";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import CompleteAnimation from "../../components/CompleteAnimation";
+import GenerateInvitationLink from "./GenerateInvitationLink";
 
 const CreateGroupComplete = () => {
   const { t } = useTranslation();
@@ -24,7 +25,12 @@ const CreateGroupComplete = () => {
             {{ groupName }}
           </Trans>
         </h2>
+
         <p className="text-greyDark">{t("createGroup.complete.description")}</p>
+
+        <div className="h-16" />
+
+        <GenerateInvitationLink />
       </section>
 
       <Button
