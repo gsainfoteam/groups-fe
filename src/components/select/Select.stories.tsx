@@ -12,13 +12,19 @@ export default {
       mapping: ["small", "big"],
       control: { type: "radio" },
     },
+    withDefaultValue: {
+      options: [false, true],
+      mapping: [false, true],
+      control: { type: "boolean" },
+    },
   },
 } as Meta<typeof Select>;
 
-const DUMMY_OPTIONS = ["Option1", "Option2", "Option3"];
+const DUMMY_OPTIONS = ["Default Option", "Option1", "Option2", "Option3"];
 
 const args = {
-  options: ["Option1", "Option2", "Option3"],
+  options: DUMMY_OPTIONS,
+  withDefaultValue: true,
 };
 
 const Template: StoryFn<typeof Select> = (args) => {
