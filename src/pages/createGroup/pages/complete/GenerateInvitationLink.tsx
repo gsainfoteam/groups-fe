@@ -3,15 +3,18 @@ import { useState } from "react";
 
 const LINK_EXPIRATION_OPTIONS = [
   {
-    name: "1일 후 만료",
+    id: 0,
+    value: "1일 후 만료",
     expirationTime: 1,
   },
   {
-    name: "3일 후 만료",
+    id: 1,
+    value: "3일 후 만료",
     expirationTime: 3,
   },
   {
-    name: "일주일 후 만료",
+    id: 2,
+    value: "일주일 후 만료",
     expirationTime: 7,
   },
 ];
@@ -27,8 +30,9 @@ const GenerateInvitationLink = () => {
 
       <Select
         className="w-full"
-        options={LINK_EXPIRATION_OPTIONS.map((option) => option.name)}
-        selectedValue={expirationOption.name}
+        options={LINK_EXPIRATION_OPTIONS}
+        selectedValue={expirationOption}
+        onOptionClick={(value) => setExpirationOption(value)}
       />
 
       <div className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center">

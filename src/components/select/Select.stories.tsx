@@ -20,7 +20,24 @@ export default {
   },
 } as Meta<typeof Select>;
 
-const DUMMY_OPTIONS = ["Default Option", "Option1", "Option2", "Option3"];
+const DUMMY_OPTIONS = [
+  {
+    id: 0,
+    value: "Default Option",
+  },
+  {
+    id: 1,
+    value: "Option1",
+  },
+  {
+    id: 2,
+    value: "Option2",
+  },
+  {
+    id: 3,
+    value: "Option3",
+  },
+];
 
 const args = {
   options: DUMMY_OPTIONS,

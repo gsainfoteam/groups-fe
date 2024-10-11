@@ -45,16 +45,22 @@ const OptionVariants = cva(
   },
 );
 
-interface SelectProps extends VariantProps<typeof SelectVariants> {
-  options: string[];
-  selectedValue: string;
-  onOptionClick?: (value: string) => void;
+export interface SelectOptionBase {
+  id: number;
+  value: string;
+}
+
+interface SelectProps<OptionType extends SelectOptionBase>
+  extends VariantProps<typeof SelectVariants> {
+  options: OptionType[];
+  selectedValue: OptionType;
+  onOptionClick?: (value: OptionType) => void;
   withDefaultValue?: boolean;
 
   className?: ClassValue;
 }
 
-const Select = ({
+const Select = <OptionType extends SelectOptionBase>({
   size,
   options,
   selectedValue,
@@ -62,7 +68,7 @@ const Select = ({
   withDefaultValue,
 
   className,
-}: SelectProps) => {
+}: SelectProps<OptionType>) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const onDismiss = () => {
@@ -89,7 +95,7 @@ const Select = ({
           withDefaultValue && selectedValue === options[0] && "text-greyDark",
         )}
       >
-        {selectedValue}
+        {selectedValue.value}
       </div>
       <ArrowRight className={cn(IconVariants({ size }), "rotate-90")} />
 
@@ -100,7 +106,7 @@ const Select = ({
         >
           {options.map((optionValue, index) => (
             <li
-              key={optionValue}
+              key={optionValue.id}
               className={cn(OptionVariants({ size }), [
                 withDefaultValue && index === 0 && "text-greyDark",
                 selectedValue === optionValue && "text-primary",
@@ -110,7 +116,7 @@ const Select = ({
                 setIsOpen(false);
               }}
             >
-              <p className="grow text-base">{optionValue}</p>
+              <p className="grow text-base">{optionValue.value}</p>
 
               {selectedValue === optionValue && (
                 <Check
