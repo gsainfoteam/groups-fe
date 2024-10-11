@@ -55,6 +55,7 @@ const LoginPage = () => {
 
               <Button
                 variant="outlined"
+                size="big"
                 onClick={() => {
                   navigator(Path.Onboarding);
                 }}
@@ -78,10 +79,14 @@ const useOAuthSequence = () => {
       try {
         const result = await oauthSequence();
 
-        setAuthStatus(result ? "success" : "failed");
+        setAuthStatus(result.isSuccessful ? "success" : "failed");
+        if (result.errorMessage) {
+          setErrorMessage(result.errorMessage);
+        }
       } catch (error) {
         console.error("OAuth sequence failed:", error);
         setAuthStatus("failed");
+        setErrorMessage("unknown error");
       }
     };
 
