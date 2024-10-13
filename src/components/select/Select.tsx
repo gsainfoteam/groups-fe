@@ -102,7 +102,10 @@ const Select = <OptionType extends SelectOptionBase>({
       {isOpen && (
         <ul
           ref={ref}
-          className="absolute top-0 left-0 w-full border-greyBorder border-[1.5px] bg-white rounded-[10px] overflow-hidden"
+          className={cn(
+            "absolute top-0 left-0 w-full z-50",
+            "border-greyBorder border-[1.5px] bg-white rounded-[10px] overflow-hidden",
+          )}
         >
           {options.map((optionValue, index) => (
             <li

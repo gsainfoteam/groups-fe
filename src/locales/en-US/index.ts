@@ -113,7 +113,20 @@ export const main = {
       members: "Members",
     },
   },
-
+  groupInvitation: {
+    title: "Group Member Invitation Link",
+    description: "Click link to copy link.",
+    linkExpirationSelect: {
+      aDay: "Expires after a day",
+      threeDays: "Expires after three days",
+      aWeek: "Expires after a week",
+      aMonth: "Expiresa after a month",
+    },
+    linkActions: {
+      hover: "Click to Copy",
+      complete: "Copied!",
+    },
+  },
   createGroup: {
     createGroup: "Create Group",
     previous: "Prev",

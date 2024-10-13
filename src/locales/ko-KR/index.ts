@@ -104,6 +104,20 @@ export const main = {
       members: "멤버",
     },
   },
+  groupInvitation: {
+    title: "그룹 멤버 초대 링크",
+    description: "링크를 클릭하면 복사됩니다.",
+    linkExpirationSelect: {
+      aDay: "1일 후 만료",
+      threeDays: "3일 후 만료",
+      aWeek: "일주일 후 만료",
+      aMonth: "한달 후 만료",
+    },
+    linkActions: {
+      hover: "클릭하여 복사",
+      complete: "복사가 완료되었습니다!",
+    },
+  },
   createGroup: {
     createGroup: "그룹 생성",
     previous: "이전",
