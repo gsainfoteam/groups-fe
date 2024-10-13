@@ -7,7 +7,7 @@ import {
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
