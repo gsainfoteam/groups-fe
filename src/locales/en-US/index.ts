@@ -167,14 +167,82 @@ export const main = {
   },
 
   manageGroup: {
+    goBack: "Go back",
     groupinfo: {
-      name: "group info",
+      name: "Group Info",
+      groupPic: {
+        title: "Change Group Profile Picture",
+      },
+      groupName: {
+        title: "Group Name",
+        description: "Change Group Name",
+        button: "Change",
+      },
+      groupIntro: {
+        title: "Group Introduction",
+        description: "Change Group Introduction",
+        button: "Change",
+      },
+      groupDelete: {
+        title: "Delete Group",
+        description: "Notices posted under this group name will not be affected. This action cannot be undone.",
+        button: "Delete",
+      },
+      groupLeave: {
+        title: "Leave Group",
+        description: "Notices posted under this group name will not be affected. You can rejoin if invited again after leaving the group.",
+        button: "Leave",
+      },
+      complete: "Complete",
     },
     notionlink: {
-      name: "notion link",
+      name: "Notion Link",
+      title: "Group Introduction Notion Link",
+      description: {
+        first: "You can attach your beautiful Notion link to the group introduction.",
+        second: "After publishing your group introduction Notion on the web,",
+        third: "please paste the link here.",
+      },
+      button: "Change",
+      loading: "Loading Notion...",
+      complete: "Complete",
     },
     members: {
-      name: "member",
+      name: "Member",
+      invite: {
+        title: "Group Member Invitation Link",
+        expire: "Expires in 1 day",
+        description: "Click the link to copy it.",
+      },
+      list: {
+        title: "Manage Members",
+        table: {
+          name: "Name",
+          email: "Email",
+          role: "Role",
+          expel: "Expel",
+          admin: "Admin",
+          manager: "Manager",
+          normal: "Normal",
+          expelButton: "Expel",
+        },
+      },
+      role: {
+        title: "💡 Member Roles",
+        admin: {
+          title: "Admin",
+          description: "Has all permissions, including editing group info, changing roles, and expelling members.",
+        },
+        manager: {
+          title: "Manager",
+          description: "Can invite members and post notices on behalf of the group.",
+        },
+        normal: {
+          title: "Normal",
+          description: "Can only leave the group but is displayed as a group member on the group intro page.",
+        },
+      },
+      complete: "Complete",
     },
   },
 
