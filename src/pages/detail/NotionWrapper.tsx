@@ -6,10 +6,8 @@ import "prismjs/themes/prism-tomorrow.css";
 import "katex/dist/katex.min.css";
 import "./styles.css";
 
-import * as React from 'react'
 import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
-import 'react-notion-x/src/styles.css'
 
 const NotionWrapper = ({ recordMap}: { recordMap: ExtendedRecordMap }) => {
   if (!recordMap) {
