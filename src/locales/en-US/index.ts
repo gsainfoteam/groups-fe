@@ -168,10 +168,10 @@ export const main = {
 
   manageGroup: {
     goBack: "Go back",
-    groupinfo: {
+    groupInfo: {
       name: "Group Info",
       groupPic: {
-        title: "Change Group Profile Picture",
+        title: "Change Group Profile Image",
       },
       groupName: {
         title: "Group Name",
@@ -221,9 +221,6 @@ export const main = {
           email: "Email",
           role: "Role",
           expel: "Expel",
-          admin: "Admin",
-          manager: "Manager",
-          normal: "Normal",
           expelButton: "Expel",
         },
       },

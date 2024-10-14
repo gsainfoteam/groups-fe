@@ -1,7 +1,8 @@
 import ArrowRight from '@/assets/icons/arrow-right.svg?react';
 import { useTranslation } from "react-i18next";
 
-type Role = "admin" | "manager" | "normal";
+const ROLES = ["admin", "manager", "normal"] as const;
+type Role = typeof ROLES[number];
 
 export interface MemberProps {
   name: string;
@@ -13,7 +14,7 @@ const Member = ({ name, email, role }: MemberProps) => {
   const { t } = useTranslation();
 
   return (
-    <article className="flex h-[50px] justify-start items-center">
+    <article className="flex min-h-[50px] justify-start items-center">
       {/* 이름 */}
       <div className="flex p-2.5 w-[62px] md:w-[62px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">{name}</div>
       {/* 이메일 */}
@@ -22,7 +23,7 @@ const Member = ({ name, email, role }: MemberProps) => {
       <div className="flex justify-start p-2.5 w-[220px] md:w-[220px] h-[50px] border-b-2 border-greyBorder">
         <div className="w-full h-[30px] pl-3 pr-2.5 py-[5px] bg-greyLight rounded-[5px] flex justify-start items-center gap-2.5">
           <div className={`grow shrink basis-0 text-base font-medium ${(role === "admin" || role === "manager") ? "text-primary" : "text-greyDark"}`}>
-            {t(`manageGroup.members.list.table.${role}` as const)}
+            {t(`manageGroup.members.role.${role}.title` as const)}
           </div>
           <ArrowRight className="stroke-dark w-5 h-5 rotate-90" />
         </div>

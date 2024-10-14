@@ -16,7 +16,7 @@ const Navigator = () => {
       <NavLink 
         to="/manage/groupinfo" 
         className={getNavLinkClassName}>
-        {t("manageGroup.groupinfo.name")}
+        {t("manageGroup.groupInfo.name")}
       </NavLink>
       <NavLink 
         to="/manage/notionlink" 

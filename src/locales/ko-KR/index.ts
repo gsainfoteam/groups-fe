@@ -157,7 +157,7 @@ export const main = {
   },
   manageGroup: {
     goBack: "뒤로",
-    groupinfo: {
+    groupInfo: {
       name: "기본 정보",
       groupPic: {
         title: "그룹 프로필 사진 변경",
@@ -210,9 +210,6 @@ export const main = {
           email: "이메일",
           role: "역할",
           expel: "추방",
-          admin: "관리자",
-          manager: "매니저",
-          normal: "일반",
           expelButton: "추방하기",
         },
       },
