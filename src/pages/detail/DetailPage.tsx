@@ -44,11 +44,11 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
           />
 
           <div className={"flex flex-col items-start"}>
-            <p className={"text-[34px] font-bold leading-9"}>{group!.name}</p>
+            <p className={"text-[34px] font-bold leading-9"}>{group?.name}</p>
 
             <p className={"mt-1 text-greyDark"}>
               {t("group.memberCount", {
-                count: group!.memberCount,
+                count: group?.memberCount ?? 0,
               })}
               {" · "}
               {t("group.noticeCount", {
@@ -70,7 +70,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
             "my-6 w-full rounded-2xl bg-greyLight px-5 py-[15px] text-lg text-greyDark"
           }
         >
-          {group!.description}
+          {group?.description}
         </p>
 
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
