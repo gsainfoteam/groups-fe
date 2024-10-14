@@ -16,7 +16,11 @@ import GroupDetailPage from "./pages/detail/DetailPage";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
-import Path from "./types/paths";
+import Path from "./types/Paths";
+import ManageLayout from "./pages/manage/ManageLayout";
+import ManageGroupInfoPage from "./pages/manage/ManageGroupInfoPage";
+import ManageMembersPage from "./pages/manage/ManageMembersPage";
+import ManageNotionLinkPage from "./pages/manage/ManageNotionLinkPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -44,6 +48,13 @@ const router = createBrowserRouter(
       </Route>
 
       <Route path={Path.Login} element={<LoginPage />} />
+
+      <Route element={<ManageLayout />}>
+        <Route path={Path.Manage} element={<Navigate to={Path.ManageGroupInfo} />} />
+        <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
+        <Route path={Path.ManageNotionLink} element={<ManageNotionLinkPage />} />
+        <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
+      </Route>
     </>,
   ),
 );

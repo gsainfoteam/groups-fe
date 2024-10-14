@@ -1,5 +1,5 @@
 import Button from "@/components/button/Button";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { Trans, useTranslation } from "react-i18next";

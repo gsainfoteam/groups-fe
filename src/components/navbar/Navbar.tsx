@@ -8,7 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import Button from "../button/Button";
 import useAuth from "@/hooks/useAuth";
-import Path from "@/types/paths";
+import Path from "@/types/Paths";
 import { generateOAuthLoginURL } from "@/apis/auth";
 
 interface NavbarProps {
