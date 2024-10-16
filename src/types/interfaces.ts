@@ -15,6 +15,7 @@ export interface GroupInfo {
   presidentUuid: string;
   president: UserInfo;
   memberCount: number;
+  notionPageId: number;
 }
 
 export interface Notice {

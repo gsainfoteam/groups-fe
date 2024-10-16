@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
@@ -22,6 +22,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
 
   const { data: group } = useSWR(uuid, getGroup);
 
+
   const [tab, setTab] = useState("info");
 
   if (!group) {
@@ -36,8 +37,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
         <Card className="my-[25px]">{group.description}</Card>
 
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
-        {/* disabled intro notion tab since not working */}
-        {/* {tab === "info" && <GroupIntroTab />} */}
+        {tab === "info" && <GroupIntroTab />}
         {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
         {tab === "member" && <GroupMembersTab />}
       </div>
