@@ -1,10 +1,28 @@
-import dayjs from "dayjs";
+import { cn } from "@/utils/clsx";
+import { cva } from "class-variance-authority";
+import { ClassValue } from "clsx";
+import dayjs, { Dayjs } from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { useTranslation } from "react-i18next";
 import { Trans } from "react-i18next/TransWithoutContext";
 
+dayjs.extend(relativeTime);
+
+const DDayVariants = cva(
+  "h-fit rounded-md px-[10px] py-[3px] text-sm text-white dark:text-d_white",
+  {
+    variants: {
+      isClosed: {
+        true: ["bg-greyDark"],
+        false: ["bg-primary"],
+      },
+    },
+  },
+);
+
 interface DDayProps {
-  deadline: dayjs.Dayjs | string;
-  className?: string;
+  deadline: Dayjs | string;
+  className?: ClassValue;
 }
 
 const DDay = ({ deadline, className }: DDayProps) => {
@@ -13,18 +31,11 @@ const DDay = ({ deadline, className }: DDayProps) => {
   const { t } = useTranslation();
 
   return (
-    <p
-      className={
-        `h-fit rounded-md ${
-          isClosed ? "bg-greyDark" : "bg-primary"
-        } px-[10px] py-[3px] text-[14px] text-white dark:text-text ` + className
-      }
-    >
+    <p className={cn(DDayVariants({ isClosed }), className)}>
       {isClosed ? (
         t("common.overdue")
       ) : (
         <Trans t={t} i18nKey={"zabo.timeLeft"}>
-          {/* @ts-ignore */}
           {{ timeLeft: dayjs(deadline).fromNow(true) }}
         </Trans>
       )}

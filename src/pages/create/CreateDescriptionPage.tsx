@@ -74,19 +74,19 @@ const CreateDescriptionPage = () => {
         </AnimatePresence>
       </div>
 
-      <div className={"flex gap-[10px]"}>
+      <div className={"flex gap-[10px] w-full mt-[30px] justify-center"}>
         <Button
           variant={"outlined"}
-          className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          className="w-full py-[15px] text-[18px] max-w-[240px]"
+          size="cta"
           onClick={handlePreviousClick}
         >
           {t("createGroup.previous")}
-        </Button>{" "}
+        </Button>
         <Button
-          variant={isNextButtonValid ? "contained" : "disabled"}
-          className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          variant={isNextButtonValid ? "emphasized" : "disabled"}
+          className="w-full py-[15px] text-[18px] max-w-[240px]"
+          size="cta"
           disabled={!isNextButtonValid}
           onClick={handleNextClick}
         >

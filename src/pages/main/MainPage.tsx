@@ -10,6 +10,7 @@ import Button from "@/components/button/Button";
 
 import GroupItem from "./GroupItem";
 import NotInGroup from "./NotInGroup";
+import Card from "@/components/card/Card";
 const MainPage = () => {
   const { t } = useTranslation();
 
@@ -25,6 +26,7 @@ const MainPage = () => {
         <div className="title mb-10 w-full text-4xl font-bold text-text">
           {t("group.mainTitle")}
         </div>
+
         {groupList.length === 0 ? (
           <NotInGroup />
         ) : (
@@ -32,10 +34,12 @@ const MainPage = () => {
             return <GroupItem key={group.name} groupParams={{ group }} />;
           })
         )}
-        <div className="my-10 w-full rounded-[15px] bg-greyLight p-6 text-base font-normal text-greyDark dark:bg-d_greyDark">
+
+        <Card className="text-base my-[40px]">
           {t("group.mainDescription")}
-        </div>
-        <Button variant="contained" className="mb-4 w-60 rounded-[10px] py-2">
+        </Card>
+
+        <Button variant="emphasized" className="mb-4 w-60 rounded-[10px] py-2">
           <p className="mx-3 my-1 text-base font-bold">
             {t("group.createGroup")}
           </p>

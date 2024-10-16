@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useState, useTransition } from "react";
 import { useParams } from "react-router-dom";
-import Button from "src/components/button/Button";
 import useSWR from "swr";
 
 import { getGroup } from "@/apis/group";
-import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 
 import GroupDetailTabs from "./GroupDetailTabs";
-import GroupIntroTab from "./GroupIntroTab";
-import GroupMembersTab from "./GroupMembersTab";
-import GroupNoticesTab from "./GroupNoticesTab";
+
+import GroupMembersTab from "./tabs/members/GroupMembersTab";
+import GroupNoticesTab from "./tabs/notices/GroupNoticesTab";
+import GroupIntroTab from "./tabs/intro/GroupIntroTab";
+import GroupProfile from "./GroupProfile";
+import Loading from "@/components/loading/Loading";
+import Card from "@/components/card/Card";
 
 interface GroupDetailPageProps {
   searchParams?: { tab: string; page: string };
@@ -19,69 +20,29 @@ interface GroupDetailPageProps {
 const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { uuid } = useParams<{ uuid: string }>();
 
-  const { data: group, error, isLoading } = useSWR(uuid, getGroup);
-  const { t } = useTranslation();
+  const { data: group } = useSWR(uuid, getGroup);
+
 
   const [tab, setTab] = useState("info");
 
-  if (error) {
-    console.log(error)
-    return <div>failed to load</div>;
+  if (!group) {
+    return <Loading />; // TODO: loading or error page
   }
-  else if(isLoading){
-    return <div>loading...</div>
-  }
-  else{
+
   return (
-    <main className={"flex flex-col items-center"}>
+    <main className={"flex flex-col items-center mt-[20px] md:mt-[48px]"}>
       <div className={"content flex max-w-[800px] flex-col"}>
-        <div className={"flex items-center gap-[25px]"}>
-          <img
-            src={GroupProfileDefault}
-            width={160}
-            height={160}
-            alt={"group default profile"}
-          />
+        <GroupProfile group={group} />
 
-          <div className={"flex flex-col items-start"}>
-            <p className={"text-[34px] font-bold leading-9"}>{group?.name}</p>
-
-            <p className={"mt-1 text-greyDark"}>
-              {t("group.memberCount", {
-                count: group?.memberCount ?? 0,
-              })}
-              {" · "}
-              {t("group.noticeCount", {
-                count: 0,
-              })}
-            </p>
-
-            <Button
-              variant="contained"
-              className={"mt-3 rounded-[10px] md:px-6 md:py-2"}
-            >
-              <p>{t("group.favorite")}</p>
-            </Button>
-          </div>
-        </div>
-
-        <p
-          className={
-            "my-6 w-full rounded-2xl bg-greyLight px-5 py-[15px] text-lg text-greyDark"
-          }
-        >
-          {group?.description}
-        </p>
+        <Card className="my-[25px]">{group.description}</Card>
 
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
-
         {tab === "info" && <GroupIntroTab />}
         {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
         {tab === "member" && <GroupMembersTab />}
       </div>
     </main>
   );
-}
 };
 
 export default GroupDetailPage;

@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import Input from "./Input";
 
 export default {
-  title: "molecules/Input",
+  title: "components/Input",
   component: Input,
   argTypes: {
     buttonValue: {
@@ -31,3 +31,6 @@ const args = {
 
 export const Default = Template.bind({});
 Default.args = { ...args };
+
+export const WithButton = Template.bind({});
+WithButton.args = { ...args, buttonValue: "button" };
