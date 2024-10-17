@@ -60,8 +60,8 @@ const CreateNotionPage = () => {
         description: location.state.description,
         notionPageId: notionPageId || "",
       });
-
-      const groupUuid = response?.data?.uuid;
+      console.log(response);
+      const groupUuid = response.data?.uuid;
 
       if (groupUuid && location.state.profileImage) {
         await setGroupProfileImage(groupUuid, location.state.profileImage);
