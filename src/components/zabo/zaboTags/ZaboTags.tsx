@@ -1,6 +1,5 @@
+import Tag from "@/components/tag/Tag";
 import { Notice } from "@/types/interfaces";
-
-import Tag from "../tag/Tag";
 
 interface ZaboTagsProps {
   notice: Notice;

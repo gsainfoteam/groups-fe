@@ -28,9 +28,9 @@ const CreateGroupSequenceComplete = () => {
       </section>
 
       <Button
-        variant="contained"
+        variant="emphasized"
         className="w-full py-[15px] text-[18px] md:w-[240px]"
-        isBig
+        size="cta"
         onClick={handleCompleteClick}
       >
         {t("createGroup.goBack")}

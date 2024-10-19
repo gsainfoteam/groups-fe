@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 
 import CategorizedNotices from "@/components/categorizedNotices/CategorizedNotices";
-import LoadingCatAnimation from "@/components/loadingCatAnimation/LoadingCatAnimation";
+import Loading from "@/components/loading/Loading";
 
 interface GroupNoticesTabProps {
   searchParams?: { page: string };
@@ -12,7 +12,7 @@ const GroupNoticesTab = ({}: GroupNoticesTabProps) => {
   const page = parseInt(params.get("page") ?? "0");
 
   return (
-    <Suspense key={JSON.stringify(page)} fallback={<LoadingCatAnimation />}>
+    <Suspense key={JSON.stringify(page)} fallback={<Loading />}>
       <div className={"h-5"} />
 
       <CategorizedNotices page={page} />
