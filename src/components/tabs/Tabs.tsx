@@ -1,5 +1,6 @@
 import { cn } from "@/utils/clsx";
 import { ClassValue } from "clsx";
+import { NavLink } from "react-router-dom";
 
 const ButtonClass: ClassValue = "flex-none border-b-[3px] p-[15px] pb-3";
 
@@ -48,5 +49,20 @@ const Tabs = ({ tabs, activeTab, setActiveTab }: TabsProps) => {
     </div>
   );
 };
+
+interface NavLinkTabsProps {
+  tabs: Required<TabInfo>[];
+}
+
+export const NavLinkTabs = ({ tabs }: NavLinkTabsProps) => (
+  <div className={"flex"}>
+    {tabs.map((tab) => (
+      <NavLink key={tab.key} to={tab.link}>
+        {({ isActive }) => <Tab tabInfo={tab} isActive={isActive} />}
+      </NavLink>
+    ))}
+    <div className={"flex-grow border-b-[3px] border-grey"} />
+  </div>
+);
 
 export default Tabs;
