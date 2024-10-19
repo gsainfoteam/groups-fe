@@ -40,7 +40,7 @@ const CreateGroupSequenceName = () => {
     if (profileImageFromState) {
       setProfileImageUrl(profileImageFromState);
     }
-  }, [groupNameFromState, profileImageFromState, setName]);
+  }, [groupNameFromState, profileImageFromState, setName, setProfileImageUrl]);
 
   const handleNextClick = () => {
     setIsExiting(true);

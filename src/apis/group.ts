@@ -1,7 +1,5 @@
-import dayjs from "dayjs";
-
 import groupsApi from "./interceptor";
-import { GroupInfo, UserInfo } from "@/types/interfaces";
+import { GroupInfo } from "@/types/interfaces";
 
 export interface InviteCode {
   code: string;
@@ -23,11 +21,13 @@ export const generateInviteCode = async (uuid: string): Promise<InviteCode> => {
     .then(({ data }) => data);
 };
 
-export const createGroup = async (groupData: {
+interface CreateGroupRequest {
   name: string;
   description: string;
   notionPageId: string;
-}) => {
+}
+
+export const createGroup = async (groupData: CreateGroupRequest) => {
   return groupsApi
     .post<GroupInfo>(`/group`, groupData)
     .then(({ data }) => data);
