@@ -28,12 +28,30 @@ export const createGroup = async (groupData: {
   description: string;
   notionPageId: string;
 }) => {
-  return groupsApi.post(`/group`, groupData).then(({ data }) => data);
+  return groupsApi
+    .post<GroupInfo>(`/group`, groupData)
+    .then(({ data }) => data);
 };
 
 export const setGroupProfileImage = async (id: string, image: File) => {
   const formData = new FormData();
   formData.append("file", image);
 
-  const response = await groupsApi.post(`/group/${id}/image`, formData);
+  const response = await groupsApi.post(`/group/${id}/image`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  return response.data;
+};
+
+interface CheckGroupExistsByNameResponse {
+  exist: boolean;
+}
+
+export const checkGroupExistsByName = async (groupName: string) => {
+  return groupsApi
+    .get<CheckGroupExistsByNameResponse>(`/group/${groupName}/exist`)
+    .then(({ data }) => data);
 };

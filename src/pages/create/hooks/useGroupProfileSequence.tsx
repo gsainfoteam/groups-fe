@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 
 import useDebouncedState from "@/hooks/useDebouncedState";
+import { checkGroupExistsByName } from "@/apis/group";
 
 const useGroupProfileSequence = () => {
-  const [debouncedName, setName] = useDebouncedState<string>("");
+  const [debouncedName, setName, name] = useDebouncedState<string>("");
   const [isNameExists, setIsNameExists] = useState<boolean | null>(null);
   const [isNextButtonValid, setIsNextButtonValid] = useState<boolean>(false);
 
@@ -11,10 +12,8 @@ const useGroupProfileSequence = () => {
   const [profileImageUrl, setProfileImageUrl] = useState<string | null>(null);
 
   const getIfNameAlreadyExists = async (groupName: string) => {
-    // const result = await getGroupByName(groupName);
-    // return !!result;
-
-    return false; // TODO: API is not ready
+    const result = await checkGroupExistsByName(groupName);
+    return !!result.exist;
   };
 
   useEffect(() => {
@@ -48,6 +47,7 @@ const useGroupProfileSequence = () => {
   }, [profileImage]);
 
   return {
+    name,
     debouncedName,
     profileImageUrl,
     setProfileImage,

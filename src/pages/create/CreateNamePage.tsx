@@ -16,6 +16,7 @@ import isValidImage from "./utils/isValidImage";
 const CreateGroupSequenceName = () => {
   const { t } = useTranslation();
   const {
+    name,
     setName,
     debouncedName,
     isNameExists,
@@ -115,7 +116,7 @@ const CreateGroupSequenceName = () => {
                     width="100%"
                     className="w-full"
                     title={t("createGroup.name.groupName")}
-                    value={debouncedName}
+                    value={name}
                     onChange={(e) => {
                       setName(e.target.value);
                     }}

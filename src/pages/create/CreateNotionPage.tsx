@@ -60,11 +60,11 @@ const CreateNotionPage = () => {
         description: location.state.description,
         notionPageId: notionPageId || "",
       });
-      console.log(response);
-      const groupUuid = response.data?.uuid;
 
-      if (groupUuid && location.state.profileImage) {
-        await setGroupProfileImage(groupUuid, location.state.profileImage);
+      const groupUuid = response.uuid;
+
+      if (groupUuid && location.state.profileImageUrl) {
+        await setGroupProfileImage(groupUuid, location.state.profileImageUrl);
       }
 
       setTimeout(() => {
