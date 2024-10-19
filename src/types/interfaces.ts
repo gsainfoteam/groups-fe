@@ -12,7 +12,11 @@ export interface GroupInfo {
   name: string;
   description: string;
   createdAt: dayjs.Dayjs | string;
+  deletedAt: dayjs.Dayjs | string;
+  verifiedAt: dayjs.Dayjs | string;
+  notionPageId: string;
   presidentUuid: string;
+  profileImageKey: string;
   president: UserInfo;
   memberCount: number;
 }

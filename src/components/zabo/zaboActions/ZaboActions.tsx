@@ -7,7 +7,7 @@ import Fire from "@/assets/icons/fire.svg?react";
 import ShareIcon from "@/assets/icons/share.svg?react";
 import { EmojiString, Notice, Reaction } from "@/types/interfaces";
 
-import Button from "../button/Button";
+import Button from "../../button/Button";
 
 type ZaboActionsProps = Notice;
 

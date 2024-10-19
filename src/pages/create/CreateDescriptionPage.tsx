@@ -1,9 +1,9 @@
 import Button from "@/components/button/Button";
 import Path from "@/types/Paths";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useGroupDescriptionSequence from "./hooks/useGroupDescriptionSequence";
 
 import {
@@ -13,18 +13,33 @@ import {
 
 const CreateDescriptionPage = () => {
   const { t } = useTranslation();
-  const { descriptionLength, setDescription, isNextButtonValid } =
+  const { descriptionLength, setDescription, isNextButtonValid, description } =
     useGroupDescriptionSequence();
 
   const [isExiting, setIsExiting] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const groupDesFromState = location.state?.description || "";
+
+  useEffect(() => {
+    if (groupDesFromState) {
+      setDescription(groupDesFromState);
+    }
+  }, [groupDesFromState, setDescription]);
 
   const handlePreviousClick = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateName);
+      navigate(Path.CreateName, {
+        state: {
+          groupName: location.state.groupName,
+          description: description || "",
+          notionPageId: location.state?.notionPageId || "",
+          profileImageUrl: location.state.profileImageUrl,
+        },
+      });
     }, 600);
   };
 
@@ -32,7 +47,14 @@ const CreateDescriptionPage = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateNotion);
+      navigate(Path.CreateNotion, {
+        state: {
+          groupName: location.state.groupName,
+          description: description,
+          notionPageId: location.state?.notionPageId || "",
+          profileImageUrl: location.state.profileImageUrl,
+        },
+      });
     }, 600);
   };
 
@@ -60,6 +82,7 @@ const CreateDescriptionPage = () => {
                 }
                 placeholder={t("createGroup.description.placeholder")}
                 rows={3}
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 variants={ITEM_VARIANT}
               />
@@ -74,19 +97,19 @@ const CreateDescriptionPage = () => {
         </AnimatePresence>
       </div>
 
-      <div className={"flex gap-[10px]"}>
+      <div className={"flex gap-[10px] w-full mt-[30px] justify-center"}>
         <Button
           variant={"outlined"}
-          className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          className="w-full py-[15px] text-[18px] max-w-[240px]"
+          size="cta"
           onClick={handlePreviousClick}
         >
           {t("createGroup.previous")}
-        </Button>{" "}
+        </Button>
         <Button
-          variant={isNextButtonValid ? "contained" : "disabled"}
-          className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          variant={isNextButtonValid ? "emphasized" : "disabled"}
+          className="w-full py-[15px] text-[18px] max-w-[240px]"
+          size="cta"
           disabled={!isNextButtonValid}
           onClick={handleNextClick}
         >

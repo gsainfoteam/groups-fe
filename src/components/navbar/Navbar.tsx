@@ -48,7 +48,7 @@ const Navbar = ({ to }: NavbarProps) => {
           ])}
         >
           <Link to={to}>
-            <Button variant="outlined">
+            <Button variant="outlined" size="big">
               {t("navbar.button.goBackToZiggle")}
             </Button>
           </Link>

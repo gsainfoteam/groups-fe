@@ -1524,6 +1524,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@storybook/addon-styling-webpack@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@storybook/addon-styling-webpack@npm:1.0.0"
+  dependencies:
+    "@storybook/node-logger": ^8.0.0-alpha.10
+  peerDependencies:
+    webpack: ^5.0.0
+  checksum: fa907064a42b255fad274ae898b48cb1ce53d969cf79b48e8e0d761ae05500ab9e486d54b2aac625f57c78347daa51828a864497955cd4b0b650e67e8196a341
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-themes@npm:^8.3.0":
+  version: 8.3.5
+  resolution: "@storybook/addon-themes@npm:8.3.5"
+  dependencies:
+    ts-dedent: ^2.0.0
+  peerDependencies:
+    storybook: ^8.3.5
+  checksum: fe1b6123729dad2a0357012d79495d2fa7fc3fdaa386bcf391dbaa8d0d5df48d254380b5f3ac60afde8616ea02b16163dd0cba34df855953187b1ffad8a4e273
+  languageName: node
+  linkType: hard
+
 "@storybook/addon-toolbars@npm:8.3.0":
   version: 8.3.0
   resolution: "@storybook/addon-toolbars@npm:8.3.0"
@@ -1698,6 +1720,15 @@ __metadata:
   peerDependencies:
     storybook: ^8.3.0
   checksum: f44e8d428bf94a4d0e306fcc0d887cdd2564ee1b1dfd5a48392cee71be6ae3e065628d5ca44d9307b8b071f9929c4a9ac7a44d7035e52fb17cb94dd9b810a399
+  languageName: node
+  linkType: hard
+
+"@storybook/node-logger@npm:^8.0.0-alpha.10":
+  version: 8.3.4
+  resolution: "@storybook/node-logger@npm:8.3.4"
+  peerDependencies:
+    storybook: ^8.3.4
+  checksum: 572351aad7973073fac89b46f46ee2b44baf13e38b80539498a067d3a363adaed7b6e3fafe96d311312fbf6216adf9419d93565890aee1f2059416f485357867
   languageName: node
   linkType: hard
 
@@ -3444,6 +3475,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"class-variance-authority@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "class-variance-authority@npm:0.7.0"
+  dependencies:
+    clsx: 2.0.0
+  checksum: e7fd1fab433ef06f52a1b7b241b70b4a185864deef199d3b0a2c3412f1cc179517288264c383f3b971a00d76811625fc8f7ffe709e6170219e88cd7368f08a20
+  languageName: node
+  linkType: hard
+
 "clean-stack@npm:^2.0.0":
   version: 2.2.0
   resolution: "clean-stack@npm:2.2.0"
@@ -3473,6 +3513,13 @@ __metadata:
   dependencies:
     mimic-response: ^1.0.0
   checksum: 4e671cac39b11c60aa8ba0a450657194a5d6504df51bca3fac5b3bd0145c4f8e8464898f87c8406b83232e3bc5cca555f51c1f9c8ac023969ebfbf7f6bdabb2e
+  languageName: node
+  linkType: hard
+
+"clsx@npm:2.0.0":
+  version: 2.0.0
+  resolution: "clsx@npm:2.0.0"
+  checksum: a2cfb2351b254611acf92faa0daf15220f4cd648bdf96ce369d729813b85336993871a4bf6978ddea2b81b5a130478339c20d9d0b5c6fc287e5147f0c059276e
   languageName: node
   linkType: hard
 
@@ -8544,6 +8591,8 @@ __metadata:
     "@storybook/addon-interactions": ^8.3.0
     "@storybook/addon-links": ^8.3.0
     "@storybook/addon-onboarding": ^8.3.0
+    "@storybook/addon-styling-webpack": ^1.0.0
+    "@storybook/addon-themes": ^8.3.0
     "@storybook/blocks": ^8.3.0
     "@storybook/react": ^8.3.0
     "@storybook/react-vite": ^8.3.0
@@ -8557,6 +8606,7 @@ __metadata:
     "@vitejs/plugin-react": ^4.2.1
     autoprefixer: ^10.4.20
     axios: ^1.7.7
+    class-variance-authority: ^0.7.0
     clsx: ^2.1.1
     dayjs: ^1.11.13
     eslint: ^8.56.0

@@ -2,9 +2,9 @@ import NotionIcon from "@/assets/icons/notion.svg?react";
 import Input from "@/components/input/Input";
 import Path from "@/types/Paths";
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useGroupNotionSequence from "./hooks/useGroupNotionSequence";
 
 import Button from "@/components/button/Button";
@@ -13,6 +13,7 @@ import {
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
 import { NotionRenderer } from "react-notion-x";
+import { createGroup, setGroupProfileImage } from "@/apis/group";
 
 const CreateNotionPage = () => {
   const { t } = useTranslation();
@@ -22,25 +23,58 @@ const CreateNotionPage = () => {
     isInvalidNotionLink,
     isNextButtonValid,
     notionRecordMap,
+    notionPageId,
   } = useGroupNotionSequence();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [isExiting, setIsExiting] = useState(false);
+  const notionPageIdFromState = location.state?.notionPageId || "";
+
+  useEffect(() => {
+    if (notionPageIdFromState) {
+      setLink(notionPageIdFromState);
+    }
+  }, [notionPageIdFromState, setLink]);
 
   const handlePreviousClick = () => {
     setIsExiting(true);
 
     setTimeout(() => {
-      navigate(Path.CreateDescription);
+      navigate(Path.CreateDescription, {
+        state: {
+          groupName: location.state.groupName,
+          description: location.state.description,
+          notionPageId: notionPageId || "",
+          profileImageUrl: location.state.profileImageUrl,
+        },
+      });
     }, 600);
   };
 
-  const handleNextClick = () => {
+  const handleNextClick = async () => {
     setIsExiting(true);
+    try {
+      const response = await createGroup({
+        name: location.state.groupName,
+        description: location.state.description,
+        notionPageId: notionPageId || "",
+      });
 
-    setTimeout(() => {
-      navigate(Path.CreateComplete);
-    }, 600);
+      const groupUuid = response.uuid;
+
+      if (groupUuid && location.state.profileImageUrl) {
+        await setGroupProfileImage(groupUuid, location.state.profileImageUrl);
+      }
+
+      setTimeout(() => {
+        navigate(Path.CreateComplete, {
+          state: { groupName: location.state.groupName },
+        });
+      }, 600);
+    } catch (error) {
+      console.error("Failed to create group:", error);
+    }
   };
 
   return (
@@ -87,21 +121,27 @@ const CreateNotionPage = () => {
         </AnimatePresence>
       </div>
 
-      {notionRecordMap && <NotionRenderer recordMap={notionRecordMap} />}
+      {notionRecordMap && Object.keys(notionRecordMap).length > 0 && (
+        <NotionRenderer
+          recordMap={notionRecordMap}
+          fullPage={true}
+          darkMode={false}
+        />
+      )}
 
-      <div className={"flex gap-[10px]"}>
+      <div className={"flex gap-[10px] w-full mt-[30px] justify-center"}>
         <Button
           variant={"outlined"}
           className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          size="cta"
           onClick={handlePreviousClick}
         >
           {t("createGroup.previous")}
-        </Button>{" "}
+        </Button>
         <Button
-          variant={isNextButtonValid ? "contained" : "outlined"}
+          variant={isNextButtonValid ? "emphasized" : "outlined"}
           className="w-full py-[15px] text-[18px] md:w-[240px]"
-          isBig
+          size="cta"
           onClick={handleNextClick}
         >
           {isNextButtonValid ? t("createGroup.next") : t("createGroup.skip")}
