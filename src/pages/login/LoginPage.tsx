@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import LocalStorageKeys from "@/types/localstorage";
 import { oAuthGetToken } from "@/apis/auth";
 import { useNavigate } from "react-router-dom";
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
 import Button from "@/components/button/Button";
 
 type AuthStatus = "loading" | "success" | "failed";
