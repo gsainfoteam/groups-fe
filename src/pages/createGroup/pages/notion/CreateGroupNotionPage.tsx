@@ -57,7 +57,7 @@ const CreateGroupNotionPage = () => {
       // }
 
       navigate(Path.CreateComplete, {
-        state: { groupName: location.state.groupName },
+        state: { groupName: location.state.groupName, groupUuid },
       });
     } catch (error) {
       console.error("Failed to create group:", error);

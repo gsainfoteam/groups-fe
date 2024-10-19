@@ -3,31 +3,26 @@ import Card from "@/components/card/Card";
 import Select from "@/components/select/Select";
 import { cn } from "@/utils/clsx";
 import Lottie from "lottie-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import ClipBoardShake from "@/assets/animations/clipboard-shake.json";
 import CompleteOutlineCircle from "@/assets/animations/complete-outline-circle.json";
 import copyToClipboard from "@/utils/copyToClipboard";
+import useSWR from "swr";
+import { generateInviteCode } from "@/apis/group";
+import invitationLinkGenerator from "../../utils/invitationLinkGenerator";
+import apiKeys, { Methods } from "@/types/api-keys";
+import Loading from "@/components/loading/Loading";
 
-const GenerateInvitationLink = () => {
+interface GenerateInvitationLinkProps {
+  groupUuid: string;
+}
+
+const A_DAY_SECOND = 60 * 60 * 24;
+
+const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
   const { t } = useTranslation();
-
-  const [isCopyAnimationPlay, setIsCopyAnimationPlay] = useState(false);
-
-  const onLinkCopyClick = () => {
-    copyToClipboard(LINK);
-    setIsCopyAnimationPlay(true);
-  };
-
-  const onLinkCopyButtonMouseLeave = () => {
-    setTimeout(() => {
-      setIsCopyAnimationPlay(false);
-    }, 300);
-  };
-
-  const LINK =
-    "https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb";
 
   const LINK_EXPIRATION_OPTIONS = [
     {
@@ -56,6 +51,42 @@ const GenerateInvitationLink = () => {
     LINK_EXPIRATION_OPTIONS[0],
   );
 
+  const { data, isLoading, error } = useSWR(
+    [
+      apiKeys.group.generateInviteCode,
+      Methods.Get,
+      groupUuid,
+      expirationOption.expirationTime,
+    ],
+    () =>
+      generateInviteCode(
+        groupUuid,
+        expirationOption.expirationTime * A_DAY_SECOND,
+      ),
+  );
+
+  const [invitationLink, setInvitationLink] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!data) return;
+    setInvitationLink(invitationLinkGenerator(data.code, groupUuid));
+  }, [data]);
+
+  const [isCopyAnimationPlay, setIsCopyAnimationPlay] = useState(false);
+
+  const onLinkCopyClick = () => {
+    if (!invitationLink) return;
+
+    copyToClipboard(invitationLink);
+    setIsCopyAnimationPlay(true);
+  };
+
+  const onLinkCopyButtonMouseLeave = () => {
+    setTimeout(() => {
+      setIsCopyAnimationPlay(false);
+    }, 300);
+  };
+
   return (
     <div className="flex flex-col md:w-[400px] justify-start items-center gap-2.5">
       <p className="text-dark text-xl font-bold">
@@ -66,10 +97,13 @@ const GenerateInvitationLink = () => {
         className="w-full"
         options={LINK_EXPIRATION_OPTIONS}
         selectedValue={expirationOption}
-        onOptionClick={(value) => setExpirationOption(value)}
+        onOptionClick={(value) => {
+          setInvitationLink(null);
+          setExpirationOption(value);
+        }}
       />
 
-      <div className="min-h-20">
+      <div className="min-h-20 w-full">
         <Button
           className={cn(
             "w-full min-h-0 px-[15px] py-2.5 justify-center items-center relative",
@@ -79,9 +113,15 @@ const GenerateInvitationLink = () => {
           onClick={onLinkCopyClick}
           onMouseLeave={onLinkCopyButtonMouseLeave}
         >
-          <p className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight">
-            {LINK}
-          </p>
+          {invitationLink ? (
+            <p className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight">
+              {invitationLink}
+            </p>
+          ) : (
+            <div className="w-full">
+              <Loading withText={false} className="w-10" topSpacing="" />
+            </div>
+          )}
 
           <Card
             className={cn(

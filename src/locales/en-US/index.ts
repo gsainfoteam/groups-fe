@@ -126,6 +126,9 @@ export const main = {
       hover: "Click to Copy",
       complete: "Copied!",
     },
+    error: {
+      unknownError: "Unknown error occured while generating invitation link.",
+    },
   },
   createGroup: {
     createGroup: "Create Group",

@@ -1,10 +1,6 @@
 import groupsApi from "./interceptor";
 import { GroupInfo } from "@/types/interfaces";
 
-export interface InviteCode {
-  code: string;
-}
-
 export const getGroupContainingMe = async (): Promise<GroupInfo[]> => {
   return groupsApi
     .get<{ list: GroupInfo[] }>("/group")
@@ -15,9 +11,16 @@ export const getGroup = async (uuid: string): Promise<GroupInfo> => {
   return groupsApi.get<GroupInfo>(`/group/${uuid}`).then(({ data }) => data);
 };
 
-export const generateInviteCode = async (uuid: string): Promise<InviteCode> => {
+export interface InviteCode {
+  code: string;
+}
+
+export const generateInviteCode = async (
+  uuid: string,
+  duration: number,
+): Promise<InviteCode> => {
   return groupsApi
-    .get<InviteCode>(`/group/${uuid}/invite`)
+    .post<InviteCode>(`/group/${uuid}/invite?duration=${duration}`)
     .then(({ data }) => data);
 };
 

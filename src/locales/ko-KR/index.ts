@@ -117,6 +117,9 @@ export const main = {
       hover: "클릭하여 복사",
       complete: "복사가 완료되었습니다!",
     },
+    error: {
+      unknownError: "초대 링크 생성 도중 에러가 발생하였습니다.",
+    },
   },
   createGroup: {
     createGroup: "그룹 생성",

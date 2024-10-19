@@ -10,6 +10,7 @@ const CreateGroupComplete = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const groupName = location.state.groupName || "Your Group";
+  const groupUuid: string | undefined = location.state.groupUuid;
 
   const handleCompleteClick = () => {
     navigate(Path.Home);
@@ -30,7 +31,11 @@ const CreateGroupComplete = () => {
 
         <div className="h-16" />
 
-        <GenerateInvitationLink />
+        {groupUuid ? (
+          <GenerateInvitationLink groupUuid={groupUuid} />
+        ) : (
+          <div>{t("groupInvitation.error.unknownError")}</div>
+        )}
       </section>
 
       <Button

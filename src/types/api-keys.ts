@@ -3,6 +3,9 @@ const apiKeys = {
     login: "/auth/login",
     info: "/auth/info",
   },
+  group: {
+    generateInviteCode: "/groups/{uuid}/invite",
+  },
 };
 
 export enum Methods {
