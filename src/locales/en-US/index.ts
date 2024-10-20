@@ -102,6 +102,8 @@ export const main = {
     mainLogo: "You are not a member of any groups.",
     mainDescription:
       "If you want to join a specific group, please contact the group administrator.",
+    successfullyJoinedMessage:
+      "Successfully joined group <strong>{{groupName}}</strong>!",
     createGroup: "Create Group",
     manageGroup: "Manage Group",
     leaveGroup: "Leave Group",

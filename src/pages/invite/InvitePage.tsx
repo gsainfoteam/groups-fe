@@ -1,4 +1,4 @@
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import JoinGroupAnimation from "@/assets/animations/JoinGroup.json";
 import Lottie from "lottie-react";
 import useSWR from "swr";
@@ -32,6 +32,7 @@ const InvitePage = () => {
     () => {
       if (code) return getInvitationInfoByInvitationCode(code);
     },
+    { shouldRetryOnError: false },
   );
 
   const handleAcceptInvitation = async () => {
@@ -112,7 +113,12 @@ const InvitePage = () => {
 
         {isLoading && <Loading />}
 
-        {error && <Error>{t("invitationPage.error.expired")}</Error>}
+        {error && (
+          <>
+            <div className="h-10" />
+            <Error>{t("invitationPage.error.expired")}</Error>
+          </>
+        )}
       </div>
     </>
   );

@@ -93,6 +93,8 @@ export const main = {
     mainLogo: "속한 그룹이 없습니다.",
     mainDescription:
       "특정 그룹에 속하길 바라신다면, 해당 그룹의 관리자에게 문의해주세요.",
+    successfullyJoinedMessage:
+      "<strong>{{groupName}}</strong> 그룹 참가가 완료되었습니다!",
     createGroup: "그룹 생성하기",
     manageGroup: "그룹 관리",
     leaveGroup: "그룹 나가기",
