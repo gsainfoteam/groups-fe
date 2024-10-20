@@ -69,3 +69,7 @@ export const getInvitationInfoByInvitationCode = async (code: string) => {
     .get<GetInvitationInfoByInvitationCodeResponse>(`/group/join?code=${code}`)
     .then(({ data }) => data);
 };
+
+export const joinGroup = async (code: string) => {
+  return groupsApi.post("/group/join", { code }).then((response) => response);
+};

@@ -10,6 +10,7 @@ export const main = {
     error: "프론트엔드 에러 발생",
     loading: "로딩 중...",
     overdue: "기한 지남",
+    backToMain: "돌아가기",
   },
   navbar: {
     all: "전체 공지",
@@ -127,6 +128,10 @@ export const main = {
     actions: {
       deny: "거부",
       accept: "수락",
+    },
+    error: {
+      alreadyInGroup: "이미 이 그룹에 속해있습니다!",
+      expired: "해당 초대 링크는 만료되었습니다.",
     },
   },
   createGroup: {

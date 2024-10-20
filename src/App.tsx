@@ -19,12 +19,12 @@ import CreateGroupDescriptionPage from "./pages/createGroup/pages/description/Cr
 import CreateGroupNotionPage from "./pages/createGroup/pages/notion/CreateGroupNotionPage";
 import CreateGroupCompletePage from "./pages/createGroup/pages/complete/CreateGroupCompletePage";
 import InvitePage from "./pages/invite/InvitePage";
+import ErrorPage from "./pages/error/ErrorPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<Layout />}>
-        <Route path={"*"} element={<Navigate to={Path.Home} replace />} />
         <Route path={Path.Home} element={<MainPage />} />
         <Route path={Path.Group + ":uuid"} element={<GroupDetailPage />} />
         <Route path={Path.Invite} element={<InvitePage />} />
@@ -49,6 +49,7 @@ const router = createBrowserRouter(
         <Route path={Path.Onboarding} element={<OnboardingPage />} />
       </Route>
 
+      <Route path={"*"} element={<ErrorPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
     </>,
   ),

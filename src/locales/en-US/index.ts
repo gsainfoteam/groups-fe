@@ -10,6 +10,7 @@ export const main = {
     error: "Frontend Error Occurred",
     loading: "Loading...",
     overdue: "OVERDUE",
+    backToMain: "Back to Main",
   },
   navbar: {
     all: "All Notices",
@@ -136,6 +137,10 @@ export const main = {
     actions: {
       deny: "Deny",
       accept: "Accept",
+    },
+    error: {
+      alreadyInGroup: "You are already in this group!",
+      expired: "This invitation link is expired.",
     },
   },
   createGroup: {
