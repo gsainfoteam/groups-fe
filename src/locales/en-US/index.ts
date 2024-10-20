@@ -130,6 +130,14 @@ export const main = {
       unknownError: "Unknown error occured while generating invitation link.",
     },
   },
+  invitationPage: {
+    title: 'Are you going to join group "{{groupName}}"',
+    groupAdmin: "Group Administrator: ",
+    actions: {
+      deny: "Deny",
+      accept: "Accept",
+    },
+  },
   createGroup: {
     createGroup: "Create Group",
     previous: "Prev",

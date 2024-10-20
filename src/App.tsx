@@ -18,6 +18,7 @@ import CreateGroupName from "./pages/createGroup/pages/name/CreateGroupNamePage"
 import CreateGroupDescriptionPage from "./pages/createGroup/pages/description/CreateGroupDescriptionPage";
 import CreateGroupNotionPage from "./pages/createGroup/pages/notion/CreateGroupNotionPage";
 import CreateGroupCompletePage from "./pages/createGroup/pages/complete/CreateGroupCompletePage";
+import InvitePage from "./pages/invite/InvitePage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
         <Route path={"*"} element={<Navigate to={Path.Home} replace />} />
         <Route path={Path.Home} element={<MainPage />} />
         <Route path={Path.Group + ":uuid"} element={<GroupDetailPage />} />
+        <Route path={Path.Invite} element={<InvitePage />} />
 
         <Route element={<CreateGroupLayout />}>
           <Route

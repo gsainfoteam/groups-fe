@@ -121,6 +121,14 @@ export const main = {
       unknownError: "초대 링크 생성 도중 에러가 발생하였습니다.",
     },
   },
+  invitationPage: {
+    title: '"{{groupName}}" 그룹에 참여하시겠습니까?',
+    groupAdmin: "그룹 관리자: ",
+    actions: {
+      deny: "거부",
+      accept: "수락",
+    },
+  },
   createGroup: {
     createGroup: "그룹 생성",
     previous: "이전",

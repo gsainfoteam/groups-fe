@@ -1,12 +1,5 @@
-const invitationLinkGenerator = (groupUuid: string, code: string) => {
-  return (
-    import.meta.env.VITE_BASE_URL +
-    "invite" +
-    "?groupUuid=" +
-    groupUuid +
-    "?code=" +
-    code
-  );
+const invitationLinkGenerator = (code: string) => {
+  return import.meta.env.VITE_BASE_URL + "invite" + "?code=" + code;
 };
 
 export default invitationLinkGenerator;

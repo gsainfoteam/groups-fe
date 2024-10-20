@@ -4,6 +4,7 @@ const apiKeys = {
     info: "/auth/info",
   },
   group: {
+    getGroupInfoByUuid: "/groups/{uuid}",
     generateInviteCode: "/groups/{uuid}/invite",
   },
 };

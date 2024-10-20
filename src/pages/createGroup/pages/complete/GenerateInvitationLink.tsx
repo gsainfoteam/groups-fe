@@ -69,7 +69,7 @@ const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
 
   useEffect(() => {
     if (!data) return;
-    setInvitationLink(invitationLinkGenerator(data.code, groupUuid));
+    setInvitationLink(invitationLinkGenerator(data.code));
   }, [data]);
 
   const [isCopyAnimationPlay, setIsCopyAnimationPlay] = useState(false);
@@ -113,11 +113,12 @@ const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
           onClick={onLinkCopyClick}
           onMouseLeave={onLinkCopyButtonMouseLeave}
         >
-          {invitationLink ? (
+          {invitationLink && (
             <p className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight">
               {invitationLink}
             </p>
-          ) : (
+          )}
+          {isLoading && (
             <div className="w-full">
               <Loading withText={false} className="w-10" topSpacing="" />
             </div>

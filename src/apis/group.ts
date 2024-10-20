@@ -58,3 +58,14 @@ export const checkGroupExistsByName = async (groupName: string) => {
     .get<CheckGroupExistsByNameResponse>(`/group/${groupName}/exist`)
     .then(({ data }) => data);
 };
+
+interface GetInvitationInfoByInvitationCodeResponse {
+  presidentEmail: string;
+  name: string;
+}
+
+export const getInvitationInfoByInvitationCode = async (code: string) => {
+  return groupsApi
+    .get<GetInvitationInfoByInvitationCodeResponse>(`/group/join?code=${code}`)
+    .then(({ data }) => data);
+};
