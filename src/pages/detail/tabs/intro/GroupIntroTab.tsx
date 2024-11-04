@@ -7,25 +7,27 @@ import "katex/dist/katex.min.css";
 import "./styles.css";
 
 import useSWR from "swr";
-
 import { getNotionPage } from "@/apis/notion";
-import NotionWrapper from "./NotionWrapper";
+import { useParams } from "react-router-dom";
+import { getGroup } from "@/apis/group";
+//import NotionWrapper from "./NotionWrapper";
 
 interface GroupIntroTabProps {}
 
 const GroupIntroTab = ({}: GroupIntroTabProps) => {
-  const { data: recordMap } = useSWR(
-    "2024-GIST-Developers-Night-1292632ae49843a79fb3e554c6a926c1",
-    getNotionPage,
-  );
-
-  if (recordMap == null) {
-    return <div>Notion page not found</div>;
-  }
-
+  const {uuid} = useParams();
+  const {data : group, error: groupError } = useSWR(uuid,getGroup)
+  const { data: recordMap, error: recordMapError } = useSWR(group.notionPageId, getNotionPage);        
+  
+  if (group || groupError)
+    return <div>Group introduce page not found</div>
+  if (!recordMap || recordMapError) 
+    return <div>Notion page not found - Please Check your notion ID</div>;
+ 
   return (
     <div className={"mt-5"}>
-      <NotionWrapper recordMap={recordMap} />
+      <div>Notion page found - Todo: fix notionwrapper error</div>
+      {/* <NotionWrapper recordMap={recordMap} /> */}
     </div>
   );
 };
