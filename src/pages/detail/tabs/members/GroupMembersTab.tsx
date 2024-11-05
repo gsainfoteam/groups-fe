@@ -1,9 +1,15 @@
 import { getUserInfo } from "@/apis/auth";
+import { getGroupMember } from "@/apis/group";
+import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
 
 const GroupMembersTab = () => {
+  const {uuid} = useParams<{uuid:string}>()
+  console.log(uuid)
   const {data, error, isLoading} = useSWR("UserInfo",getUserInfo)
+  const {data : members } = useSWR(uuid,getGroupMember)
+  console.log(members)
   if(error || isLoading){
     return <p>Loading members...</p>
   }

@@ -19,7 +19,6 @@ export interface GroupInfo {
   profileImageKey: string;
   president: UserInfo;
   memberCount: number;
-  notionPageId: string;
 }
 
 export interface Notice {

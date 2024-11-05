@@ -17,7 +17,7 @@ interface GroupIntroTabProps {}
 const GroupIntroTab = ({}: GroupIntroTabProps) => {
   const {uuid} = useParams();
   const {data : group, error: groupError } = useSWR(uuid,getGroup)
-  const { data: recordMap, error: recordMapError } = useSWR(group.notionPageId, getNotionPage);        
+  const { data: recordMap, error: recordMapError } = useSWR(group?.notionPageId, getNotionPage);        
   
   if (group || groupError)
     return <div>Group introduce page not found</div>
