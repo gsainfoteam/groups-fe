@@ -56,8 +56,8 @@ export const checkGroupExistsByName = async (groupName: string) => {
     .then(({ data }) => data);
 };
 
-export const getGroupMember = async (uuid: string) => {
+export const getGroupMember = async (url: string) => {
   return groupsApi
-    .get(`/group/${uuid}/member`)
-    .then(({data}) => data);
+    .get(url)
+    .then(({data}) => data.list);
 };
