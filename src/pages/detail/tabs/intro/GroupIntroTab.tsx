@@ -12,10 +12,7 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import NotionWrapper from "./NotionWrapper";
 //import NotionWrapper from "./NotionWrapper";
-
-interface GroupIntroTabProps {}
-
-const GroupIntroTab = ({}: GroupIntroTabProps) => {
+const GroupIntroTab = () => {
   const { uuid } = useParams();
   const { data: group, error: groupError } = useSWR(uuid, getGroup);
   const { data: recordMap, error: recordMapError } = useSWR(
