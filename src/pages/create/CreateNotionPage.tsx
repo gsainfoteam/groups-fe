@@ -64,13 +64,19 @@ const CreateNotionPage = () => {
 
       const groupUuid = response.uuid;
 
-      const image = await dataUrlToFile(
-        location.state.profileImageUrl,
-        "image",
-      );
+      try {
+        const filename = `profile_${Date.now()}`;
+        const image = await dataUrlToFile(
+          location.state.profileImageUrl,
+          filename,
+        );
 
-      if (groupUuid && location.state.profileImageUrl) {
-        await setGroupProfileImage(groupUuid, image);
+        if (groupUuid && location.state.profileImageUrl) {
+          await setGroupProfileImage(groupUuid, image);
+        }
+      } catch (error) {
+        console.error("profile image upload failed:", error);
+        // TODO: 사용자에게 이미지 업로드 실패 알림
       }
 
       setTimeout(() => {
