@@ -1,7 +1,7 @@
 import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
-import { useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
+import { useTranslation } from "react-i18next";
 
 import { generateOAuthLoginURL } from "@/apis/auth";
 
