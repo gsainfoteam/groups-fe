@@ -1,13 +1,13 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
+import Button from "@/components/button/Button";
+import Input from "@/components/input/Input";
 import {
   GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
   GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
 } from "@/pages/create/animations/animations";
-import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
-import Button from "@/components/button/Button";
-import Input from "@/components/input/Input";
 import Path from "@/types/paths";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
 import useGroupProfileSequence from "./hooks/useGroupProfileSequence";
@@ -83,8 +83,13 @@ const CreateGroupSequenceName = () => {
                   className={"mx-5 object-cover aspect-square rounded-full"}
                 />
 
-                <motion.label variants={ITEM_VARIANT}>
+                <motion.label
+                  variants={ITEM_VARIANT}
+                  className={"cursor-pointer"}
+                  htmlFor={"group-profile-image"}
+                >
                   <motion.input
+                    id={"group-profile-image"}
                     type={"file"}
                     accept={"image/*"}
                     onChange={(e) => {
@@ -96,11 +101,14 @@ const CreateGroupSequenceName = () => {
                     className={"hidden"}
                   />
 
-                  <motion.div>
-                    <Button variant="contained" size="big">
-                      {t("createGroup.name.chooseGroupProfile")}
-                    </Button>
-                  </motion.div>
+                  <motion.span
+                    className={
+                      "border border-primary text-primary hover:bg-secondary px-[25px] py-[10px] rounded-[5px]"
+                      // same as Button component's "outlined" variant. Need some kind of style injection
+                    }
+                  >
+                    {t("createGroup.name.chooseGroupProfile")}
+                  </motion.span>
                 </motion.label>
               </motion.div>
 
