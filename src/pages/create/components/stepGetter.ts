@@ -21,8 +21,6 @@ const stepGetter = (stepParam: string | undefined): Step | never => {
   };
 
   switch (stepParam) {
-    case "createGroup":
-
     case "description":
       step = {
         step: 2,
@@ -44,6 +42,7 @@ const stepGetter = (stepParam: string | undefined): Step | never => {
         stepNameTranslation: t("createGroup.complete.stepName"),
       };
       break;
+    case "createGroup":
     case "name":
     default:
       step = {
