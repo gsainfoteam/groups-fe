@@ -9,6 +9,7 @@ import Button from "@/components/button/Button";
 import { NotionRenderer } from "react-notion-x";
 import { createGroup, setGroupProfileImage } from "@/apis/group";
 import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
+import { dataUrlToFile } from "@/utils/dataURLtoFile";
 
 const CreateGroupNotionPage = () => {
   const { t } = useTranslation();
@@ -52,9 +53,20 @@ const CreateGroupNotionPage = () => {
 
       const groupUuid = response.uuid;
 
-      // if (groupUuid && location.state.profileImageUrl) {
-      //   await setGroupProfileImage(groupUuid, location.state.profileImageUrl);
-      // }
+      try {
+        const filename = `profile_${Date.now()}`;
+        const image = await dataUrlToFile(
+          location.state.profileImageUrl,
+          filename,
+        );
+
+        if (groupUuid && location.state.profileImageUrl) {
+          await setGroupProfileImage(groupUuid, image);
+        }
+      } catch (error) {
+        console.error("profile image upload failed:", error);
+        // TODO: 사용자에게 이미지 업로드 실패 알림
+      }
 
       navigate(Path.CreateComplete, {
         state: { groupName: location.state.groupName, groupUuid },
