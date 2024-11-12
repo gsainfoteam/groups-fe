@@ -17,7 +17,7 @@ export const main = {
     query: "Search Notice",
     login: "Login",
     button: {
-      goBackToZiggle: "Back to Main",
+      goBackToZiggle: "Back to Ziggle",
     },
   },
   onboarding: {

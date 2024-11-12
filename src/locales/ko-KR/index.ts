@@ -17,7 +17,7 @@ export const main = {
     query: "공지 검색",
     login: "로그인",
     button: {
-      goBackToZiggle: "메인으로",
+      goBackToZiggle: "지글로 돌아가기",
     },
   },
   onboarding: {
