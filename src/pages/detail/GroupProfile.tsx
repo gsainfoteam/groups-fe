@@ -13,7 +13,8 @@ const GroupProfile = ({ group }: GroupProfileProps) => {
   return (
     <div className={"flex items-center gap-[25px]"}>
       <img
-        src={GroupProfileDefault}
+        src={group.profileImageUrl || GroupProfileDefault}
+        className={"rounded-full aspect-square object-cover"}
         width={160}
         height={160}
         alt={"group default profile"}
