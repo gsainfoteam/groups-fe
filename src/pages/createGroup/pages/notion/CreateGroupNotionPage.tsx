@@ -1,22 +1,17 @@
 import NotionIcon from "@/assets/icons/notion.svg?react";
 import Input from "@/components/input/Input";
 import Path from "@/types/paths";
-import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import useGroupNotionSequence from "./hooks/useGroupNotionSequence";
 
-import { createGroup, setGroupProfileImage } from "@/apis/group";
 import Button from "@/components/button/Button";
-import {
-  GROUP_CREATION_NAME_ANIMATION_CONTAINER_VARIANT as CONTAINER_VARIANT,
-  GROUP_CREATION_NAME_ANIMATION_ITEM_VARIANT as ITEM_VARIANT,
-} from "@/pages/create/animations/animations";
-import { dataUrlToFile } from "@/utils/dataURLtoFile";
 import { NotionRenderer } from "react-notion-x";
+import { createGroup, setGroupProfileImage } from "@/apis/group";
+import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
+import { dataUrlToFile } from "@/utils/dataURLtoFile";
 
-const CreateNotionPage = () => {
+const CreateGroupNotionPage = () => {
   const { t } = useTranslation();
   const {
     setLink,
@@ -29,7 +24,6 @@ const CreateNotionPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const [isExiting, setIsExiting] = useState(false);
   const notionPageIdFromState = location.state?.notionPageId || "";
 
   useEffect(() => {
@@ -39,22 +33,17 @@ const CreateNotionPage = () => {
   }, [notionPageIdFromState, setLink]);
 
   const handlePreviousClick = () => {
-    setIsExiting(true);
-
-    setTimeout(() => {
-      navigate(Path.CreateDescription, {
-        state: {
-          groupName: location.state.groupName,
-          description: location.state.description,
-          notionPageId: notionPageId || "",
-          profileImageUrl: location.state.profileImageUrl,
-        },
-      });
-    }, 600);
+    navigate(Path.CreateDescription, {
+      state: {
+        groupName: location.state.groupName,
+        description: location.state.description,
+        notionPageId: notionPageId || "",
+        profileImageUrl: location.state.profileImageUrl,
+      },
+    });
   };
 
   const handleNextClick = async () => {
-    setIsExiting(true);
     try {
       const response = await createGroup({
         name: location.state.groupName,
@@ -79,11 +68,9 @@ const CreateNotionPage = () => {
         // TODO: 사용자에게 이미지 업로드 실패 알림
       }
 
-      setTimeout(() => {
-        navigate(Path.CreateComplete, {
-          state: { groupName: location.state.groupName },
-        });
-      }, 600);
+      navigate(Path.CreateComplete, {
+        state: { groupName: location.state.groupName, groupUuid },
+      });
     } catch (error) {
       console.error("Failed to create group:", error);
     }
@@ -92,45 +79,31 @@ const CreateNotionPage = () => {
   return (
     <>
       <div className={"w-full md:h-[500px] max-w-[685px]"}>
-        <AnimatePresence>
-          {!isExiting && (
-            <motion.section
-              className={"flex flex-col gap-[15px] mt-20"}
-              variants={CONTAINER_VARIANT}
-              animate="visible"
-              exit="out"
-            >
-              <motion.div
-                className={"flex items-center gap-[10px]"}
-                variants={ITEM_VARIANT}
-              >
-                <NotionIcon className={"m-0"} width={38} height={39} />
+        <section className={"flex flex-col gap-[15px] mt-20"}>
+          <div className={"flex items-center gap-[10px]"}>
+            <NotionIcon className={"m-0"} width={38} height={39} />
 
-                <motion.h2 className={"create-subtitle"}>
-                  {t("createGroup.notion.title")}
-                </motion.h2>
-              </motion.div>
-              <motion.p variants={ITEM_VARIANT}>
-                <Trans i18nKey={"createGroup.notion.description"} />
-              </motion.p>
+            <h2 className={"create-subtitle"}>
+              {t("createGroup.notion.title")}
+            </h2>
+          </div>
+          <p>
+            <Trans i18nKey={"createGroup.notion.description"} />
+          </p>
 
-              <Input
-                placeholder={t("createGroup.notion.placeholder")}
-                type={"text"}
-                onChange={(e) => setLink(e.target.value)}
-                errorText={
-                  isInvalidNotionLink && isValidLink
-                    ? t(
-                        "createGroup.notion.exceptions.customDomainNotSupported",
-                      )
-                    : isInvalidNotionLink
-                      ? t("createGroup.notion.exceptions.invalidNotionLink")
-                      : undefined
-                }
-              />
-            </motion.section>
-          )}
-        </AnimatePresence>
+          <Input
+            placeholder={t("createGroup.notion.placeholder")}
+            type={"text"}
+            onChange={(e) => setLink(e.target.value)}
+            errorText={
+              isInvalidNotionLink && isValidLink
+                ? t("createGroup.notion.exceptions.customDomainNotSupported")
+                : isInvalidNotionLink
+                  ? t("createGroup.notion.exceptions.invalidNotionLink")
+                  : undefined
+            }
+          />
+        </section>
       </div>
 
       {notionRecordMap && Object.keys(notionRecordMap).length > 0 && (
@@ -163,4 +136,4 @@ const CreateNotionPage = () => {
   );
 };
 
-export default CreateNotionPage;
+export default CreateGroupNotionPage;

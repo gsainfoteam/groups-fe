@@ -9,6 +9,7 @@ import { oAuthGetToken } from "@/apis/auth";
 import { useNavigate } from "react-router-dom";
 import Path from "@/types/paths";
 import Button from "@/components/button/Button";
+import Error from "@/assets/error/Error";
 
 type AuthStatus = "loading" | "success" | "failed";
 
@@ -42,25 +43,15 @@ const LoginPage = () => {
 
           {authStatus === "failed" && (
             <>
-              <WarningSign className="w-[200px] h-fit" />
-
-              <div className="h-3" />
-
-              <p className="text-lg text-greyDark mb-1">
-                {t("onboarding.error.description")}
-              </p>
-              <p className="text-lg text-greyDark">{errorMessage}</p>
-
-              <div className="h-5" />
-
-              <Button
-                variant="outlined"
-                onClick={() => {
-                  navigator(Path.Onboarding);
-                }}
+              <Error
+                redirectTo={Path.Onboarding}
+                redirectButtonValue={t("onboarding.error.goBack")}
               >
-                {t("onboarding.error.goBack")}
-              </Button>
+                <p className="text-lg text-greyDark mb-1">
+                  {t("onboarding.error.description")}
+                </p>
+                <p className="text-lg text-greyDark">{errorMessage}</p>
+              </Error>
             </>
           )}
         </div>
@@ -78,10 +69,14 @@ const useOAuthSequence = () => {
       try {
         const result = await oauthSequence();
 
-        setAuthStatus(result ? "success" : "failed");
+        setAuthStatus(result.isSuccessful ? "success" : "failed");
+        if (result.errorMessage) {
+          setErrorMessage(result.errorMessage);
+        }
       } catch (error) {
         console.error("OAuth sequence failed:", error);
         setAuthStatus("failed");
+        setErrorMessage("unknown error");
       }
     };
 

@@ -10,6 +10,7 @@ export const main = {
     error: "프론트엔드 에러 발생",
     loading: "로딩 중...",
     overdue: "기한 지남",
+    backToMain: "돌아가기",
   },
   navbar: {
     all: "전체 공지",
@@ -92,6 +93,8 @@ export const main = {
     mainLogo: "속한 그룹이 없습니다.",
     mainDescription:
       "특정 그룹에 속하길 바라신다면, 해당 그룹의 관리자에게 문의해주세요.",
+    successfullyJoinedMessage:
+      "<strong>{{groupName}}</strong> 그룹 참가가 완료되었습니다!",
     createGroup: "그룹 생성하기",
     manageGroup: "그룹 관리",
     leaveGroup: "그룹 나가기",
@@ -102,6 +105,35 @@ export const main = {
       intro: "소개",
       notices: "공지",
       members: "멤버",
+    },
+  },
+  groupInvitation: {
+    title: "그룹 멤버 초대 링크",
+    description: "링크를 클릭하면 복사됩니다.",
+    linkExpirationSelect: {
+      aDay: "1일 후 만료",
+      threeDays: "3일 후 만료",
+      aWeek: "일주일 후 만료",
+      aMonth: "한달 후 만료",
+    },
+    linkActions: {
+      hover: "클릭하여 복사",
+      complete: "복사가 완료되었습니다!",
+    },
+    error: {
+      unknownError: "초대 링크 생성 도중 에러가 발생하였습니다.",
+    },
+  },
+  invitationPage: {
+    title: '"{{groupName}}" 그룹에 참여하시겠습니까?',
+    groupAdmin: "그룹 관리자: ",
+    actions: {
+      deny: "거부",
+      accept: "수락",
+    },
+    error: {
+      alreadyInGroup: "이미 이 그룹에 속해있습니다!",
+      expired: "해당 초대 링크는 만료되었습니다.",
     },
   },
   createGroup: {
