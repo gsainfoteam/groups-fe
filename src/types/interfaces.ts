@@ -14,7 +14,6 @@ export interface GroupInfo {
   createdAt: dayjs.Dayjs | string;
   deletedAt: dayjs.Dayjs | string;
   verifiedAt: dayjs.Dayjs | string;
-  notionPageId: string;
   presidentUuid: string;
   profileImageKey: string | null;
   profileImageUrl: string | null;
