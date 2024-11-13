@@ -1,7 +1,7 @@
-import Navigator from "./components/Navigator";
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import Path from "@/types/paths";
 import { Link, Outlet } from "react-router-dom";
+import Navigator from "./Navigator";
 
 const ManageLayout = () => {
   return (
