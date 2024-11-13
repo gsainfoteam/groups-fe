@@ -18,6 +18,7 @@ const useAuth = () => {
     if (error) {
       console.error(error);
       navigator(Path.Onboarding);
+      // TODO: add error toast
     }
   }, [error]);
 

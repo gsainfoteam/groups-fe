@@ -10,6 +10,7 @@ export const main = {
     error: "Frontend Error Occurred",
     loading: "Loading...",
     overdue: "OVERDUE",
+    backToMain: "Back to Main",
   },
   navbar: {
     all: "All Notices",
@@ -17,7 +18,7 @@ export const main = {
     query: "Search Notice",
     login: "Login",
     button: {
-      goBackToZiggle: "Back to Main",
+      goBackToZiggle: "Back to Ziggle",
     },
   },
   onboarding: {
@@ -101,6 +102,8 @@ export const main = {
     mainLogo: "You are not a member of any groups.",
     mainDescription:
       "If you want to join a specific group, please contact the group administrator.",
+    successfullyJoinedMessage:
+      "Successfully joined group <strong>{{groupName}}</strong>!",
     createGroup: "Create Group",
     manageGroup: "Manage Group",
     leaveGroup: "Leave Group",
@@ -113,7 +116,35 @@ export const main = {
       members: "Members",
     },
   },
-
+  groupInvitation: {
+    title: "Group Member Invitation Link",
+    description: "Click link to copy link.",
+    linkExpirationSelect: {
+      aDay: "Expires after a day",
+      threeDays: "Expires after three days",
+      aWeek: "Expires after a week",
+      aMonth: "Expiresa after a month",
+    },
+    linkActions: {
+      hover: "Click to Copy",
+      complete: "Copied!",
+    },
+    error: {
+      unknownError: "Unknown error occured while generating invitation link.",
+    },
+  },
+  invitationPage: {
+    title: 'Are you going to join group "{{groupName}}"',
+    groupAdmin: "Group Administrator: ",
+    actions: {
+      deny: "Deny",
+      accept: "Accept",
+    },
+    error: {
+      alreadyInGroup: "You are already in this group!",
+      expired: "This invitation link is expired.",
+    },
+  },
   createGroup: {
     createGroup: "Create Group",
     previous: "Prev",

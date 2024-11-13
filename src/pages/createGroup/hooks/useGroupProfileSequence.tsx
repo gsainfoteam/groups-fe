@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import useDebouncedState from "@/hooks/useDebouncedState";
 import { checkGroupExistsByName } from "@/apis/group";
+import useDebouncedState from "@/hooks/useDebouncedState";
 
 const useGroupProfileSequence = () => {
   const [debouncedName, setName, name] = useDebouncedState<string>("");

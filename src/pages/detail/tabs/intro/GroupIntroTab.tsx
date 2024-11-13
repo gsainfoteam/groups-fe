@@ -6,22 +6,25 @@ import "prismjs/themes/prism-tomorrow.css";
 import "katex/dist/katex.min.css";
 import "./styles.css";
 
-import useSWR from "swr";
-
+import { getGroup } from "@/apis/group";
 import { getNotionPage } from "@/apis/notion";
+import { useParams } from "react-router-dom";
+import useSWR from "swr";
 import NotionWrapper from "./NotionWrapper";
-
-interface GroupIntroTabProps {}
-
-const GroupIntroTab = ({}: GroupIntroTabProps) => {
-  const { data: recordMap } = useSWR(
-    "2024-GIST-Developers-Night-1292632ae49843a79fb3e554c6a926c1",
+//import NotionWrapper from "./NotionWrapper";
+const GroupIntroTab = () => {
+  const { uuid } = useParams();
+  const { data: group, error: groupError } = useSWR(uuid, getGroup);
+  const { data: recordMap, error: recordMapError } = useSWR(
+    group && group.notionPageId,
     getNotionPage,
   );
 
-  if (recordMap == null) {
-    return <div>Notion page not found</div>;
-  }
+  if (groupError) return <div>Group introduce page not found</div>;
+  if (recordMapError)
+    return <div>Notion page not found - Please Check your notion ID</div>;
+
+  if (!group || !recordMap) return <div>Loading...</div>; // TODO: Add loading UI
 
   return (
     <div className={"mt-5"}>
