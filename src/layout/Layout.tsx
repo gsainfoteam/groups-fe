@@ -1,5 +1,5 @@
 import Navbar from "@/components/navbar/Navbar";
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
 
 import { Outlet } from "react-router-dom";
 
@@ -10,8 +10,7 @@ interface LayoutProps {
 const Layout = ({ to = Path.Home }: LayoutProps) => {
   return (
     <>
-      <Navbar to={to} />
-
+      <Navbar />
       <Outlet />
     </>
   );
