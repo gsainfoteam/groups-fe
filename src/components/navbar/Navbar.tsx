@@ -1,21 +1,17 @@
+import { generateOAuthLoginURL } from "@/apis/auth";
 import AccountIcon from "@/assets/icons/account.svg?react";
 import GroupsCompactLogoDark from "@/assets/logos/groups-compact-dark.svg?react";
 import GroupsCompactLogo from "@/assets/logos/groups-compact.svg?react";
 import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
+import useAuth from "@/hooks/useAuth";
+import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import Button from "../button/Button";
-import useAuth from "@/hooks/useAuth";
-import Path from "@/types/Paths";
-import { generateOAuthLoginURL } from "@/apis/auth";
 
-interface NavbarProps {
-  to: string;
-}
-
-const Navbar = ({ to }: NavbarProps) => {
+const Navbar = () => {
   const { userInfo } = useAuth();
 
   const { t } = useTranslation();
@@ -47,8 +43,12 @@ const Navbar = ({ to }: NavbarProps) => {
             "md:mr-5 md:w-full",
           ])}
         >
-          <Link to={to}>
-            <Button variant="outlined">
+          <Link to={import.meta.env.VITE_ZIGGLE_URL}>
+            <Button
+              variant="outlined"
+              size="big"
+              className={"rounded-[10px] py-[7px]"}
+            >
               {t("navbar.button.goBackToZiggle")}
             </Button>
           </Link>

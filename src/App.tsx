@@ -7,16 +7,19 @@ import {
 } from "react-router-dom";
 
 import Layout from "./layout/Layout";
-import CreateCompletePage from "./pages/create/CreateCompletePage";
-import CreateDescriptionPage from "./pages/create/CreateDescriptionPage";
-import CreateLayout from "./pages/create/CreateLayout";
-import CreateNamePage from "./pages/create/CreateNamePage";
-import CreateNotionPage from "./pages/create/CreateNotionPage";
+
+import CreateGroupLayout from "./pages/createGroup/CreateGroupLayout";
 import GroupDetailPage from "./pages/detail/DetailPage";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
 import Path from "./types/Paths";
+import CreateGroupName from "./pages/createGroup/pages/name/CreateGroupNamePage";
+import CreateGroupDescriptionPage from "./pages/createGroup/pages/description/CreateGroupDescriptionPage";
+import CreateGroupNotionPage from "./pages/createGroup/pages/notion/CreateGroupNotionPage";
+import CreateGroupCompletePage from "./pages/createGroup/pages/complete/CreateGroupCompletePage";
+import InvitePage from "./pages/invite/InvitePage";
+import ErrorPage from "./pages/error/ErrorPage";
 import ManageLayout from "./pages/manage/ManageLayout";
 import ManageGroupInfoPage from "./pages/manage/ManageGroupInfoPage";
 import ManageMembersPage from "./pages/manage/ManageMembersPage";
@@ -26,27 +29,31 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<Layout />}>
-        <Route path={"*"} element={<Navigate to={Path.Home} replace />} />
         <Route path={Path.Home} element={<MainPage />} />
         <Route path={Path.Group + ":uuid"} element={<GroupDetailPage />} />
+        <Route path={Path.Invite} element={<InvitePage />} />
 
-        <Route element={<CreateLayout />}>
+        <Route element={<CreateGroupLayout />}>
           <Route
             path={Path.Create}
             element={<Navigate to={Path.CreateName} />}
           />
-          <Route path={Path.CreateName} element={<CreateNamePage />} />
+          <Route path={Path.CreateName} element={<CreateGroupName />} />
           <Route
             path={Path.CreateDescription}
-            element={<CreateDescriptionPage />}
+            element={<CreateGroupDescriptionPage />}
           />
-          <Route path={Path.CreateNotion} element={<CreateNotionPage />} />
-          <Route path={Path.CreateComplete} element={<CreateCompletePage />} />
+          <Route path={Path.CreateNotion} element={<CreateGroupNotionPage />} />
+          <Route
+            path={Path.CreateComplete}
+            element={<CreateGroupCompletePage />}
+          />
         </Route>
 
         <Route path={Path.Onboarding} element={<OnboardingPage />} />
       </Route>
 
+      <Route path={"*"} element={<ErrorPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
 
       <Route element={<ManageLayout />}>

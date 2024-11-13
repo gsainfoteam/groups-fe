@@ -1,6 +1,7 @@
 import { getUserInfo } from "@/apis/auth";
 import apiKeys, { Methods } from "@/types/api-keys";
-import Path from "@/types/Paths";
+import Path from "@/types/paths";
+
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useSWR from "swr";
@@ -17,6 +18,7 @@ const useAuth = () => {
     if (error) {
       console.error(error);
       navigator(Path.Onboarding);
+      // TODO: add error toast
     }
   }, [error]);
 

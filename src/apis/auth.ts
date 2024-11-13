@@ -17,7 +17,7 @@ export const generateOAuthLoginURL = () => {
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT_URI,
     scope: "openid profile email",
-    prompt: "consent",
+    prompt: "login",
     state,
   });
 

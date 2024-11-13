@@ -3,7 +3,7 @@ import { Meta, StoryFn } from "@storybook/react";
 import Tag from "./Tag";
 
 export default {
-  title: "molecules/Tag",
+  title: "components/Tag",
   component: Tag,
 } as Meta<typeof Tag>;
 

@@ -12,9 +12,14 @@ export interface GroupInfo {
   name: string;
   description: string;
   createdAt: dayjs.Dayjs | string;
+  deletedAt: dayjs.Dayjs | string;
+  verifiedAt: dayjs.Dayjs | string;
   presidentUuid: string;
+  profileImageKey: string | null;
+  profileImageUrl: string | null;
   president: UserInfo;
   memberCount: number;
+  notionPageId: string;
 }
 
 export interface Notice {
