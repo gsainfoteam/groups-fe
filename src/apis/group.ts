@@ -72,3 +72,11 @@ export const getInvitationInfoByInvitationCode = async (code: string) => {
 export const joinGroup = async (code: string) => {
   return groupsApi.post("/group/join", { code }).then((response) => response);
 };
+
+export const deleteGroup = async (uuid: string): Promise<void> => {
+  return groupsApi
+    .delete(`/group/${uuid}`)
+    .then(() => {
+      console.log(`Group with UUID ${uuid} has been successfully deleted.`);
+    });
+};

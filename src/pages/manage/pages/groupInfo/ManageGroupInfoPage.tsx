@@ -4,6 +4,8 @@ import { useOutletContext } from "react-router-dom";
 import { GroupInfo } from "@/types/interfaces";
 import { getGroup, setGroupProfileImage } from "@/apis/group";
 import { useState } from "react";
+import { deleteGroup } from "@/apis/group"; // deleteGroup 함수 임포트
+import DeleteConfirmationModal from "./DeleteConfirmModal";
 
 type ContextType = {
   group: GroupInfo | null;
@@ -16,6 +18,8 @@ const ManageGroupInfoPage: React.FC = () => {
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false); // 삭제 진행 상태
+  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
@@ -57,6 +61,33 @@ const ManageGroupInfoPage: React.FC = () => {
     setIsEditingProfileImage(false);
     setNewProfileImage(null);
     setPreviewImage(null);
+  };
+
+  // 삭제하기 클릭 시
+  const handleDeleteClick = () => {
+    setIsModalOpen(true);
+  };
+
+  // 모달에서 삭제 확인 시
+  const handleConfirmDelete = () => {
+    setIsModalOpen(false);
+    setIsDeleting(true);
+    deleteGroup(group.uuid)
+      .then(() => {
+        alert("그룹이 성공적으로 삭제되었습니다.");
+        window.location.href = "/";
+      })
+      .catch((error) => {
+        console.error("그룹 삭제 중 오류 발생:", error);
+        alert("그룹 삭제 중 문제가 발생했습니다.");
+      })
+      .finally(() => {
+        setIsDeleting(false);
+      });
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
@@ -155,8 +186,13 @@ const ManageGroupInfoPage: React.FC = () => {
             </p>
           </div>
 
-          <Button size="small" variant="outlined">
-            삭제하기
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={handleDeleteClick}
+            disabled={isDeleting} // 삭제 진행 중이면 버튼 비활성화
+          >
+            {isDeleting ? "삭제 중..." : "삭제하기"}
           </Button>
         </div>
 
@@ -184,6 +220,12 @@ const ManageGroupInfoPage: React.FC = () => {
           완료
         </Button>
       </div>
+
+      <DeleteConfirmationModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmDelete}
+      />
     </div>
   );
 };
