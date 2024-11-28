@@ -1,8 +1,16 @@
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import MembersHeader from "./MembersHeader";
 import Member from "./Member";
+import { useOutletContext } from "react-router-dom";
+import { GroupInfo } from "@/types/interfaces";
 
 const ManageMembersPage = () => {
+  const group = useOutletContext<GroupInfo | null>();
+
+  if (!group) {
+    return <p>데이터를 불러오는 중...</p>;
+  }
+  
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       {/* 초대 */}

@@ -13,10 +13,10 @@ enum Path {
 
   Invite = "/invite",
 
-  Manage = "/manage",
-  ManageGroupInfo = "/manage/groupinfo",
-  ManageNotionLink = "/manage/notionlink",
-  ManageMembers = "/manage/members",
+  Manage = "/manage/",
+  ManageGroupInfo = "groupinfo",
+  ManageNotionLink = "notionlink",
+  ManageMembers = "members",
 }
 
 export default Path;

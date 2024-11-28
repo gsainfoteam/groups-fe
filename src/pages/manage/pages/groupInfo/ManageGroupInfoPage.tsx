@@ -1,12 +1,28 @@
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
+import { useOutletContext } from "react-router-dom";
+import { GroupInfo } from "@/types/interfaces";
 
 const ManageGroupInfoPage = () => {
+  const group = useOutletContext<GroupInfo | null>();
+
+  if (!group) {
+    return <p>데이터를 불러오는 중...</p>;
+  }
+
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       <div className="flex flex-col items-center gap-[27px] self-stretch">
         <div className="flex w-[140px] h-[140px] md:w-[200px] md:h-[200px] justify-center items-center rounded-[100px] border border-light-primary">
-          이미지 보여주기
+          {group.profileImageUrl ? (
+            <img
+              src={group.profileImageUrl}
+              alt="그룹 프로필"
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-greyDark">이미지 없음</span>
+          )}
         </div>
 
         <Button size="cta" variant="outlined">
@@ -18,7 +34,7 @@ const ManageGroupInfoPage = () => {
         <p className="text-2xl font-bold text-dark">그룹명</p>
         <p className="text-base font-medium text-dark">그룹명 변경</p>
 
-        <Input width="100%" placeholder="현재 그룹명" buttonValue="변경" />
+        <Input width="100%" placeholder={group.name} buttonValue="변경" />
       </div>
 
       <div className="flex w-full flex-col justify-center items-start gap-4">
@@ -29,10 +45,10 @@ const ManageGroupInfoPage = () => {
           <div className="flex flex-col w-full gap-1.5">
             <textarea
               className="h-[100px] w-full px-4 py-2.5 rounded-xl border border-primary"
-              placeholder="현재 그룹 간단 소개"
+              placeholder={group.description || "그룹 설명 없음"}
             ></textarea>
             <p className="flex w-full justify-end text-greyDark text-xs">
-              200/500
+              {(group.description?.length || 0)}/500
             </p>
           </div>
 

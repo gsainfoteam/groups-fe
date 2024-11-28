@@ -1,6 +1,14 @@
 import Notion from "@/assets/icons/notion.svg?react";
+import { useOutletContext } from "react-router-dom";
+import { GroupInfo } from "@/types/interfaces";
 
 const ManageNotionLinkPage = () => {
+  const group = useOutletContext<GroupInfo | null>();
+
+  if (!group) {
+    return <p>데이터를 불러오는 중...</p>;
+  }
+
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       {/* 링크 수정 부 */}
@@ -31,7 +39,7 @@ const ManageNotionLinkPage = () => {
             <input
               className="h-full px-4 py-2.5 flex-1 border border-primary rounded-xl"
               type="text"
-              placeholder="현재 노션 링크"
+              placeholder={group.notionPageId}
             />
             <button className="h-full px-5 py-2.5 rounded-xl bg-primary text-secondary font-semibold">
               변경
