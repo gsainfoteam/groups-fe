@@ -1,13 +1,39 @@
 import Notion from "@/assets/icons/notion.svg?react";
 import { useOutletContext } from "react-router-dom";
-import { GroupInfo } from "@/types/interfaces";
+import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
+import { useState, useEffect } from "react";
+import Loading from "@/components/loading/Loading";
+import { getNotionPage } from "@/apis/notion";
+import { ExtendedRecordMap } from "notion-types";
+import { NotionRenderer } from "react-notion-x";
 
 const ManageNotionLinkPage = () => {
-  const group = useOutletContext<GroupInfo | null>();
+  const { group, setGroup } = useOutletContext<GroupContextType>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [notionData, setNotionData] = useState<null|ExtendedRecordMap>(null);
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
+
+  useEffect(() => {
+    if (group.notionPageId) {
+      const fetchData = async () => {
+        try {
+          setIsLoading(true);
+          const data = await getNotionPage(group.notionPageId);
+          setNotionData(data);
+          console.log(notionData?.block)
+        } catch (error) {
+          console.error("노션 데이터를 불러오는 중 오류가 발생했습니다:", error);
+          setNotionData(null);
+        } finally {
+          setIsLoading(false);
+        }
+      };
+      fetchData();
+    }
+  }, [group.notionPageId]);
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
@@ -47,11 +73,26 @@ const ManageNotionLinkPage = () => {
           </div>
         </div>
         {/* 미리보기 */}
-        <div className="h-[159px] p-[25px] bg-[#f5f5f7] rounded-[10px] flex-col justify-center items-center gap-2.5 flex">
-          <div className="text-center text-[#6e6e73] text-base font-semibold font-['Pretendard']">
-            노션 불러오는 중...
+        {isLoading ? (
+          <div className="h-[300px] p-[25px] bg-[#f5f5f7] rounded-[10px] flex-col justify-center items-center gap-2.5 flex">
+            <Loading topSpacing="h-0" className="w-14 h-14" withText={true} textClassName="text-lg mt-4"/>
           </div>
-        </div>
+        ) : notionData ? (
+          <div
+            className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200"
+            style={{ maxHeight: '300px' }}
+          >
+            <NotionRenderer
+              recordMap={notionData}
+              fullPage={true}
+              darkMode={false}
+            />
+          </div>
+        ) : (
+          <div className="text-center text-[#ff6e6e] text-base font-semibold font-['Pretendard']">
+            노션 페이지를 불러오지 못했습니다.
+          </div>
+        )}
       </div>
       {/* 완료 버튼 */}
       <div className="flex justify-center self-stretch">

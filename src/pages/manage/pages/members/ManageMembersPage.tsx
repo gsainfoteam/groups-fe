@@ -2,10 +2,10 @@ import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import MembersHeader from "./MembersHeader";
 import Member from "./Member";
 import { useOutletContext } from "react-router-dom";
-import { GroupInfo } from "@/types/interfaces";
+import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
 
 const ManageMembersPage = () => {
-  const group = useOutletContext<GroupInfo | null>();
+  const { group, setGroup } = useOutletContext<GroupContextType>();
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;

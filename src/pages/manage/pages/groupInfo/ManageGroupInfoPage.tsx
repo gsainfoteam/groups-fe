@@ -7,13 +7,13 @@ import { useState } from "react";
 import { deleteGroup } from "@/apis/group"; // deleteGroup 함수 임포트
 import DeleteConfirmationModal from "./DeleteConfirmModal";
 
-type ContextType = {
+export type GroupContextType = {
   group: GroupInfo | null;
   setGroup: React.Dispatch<React.SetStateAction<GroupInfo | null>>;
 };
 
 const ManageGroupInfoPage: React.FC = () => {
-  const { group, setGroup } = useOutletContext<ContextType>();
+  const { group, setGroup } = useOutletContext<GroupContextType>();
   const [isEditingProfileImage, setIsEditingProfileImage] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
