@@ -47,7 +47,7 @@ const ManageLayout = () => {
           <Navigator />
         </div>
 
-        <Outlet context={group} />
+        <Outlet context={{ group, setGroup }} />
       </div>
     </div>
   );

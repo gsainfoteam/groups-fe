@@ -45,7 +45,6 @@ export const setGroupProfileImage = async (id: string, image: File) => {
       "Content-Type": "multipart/form-data",
     },
   });
-
   return response.data;
 };
 
