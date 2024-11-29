@@ -4,8 +4,9 @@ import { useOutletContext } from "react-router-dom";
 import { GroupInfo } from "@/types/interfaces";
 import { getGroup, setGroupProfileImage } from "@/apis/group";
 import { useState } from "react";
-import { deleteGroup } from "@/apis/group"; // deleteGroup 함수 임포트
+import { deleteGroup } from "@/apis/group";
 import DeleteConfirmationModal from "./DeleteConfirmModal";
+import { changeGroupInfo } from "@/apis/group";
 
 export type GroupContextType = {
   group: GroupInfo | null;
@@ -20,6 +21,8 @@ const ManageGroupInfoPage: React.FC = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false); // 삭제 진행 상태
   const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
+  const [newGroupName, setNewGroupName] = useState("");
+  const [newGroupDes, setNewGroupDes] = useState("");
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
@@ -56,6 +59,43 @@ const ManageGroupInfoPage: React.FC = () => {
     }
   };
 
+  // 그룹명 or 그룹 설명 변경 클릭 시
+  const handleGroupNameChange = async () => {
+    if(!newGroupName.trim()) {
+      alert("새 그룹명을 입력해주세요.");
+      return;
+    }
+
+    try {
+      await changeGroupInfo(group.uuid, { name: newGroupName });
+      const updatedGroup = await getGroup(group.uuid);
+      setGroup(updatedGroup);
+      setNewGroupName("");
+      alert("그룹명이 변경 되었습니다.");
+    } catch(error) {
+      console.log("그룹명 변경 실패");
+      alert("그룹명 변경에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  const handleGroupDesChange = async () => {
+    if(!newGroupDes.trim()) {
+      alert("새 그룹 설명을 입력해주세요.");
+      return;
+    }
+
+    try {
+      await changeGroupInfo(group.uuid, { description: newGroupDes });
+      const updatedGroup = await getGroup(group.uuid);
+      setGroup(updatedGroup);
+      setNewGroupDes("");
+      alert("그룹 설명이 변경 되었습니다.");
+    } catch(error) {
+      console.log("그룹 설명 변경 실패");
+      alert("그룹 설명 변경에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
+
   // 취소 버튼 클릭 시
   const handleCancelChange = () => {
     setIsEditingProfileImage(false);
@@ -86,6 +126,7 @@ const ManageGroupInfoPage: React.FC = () => {
       });
   };
 
+  // 모달에서 취소 시
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -150,7 +191,14 @@ const ManageGroupInfoPage: React.FC = () => {
         <p className="text-2xl font-bold text-dark">그룹명</p>
         <p className="text-base font-medium text-dark">그룹명 변경</p>
 
-        <Input width="100%" placeholder={group.name} buttonValue="변경" />
+        <Input
+          width="100%"
+          placeholder={group.name}
+          buttonValue="변경"
+          value={newGroupName}
+          onChange={(e) => setNewGroupName(e.target.value)}
+          onButtonClick={handleGroupNameChange}
+        />
       </div>
 
       <div className="flex w-full flex-col justify-center items-start gap-4">
@@ -160,15 +208,22 @@ const ManageGroupInfoPage: React.FC = () => {
         <div className="w-full flex flex-col items-end gap-2.5">
           <div className="flex flex-col w-full gap-1.5">
             <textarea
-              className="h-[100px] w-full px-4 py-2.5 rounded-xl border border-primary"
+              className="h-[100px] w-full px-4 py-2.5 rounded-xl border border-primary border-[1.5px]"
               placeholder={group.description || "그룹 설명 없음"}
+              value={newGroupDes}
+              onChange={(e) => setNewGroupDes(e.target.value)}
             ></textarea>
             <p className="flex w-full justify-end text-greyDark text-xs">
               {(group.description?.length || 0)}/500
             </p>
           </div>
 
-          <Button size="big" variant="emphasized" className="rounded-[10px]">
+          <Button
+            size="big"
+            variant="emphasized"
+            className="rounded-[10px]" 
+            onClick={handleGroupDesChange}
+          >
             변경
           </Button>
         </div>

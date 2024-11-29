@@ -80,3 +80,11 @@ export const deleteGroup = async (uuid: string): Promise<void> => {
       console.log(`Group with UUID ${uuid} has been successfully deleted.`);
     });
 };
+
+export const changeGroupInfo = async (uuid: string, body: Record<string, any>): Promise<void> => {
+  return groupsApi
+    .patch(`/group/${uuid}`, body)
+    .then(() => {
+      console.log(`Group info of ${uuid} updated successfully.`)
+    });
+}

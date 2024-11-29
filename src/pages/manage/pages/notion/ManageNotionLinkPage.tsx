@@ -6,11 +6,15 @@ import Loading from "@/components/loading/Loading";
 import { getNotionPage } from "@/apis/notion";
 import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
+import Input from "@/components/input/Input";
+import Button from "@/components/button/Button";
+import { changeGroupInfo, getGroup } from "@/apis/group";
 
 const ManageNotionLinkPage = () => {
   const { group, setGroup } = useOutletContext<GroupContextType>();
   const [isLoading, setIsLoading] = useState(true);
   const [notionData, setNotionData] = useState<null|ExtendedRecordMap>(null);
+  const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
@@ -34,6 +38,24 @@ const ManageNotionLinkPage = () => {
       fetchData();
     }
   }, [group.notionPageId]);
+
+  const handleNotionLinkChange = async () => {
+    if(!newNotionLink.trim()) {
+      alert("새 노션 링크를 입력해주세요.");
+      return;
+    }
+
+    try {
+      await changeGroupInfo(group.uuid, { notionPageId: newNotionLink });
+      const updatedGroup = await getGroup(group.uuid);
+      setGroup(updatedGroup);
+      setNewNotionLink("");
+      alert("노션 링크가 변경 되었습니다.");
+    } catch(error) {
+      console.log("노션 링크 변경 실패");
+      alert("노션 링크 변경에 실패했습니다. 다시 시도해주세요.");
+    }
+  };
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
@@ -62,14 +84,14 @@ const ManageNotionLinkPage = () => {
           </div>
           {/* 링크 입력 및 제출 */}
           <div className="flex w-full items-center gap-2.5">
-            <input
-              className="h-full px-4 py-2.5 flex-1 border border-primary rounded-xl"
-              type="text"
+            <Input
+              width="100%"
               placeholder={group.notionPageId}
+              buttonValue="변경"
+              value={newNotionLink}
+              onChange={(e) => setNewNotionLink(e.target.value)}
+              onButtonClick={handleNotionLinkChange}
             />
-            <button className="h-full px-5 py-2.5 rounded-xl bg-primary text-secondary font-semibold">
-              변경
-            </button>
           </div>
         </div>
         {/* 미리보기 */}
@@ -96,9 +118,9 @@ const ManageNotionLinkPage = () => {
       </div>
       {/* 완료 버튼 */}
       <div className="flex justify-center self-stretch">
-        <button className="w-full md:w-60 py-4 flex justify-center items-center rounded-xl bg-primary text-secondary text-lg font-bold">
+        <Button size="cta" variant="emphasized" className="w-full md:w-60">
           완료
-        </button>
+        </Button>
       </div>
     </div>
   );
