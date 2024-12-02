@@ -37,8 +37,7 @@ const GroupLeaveComponent = () => {
     }
   };
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const handleCloseModal = () => setIsModalOpen(false);
 
   return (
     <>
@@ -66,8 +65,8 @@ const GroupLeaveComponent = () => {
       {/* 그룹 나가기 확인 모달 */}
       <DeleteConfirmationModal
         isOpen={isModalOpen}
-        onClose={closeModal}
-        onConfirm={handleLeaveClick}
+        onClose={handleCloseModal}
+        onConfirm={handleConfirmLeave}
         title="⚠️ 그룹 나가기 경고 ⚠️"
         message="정말로 그룹에서 나가시겠습니까?"
       />
