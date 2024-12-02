@@ -55,3 +55,10 @@ export enum EmojiString {
   THINKING = "🤔",
   SURPRISED = "😮",
 }
+
+export interface MemberResDto {
+  uuid: string;
+  name: string;
+  email: string;
+  role: string;
+}

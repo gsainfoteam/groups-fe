@@ -1,36 +1,73 @@
-import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import MembersHeader from "./MembersHeader";
 import Member from "./Member";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
+import { getGroupMembers } from "@/apis/group";
+import { useEffect, useState } from "react";
+import { MemberResDto } from "@/types/interfaces";
+import Button from "@/components/button/Button";
+import Select, { SelectOptionBase } from "@/components/select/Select";
 
 const ManageMembersPage = () => {
   const { group, setGroup } = useOutletContext<GroupContextType>();
+  const [members, setMembers] = useState<MemberResDto[]>([]); // 멤버 리스트 상태
+
+  const expirationOptions = [
+    { id: 1, value: "1일 후 만료" },
+    { id: 2, value: "3일 후 만료" },
+    { id: 3, value: "5일 후 만료" },
+  ];
+
+  const [selectedOption, setSelectedOption] = useState(expirationOptions[0]);
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
   
+  useEffect(() => {
+    const fetchMembers = async () => {
+      try {
+        const response: MemberResDto[] = await getGroupMembers(group.uuid);
+        setMembers(response);
+      } catch (error) {
+        console.error("멤버 데이터를 가져오는 중 오류 발생:", error);
+      }
+    };
+    fetchMembers();
+  }, [group.uuid]);
+
+
+  const handleOptionClick = (option: SelectOptionBase) => {
+    setSelectedOption(option);
+    console.log("선택한 만료 기간:", option.value);
+  };
+
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       {/* 초대 */}
       <div className="flex flex-col md:w-[400px] justify-start items-center gap-2.5">
         <p className="text-dark text-xl font-bold">그룹 멤버 초대 링크</p>
-        <div className="flex w-full pl-4 pr-2.5 py-2.5 bg-greyLight rounded-[10px] justify-start items-center gap-2.5">
-          <div className="grow text-greyDark text-base font-medium">
-            1일 후 만료
-          </div>
-          <ArrowRight className="stroke-dark w-6 h-6 rotate-90" />
-        </div>
-        <div className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center">
-          <a
-            href="https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb"
+        <Select
+          size="big"
+          options={expirationOptions}
+          selectedValue={selectedOption}
+          onOptionClick={handleOptionClick}
+          className="flex w-full bg-greyLight rounded-[10px] justify-start items-center gap-2.5 text-dark"
+        />
+        <div
+          className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center"
+          onClick={() => {
+            navigator.clipboard
+              .writeText("https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb")
+              .then(() => alert("링크가 복사되었습니다!"))
+              .catch((err) => console.error("복사 실패:", err));
+          }}
+        >
+          <p
             className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight"
-            target="_blank"
-            rel="noopener noreferrer"
           >
             https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb
-          </a>
+          </p>
         </div>
         <div className="text-greyDark text-base font-medium">
           링크를 클릭하면 복사됩니다.
@@ -42,14 +79,15 @@ const ManageMembersPage = () => {
         {/* 멤버 목록 */}
         <div className="w-full justify-start items-center flex-col overflow-x-scroll">
           <MembersHeader />
-          <Member name="고도현" email="doridori@gm.gist.ac.kr" role="관리자" />
-          <Member name="이보성" email="paperstar@gm.gist.ac.kr" role="매니저" />
-          <Member
-            name="서강현"
-            email="ganghyeonseo@gm.gist.ac.kr"
-            role="일반"
-          />
-          <Member name="최익준" email="ikjunchoi@gm.gist.ac.kr" role="일반" />
+          {members.map((member) => (
+            <Member
+              key={member.uuid}
+              uuid={member.uuid}
+              name={member.name}
+              email={member.email}
+              role={member.role === "admin" ? "관리자" : member.role === "manager" ? "매니저" : "일반"} // 역할을 한국어로 변환
+            />
+          ))}
         </div>
         {/* 멤버 역할 */}
         <div className="w-full self-stretch px-6 py-[22px] bg-greyLight rounded-[10px] flex-col justify-start items-start gap-3.5 flex">
@@ -91,9 +129,9 @@ const ManageMembersPage = () => {
       </div>
       {/* 완료 버튼 */}
       <div className="flex justify-center self-stretch">
-        <button className="w-full md:w-60 py-4 flex justify-center items-center rounded-xl bg-primary text-secondary text-lg font-bold">
+        <Button size="cta" variant="emphasized" className="w-full md:w-60">
           완료
-        </button>
+        </Button>
       </div>
     </div>
   );

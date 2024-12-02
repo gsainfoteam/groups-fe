@@ -5,8 +5,9 @@ import { GroupInfo } from "@/types/interfaces";
 import { getGroup, setGroupProfileImage } from "@/apis/group";
 import { useState } from "react";
 import { deleteGroup } from "@/apis/group";
-import DeleteConfirmationModal from "./DeleteConfirmModal";
+import DeleteConfirmationModal from "./ConfirmModal";
 import { changeGroupInfo } from "@/apis/group";
+import GroupLeaveComponent from "./GroupLeaving";
 
 export type GroupContextType = {
   group: GroupInfo | null;
@@ -58,6 +59,13 @@ const ManageGroupInfoPage: React.FC = () => {
       }
     }
   };
+  
+  // 취소 버튼 클릭 시
+  const handleCancelChange = () => {
+    setIsEditingProfileImage(false);
+    setNewProfileImage(null);
+    setPreviewImage(null);
+  };
 
   // 그룹명 or 그룹 설명 변경 클릭 시
   const handleGroupNameChange = async () => {
@@ -96,14 +104,7 @@ const ManageGroupInfoPage: React.FC = () => {
     }
   };
 
-  // 취소 버튼 클릭 시
-  const handleCancelChange = () => {
-    setIsEditingProfileImage(false);
-    setNewProfileImage(null);
-    setPreviewImage(null);
-  };
-
-  // 삭제하기 클릭 시
+  // 그룹 삭제하기 클릭 시
   const handleDeleteClick = () => {
     setIsModalOpen(true);
   };
@@ -229,6 +230,7 @@ const ManageGroupInfoPage: React.FC = () => {
         </div>
       </div>
 
+      {/* 그룹 삭제 및 나가기 */}
       <div className="w-full p-5 flex flex-col justify-center items-start gap-5 rounded-xl border-2 border-greyBorder">
         <div className="flex items-center gap-5 self-stretch">
           <div className="flex flex-col items-start gap-2.5 flex-1">
@@ -252,22 +254,8 @@ const ManageGroupInfoPage: React.FC = () => {
         </div>
 
         <div className="w-full h-[1.5px] bg-greyBorder" />
-
-        <div className="flex items-center gap-5 self-stretch">
-          <div className="flex flex-col items-start gap-2.5 flex-1">
-            <p className="self-stretch text-primary font-bold text-xl">
-              그룹 나가기
-            </p>
-            <p className="self-stretch text-greyDark font-medium text-base">
-              기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다.
-              그룹을 나간 뒤에도 초대된다면 다시 그룹에 참여할 수 있습니다.
-            </p>
-          </div>
-
-          <Button size="small" variant="outlined">
-            나가기
-          </Button>
-        </div>
+        <GroupLeaveComponent />
+        
       </div>
 
       <div className="flex justify-center self-stretch">
@@ -280,7 +268,8 @@ const ManageGroupInfoPage: React.FC = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
-      />
+        title={"⚠️ 그룹 삭제 경고 ⚠️"}
+        message={"정말로 그룹을 삭제하시겠습니까?"}      />
     </div>
   );
 };
