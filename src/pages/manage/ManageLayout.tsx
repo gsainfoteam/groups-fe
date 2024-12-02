@@ -16,7 +16,7 @@ const ManageLayout = () => {
     if (uuid) {
       getGroup(uuid)
         .then((data) => {
-          console.log("group info:", data); // 성공 시 데이터 확인
+          console.log("group info:", data);
           setGroup(data);
         })
         .catch((error) => console.error("Failed to fetch group info:", error))
@@ -60,7 +60,9 @@ const GroupHeader = ({ group }: { group: GroupInfo | null }) => {
 
   return (
     <div>
-      <p className="text-dark text-[26px] md:text-4xl font-bold">{group.name}</p>
+      <p className="text-dark text-[26px] md:text-4xl font-bold">
+        {group.name}
+      </p>
     </div>
   );
 };

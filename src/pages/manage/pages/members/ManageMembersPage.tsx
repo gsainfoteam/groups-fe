@@ -9,13 +9,13 @@ import Button from "@/components/button/Button";
 import Select, { SelectOptionBase } from "@/components/select/Select";
 
 const ManageMembersPage = () => {
-  const { group, setGroup } = useOutletContext<GroupContextType>();
-  const [members, setMembers] = useState<MemberResDto[]>([]); // 멤버 리스트 상태
+  const { group } = useOutletContext<GroupContextType>();
+  const [members, setMembers] = useState<MemberResDto[]>([]);
 
   const expirationOptions = [
     { id: 1, value: "1일 후 만료" },
-    { id: 2, value: "3일 후 만료" },
-    { id: 3, value: "5일 후 만료" },
+    { id: 2, value: "7일 후 만료" },
+    { id: 3, value: "30일 후 만료" },
   ];
 
   const [selectedOption, setSelectedOption] = useState(expirationOptions[0]);
@@ -23,7 +23,7 @@ const ManageMembersPage = () => {
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
-  
+
   useEffect(() => {
     const fetchMembers = async () => {
       try {
@@ -35,7 +35,6 @@ const ManageMembersPage = () => {
     };
     fetchMembers();
   }, [group.uuid]);
-
 
   const handleOptionClick = (option: SelectOptionBase) => {
     setSelectedOption(option);
@@ -58,14 +57,14 @@ const ManageMembersPage = () => {
           className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center"
           onClick={() => {
             navigator.clipboard
-              .writeText("https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb")
+              .writeText(
+                "https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb",
+              )
               .then(() => alert("링크가 복사되었습니다!"))
               .catch((err) => console.error("복사 실패:", err));
           }}
         >
-          <p
-            className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight"
-          >
+          <p className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight">
             https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb
           </p>
         </div>
@@ -85,7 +84,13 @@ const ManageMembersPage = () => {
               uuid={member.uuid}
               name={member.name}
               email={member.email}
-              role={member.role === "admin" ? "관리자" : member.role === "manager" ? "매니저" : "일반"} // 역할을 한국어로 변환
+              role={
+                member.role === "admin"
+                  ? "관리자"
+                  : member.role === "manager"
+                    ? "매니저"
+                    : "일반"
+              }
             />
           ))}
         </div>

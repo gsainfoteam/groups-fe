@@ -29,10 +29,20 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
           {message}
         </p>
         <div className="flex flex-col md:flex-row justify-center gap-4 mt-6">
-          <Button size="cta" variant="outlined" className="w-full md:w-auto" onClick={onClose}>
+          <Button
+            size="cta"
+            variant="outlined"
+            className="w-full md:w-auto"
+            onClick={onClose}
+          >
             취소
           </Button>
-          <Button size="cta" variant="emphasized" className="w-full md:w-auto" onClick={onConfirm}>
+          <Button
+            size="cta"
+            variant="emphasized"
+            className="w-full md:w-auto"
+            onClick={onConfirm}
+          >
             확인
           </Button>
         </div>

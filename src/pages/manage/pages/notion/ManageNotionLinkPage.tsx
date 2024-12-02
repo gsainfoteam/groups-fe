@@ -13,7 +13,7 @@ import { changeGroupInfo, getGroup } from "@/apis/group";
 const ManageNotionLinkPage = () => {
   const { group, setGroup } = useOutletContext<GroupContextType>();
   const [isLoading, setIsLoading] = useState(true);
-  const [notionData, setNotionData] = useState<null|ExtendedRecordMap>(null);
+  const [notionData, setNotionData] = useState<null | ExtendedRecordMap>(null);
   const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
@@ -27,9 +27,12 @@ const ManageNotionLinkPage = () => {
           setIsLoading(true);
           const data = await getNotionPage(group.notionPageId);
           setNotionData(data);
-          console.log(notionData?.block)
+          console.log(notionData?.block);
         } catch (error) {
-          console.error("노션 데이터를 불러오는 중 오류가 발생했습니다:", error);
+          console.error(
+            "노션 데이터를 불러오는 중 오류가 발생했습니다:",
+            error,
+          );
           setNotionData(null);
         } finally {
           setIsLoading(false);
@@ -40,7 +43,7 @@ const ManageNotionLinkPage = () => {
   }, [group.notionPageId]);
 
   const handleNotionLinkChange = async () => {
-    if(!newNotionLink.trim()) {
+    if (!newNotionLink.trim()) {
       alert("새 노션 링크를 입력해주세요.");
       return;
     }
@@ -51,7 +54,7 @@ const ManageNotionLinkPage = () => {
       setGroup(updatedGroup);
       setNewNotionLink("");
       alert("노션 링크가 변경 되었습니다.");
-    } catch(error) {
+    } catch (error) {
       console.log("노션 링크 변경 실패");
       alert("노션 링크 변경에 실패했습니다. 다시 시도해주세요.");
     }
@@ -97,12 +100,17 @@ const ManageNotionLinkPage = () => {
         {/* 미리보기 */}
         {isLoading ? (
           <div className="h-[300px] p-[25px] bg-[#f5f5f7] rounded-[10px] flex-col justify-center items-center gap-2.5 flex">
-            <Loading topSpacing="h-0" className="w-14 h-14" withText={true} textClassName="text-lg mt-4"/>
+            <Loading
+              topSpacing="h-0"
+              className="w-14 h-14"
+              withText={true}
+              textClassName="text-lg mt-4"
+            />
           </div>
         ) : notionData ? (
           <div
             className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200"
-            style={{ maxHeight: '300px' }}
+            style={{ maxHeight: "300px" }}
           >
             <NotionRenderer
               recordMap={notionData}

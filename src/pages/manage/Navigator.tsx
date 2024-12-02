@@ -13,17 +13,17 @@ const Navigator = () => {
     {
       key: "groupInfo",
       label: "기본 정보",
-      link: `${Path.Manage+uuid+"/"+Path.ManageGroupInfo}`,
+      link: `${Path.Manage + uuid + "/" + Path.ManageGroupInfo}`,
     },
     {
       key: "notionLink",
       label: "소개 페이지",
-      link: `${Path.Manage+uuid+"/"+Path.ManageNotionLink}`,
+      link: `${Path.Manage + uuid + "/" + Path.ManageNotionLink}`,
     },
     {
       key: "members",
       label: "멤버",
-      link: `${Path.Manage+uuid+"/"+Path.ManageMembers}`,
+      link: `${Path.Manage + uuid + "/" + Path.ManageMembers}`,
     },
   ];
 

@@ -5,9 +5,10 @@ import { GroupInfo } from "@/types/interfaces";
 import { getGroup, setGroupProfileImage } from "@/apis/group";
 import { useState } from "react";
 import { deleteGroup } from "@/apis/group";
-import DeleteConfirmationModal from "./ConfirmModal";
+import DeleteConfirmationModal from "./component/ConfirmModal";
 import { changeGroupInfo } from "@/apis/group";
-import GroupLeaveComponent from "./GroupLeaving";
+import GroupLeaveComponent from "./component/GroupLeaving";
+import GroupDeleteComponent from "./component/GroupDelete";
 
 export type GroupContextType = {
   group: GroupInfo | null;
@@ -20,8 +21,6 @@ const ManageGroupInfoPage: React.FC = () => {
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false); // 삭제 진행 상태
-  const [isModalOpen, setIsModalOpen] = useState(false); // 모달 상태
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupDes, setNewGroupDes] = useState("");
 
@@ -30,7 +29,9 @@ const ManageGroupInfoPage: React.FC = () => {
   }
 
   // 그룹 프로필 사진 변경 클릭 시
-  const handleProfileImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfileImageChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
       setNewProfileImage(file);
@@ -38,7 +39,6 @@ const ManageGroupInfoPage: React.FC = () => {
       setIsEditingProfileImage(true); // 편집 모드 활성화
     }
   };
-  
 
   // 변경 확정 클릭 시
   const handleConfirmChange = async () => {
@@ -59,7 +59,7 @@ const ManageGroupInfoPage: React.FC = () => {
       }
     }
   };
-  
+
   // 취소 버튼 클릭 시
   const handleCancelChange = () => {
     setIsEditingProfileImage(false);
@@ -69,7 +69,7 @@ const ManageGroupInfoPage: React.FC = () => {
 
   // 그룹명 or 그룹 설명 변경 클릭 시
   const handleGroupNameChange = async () => {
-    if(!newGroupName.trim()) {
+    if (!newGroupName.trim()) {
       alert("새 그룹명을 입력해주세요.");
       return;
     }
@@ -80,14 +80,14 @@ const ManageGroupInfoPage: React.FC = () => {
       setGroup(updatedGroup);
       setNewGroupName("");
       alert("그룹명이 변경 되었습니다.");
-    } catch(error) {
+    } catch (error) {
       console.log("그룹명 변경 실패");
       alert("그룹명 변경에 실패했습니다. 다시 시도해주세요.");
     }
   };
 
   const handleGroupDesChange = async () => {
-    if(!newGroupDes.trim()) {
+    if (!newGroupDes.trim()) {
       alert("새 그룹 설명을 입력해주세요.");
       return;
     }
@@ -98,45 +98,17 @@ const ManageGroupInfoPage: React.FC = () => {
       setGroup(updatedGroup);
       setNewGroupDes("");
       alert("그룹 설명이 변경 되었습니다.");
-    } catch(error) {
+    } catch (error) {
       console.log("그룹 설명 변경 실패");
       alert("그룹 설명 변경에 실패했습니다. 다시 시도해주세요.");
     }
-  };
-
-  // 그룹 삭제하기 클릭 시
-  const handleDeleteClick = () => {
-    setIsModalOpen(true);
-  };
-
-  // 모달에서 삭제 확인 시
-  const handleConfirmDelete = () => {
-    setIsModalOpen(false);
-    setIsDeleting(true);
-    deleteGroup(group.uuid)
-      .then(() => {
-        alert("그룹이 성공적으로 삭제되었습니다.");
-        window.location.href = "/";
-      })
-      .catch((error) => {
-        console.error("그룹 삭제 중 오류 발생:", error);
-        alert("그룹 삭제 중 문제가 발생했습니다.");
-      })
-      .finally(() => {
-        setIsDeleting(false);
-      });
-  };
-
-  // 모달에서 취소 시
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
   };
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       <div className="flex flex-col items-center gap-[27px] self-stretch">
         <div className="flex w-[140px] h-[140px] md:w-[200px] md:h-[200px] justify-center items-center rounded-[100px] border border-light-primary">
-        {isEditingProfileImage ? (
+          {isEditingProfileImage ? (
             previewImage ? (
               <img
                 src={previewImage}
@@ -161,7 +133,11 @@ const ManageGroupInfoPage: React.FC = () => {
           <p className="text-greyDark">프로필 사진을 변경하는 중입니다...</p>
         ) : isEditingProfileImage ? (
           <div className="flex gap-4">
-            <Button size="cta" variant="emphasized" onClick={handleConfirmChange}>
+            <Button
+              size="cta"
+              variant="emphasized"
+              onClick={handleConfirmChange}
+            >
               변경 확정
             </Button>
             <Button size="cta" variant="outlined" onClick={handleCancelChange}>
@@ -173,7 +149,9 @@ const ManageGroupInfoPage: React.FC = () => {
             <Button
               size="cta"
               variant="outlined"
-              onClick={() => document.getElementById("profileImageUpload")?.click()}
+              onClick={() =>
+                document.getElementById("profileImageUpload")?.click()
+              }
             >
               그룹 프로필 사진 변경
             </Button>
@@ -215,14 +193,14 @@ const ManageGroupInfoPage: React.FC = () => {
               onChange={(e) => setNewGroupDes(e.target.value)}
             ></textarea>
             <p className="flex w-full justify-end text-greyDark text-xs">
-              {(group.description?.length || 0)}/500
+              {group.description?.length || 0}/500
             </p>
           </div>
 
           <Button
             size="big"
             variant="emphasized"
-            className="rounded-[10px]" 
+            className="rounded-[10px]"
             onClick={handleGroupDesChange}
           >
             변경
@@ -232,30 +210,9 @@ const ManageGroupInfoPage: React.FC = () => {
 
       {/* 그룹 삭제 및 나가기 */}
       <div className="w-full p-5 flex flex-col justify-center items-start gap-5 rounded-xl border-2 border-greyBorder">
-        <div className="flex items-center gap-5 self-stretch">
-          <div className="flex flex-col items-start gap-2.5 flex-1">
-            <p className="self-stretch text-primary font-bold text-xl">
-              그룹 삭제
-            </p>
-            <p className="self-stretch text-greyDark font-medium text-base">
-              기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 본
-              작업은 되돌릴 수 없습니다.
-            </p>
-          </div>
-
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={handleDeleteClick}
-            disabled={isDeleting} // 삭제 진행 중이면 버튼 비활성화
-          >
-            {isDeleting ? "삭제 중..." : "삭제하기"}
-          </Button>
-        </div>
-
+        <GroupDeleteComponent />
         <div className="w-full h-[1.5px] bg-greyBorder" />
         <GroupLeaveComponent />
-        
       </div>
 
       <div className="flex justify-center self-stretch">
@@ -263,13 +220,6 @@ const ManageGroupInfoPage: React.FC = () => {
           완료
         </Button>
       </div>
-
-      <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
-        title={"⚠️ 그룹 삭제 경고 ⚠️"}
-        message={"정말로 그룹을 삭제하시겠습니까?"}      />
     </div>
   );
 };

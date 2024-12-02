@@ -1,13 +1,13 @@
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { MemberResDto } from "@/types/interfaces";
-import { useEffect, useState } from "react";
-import DeleteConfirmationModal from "../groupInfo/ConfirmModal";
+import { useState } from "react";
+import DeleteConfirmationModal from "../groupInfo/component/ConfirmModal";
 import { leavingGroup } from "@/apis/group";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
 
 const Member = ({ uuid, name, email, role }: MemberResDto) => {
-  const { group, setGroup } = useOutletContext<GroupContextType>();
+  const { group } = useOutletContext<GroupContextType>();
 
   const roleOptions = [
     { id: 1, value: "관리자" },
@@ -15,10 +15,11 @@ const Member = ({ uuid, name, email, role }: MemberResDto) => {
     { id: 3, value: "일반" },
   ];
 
-  const defaultRole = roleOptions.find((option) => option.value === role) || roleOptions[0];
+  const defaultRole =
+    roleOptions.find((option) => option.value === role) || roleOptions[0];
 
   const [selectedRole, setSelectedRole] = useState(defaultRole);
-  
+
   const [isBanishing, setIsBanishing] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -53,16 +54,20 @@ const Member = ({ uuid, name, email, role }: MemberResDto) => {
 
   // 모달에서 취소 시
   const handleCloseModal = () => setIsModalOpen(false);
-  
+
   return (
     <div className="flex h-[50px] justify-start items-center">
       {/* 이름 */}
-      <div className="flex p-2.5 w-[62px] md:w-[62px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">{name}</div>
+      <div className="flex p-2.5 w-[62px] md:w-[62px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
+        {name}
+      </div>
       {/* 이메일 */}
-      <div className="flex p-2.5 w-[232px] md:w-[232px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">{email}</div>
+      <div className="flex p-2.5 w-[232px] md:w-[232px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
+        {email}
+      </div>
       {/* 역할 */}
       <div className="flex justify-start p-2.5 w-[220px] md:w-[220px] h-[50px] border-b-2 border-greyBorder">
-      <Select
+        <Select
           size="small"
           options={roleOptions}
           selectedValue={selectedRole}
