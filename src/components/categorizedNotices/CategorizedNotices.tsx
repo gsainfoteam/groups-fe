@@ -6,11 +6,7 @@ import Zabo from "../zabo/Zabo";
 import { ex_data } from './example';
 import { Notice } from '@/types/interfaces';
 import SearchNoResult from '@/assets/icons/search-no-result.svg?react'
-interface Reaction {
-  emoji: string;
-  count: number;
-  isReacted: boolean;
-}
+
 interface Notices {
   list: Notice[];
   total: number;
@@ -24,18 +20,19 @@ const fetcher  = async (url:string) => {
 }
 
 const CategorizedNotices = ( {uuid} : {uuid: undefined|string}) => {
-  const { t } = useTranslation();
+  
   const {data : notices} = useSWR<Notices>(`${API_ZIGGLE}/notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=deadline`,fetcher)
 
   if(!notices){
     return <div>notices not found</div>
   }
   return (
+    //if you want check that notice work well, use 'ex_data' instead of 'notices'
     <>
-      {ex_data.list.length ? (
+      {notices.list.length ? (
         <>
           <div className="flex w-full flex-col md:max-w-[800px]">
-            {...ex_data.list.map((notice: any) => (
+            {...notices.list.map((notice: any) => (
               <React.Fragment key={notice.id}>
                 <Zabo key={notice.id} {...notice}/>
                 <div className="my-[30px] h-[1px] bg-greyLight dark:bg-d_greyBorder" />
