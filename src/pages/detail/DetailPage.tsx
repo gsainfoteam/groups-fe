@@ -21,8 +21,6 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { uuid } = useParams<{ uuid: string }>();
 
   const { data: group } = useSWR(uuid, getGroup);
-
-
   const [tab, setTab] = useState("info");
 
   if (!group) {

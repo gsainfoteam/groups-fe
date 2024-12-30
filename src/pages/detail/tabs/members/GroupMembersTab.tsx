@@ -5,8 +5,7 @@ import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import UserCircle from "@/assets/icons/user-circle.svg"
 
-const GroupMembersTab = ( {group} : GroupInfo) => {
-  console.log(group)
+const GroupMembersTab = ({group}) => {
   const {uuid} = useParams<{uuid:string}>()
   const {data : members, error, isLoading } = useSWR(`/group/${uuid}/member`, getGroupMember)
   if(error || isLoading){
