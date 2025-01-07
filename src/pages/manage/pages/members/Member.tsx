@@ -58,15 +58,15 @@ const Member = ({ uuid, name, email, role }: MemberResDto) => {
   return (
     <div className="flex h-[50px] justify-start items-center">
       {/* 이름 */}
-      <div className="flex p-2.5 w-[62px] md:w-[62px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
+      <div className="flex p-2.5 w-[72px] md:w-[72px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
         {name}
       </div>
       {/* 이메일 */}
-      <div className="flex p-2.5 w-[232px] md:w-[232px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
+      <div className="flex p-2.5 w-[242px] md:w-[242px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
         {email}
       </div>
       {/* 역할 */}
-      <div className="flex justify-start p-2.5 w-[220px] md:w-[220px] h-[50px] border-b-2 border-greyBorder">
+      <div className="flex justify-start p-2.5 w-[200px] md:w-[200px] h-[50px] border-b-2 border-greyBorder">
         <Select
           size="small"
           options={roleOptions}
@@ -76,7 +76,7 @@ const Member = ({ uuid, name, email, role }: MemberResDto) => {
         />
       </div>
       {/* 추방 버튼 */}
-      <div className="flex p-2.5 w-[76px] md:w-[76px] h-[50px] justify-start items-center border-b-2 border-greyBorder">
+      <div className="flex p-2.5 w-[86px] md:w-[86px] h-[50px] justify-start items-center border-b-2 border-greyBorder">
         <p
           className="underline text-grey text-base font-medium"
           onClick={handleBanishClick}

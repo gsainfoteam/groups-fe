@@ -2,7 +2,7 @@ import MembersHeader from "./MembersHeader";
 import Member from "./Member";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
-import { getGroupMembers } from "@/apis/group";
+import { getGroupMembers, generateInviteCode } from "@/apis/group";
 import { useEffect, useState } from "react";
 import { MemberResDto } from "@/types/interfaces";
 import Button from "@/components/button/Button";
@@ -11,11 +11,13 @@ import Select, { SelectOptionBase } from "@/components/select/Select";
 const ManageMembersPage = () => {
   const { group } = useOutletContext<GroupContextType>();
   const [members, setMembers] = useState<MemberResDto[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [inviteLink, setInviteLink] = useState("");
 
   const expirationOptions = [
     { id: 1, value: "1일 후 만료" },
-    { id: 2, value: "7일 후 만료" },
-    { id: 3, value: "30일 후 만료" },
+    { id: 7, value: "7일 후 만료" },
+    { id: 30, value: "30일 후 만료" },
   ];
 
   const [selectedOption, setSelectedOption] = useState(expirationOptions[0]);
@@ -33,12 +35,48 @@ const ManageMembersPage = () => {
         console.error("멤버 데이터를 가져오는 중 오류 발생:", error);
       }
     };
-    fetchMembers();
-  }, [group.uuid]);
+
+    if (group?.uuid) {
+      fetchMembers();
+    }
+  }, [group?.uuid]);
+
+  useEffect(() => {
+    const generateLink = async () => {
+      if (!group?.uuid || !selectedOption) return;
+
+      setLoading(true);
+      try {
+        const data = await generateInviteCode(
+          group.uuid,
+          selectedOption.id * 86400,
+        );
+        setInviteLink(data.code);
+      } catch (error) {
+        console.error("링크 생성 실패:", error);
+        alert("링크 생성에 실패했습니다.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    generateLink();
+  }, [selectedOption, group?.uuid]);
 
   const handleOptionClick = (option: SelectOptionBase) => {
     setSelectedOption(option);
-    console.log("선택한 만료 기간:", option.value);
+  };
+
+  const handleCopyLink = () => {
+    if (!inviteLink) {
+      alert("생성된 링크가 없습니다.");
+      return;
+    }
+
+    navigator.clipboard
+      .writeText(inviteLink)
+      .then(() => alert("링크가 복사되었습니다!"))
+      .catch((err) => console.error("복사 실패:", err));
   };
 
   return (
@@ -55,17 +93,12 @@ const ManageMembersPage = () => {
         />
         <div
           className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center"
-          onClick={() => {
-            navigator.clipboard
-              .writeText(
-                "https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb",
-              )
-              .then(() => alert("링크가 복사되었습니다!"))
-              .catch((err) => console.error("복사 실패:", err));
-          }}
+          onClick={handleCopyLink}
         >
           <p className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight">
-            https://inviteGroup.ziggle.gistory.me/3jlejkfheof90eh#wjkenbfkuweb
+            {loading
+              ? "링크 생성 중..."
+              : inviteLink || "만료 기한을 선택해 주세요"}
           </p>
         </div>
         <div className="text-greyDark text-base font-medium">

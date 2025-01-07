@@ -124,12 +124,6 @@ const ManageNotionLinkPage = () => {
           </div>
         )}
       </div>
-      {/* 완료 버튼 */}
-      <div className="flex justify-center self-stretch">
-        <Button size="cta" variant="emphasized" className="w-full md:w-60">
-          완료
-        </Button>
-      </div>
     </div>
   );
 };

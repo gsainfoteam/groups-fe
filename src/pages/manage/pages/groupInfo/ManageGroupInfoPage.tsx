@@ -4,8 +4,6 @@ import { useOutletContext } from "react-router-dom";
 import { GroupInfo } from "@/types/interfaces";
 import { getGroup, setGroupProfileImage } from "@/apis/group";
 import { useState } from "react";
-import { deleteGroup } from "@/apis/group";
-import DeleteConfirmationModal from "./component/ConfirmModal";
 import { changeGroupInfo } from "@/apis/group";
 import GroupLeaveComponent from "./component/GroupLeaving";
 import GroupDeleteComponent from "./component/GroupDelete";
@@ -213,12 +211,6 @@ const ManageGroupInfoPage: React.FC = () => {
         <GroupDeleteComponent />
         <div className="w-full h-[1.5px] bg-greyBorder" />
         <GroupLeaveComponent />
-      </div>
-
-      <div className="flex justify-center self-stretch">
-        <Button size="cta" variant="emphasized" className="w-full md:w-60">
-          완료
-        </Button>
       </div>
     </div>
   );
