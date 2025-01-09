@@ -2,11 +2,12 @@ import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import { useOutletContext } from "react-router-dom";
 import { GroupInfo } from "@/types/interfaces";
-import { getGroup, setGroupProfileImage } from "@/apis/group";
+import { getGroup } from "@/apis/group";
 import { useState } from "react";
 import { changeGroupInfo } from "@/apis/group";
 import GroupLeaveComponent from "./component/GroupLeaving";
 import GroupDeleteComponent from "./component/GroupDelete";
+import ImageSection from "./component/ImageSection";
 
 export type GroupContextType = {
   group: GroupInfo | null;
@@ -15,155 +16,53 @@ export type GroupContextType = {
 
 const ManageGroupInfoPage: React.FC = () => {
   const { group, setGroup } = useOutletContext<GroupContextType>();
-  const [isEditingProfileImage, setIsEditingProfileImage] = useState(false);
-  const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-  const [isUploading, setIsUploading] = useState(false);
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupDes, setNewGroupDes] = useState("");
 
-  if (!group) {
-    return <p>데이터를 불러오는 중...</p>;
-  }
+  if (!group) return <p>데이터를 불러오는 중...</p>;
 
-  // 그룹 프로필 사진 변경 클릭 시
-  const handleProfileImageChange = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setNewProfileImage(file);
-      setPreviewImage(URL.createObjectURL(file));
-      setIsEditingProfileImage(true); // 편집 모드 활성화
-    }
-  };
-
-  // 변경 확정 클릭 시
-  const handleConfirmChange = async () => {
-    if (newProfileImage && group.uuid) {
-      setIsUploading(true);
-      try {
-        await setGroupProfileImage(group.uuid, newProfileImage);
-        const updatedGroup = await getGroup(group.uuid);
-        setGroup(updatedGroup);
-        setIsUploading(false);
-        setIsEditingProfileImage(false);
-        setNewProfileImage(null);
-        setPreviewImage(null);
-        alert("프로필 사진이 성공적으로 변경되었습니다!");
-      } catch (error) {
-        setIsUploading(false);
-        alert("프로필 사진 변경 중 문제가 발생했습니다.");
-      }
-    }
-  };
-
-  // 취소 버튼 클릭 시
-  const handleCancelChange = () => {
-    setIsEditingProfileImage(false);
-    setNewProfileImage(null);
-    setPreviewImage(null);
-  };
-
-  // 그룹명 or 그룹 설명 변경 클릭 시
-  const handleGroupNameChange = async () => {
-    if (!newGroupName.trim()) {
-      alert("새 그룹명을 입력해주세요.");
+  // 그룹명, 그룹설명 변경 시
+  const handleGroupInfoChange = async (
+    field: "name" | "description",
+    newValue: string,
+    setNewValue: React.Dispatch<React.SetStateAction<string>>,
+  ): Promise<void> => {
+    if (!newValue.trim()) {
+      alert(
+        `새 ${field === "name" ? "그룹명" : "그룹 설명"}을(를) 입력해주세요.`,
+      );
       return;
     }
 
     try {
-      await changeGroupInfo(group.uuid, { name: newGroupName });
+      await changeGroupInfo(group.uuid, { [field]: newValue });
       const updatedGroup = await getGroup(group.uuid);
       setGroup(updatedGroup);
-      setNewGroupName("");
-      alert("그룹명이 변경 되었습니다.");
+      setNewValue("");
+      alert(
+        `${field === "name" ? "그룹명이" : "그룹 설명이"} 변경 되었습니다.`,
+      );
     } catch (error) {
-      console.log("그룹명 변경 실패");
-      alert("그룹명 변경에 실패했습니다. 다시 시도해주세요.");
+      console.log(`${field === "name" ? "그룹명" : "그룹 설명"} 변경 실패`);
+      alert(
+        `${field === "name" ? "그룹명" : "그룹 설명"} 변경에 실패했습니다. 다시 시도해주세요.`,
+      );
     }
   };
 
-  const handleGroupDesChange = async () => {
-    if (!newGroupDes.trim()) {
-      alert("새 그룹 설명을 입력해주세요.");
-      return;
-    }
+  const handleGroupNameChange = (): void => {
+    handleGroupInfoChange("name", newGroupName, setNewGroupName);
+  };
 
-    try {
-      await changeGroupInfo(group.uuid, { description: newGroupDes });
-      const updatedGroup = await getGroup(group.uuid);
-      setGroup(updatedGroup);
-      setNewGroupDes("");
-      alert("그룹 설명이 변경 되었습니다.");
-    } catch (error) {
-      console.log("그룹 설명 변경 실패");
-      alert("그룹 설명 변경에 실패했습니다. 다시 시도해주세요.");
-    }
+  const handleGroupDesChange = (): void => {
+    handleGroupInfoChange("description", newGroupDes, setNewGroupDes);
   };
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
-      <div className="flex flex-col items-center gap-[27px] self-stretch">
-        <div className="flex w-[140px] h-[140px] md:w-[200px] md:h-[200px] justify-center items-center rounded-[100px] border border-light-primary">
-          {isEditingProfileImage ? (
-            previewImage ? (
-              <img
-                src={previewImage}
-                alt="새 프로필 미리보기"
-                className="w-full h-full object-cover rounded-full"
-              />
-            ) : (
-              <span className="text-greyDark">새 이미지를 선택하세요</span>
-            )
-          ) : group.profileImageUrl ? (
-            <img
-              src={group.profileImageUrl}
-              alt="그룹 프로필"
-              className="w-full h-full object-cover rounded-full"
-            />
-          ) : (
-            <span className="text-greyDark">이미지 없음</span>
-          )}
-        </div>
-
-        {isUploading ? (
-          <p className="text-greyDark">프로필 사진을 변경하는 중입니다...</p>
-        ) : isEditingProfileImage ? (
-          <div className="flex gap-4">
-            <Button
-              size="cta"
-              variant="emphasized"
-              onClick={handleConfirmChange}
-            >
-              변경 확정
-            </Button>
-            <Button size="cta" variant="outlined" onClick={handleCancelChange}>
-              취소
-            </Button>
-          </div>
-        ) : (
-          <div>
-            <Button
-              size="cta"
-              variant="outlined"
-              onClick={() =>
-                document.getElementById("profileImageUpload")?.click()
-              }
-            >
-              그룹 프로필 사진 변경
-            </Button>
-            <input
-              type="file"
-              id="profileImageUpload"
-              accept="image/*"
-              className="hidden"
-              onChange={handleProfileImageChange}
-            />
-          </div>
-        )}
-      </div>
-
+      {/* 그룹 이미지 관리 */}
+      <ImageSection group={group} setGroup={setGroup} />
+      {/* 그룹명 관리 */}
       <div className="flex w-full flex-col items-start gap-4">
         <p className="text-2xl font-bold text-dark">그룹명</p>
         <p className="text-base font-medium text-dark">그룹명 변경</p>
@@ -177,7 +76,7 @@ const ManageGroupInfoPage: React.FC = () => {
           onButtonClick={handleGroupNameChange}
         />
       </div>
-
+      {/* 그룹 간단 소개 관리 */}
       <div className="flex w-full flex-col justify-center items-start gap-4">
         <p className="text-2xl font-bold text-dark">그룹 간단 소개</p>
         <p className="text-base font-medium text-dark">그룹 간단 소개 변경</p>

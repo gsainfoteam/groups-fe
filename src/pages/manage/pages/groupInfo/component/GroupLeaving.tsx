@@ -21,12 +21,13 @@ const GroupLeaveComponent = () => {
     setIsModalOpen(true);
   };
 
+  // 모달에서 나가기 확인 시
   const handleConfirmLeave = async () => {
     setIsModalOpen(false);
     setIsLeaving(true);
     try {
       const userInfo = await getUserInfo();
-      const userUuid = userInfo.uuid; // 사용자 UUID 추출
+      const userUuid = userInfo.uuid;
       await leavingGroup(group.uuid, userUuid);
       alert("그룹에서 성공적으로 나갔습니다.");
     } catch (error) {
@@ -37,6 +38,7 @@ const GroupLeaveComponent = () => {
     }
   };
 
+  // 모달에서 취소 시
   const handleCloseModal = () => setIsModalOpen(false);
 
   return (

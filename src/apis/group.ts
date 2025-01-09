@@ -115,3 +115,17 @@ export const leavingGroup = async (
     throw error;
   }
 };
+
+export const grantMemberRole = async (
+  groupUuid: string,
+  memberUuid: string,
+  roleId: number,
+): Promise<void> => {
+  return groupsApi.patch(
+    `/group/${groupUuid}/member/${memberUuid}/role`,
+    null,
+    {
+      params: { roleId },
+    },
+  );
+};

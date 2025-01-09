@@ -1,12 +1,16 @@
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { MemberResDto } from "@/types/interfaces";
 import { useState } from "react";
-import DeleteConfirmationModal from "../groupInfo/component/ConfirmModal";
+import DeleteConfirmationModal from "../../groupInfo/component/ConfirmModal";
 import { leavingGroup } from "@/apis/group";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
 
-const Member = ({ uuid, name, email, role }: MemberResDto) => {
+interface MemberProps extends MemberResDto {
+  onRoleChange: (memberId: string, newRole: number) => void;
+}
+
+const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
   const { group } = useOutletContext<GroupContextType>();
 
   const roleOptions = [
@@ -29,15 +33,15 @@ const Member = ({ uuid, name, email, role }: MemberResDto) => {
 
   const handleOptionClick = (option: SelectOptionBase) => {
     setSelectedRole(option);
-    console.log("선택한 역할:", option.value);
+    onRoleChange(uuid, option.id);
   };
 
-  // 그룹 삭제하기 클릭 시
+  // 추방하기 클릭 시
   const handleBanishClick = () => {
     setIsModalOpen(true);
   };
 
-  // 모달에서 삭제 확인 시
+  // 모달에서 추방 확인 시
   const handleConfirmBanish = async () => {
     setIsModalOpen(false);
     setIsBanishing(true);
@@ -48,7 +52,7 @@ const Member = ({ uuid, name, email, role }: MemberResDto) => {
       alert("추방에 실패했습니다. 다시 시도해주세요.");
     } finally {
       setIsBanishing(false);
-      setIsModalOpen(false); // 모달 닫기
+      setIsModalOpen(false);
     }
   };
 

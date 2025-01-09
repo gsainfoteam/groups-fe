@@ -1,26 +1,18 @@
-import MembersHeader from "./MembersHeader";
-import Member from "./Member";
+import MembersHeader from "./component/MembersHeader";
+import Member from "./component/Member";
+import InviteSection from "./component/InviteSection";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
-import { getGroupMembers, generateInviteCode } from "@/apis/group";
+import { getGroupMembers, grantMemberRole } from "@/apis/group";
 import { useEffect, useState } from "react";
 import { MemberResDto } from "@/types/interfaces";
 import Button from "@/components/button/Button";
-import Select, { SelectOptionBase } from "@/components/select/Select";
 
 const ManageMembersPage = () => {
   const { group } = useOutletContext<GroupContextType>();
   const [members, setMembers] = useState<MemberResDto[]>([]);
   const [loading, setLoading] = useState(false);
-  const [inviteLink, setInviteLink] = useState("");
-
-  const expirationOptions = [
-    { id: 1, value: "1일 후 만료" },
-    { id: 7, value: "7일 후 만료" },
-    { id: 30, value: "30일 후 만료" },
-  ];
-
-  const [selectedOption, setSelectedOption] = useState(expirationOptions[0]);
+  const [roleChanges, setRoleChanges] = useState<{ [key: string]: number }>({});
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
@@ -41,70 +33,45 @@ const ManageMembersPage = () => {
     }
   }, [group?.uuid]);
 
-  useEffect(() => {
-    const generateLink = async () => {
-      if (!group?.uuid || !selectedOption) return;
-
-      setLoading(true);
-      try {
-        const data = await generateInviteCode(
-          group.uuid,
-          selectedOption.id * 86400,
-        );
-        setInviteLink(data.code);
-      } catch (error) {
-        console.error("링크 생성 실패:", error);
-        alert("링크 생성에 실패했습니다.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    generateLink();
-  }, [selectedOption, group?.uuid]);
-
-  const handleOptionClick = (option: SelectOptionBase) => {
-    setSelectedOption(option);
+  const handleRoleChange = (memberId: string, newRoleId: number) => {
+    setRoleChanges((prev) => ({
+      ...prev,
+      [memberId]: newRoleId,
+    }));
   };
 
-  const handleCopyLink = () => {
-    if (!inviteLink) {
-      alert("생성된 링크가 없습니다.");
-      return;
-    }
+  // 전체 완료 버튼 핸들
+  const handleComplete = async () => {
+    try {
+      setLoading(true);
 
-    navigator.clipboard
-      .writeText(inviteLink)
-      .then(() => alert("링크가 복사되었습니다!"))
-      .catch((err) => console.error("복사 실패:", err));
+      if (!group?.uuid) return;
+
+      // 변경 사항 DB에 업데이트
+      const updatePromises = Object.entries(roleChanges).map(
+        ([memberUuid, roleId]) =>
+          grantMemberRole(group.uuid, memberUuid, roleId),
+      );
+
+      await Promise.all(updatePromises);
+
+      // 변경 사항 초기화
+      setRoleChanges({});
+
+      // 변경 사항 로컬에 반영
+      const updatedMembers = await getGroupMembers(group.uuid);
+      setMembers(updatedMembers);
+    } catch (error) {
+      console.error("Error updating member roles:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       {/* 초대 */}
-      <div className="flex flex-col md:w-[400px] justify-start items-center gap-2.5">
-        <p className="text-dark text-xl font-bold">그룹 멤버 초대 링크</p>
-        <Select
-          size="big"
-          options={expirationOptions}
-          selectedValue={selectedOption}
-          onOptionClick={handleOptionClick}
-          className="flex w-full bg-greyLight rounded-[10px] justify-start items-center gap-2.5 text-dark"
-        />
-        <div
-          className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center"
-          onClick={handleCopyLink}
-        >
-          <p className="flex break-all justify-start itmes-center text-primary text-sm font-medium font-['Inconsolata'] leading-tight">
-            {loading
-              ? "링크 생성 중..."
-              : inviteLink || "만료 기한을 선택해 주세요"}
-          </p>
-        </div>
-        <div className="text-greyDark text-base font-medium">
-          링크를 클릭하면 복사됩니다.
-        </div>
-      </div>
+      <InviteSection />
       {/* 멤버 관리 */}
       <div className="flex flex-col w-full justify-start items-start gap-[15px]">
         <div className="text-dark text-[28px] font-bold">멤버 관리</div>
@@ -124,6 +91,7 @@ const ManageMembersPage = () => {
                     ? "매니저"
                     : "일반"
               }
+              onRoleChange={handleRoleChange}
             />
           ))}
         </div>
@@ -167,8 +135,14 @@ const ManageMembersPage = () => {
       </div>
       {/* 완료 버튼 */}
       <div className="flex justify-center self-stretch">
-        <Button size="cta" variant="emphasized" className="w-full md:w-60">
-          완료
+        <Button
+          size="cta"
+          variant="emphasized"
+          className="w-full md:w-60"
+          onClick={handleComplete}
+          disabled={loading || Object.keys(roleChanges).length === 0}
+        >
+          {loading ? "처리 중..." : "완료"}
         </Button>
       </div>
     </div>

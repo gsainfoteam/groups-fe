@@ -39,9 +39,7 @@ const GroupDeleteComponent = () => {
   };
 
   // 모달에서 취소 시
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
+  const handleCloseModal = () => setIsModalOpen(false);
 
   return (
     <>

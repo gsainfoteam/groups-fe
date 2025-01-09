@@ -7,7 +7,6 @@ import { getNotionPage } from "@/apis/notion";
 import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
 import Input from "@/components/input/Input";
-import Button from "@/components/button/Button";
 import { changeGroupInfo, getGroup } from "@/apis/group";
 
 const ManageNotionLinkPage = () => {
