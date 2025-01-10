@@ -10,7 +10,6 @@ export const main = {
     error: "프론트엔드 에러 발생",
     loading: "로딩 중...",
     overdue: "기한 지남",
-    backToMain: "돌아가기",
   },
   navbar: {
     all: "전체 공지",
@@ -18,7 +17,7 @@ export const main = {
     query: "공지 검색",
     login: "로그인",
     button: {
-      goBackToZiggle: "지글로 돌아가기",
+      goBackToZiggle: "메인으로",
     },
   },
   onboarding: {
@@ -93,8 +92,6 @@ export const main = {
     mainLogo: "속한 그룹이 없습니다.",
     mainDescription:
       "특정 그룹에 속하길 바라신다면, 해당 그룹의 관리자에게 문의해주세요.",
-    successfullyJoinedMessage:
-      "<strong>{{groupName}}</strong> 그룹 참가가 완료되었습니다!",
     createGroup: "그룹 생성하기",
     manageGroup: "그룹 관리",
     leaveGroup: "그룹 나가기",
@@ -105,35 +102,6 @@ export const main = {
       intro: "소개",
       notices: "공지",
       members: "멤버",
-    },
-  },
-  groupInvitation: {
-    title: "그룹 멤버 초대 링크",
-    description: "링크를 클릭하면 복사됩니다.",
-    linkExpirationSelect: {
-      aDay: "1일 후 만료",
-      threeDays: "3일 후 만료",
-      aWeek: "일주일 후 만료",
-      aMonth: "한달 후 만료",
-    },
-    linkActions: {
-      hover: "클릭하여 복사",
-      complete: "복사가 완료되었습니다!",
-    },
-    error: {
-      unknownError: "초대 링크 생성 도중 에러가 발생하였습니다.",
-    },
-  },
-  invitationPage: {
-    title: '"{{groupName}}" 그룹에 참여하시겠습니까?',
-    groupAdmin: "그룹 관리자: ",
-    actions: {
-      deny: "거부",
-      accept: "수락",
-    },
-    error: {
-      alreadyInGroup: "이미 이 그룹에 속해있습니다!",
-      expired: "해당 초대 링크는 만료되었습니다.",
     },
   },
   createGroup: {
@@ -185,82 +153,6 @@ export const main = {
       description: "그룹 생성 진행 상황이 폐기됩니다.",
       no: "아니오",
       yes: "네",
-    },
-  },
-  manageGroup: {
-    goBack: "뒤로",
-    groupInfo: {
-      name: "기본 정보",
-      groupPic: {
-        title: "그룹 프로필 사진 변경",
-      },
-      groupName: {
-        title: "그룹명",
-        description: "그룹명 변경",
-        button: "변경",
-      },
-      groupIntro: {
-        title: "그룹 간단 소개",
-        description: "그룹 간단 소개 변경",
-        button: "변경",
-      },
-      groupDelete: {
-        title: "그룹 삭제",
-        description: "기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 본 작업은 되돌릴 수 없습니다.",
-        button: "삭제하기",
-      },
-      groupLeave: {
-        title: "그룹 나가기",
-        description: "기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 그룹을 나간 뒤에도 초대된다면 다시 그룹에 참여할 수 있습니다.",
-        button: "나가기",
-      },
-      complete: "완료",
-    },
-    notionlink: {
-      name: "소개 페이지",
-      title: "그룹 소개 노션 링크",
-      description: {
-        first: "그룹 소개에 여러분의 예쁜 노션 링크를 붙여넣을 수 있습니다.",
-        second: "작성하신 그룹 소개 노션을 웹에 퍼블리싱",
-        third: "하신 다음, 그 링크를 여기에 붙여넣어 주세요.",
-      },
-      button: "변경",
-      loading: "노션 불러오는 중...",
-      complete: "완료",
-    },
-    members: {
-      name: "멤버",
-      invite: {
-        title: "그룹 멤버 초대 링크",
-        expire: "1일 후 만료",
-        description: "링크를 클릭하면 복사됩니다.",
-      },
-      list: {
-        title: "멤버 관리",
-        table: {
-          name: "이름",
-          email: "이메일",
-          role: "역할",
-          expel: "추방",
-          expelButton: "추방하기",
-        },
-      },
-      role: {
-        title: "💡 멤버 역할",
-        admin: {
-          title: "관리자",
-          description: "그룹 정보 수정, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
-        },
-        manager: {
-          title: "매니저",
-          description: "그룹 멤버 초대와 그룹 명의로 공지 작성이 가능합니다.",
-        },
-        normal: {
-          title: "일반",
-          description: "그룹 나가기의 권한만 가집니다. 단, 그룹 소개 페이지에서 그룹의 일원으로 표시됩니다.",
-        },
-      },
-      complete: "완료",
     },
   },
   installApp: {

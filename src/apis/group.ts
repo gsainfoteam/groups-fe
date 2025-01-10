@@ -1,6 +1,10 @@
 import groupsApi from "./interceptor";
 import { GroupInfo } from "@/types/interfaces";
 
+export interface InviteCode {
+  code: string;
+}
+
 export const getGroupContainingMe = async (): Promise<GroupInfo[]> => {
   return groupsApi
     .get<{ list: GroupInfo[] }>("/group")
@@ -11,16 +15,9 @@ export const getGroup = async (uuid: string): Promise<GroupInfo> => {
   return groupsApi.get<GroupInfo>(`/group/${uuid}`).then(({ data }) => data);
 };
 
-export interface InviteCode {
-  code: string;
-}
-
-export const generateInviteCode = async (
-  uuid: string,
-  duration: number,
-): Promise<InviteCode> => {
+export const generateInviteCode = async (uuid: string): Promise<InviteCode> => {
   return groupsApi
-    .post<InviteCode>(`/group/${uuid}/invite?duration=${duration}`)
+    .get<InviteCode>(`/group/${uuid}/invite`)
     .then(({ data }) => data);
 };
 
@@ -59,17 +56,8 @@ export const checkGroupExistsByName = async (groupName: string) => {
     .then(({ data }) => data);
 };
 
-interface GetInvitationInfoByInvitationCodeResponse {
-  presidentEmail: string;
-  name: string;
-}
-
-export const getInvitationInfoByInvitationCode = async (code: string) => {
+export const getGroupMember = async (url: string) => {
   return groupsApi
-    .get<GetInvitationInfoByInvitationCodeResponse>(`/group/join?code=${code}`)
-    .then(({ data }) => data);
-};
-
-export const joinGroup = async (code: string) => {
-  return groupsApi.post("/group/join", { code }).then((response) => response);
+    .get(url)
+    .then(({data}) => data.list);
 };

@@ -10,7 +10,8 @@ interface LayoutProps {
 const Layout = ({ to = Path.Home }: LayoutProps) => {
   return (
     <>
-      <Navbar />
+      <Navbar to={to} />
+
       <Outlet />
     </>
   );

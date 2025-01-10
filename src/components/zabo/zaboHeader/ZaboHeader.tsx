@@ -1,4 +1,4 @@
-import DefaultProfile from "@/assets/default-profile.svg?react";
+import DefaultProfile from "@/assets/icons/default-profile.svg?react";
 import { ZaboProps } from "../Zabo";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";

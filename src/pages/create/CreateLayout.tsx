@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import StatusBar from "./components/StatusBar";
 import stepGetter from "./components/stepGetter";
 
-const CreateGroupLayout = () => {
+const Layout = () => {
   const { t } = useTranslation();
 
   const pathname = useLocation().pathname;
@@ -39,4 +39,4 @@ const CreateGroupLayout = () => {
   );
 };
 
-export default CreateGroupLayout;
+export default Layout;
