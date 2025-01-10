@@ -10,6 +10,7 @@ export const main = {
     error: "Frontend Error Occurred",
     loading: "Loading...",
     overdue: "OVERDUE",
+    backToMain: "Back to Main",
   },
   navbar: {
     all: "All Notices",
@@ -17,7 +18,7 @@ export const main = {
     query: "Search Notice",
     login: "Login",
     button: {
-      goBackToZiggle: "Back to Main",
+      goBackToZiggle: "Back to Ziggle",
     },
   },
   onboarding: {
@@ -101,6 +102,8 @@ export const main = {
     mainLogo: "You are not a member of any groups.",
     mainDescription:
       "If you want to join a specific group, please contact the group administrator.",
+    successfullyJoinedMessage:
+      "Successfully joined group <strong>{{groupName}}</strong>!",
     createGroup: "Create Group",
     manageGroup: "Manage Group",
     leaveGroup: "Leave Group",
@@ -113,7 +116,35 @@ export const main = {
       members: "Members",
     },
   },
-
+  groupInvitation: {
+    title: "Group Member Invitation Link",
+    description: "Click link to copy link.",
+    linkExpirationSelect: {
+      aDay: "Expires after a day",
+      threeDays: "Expires after three days",
+      aWeek: "Expires after a week",
+      aMonth: "Expiresa after a month",
+    },
+    linkActions: {
+      hover: "Click to Copy",
+      complete: "Copied!",
+    },
+    error: {
+      unknownError: "Unknown error occured while generating invitation link.",
+    },
+  },
+  invitationPage: {
+    title: 'Are you going to join group "{{groupName}}"',
+    groupAdmin: "Group Administrator: ",
+    actions: {
+      deny: "Deny",
+      accept: "Accept",
+    },
+    error: {
+      alreadyInGroup: "You are already in this group!",
+      expired: "This invitation link is expired.",
+    },
+  },
   createGroup: {
     createGroup: "Create Group",
     previous: "Prev",
@@ -163,6 +194,83 @@ export const main = {
       description: "The process will be lost.",
       no: "No",
       yes: "Yes",
+    },
+  },
+
+  manageGroup: {
+    goBack: "Go back",
+    groupInfo: {
+      name: "Group Info",
+      groupPic: {
+        title: "Change Group Profile Image",
+      },
+      groupName: {
+        title: "Group Name",
+        description: "Change Group Name",
+        button: "Change",
+      },
+      groupIntro: {
+        title: "Group Introduction",
+        description: "Change Group Introduction",
+        button: "Change",
+      },
+      groupDelete: {
+        title: "Delete Group",
+        description: "Notices posted under this group name will not be affected. This action cannot be undone.",
+        button: "Delete",
+      },
+      groupLeave: {
+        title: "Leave Group",
+        description: "Notices posted under this group name will not be affected. You can rejoin if invited again after leaving the group.",
+        button: "Leave",
+      },
+      complete: "Complete",
+    },
+    notionlink: {
+      name: "Notion Link",
+      title: "Group Introduction Notion Link",
+      description: {
+        first: "You can attach your beautiful Notion link to the group introduction.",
+        second: "After publishing your group introduction Notion on the web,",
+        third: "please paste the link here.",
+      },
+      button: "Change",
+      loading: "Loading Notion...",
+      complete: "Complete",
+    },
+    members: {
+      name: "Member",
+      invite: {
+        title: "Group Member Invitation Link",
+        expire: "Expires in 1 day",
+        description: "Click the link to copy it.",
+      },
+      list: {
+        title: "Manage Members",
+        table: {
+          name: "Name",
+          email: "Email",
+          role: "Role",
+          expel: "Expel",
+          expelButton: "Expel",
+        },
+      },
+      role: {
+        title: "💡 Member Roles",
+        admin: {
+          title: "Admin",
+          description: "Has all permissions, including editing group info, changing roles, and expelling members.",
+        },
+        manager: {
+          title: "Manager",
+          description: "Can invite members and post notices on behalf of the group.",
+        },
+        normal: {
+          title: "Normal",
+          description: "Can only leave the group but is displayed as a group member on the group intro page.",
+        },
+      },
+      complete: "Complete",
     },
   },
 

@@ -21,6 +21,8 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { uuid } = useParams<{ uuid: string }>();
 
   const { data: group } = useSWR(uuid, getGroup);
+
+
   const [tab, setTab] = useState("info");
 
   if (!group) {
@@ -37,7 +39,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
         {tab === "info" && <GroupIntroTab />}
         {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
-        {tab === "member" && <GroupMembersTab group={group}/>}
+        {tab === "member" && <GroupMembersTab />}
       </div>
     </main>
   );

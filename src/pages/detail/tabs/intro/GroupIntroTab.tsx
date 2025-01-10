@@ -6,27 +6,28 @@ import "prismjs/themes/prism-tomorrow.css";
 import "katex/dist/katex.min.css";
 import "./styles.css";
 
-import useSWR from "swr";
+import { getGroup } from "@/apis/group";
 import { getNotionPage } from "@/apis/notion";
 import { useParams } from "react-router-dom";
-import { getGroup } from "@/apis/group";
+import useSWR from "swr";
+import NotionWrapper from "./NotionWrapper";
 //import NotionWrapper from "./NotionWrapper";
+const GroupIntroTab = () => {
+  const { uuid } = useParams();
+  const { data: group, error: groupError } = useSWR(uuid, getGroup);
+  const { data: recordMap, error: recordMapError } = useSWR(
+    group && group.notionPageId,
+    getNotionPage,
+  );
 
-interface GroupIntroTabProps {}
-
-const GroupIntroTab = ({}: GroupIntroTabProps) => {
-  const {uuid} = useParams();
-  const {data : group, error: groupError } = useSWR(uuid,getGroup)
-  const { data: recordMap, error: recordMapError } = useSWR(group? group.notionPageId : null, getNotionPage);        
-  
-  if (group || groupError)
-    return <div>Group introduce page not found</div>
-  if (!recordMap || recordMapError) 
+  if (groupError) return <div>Group introduce page not found</div>;
+  if (recordMapError)
     return <div>Notion page not found - Please Check your notion ID</div>;
- 
+
+  if (!group || !recordMap) return <div>Loading...</div>; // TODO: Add loading UI
+
   return (
     <div className={"mt-5"}>
-      <div>Notion page found - Todo: fix notionwrapper error</div>
       <NotionWrapper recordMap={recordMap} />
     </div>
   );
