@@ -2,13 +2,15 @@ import Button from "@/components/button/Button";
 import Path from "@/types/paths";
 import { Trans, useTranslation } from "react-i18next";
 import { useLocation, useNavigate } from "react-router-dom";
-import CompleteAnimation from "./components/CompleteAnimation";
+import CompleteAnimation from "../../components/CompleteAnimation";
+import GenerateInvitationLink from "./GenerateInvitationLink";
 
-const CreateGroupSequenceComplete = () => {
+const CreateGroupComplete = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const groupName = location.state.groupName || "Your Group";
+  const groupUuid: string | undefined = location.state.groupUuid;
 
   const handleCompleteClick = () => {
     navigate(Path.Home);
@@ -24,7 +26,16 @@ const CreateGroupSequenceComplete = () => {
             {{ groupName }}
           </Trans>
         </h2>
+
         <p className="text-greyDark">{t("createGroup.complete.description")}</p>
+
+        <div className="h-16" />
+
+        {groupUuid ? (
+          <GenerateInvitationLink groupUuid={groupUuid} />
+        ) : (
+          <div>{t("groupInvitation.error.unknownError")}</div>
+        )}
       </section>
 
       <Button
@@ -39,4 +50,4 @@ const CreateGroupSequenceComplete = () => {
   );
 };
 
-export default CreateGroupSequenceComplete;
+export default CreateGroupComplete;
