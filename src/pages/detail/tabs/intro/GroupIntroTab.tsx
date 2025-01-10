@@ -27,7 +27,7 @@ const GroupIntroTab = ({}: GroupIntroTabProps) => {
   return (
     <div className={"mt-5"}>
       <div>Notion page found - Todo: fix notionwrapper error</div>
-      {/* <NotionWrapper recordMap={recordMap} /> */}
+      <NotionWrapper recordMap={recordMap} />
     </div>
   );
 };
