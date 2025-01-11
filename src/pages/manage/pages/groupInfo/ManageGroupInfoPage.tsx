@@ -43,9 +43,16 @@ const ManageGroupInfoPage: React.FC = () => {
         `${field === "name" ? "그룹명이" : "그룹 설명이"} 변경 되었습니다.`,
       );
     } catch (error) {
-      console.log(`${field === "name" ? "그룹명" : "그룹 설명"} 변경 실패`);
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : "알 수 없는 오류가 발생했습니다.";
+      console.error(
+        `${field === "name" ? "그룹명" : "그룹 설명"} 변경 실패:`,
+        errorMessage,
+      );
       alert(
-        `${field === "name" ? "그룹명" : "그룹 설명"} 변경에 실패했습니다. 다시 시도해주세요.`,
+        `${field === "name" ? "그룹명" : "그룹 설명"} 변경에 실패했습니다: ${errorMessage}`,
       );
     }
   };
@@ -89,8 +96,12 @@ const ManageGroupInfoPage: React.FC = () => {
               value={newGroupDes}
               onChange={(e) => setNewGroupDes(e.target.value)}
             ></textarea>
-            <p className="flex w-full justify-end text-greyDark text-xs">
-              {group.description?.length || 0}/500
+            <p
+              className={`flex w-full justify-end text-xs ${
+                newGroupDes?.length > 500 ? "text-primary" : "text-greyDark"
+              }`}
+            >
+              {newGroupDes?.length || 0}/500
             </p>
           </div>
 
@@ -99,6 +110,7 @@ const ManageGroupInfoPage: React.FC = () => {
             variant="emphasized"
             className="rounded-[10px]"
             onClick={handleGroupDesChange}
+            disabled={newGroupDes?.length > 500}
           >
             변경
           </Button>

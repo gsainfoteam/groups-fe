@@ -22,6 +22,12 @@ export interface GroupInfo {
   notionPageId: string;
 }
 
+export interface CompactGroupInfo {
+  name?: string;
+  description?: string;
+  notionPageId?: string;
+}
+
 export interface Notice {
   id: number;
   title: string;

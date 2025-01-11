@@ -10,14 +10,14 @@ interface MemberProps extends MemberResDto {
   onRoleChange: (memberId: string, newRole: number) => void;
 }
 
+export const roleOptions = [
+  { id: 1, value: "관리자" },
+  { id: 2, value: "매니저" },
+  { id: 3, value: "일반" },
+];
+
 const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
   const { group } = useOutletContext<GroupContextType>();
-
-  const roleOptions = [
-    { id: 1, value: "관리자" },
-    { id: 2, value: "매니저" },
-    { id: 3, value: "일반" },
-  ];
 
   const defaultRole =
     roleOptions.find((option) => option.value === role) || roleOptions[0];
@@ -81,12 +81,14 @@ const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
       </div>
       {/* 추방 버튼 */}
       <div className="flex p-2.5 w-[86px] md:w-[86px] h-[50px] justify-start items-center border-b-2 border-greyBorder">
-        <p
+        <button
           className="underline text-grey text-base font-medium"
           onClick={handleBanishClick}
+          aria-label={`${name} 멤버 추방하기`}
+          disabled={isBanishing}
         >
           {isBanishing ? "추방 중..." : "추방하기"}
-        </p>
+        </button>
       </div>
       {/* 추방 확인 모달 */}
       <DeleteConfirmationModal

@@ -30,6 +30,7 @@ const GroupLeaveComponent = () => {
       const userUuid = userInfo.uuid;
       await leavingGroup(group.uuid, userUuid);
       alert("그룹에서 성공적으로 나갔습니다.");
+      window.location.href = "/";
     } catch (error) {
       alert("그룹 나가기에 실패했습니다. 다시 시도해주세요.");
     } finally {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@/components/button/Button";
 import { setGroupProfileImage, getGroup } from "@/apis/group";
 import { GroupInfo } from "@/types/interfaces";
@@ -13,6 +13,15 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+  const [objectUrl, setObjectUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+  }, [objectUrl]);
 
   const handleProfileImageChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -20,7 +29,9 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
     const file = event.target.files?.[0];
     if (file) {
       setNewProfileImage(file);
-      setPreviewImage(URL.createObjectURL(file));
+      const url = URL.createObjectURL(file);
+      setObjectUrl(url);
+      setPreviewImage(url);
       setIsEditingProfileImage(true);
     }
   };
@@ -99,7 +110,7 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
           <input
             type="file"
             id="profileImageUpload"
-            accept="image/*"
+            accept="image/png, image/jpeg, image/gif"
             className="hidden"
             onChange={handleProfileImageChange}
           />

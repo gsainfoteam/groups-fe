@@ -1,5 +1,5 @@
 import groupsApi from "./interceptor";
-import { GroupInfo, MemberResDto } from "@/types/interfaces";
+import { CompactGroupInfo, GroupInfo, MemberResDto } from "@/types/interfaces";
 
 export const getGroupContainingMe = async (): Promise<GroupInfo[]> => {
   return groupsApi
@@ -81,7 +81,7 @@ export const deleteGroup = async (uuid: string): Promise<void> => {
 
 export const changeGroupInfo = async (
   uuid: string,
-  body: Record<string, any>,
+  body: CompactGroupInfo,
 ): Promise<void> => {
   return groupsApi.patch(`/group/${uuid}`, body).then(() => {
     console.log(`Group info of ${uuid} updated successfully.`);
@@ -100,20 +100,13 @@ export const leavingGroup = async (
   groupUuid: string,
   memberUuid: string,
 ): Promise<void> => {
-  try {
-    const response = await groupsApi.delete(
-      `/group/${groupUuid}/member/${memberUuid}`,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      },
-    );
-    console.log(`Member with uuid ${memberUuid} successfully left the group.`);
-  } catch (error) {
-    console.error(`Error leaving the group: ${error}`);
-    throw error;
-  }
+  return groupsApi
+    .delete(`/group/${groupUuid}/member/${memberUuid}`)
+    .then(() => {
+      console.log(
+        `Member with uuid ${memberUuid} successfully left the group.`,
+      );
+    });
 };
 
 export const grantMemberRole = async (

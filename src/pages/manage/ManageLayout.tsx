@@ -16,7 +16,6 @@ const ManageLayout = () => {
     if (uuid) {
       getGroup(uuid)
         .then((data) => {
-          console.log("group info:", data);
           setGroup(data);
         })
         .catch((error) => console.error("Failed to fetch group info:", error))

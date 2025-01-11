@@ -47,6 +47,7 @@ const ManageNotionLinkPage = () => {
       return;
     }
 
+    // TODO: useGroupNotionSequence.tsx 수정 후 노션 링크 검증 과정 추가
     try {
       await changeGroupInfo(group.uuid, { notionPageId: newNotionLink });
       const updatedGroup = await getGroup(group.uuid);
@@ -54,7 +55,7 @@ const ManageNotionLinkPage = () => {
       setNewNotionLink("");
       alert("노션 링크가 변경 되었습니다.");
     } catch (error) {
-      console.log("노션 링크 변경 실패");
+      console.error("노션 링크 변경 실패:", error);
       alert("노션 링크 변경에 실패했습니다. 다시 시도해주세요.");
     }
   };

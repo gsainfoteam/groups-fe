@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@/components/button/Button";
 
 interface DeleteConfirmationModalProps {
@@ -18,10 +18,30 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
 }) => {
   if (!isOpen) return null;
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        onClose();
+      }
+    };
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
+
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+    >
       <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg w-[90%] max-w-md text-center">
-        <h2 className="text-red-600 text-lg md:text-xl font-bold">{title}</h2>
+        <h2
+          id="modal-title"
+          className="text-red-600 text-lg md:text-xl font-bold"
+        >
+          {title}
+        </h2>
         <p className="mt-4 text-primary text-sm md:text-base leading-relaxed">
           본 작업은 되돌릴 수 없습니다.
         </p>

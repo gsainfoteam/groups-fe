@@ -6,7 +6,14 @@ const Navigator = () => {
   const { uuid } = useParams<{ uuid: string }>();
 
   if (!uuid) {
-    return <div>유효하지 않은 그룹 ID입니다.</div>;
+    return (
+      <div>
+        <p>유효하지 않은 그룹 ID입니다.</p>
+        <button onClick={() => (window.location.href = "/")}>
+          홈으로 돌아가기
+        </button>
+      </div>
+    );
   }
 
   const tabs = [
