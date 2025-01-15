@@ -1,4 +1,4 @@
-import { useState, useTransition } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 
@@ -6,12 +6,12 @@ import { getGroup } from "@/apis/group";
 
 import GroupDetailTabs from "./GroupDetailTabs";
 
+import Card from "@/components/card/Card";
+import Loading from "@/components/loading/Loading";
+import GroupProfile from "./GroupProfile";
+import GroupIntroTab from "./tabs/intro/GroupIntroTab";
 import GroupMembersTab from "./tabs/members/GroupMembersTab";
 import GroupNoticesTab from "./tabs/notices/GroupNoticesTab";
-import GroupIntroTab from "./tabs/intro/GroupIntroTab";
-import GroupProfile from "./GroupProfile";
-import Loading from "@/components/loading/Loading";
-import Card from "@/components/card/Card";
 
 interface GroupDetailPageProps {
   searchParams?: { tab: string; page: string };
@@ -21,7 +21,6 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { uuid } = useParams<{ uuid: string }>();
 
   const { data: group } = useSWR(uuid, getGroup);
-
 
   const [tab, setTab] = useState("info");
 

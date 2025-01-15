@@ -115,6 +115,9 @@ export const main = {
       notices: "Notices",
       members: "Members",
     },
+    intro: {
+      notExist: "The group introduction page does not exist yet.",
+    },
   },
   groupInvitation: {
     title: "Group Member Invitation Link",
@@ -216,12 +219,14 @@ export const main = {
       },
       groupDelete: {
         title: "Delete Group",
-        description: "Notices posted under this group name will not be affected. This action cannot be undone.",
+        description:
+          "Notices posted under this group name will not be affected. This action cannot be undone.",
         button: "Delete",
       },
       groupLeave: {
         title: "Leave Group",
-        description: "Notices posted under this group name will not be affected. You can rejoin if invited again after leaving the group.",
+        description:
+          "Notices posted under this group name will not be affected. You can rejoin if invited again after leaving the group.",
         button: "Leave",
       },
       complete: "Complete",
@@ -230,7 +235,8 @@ export const main = {
       name: "Notion Link",
       title: "Group Introduction Notion Link",
       description: {
-        first: "You can attach your beautiful Notion link to the group introduction.",
+        first:
+          "You can attach your beautiful Notion link to the group introduction.",
         second: "After publishing your group introduction Notion on the web,",
         third: "please paste the link here.",
       },
@@ -259,15 +265,18 @@ export const main = {
         title: "💡 Member Roles",
         admin: {
           title: "Admin",
-          description: "Has all permissions, including editing group info, changing roles, and expelling members.",
+          description:
+            "Has all permissions, including editing group info, changing roles, and expelling members.",
         },
         manager: {
           title: "Manager",
-          description: "Can invite members and post notices on behalf of the group.",
+          description:
+            "Can invite members and post notices on behalf of the group.",
         },
         normal: {
           title: "Normal",
-          description: "Can only leave the group but is displayed as a group member on the group intro page.",
+          description:
+            "Can only leave the group but is displayed as a group member on the group intro page.",
         },
       },
       complete: "Complete",

@@ -8,23 +8,29 @@ import "./styles.css";
 
 import { getGroup } from "@/apis/group";
 import { getNotionPage } from "@/apis/notion";
+import Card from "@/components/card/Card";
+import { useTranslation } from "react-i18next";
 import { useParams } from "react-router-dom";
 import useSWR from "swr";
 import NotionWrapper from "./NotionWrapper";
 //import NotionWrapper from "./NotionWrapper";
 const GroupIntroTab = () => {
   const { uuid } = useParams();
-  const { data: group, error: groupError } = useSWR(uuid, getGroup);
+  const { data: group, error: groupError, isLoading } = useSWR(uuid, getGroup);
   const { data: recordMap, error: recordMapError } = useSWR(
     group && group.notionPageId,
     getNotionPage,
   );
+  const { t } = useTranslation();
 
   if (groupError) return <div>Group introduce page not found</div>;
   if (recordMapError)
     return <div>Notion page not found - Please Check your notion ID</div>;
 
-  if (!group || !recordMap) return <div>Loading...</div>; // TODO: Add loading UI
+  if (isLoading) return <Card className={"mt-5"}>Loading...</Card>; // TODO: Add loading UI
+
+  if (!group || !recordMap)
+    return <Card className={"mt-5"}>{t("group.intro.notExist")}</Card>;
 
   return (
     <div className={"mt-5"}>
