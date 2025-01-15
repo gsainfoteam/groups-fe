@@ -8,6 +8,7 @@ import { changeGroupInfo } from "@/apis/group";
 import GroupLeaveComponent from "./component/GroupLeaving";
 import GroupDeleteComponent from "./component/GroupDelete";
 import ImageSection from "./component/ImageSection";
+import { useTranslation } from "react-i18next";
 
 export type GroupContextType = {
   group: GroupInfo | null;
@@ -15,6 +16,7 @@ export type GroupContextType = {
 };
 
 const ManageGroupInfoPage: React.FC = () => {
+  const { t } = useTranslation();
   const { group, setGroup } = useOutletContext<GroupContextType>();
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupDes, setNewGroupDes] = useState("");
@@ -71,13 +73,17 @@ const ManageGroupInfoPage: React.FC = () => {
       <ImageSection group={group} setGroup={setGroup} />
       {/* 그룹명 관리 */}
       <div className="flex w-full flex-col items-start gap-4">
-        <p className="text-2xl font-bold text-dark">그룹명</p>
-        <p className="text-base font-medium text-dark">그룹명 변경</p>
+        <p className="text-2xl font-bold text-dark">
+          {t("manageGroup.groupInfo.groupName.title")}
+        </p>
+        <p className="text-base font-medium text-dark">
+          {t("manageGroup.groupInfo.groupName.description")}
+        </p>
 
         <Input
           width="100%"
           placeholder={group.name}
-          buttonValue="변경"
+          buttonValue={t("manageGroup.groupInfo.groupName.button")}
           value={newGroupName}
           onChange={(e) => setNewGroupName(e.target.value)}
           onButtonClick={handleGroupNameChange}
@@ -85,8 +91,12 @@ const ManageGroupInfoPage: React.FC = () => {
       </div>
       {/* 그룹 간단 소개 관리 */}
       <div className="flex w-full flex-col justify-center items-start gap-4">
-        <p className="text-2xl font-bold text-dark">그룹 간단 소개</p>
-        <p className="text-base font-medium text-dark">그룹 간단 소개 변경</p>
+        <p className="text-2xl font-bold text-dark">
+          {t("manageGroup.groupInfo.groupIntro.title")}
+        </p>
+        <p className="text-base font-medium text-dark">
+          {t("manageGroup.groupInfo.groupIntro.description")}
+        </p>
 
         <div className="w-full flex flex-col items-end gap-2.5">
           <div className="flex flex-col w-full gap-1.5">
@@ -112,7 +122,7 @@ const ManageGroupInfoPage: React.FC = () => {
             onClick={handleGroupDesChange}
             disabled={newGroupDes?.length > 500}
           >
-            변경
+            {t("manageGroup.groupInfo.groupIntro.button")}
           </Button>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmModal";
 import { getUserInfo } from "@/apis/auth";
@@ -7,6 +8,7 @@ import Button from "@/components/button/Button";
 import { leavingGroup } from "@/apis/group";
 
 const GroupLeaveComponent = () => {
+  const { t } = useTranslation();
   const { group } = useOutletContext<GroupContextType>();
 
   const [isLeaving, setIsLeaving] = useState(false);
@@ -47,11 +49,10 @@ const GroupLeaveComponent = () => {
       <div className="flex items-center gap-5 self-stretch">
         <div className="flex flex-col items-start gap-2.5 flex-1">
           <p className="self-stretch text-primary font-bold text-xl">
-            그룹 나가기
+            {t("manageGroup.groupInfo.groupLeave.title")}
           </p>
           <p className="self-stretch text-greyDark font-medium text-base">
-            기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 그룹을
-            나간 뒤에도 초대된다면 다시 그룹에 참여할 수 있습니다.
+            {t("manageGroup.groupInfo.groupLeave.description")}
           </p>
         </div>
 

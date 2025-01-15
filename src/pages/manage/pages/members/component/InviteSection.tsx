@@ -3,8 +3,10 @@ import Select, { SelectOptionBase } from "@/components/select/Select";
 import { generateInviteCode } from "@/apis/group";
 import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
 import { useOutletContext } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const InviteSection = () => {
+  const { t } = useTranslation();
   const { group } = useOutletContext<GroupContextType>();
   const [loading, setLoading] = useState(false);
   const [inviteLink, setInviteLink] = useState("");
@@ -58,7 +60,9 @@ const InviteSection = () => {
 
   return (
     <div className="flex flex-col md:w-[400px] justify-start items-center gap-2.5">
-      <p className="text-dark text-xl font-bold">그룹 멤버 초대 링크</p>
+      <p className="text-dark text-xl font-bold">
+        {t("manageGroup.members.invite.title")}
+      </p>
       <Select
         size="big"
         options={expirationOptions}
@@ -77,7 +81,7 @@ const InviteSection = () => {
         </p>
       </div>
       <div className="text-greyDark text-base font-medium">
-        링크를 클릭하면 복사됩니다.
+        {t("manageGroup.members.invite.description")}
       </div>
     </div>
   );

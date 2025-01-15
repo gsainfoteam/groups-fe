@@ -8,8 +8,10 @@ import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
 import Input from "@/components/input/Input";
 import { changeGroupInfo, getGroup } from "@/apis/group";
+import { useTranslation } from "react-i18next";
 
 const ManageNotionLinkPage = () => {
+  const { t } = useTranslation();
   const { group, setGroup } = useOutletContext<GroupContextType>();
   const [isLoading, setIsLoading] = useState(true);
   const [notionData, setNotionData] = useState<null | ExtendedRecordMap>(null);
@@ -69,20 +71,20 @@ const ManageNotionLinkPage = () => {
           <div className="flex justify-start items-center gap-2.5 inline-flex">
             <Notion className="w-[30px] h-[30px] md:w-10 md:h-10" />
             <div className="text-dark text-2xl md:text-[28px] font-bold">
-              그룹 소개 노션 링크
+              {t("manageGroup.notionlink.title")}
             </div>
           </div>
           {/* 설명 */}
           <div className="flex flex-col">
             <span className="text-dark text-base">
-              그룹 소개에 여러분의 예쁜 노션 링크를 붙여넣을 수 있습니다.
+              {t("manageGroup.notionlink.description.first")}
               <br />
             </span>
             <p className="text-dark text-base">
               <span className="text-primary text-base">
-                작성하신 그룹 소개 노션을 웹에 퍼블리싱
+                {t("manageGroup.notionlink.description.second")}
               </span>
-              하신 다음, 그 링크를 여기에 붙여넣어 주세요.
+              {t("manageGroup.notionlink.description.third")}
             </p>
           </div>
           {/* 링크 입력 및 제출 */}
@@ -90,7 +92,7 @@ const ManageNotionLinkPage = () => {
             <Input
               width="100%"
               placeholder={group.notionPageId}
-              buttonValue="변경"
+              buttonValue={t("manageGroup.notionlink.button")}
               value={newNotionLink}
               onChange={(e) => setNewNotionLink(e.target.value)}
               onButtonClick={handleNotionLinkChange}

@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmModal";
 import { useOutletContext } from "react-router-dom";
@@ -6,6 +7,7 @@ import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
 
 const GroupDeleteComponent = () => {
+  const { t } = useTranslation();
   const { group } = useOutletContext<GroupContextType>();
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -46,11 +48,10 @@ const GroupDeleteComponent = () => {
       <div className="flex items-center gap-5 self-stretch">
         <div className="flex flex-col items-start gap-2.5 flex-1">
           <p className="self-stretch text-primary font-bold text-xl">
-            그룹 삭제
+            {t("manageGroup.groupInfo.groupDelete.title")}
           </p>
           <p className="self-stretch text-greyDark font-medium text-base">
-            기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 본
-            작업은 되돌릴 수 없습니다.
+            {t("manageGroup.groupInfo.groupDelete.description")}
           </p>
         </div>
 

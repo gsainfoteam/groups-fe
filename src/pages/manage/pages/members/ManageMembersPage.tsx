@@ -7,8 +7,10 @@ import { getGroupMembers, grantMemberRole } from "@/apis/group";
 import { useEffect, useState } from "react";
 import { MemberResDto } from "@/types/interfaces";
 import Button from "@/components/button/Button";
+import { useTranslation } from "react-i18next";
 
 const ManageMembersPage = () => {
+  const { t } = useTranslation();
   const { group } = useOutletContext<GroupContextType>();
   const [members, setMembers] = useState<MemberResDto[]>([]);
   const [loading, setLoading] = useState(false);
@@ -73,60 +75,62 @@ const ManageMembersPage = () => {
       {/* 초대 */}
       <InviteSection />
       {/* 멤버 관리 */}
-      <div className="flex flex-col w-full justify-start items-start gap-[15px]">
-        <div className="text-dark text-[28px] font-bold">멤버 관리</div>
+      <div className="flex flex-col w-full justify-start items-start gap-[15px] overflow-x-hidden">
+        <div className="text-dark text-[28px] font-bold">
+          {t("manageGroup.members.list.title")}
+        </div>
         {/* 멤버 목록 */}
-        <div className="w-full justify-start items-center flex-col overflow-x-scroll">
-          <MembersHeader />
-          {members.map((member) => (
-            <Member
-              key={member.uuid}
-              uuid={member.uuid}
-              name={member.name}
-              email={member.email}
-              role={
-                member.role === "admin"
-                  ? "관리자"
-                  : member.role === "manager"
-                    ? "매니저"
-                    : "일반"
-              }
-              onRoleChange={handleRoleChange}
-            />
-          ))}
+        <div className="w-full overflow-x-scroll md:overflow-x-hidden">
+          <div className="w-fit justify-start items-center flex-col">
+            <MembersHeader />
+            {members.map((member) => (
+              <Member
+                key={member.uuid}
+                uuid={member.uuid}
+                name={member.name}
+                email={member.email}
+                role={
+                  member.role === "admin"
+                    ? "관리자"
+                    : member.role === "manager"
+                      ? "매니저"
+                      : "일반"
+                }
+                onRoleChange={handleRoleChange}
+              />
+            ))}
+          </div>
         </div>
         {/* 멤버 역할 */}
         <div className="w-full self-stretch px-6 py-[22px] bg-greyLight rounded-[10px] flex-col justify-start items-start gap-3.5 flex">
           <div className="self-stretch justify-start items-start flex text-dark text-xl font-bold">
-            💡 멤버 역할
+            {t("manageGroup.members.role.title")}
           </div>
           <div className="self-stretch justify-start items-start flex flex-col gap-2.5">
             <div className="self-stretch justify-start items-start inline-flex">
-              <p className="text-[#252525] text-base font-bold">
-                관리자
-                <span className="text-[#252525] text-base font-medium">
+              <p className="text-dark text-base font-bold">
+                {t("manageGroup.members.role.admin.title")}
+                <span className="text-dark text-base font-medium">
                   {" "}
-                  - 그룹 정보 수정, 멤버 역할 변경, 추방 등 모든 권한을
-                  가집니다.
+                  - {t("manageGroup.members.role.admin.description")}
                 </span>
               </p>
             </div>
             <div className="self-stretch justify-start items-start inline-flex">
-              <p className="text-[#252525] text-base font-bold">
-                매니저
-                <span className="text-[#252525] text-base font-medium">
+              <p className="text-dark text-base font-bold">
+                {t("manageGroup.members.role.manager.title")}
+                <span className="text-dark text-base font-medium">
                   {" "}
-                  - 그룹 멤버 초대와 그룹 명의로 공지 작성이 가능합니다.
+                  - {t("manageGroup.members.role.manager.description")}
                 </span>
               </p>
             </div>
             <div className="self-stretch justify-start items-start inline-flex">
-              <p className="text-[#252525] text-base font-bold">
-                일반
-                <span className="text-[#252525] text-base font-medium">
+              <p className="text-dark text-base font-bold">
+                {t("manageGroup.members.role.normal.title")}
+                <span className="text-dark text-base font-medium">
                   {" "}
-                  - 그룹 나가기의 권한만 가집니다. 단, 그룹 소개 페이지에서
-                  그룹의 일원으로 표시됩니다.
+                  - {t("manageGroup.members.role.normal.description")}
                 </span>
               </p>
             </div>

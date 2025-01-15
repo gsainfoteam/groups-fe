@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/button/Button";
 import { setGroupProfileImage, getGroup } from "@/apis/group";
@@ -9,6 +10,7 @@ type ImageSectionProps = {
 };
 
 const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
+  const { t } = useTranslation();
   const [isEditingProfileImage, setIsEditingProfileImage] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
@@ -105,7 +107,7 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
               document.getElementById("profileImageUpload")?.click()
             }
           >
-            그룹 프로필 사진 변경
+            {t("manageGroup.groupInfo.groupPic.title")}
           </Button>
           <input
             type="file"
