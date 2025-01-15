@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmModal";
 import { getUserInfo } from "@/apis/auth";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "./../ManageGroupInfoPage";
 import Button from "@/components/button/Button";
 import { leavingGroup } from "@/apis/group";
@@ -10,6 +10,7 @@ import { leavingGroup } from "@/apis/group";
 const GroupLeaveComponent = () => {
   const { t } = useTranslation();
   const { group } = useOutletContext<GroupContextType>();
+  const navigate = useNavigate();
 
   const [isLeaving, setIsLeaving] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,7 +33,7 @@ const GroupLeaveComponent = () => {
       const userUuid = userInfo.uuid;
       await leavingGroup(group.uuid, userUuid);
       alert("그룹에서 성공적으로 나갔습니다.");
-      window.location.href = "/";
+      navigate("/");
     } catch (error) {
       alert("그룹 나가기에 실패했습니다. 다시 시도해주세요.");
     } finally {

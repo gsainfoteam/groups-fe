@@ -1,17 +1,15 @@
 import { NavLinkTabs } from "@/components/tabs/Tabs";
 import Path from "@/types/paths";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Navigator = () => {
   const { uuid } = useParams<{ uuid: string }>();
-
+  const navigate = useNavigate();
   if (!uuid) {
     return (
       <div>
         <p>유효하지 않은 그룹 ID입니다.</p>
-        <button onClick={() => (window.location.href = "/")}>
-          홈으로 돌아가기
-        </button>
+        <button onClick={() => navigate("/")}>홈으로 돌아가기</button>
       </div>
     );
   }

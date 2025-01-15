@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmModal";
-import { useOutletContext } from "react-router-dom";
+import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "./../ManageGroupInfoPage";
 import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
@@ -9,6 +9,7 @@ import { deleteGroup } from "@/apis/group";
 const GroupDeleteComponent = () => {
   const { t } = useTranslation();
   const { group } = useOutletContext<GroupContextType>();
+  const navigate = useNavigate();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,7 +30,7 @@ const GroupDeleteComponent = () => {
     deleteGroup(group.uuid)
       .then(() => {
         alert("그룹이 성공적으로 삭제되었습니다.");
-        window.location.href = "/";
+        navigate("/");
       })
       .catch((error) => {
         console.error("그룹 삭제 중 오류 발생:", error);
