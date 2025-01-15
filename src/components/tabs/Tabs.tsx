@@ -1,43 +1,68 @@
-interface Tab {
+import { cn } from "@/utils/clsx";
+import { ClassValue } from "clsx";
+import { NavLink } from "react-router-dom";
+
+const ButtonClass: ClassValue = "flex-none border-b-[3px] p-[15px] pb-3";
+
+interface TabInfo {
   key: string;
   label: string;
   link?: string;
 }
 
 interface TabProps {
-  tabs: readonly Tab[];
+  tabInfo: TabInfo;
+  isActive: boolean;
+  onClick?: () => void;
+}
+
+const Tab = ({ tabInfo, isActive, onClick }: TabProps) => (
+  <button
+    onClick={onClick}
+    className={cn(ButtonClass, isActive ? "border-primary" : "border-grey")}
+  >
+    <p className={cn("text-center", isActive ? "text-primary" : "text-grey")}>
+      {tabInfo.label}
+    </p>
+  </button>
+);
+
+interface TabsProps {
+  tabs: readonly TabInfo[];
   activeTab: string;
 
   setActiveTab: (key: any) => void;
 }
 
-const ButtonClass = "flex-none border-b-[3px] p-[15px] pb-3 ";
-
-const Tabs = ({ tabs, activeTab, setActiveTab }: TabProps) => {
+const Tabs = ({ tabs, activeTab, setActiveTab }: TabsProps) => {
   return (
     <div className={"flex"}>
       {tabs.map((tab) => (
-        <button
+        <Tab
           key={tab.key}
+          tabInfo={tab}
+          isActive={activeTab === tab.key}
           onClick={() => setActiveTab(tab.key)}
-          className={
-            ButtonClass +
-            (activeTab === tab.key ? "border-primary" : "border-grey")
-          }
-        >
-          <p
-            className={
-              "text-center " +
-              (activeTab === tab.key ? "text-primary" : "text-grey")
-            }
-          >
-            {tab.label}
-          </p>
-        </button>
+        />
       ))}
-      <div className={"flex-grow border-b-[3px] border-grey"}></div>
+      <div className={"flex-grow border-b-[3px] border-grey"} />
     </div>
   );
 };
+
+interface NavLinkTabsProps {
+  tabs: Required<TabInfo>[];
+}
+
+export const NavLinkTabs = ({ tabs }: NavLinkTabsProps) => (
+  <div className={"flex"}>
+    {tabs.map((tab) => (
+      <NavLink key={tab.key} to={tab.link}>
+        {({ isActive }) => <Tab tabInfo={tab} isActive={isActive} />}
+      </NavLink>
+    ))}
+    <div className={"flex-grow border-b-[3px] border-grey"} />
+  </div>
+);
 
 export default Tabs;

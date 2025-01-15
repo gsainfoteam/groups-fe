@@ -22,6 +22,12 @@ export interface GroupInfo {
   notionPageId: string;
 }
 
+export interface CompactGroupInfo {
+  name?: string;
+  description?: string;
+  notionPageId?: string;
+}
+
 export interface Notice {
   id: number;
   title: string;
@@ -54,4 +60,11 @@ export enum EmojiString {
   ANGUISHED = "😧",
   THINKING = "🤔",
   SURPRISED = "😮",
+}
+
+export interface MemberResDto {
+  uuid: string;
+  name: string;
+  email: string;
+  role: string;
 }

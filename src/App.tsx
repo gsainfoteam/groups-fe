@@ -14,16 +14,17 @@ import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
 import Path from "./types/paths";
+import ManageLayout from "./pages/manage/ManageLayout";
+import ManageGroupInfoPage from "./pages/manage/pages/groupInfo/ManageGroupInfoPage";
+import ManageNotionLinkPage from "./pages/manage/pages/notion/ManageNotionLinkPage";
+import ManageMembersPage from "./pages/manage/pages/members/ManageMembersPage";
+
 import CreateGroupName from "./pages/createGroup/pages/name/CreateGroupNamePage";
 import CreateGroupDescriptionPage from "./pages/createGroup/pages/description/CreateGroupDescriptionPage";
 import CreateGroupNotionPage from "./pages/createGroup/pages/notion/CreateGroupNotionPage";
 import CreateGroupCompletePage from "./pages/createGroup/pages/complete/CreateGroupCompletePage";
 import InvitePage from "./pages/invite/InvitePage";
 import ErrorPage from "./pages/error/ErrorPage";
-import ManageLayout from "./pages/manage/ManageLayout";
-import ManageGroupInfoPage from "./pages/manage/ManageGroupInfoPage";
-import ManageMembersPage from "./pages/manage/ManageMembersPage";
-import ManageNotionLinkPage from "./pages/manage/ManageNotionLinkPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -56,10 +57,13 @@ const router = createBrowserRouter(
       <Route path={"*"} element={<ErrorPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
 
-      <Route element={<ManageLayout />}>
-        <Route path={Path.Manage} element={<Navigate to={Path.ManageGroupInfo} />} />
+      <Route path={Path.Manage + ":uuid"} element={<ManageLayout />}>
+        <Route index element={<ManageGroupInfoPage />} />
         <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
-        <Route path={Path.ManageNotionLink} element={<ManageNotionLinkPage />} />
+        <Route
+          path={Path.ManageNotionLink}
+          element={<ManageNotionLinkPage />}
+        />
         <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
       </Route>
     </>,

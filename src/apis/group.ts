@@ -1,5 +1,5 @@
 import groupsApi from "./interceptor";
-import { GroupInfo } from "@/types/interfaces";
+import { CompactGroupInfo, GroupInfo, MemberResDto } from "@/types/interfaces";
 
 export const getGroupContainingMe = async (): Promise<GroupInfo[]> => {
   return groupsApi
@@ -45,7 +45,6 @@ export const setGroupProfileImage = async (id: string, image: File) => {
       "Content-Type": "multipart/form-data",
     },
   });
-
   return response.data;
 };
 
@@ -72,4 +71,54 @@ export const getInvitationInfoByInvitationCode = async (code: string) => {
 
 export const joinGroup = async (code: string) => {
   return groupsApi.post("/group/join", { code }).then((response) => response);
+};
+
+export const deleteGroup = async (uuid: string): Promise<void> => {
+  return groupsApi.delete(`/group/${uuid}`).then(() => {
+    console.log(`Group with UUID ${uuid} has been successfully deleted.`);
+  });
+};
+
+export const changeGroupInfo = async (
+  uuid: string,
+  body: CompactGroupInfo,
+): Promise<void> => {
+  return groupsApi.patch(`/group/${uuid}`, body).then(() => {
+    console.log(`Group info of ${uuid} updated successfully.`);
+  });
+};
+
+export const getGroupMembers = async (
+  uuid: string,
+): Promise<MemberResDto[]> => {
+  return groupsApi
+    .get<{ list: MemberResDto[] }>(`/group/${uuid}/member`)
+    .then(({ data }) => data.list);
+};
+
+export const leavingGroup = async (
+  groupUuid: string,
+  memberUuid: string,
+): Promise<void> => {
+  return groupsApi
+    .delete(`/group/${groupUuid}/member/${memberUuid}`)
+    .then(() => {
+      console.log(
+        `Member with uuid ${memberUuid} successfully left the group.`,
+      );
+    });
+};
+
+export const grantMemberRole = async (
+  groupUuid: string,
+  memberUuid: string,
+  roleId: number,
+): Promise<void> => {
+  return groupsApi.patch(
+    `/group/${groupUuid}/member/${memberUuid}/role`,
+    null,
+    {
+      params: { roleId },
+    },
+  );
 };
