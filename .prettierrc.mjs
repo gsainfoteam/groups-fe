@@ -1,6 +1,6 @@
 export default {
   singleQuote: true,
-  trailingComma: 'all',
-  plugins: [import('prettier-plugin-tailwindcss')],
-  tailwindAttributes: ['className', 'containerClassName', 'carouselClassName'],
-}
+  trailingComma: "all",
+  plugins: ["prettier-plugin-tailwindcss"],
+  tailwindAttributes: ["className", "containerClassName", "carouselClassName"],
+};
