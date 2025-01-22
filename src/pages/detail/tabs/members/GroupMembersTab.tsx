@@ -4,8 +4,11 @@ import useSWR from "swr";
 
 const GroupMembersTab = () => {
   const { data, error, isLoading } = useSWR("UserInfo", getUserInfo);
-  if (error || isLoading) {
+  if (isLoading) {
     return <Card className={"mt-6"}>Loading members...</Card>;
+  }
+  if (error) {
+    return <Card className={"mt-6"}>Failed to load members.</Card>;
   }
   return (
     <div className="flex flex-col items-center">
