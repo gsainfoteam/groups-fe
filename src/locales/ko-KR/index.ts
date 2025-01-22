@@ -106,6 +106,9 @@ export const main = {
       notices: "공지",
       members: "멤버",
     },
+    intro: {
+      notExist: "아직 소개 페이지가 없습니다.",
+    },
   },
   groupInvitation: {
     title: "그룹 멤버 초대 링크",
@@ -206,12 +209,14 @@ export const main = {
       },
       groupDelete: {
         title: "그룹 삭제",
-        description: "기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 본 작업은 되돌릴 수 없습니다.",
+        description:
+          "기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 본 작업은 되돌릴 수 없습니다.",
         button: "삭제하기",
       },
       groupLeave: {
         title: "그룹 나가기",
-        description: "기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 그룹을 나간 뒤에도 초대된다면 다시 그룹에 참여할 수 있습니다.",
+        description:
+          "기존에 본 그룹 명의로 작성된 공지에는 영향을 끼치지 않습니다. 그룹을 나간 뒤에도 초대된다면 다시 그룹에 참여할 수 있습니다.",
         button: "나가기",
       },
       complete: "완료",
@@ -249,7 +254,8 @@ export const main = {
         title: "💡 멤버 역할",
         admin: {
           title: "관리자",
-          description: "그룹 정보 수정, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
+          description:
+            "그룹 정보 수정, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
         },
         manager: {
           title: "매니저",
@@ -257,7 +263,8 @@ export const main = {
         },
         normal: {
           title: "일반",
-          description: "그룹 나가기의 권한만 가집니다. 단, 그룹 소개 페이지에서 그룹의 일원으로 표시됩니다.",
+          description:
+            "그룹 나가기의 권한만 가집니다. 단, 그룹 소개 페이지에서 그룹의 일원으로 표시됩니다.",
         },
       },
       complete: "완료",
