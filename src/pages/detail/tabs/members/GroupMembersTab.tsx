@@ -27,7 +27,7 @@ const GroupMembersTab = ({group}:GroupMemberProps) => {
   </div>
   
 
-  {members.map(({name,email, role}:{name: string, email: string, role: string}, idx : string)=> 
+  {members.map(({name,email, role}:{name: string, email: string, role: string}, idx : number)=> 
   <Card key={email ?? idx} className={"flex items-center justify-between mt-6 w-2/3"}>
     <div>
       <p>{name}</p>

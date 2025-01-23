@@ -6,13 +6,16 @@ import Zabo from "../zabo/Zabo";
 import { ex_data } from "./example";
 import { Notice } from "@/types/interfaces";
 import SearchNoResult from '@/assets/icons/search-no-result.svg?react'
+import Loading from "../loading/Loading";
+import Error from "@/assets/error/Error";
+const API_ZIGGLE = import.meta.env.VITE_ZIGGLE_URL;
+
 interface Notices {
   list: Notice[];
   page: number;
 }
 
 const ITEMS_PER_PAGE = 30;
-const API_ZIGGLE = "https://api.stg.ziggle.gistory.me";
 const fetcher = async (url: string) => {
   const res = await axios.get(url)
   return res.data
@@ -20,9 +23,15 @@ const fetcher = async (url: string) => {
 
 const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
   const { t } = useTranslation();
-  const {data : notices} = useSWR<Notices>(`${API_ZIGGLE}/notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=deadline`,fetcher)
+  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}/notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=deadline`,fetcher)
+  if (isLoading){
+    return <Loading></Loading>
+  }
+  if(error){
+    return <div className="flex flex-col items-center"><Error>{"Fail to find group notices"}</Error></div>
+  }
   if(!notices){
-    return <div>notices not found</div>
+    return <div className="flex flex-col items-center"><Error>{"There is no notices"}</Error></div>
   }
   
   return (
@@ -30,7 +39,7 @@ const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
       {notices.list.length ? (
         <>
           <div className="flex w-full flex-col md:max-w-[800px]">
-            {...notices.list.map((notice : any) => (
+            {...notices.list.map((notice : Notice) => (
               <React.Fragment key={notice.id}>
                 <Zabo key={notice.id} {...notice} />
                 <div className="my-[30px] h-[1px] bg-greyLight dark:bg-d_greyBorder" />
