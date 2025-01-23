@@ -38,7 +38,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
         {tab === "info" && <GroupIntroTab />}
         {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
-        {tab === "member" && <GroupMembersTab />}
+        {tab === "member" && <GroupMembersTab group={group}/>}
       </div>
     </main>
   );
