@@ -1,31 +1,47 @@
+import React from "react";
 import { useTranslation } from "react-i18next";
-
-interface CategorizedNoticesProps {
+import useSWR from "swr";
+import axios from "axios";
+import Zabo from "../zabo/Zabo";
+import { ex_data } from "./example";
+import { Notice } from "@/types/interfaces";
+import SearchNoResult from '@/assets/icons/search-no-result.svg?react'
+interface Notices {
+  list: Notice[];
   page: number;
 }
 
 const ITEMS_PER_PAGE = 30;
+const API_ZIGGLE = "https://api.stg.ziggle.gistory.me";
+const fetcher = async (url: string) => {
+  const res = await axios.get(url)
+  return res.data
+}
 
-const CategorizedNotices = ({ page }: CategorizedNoticesProps) => {
+const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
   const { t } = useTranslation();
-
+  const {data : notices} = useSWR<Notices>(`${API_ZIGGLE}/notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=deadline`,fetcher)
+  if(!notices){
+    return <div>notices not found</div>
+  }
+  
   return (
     <>
-      {/* {notices.list.length ? (
+      {notices.list.length ? (
         <>
           <div className="flex w-full flex-col md:max-w-[800px]">
-            {...notices.list.map((notice) => (
+            {...notices.list.map((notice : any) => (
               <React.Fragment key={notice.id}>
-                <Zabo key={notice.id} {...notice} lng={lng} />
+                <Zabo key={notice.id} {...notice} />
                 <div className="my-[30px] h-[1px] bg-greyLight dark:bg-d_greyBorder" />
               </React.Fragment>
             ))}
           </div>
-          <Pagination
+          {/* <Pagination
             page={page}
             items={notices.total}
             itemsPerPage={ITEMS_PER_PAGE}
-          />
+          /> */}
         </>
       ) : (
         <div className="flex w-full justify-center">
@@ -36,11 +52,11 @@ const CategorizedNotices = ({ page }: CategorizedNoticesProps) => {
             <SearchNoResult />
 
             <p className="font-lg md:font-2xl pt-5 text-center font-bold text-secondaryText">
-              {t("emptyNotices")}
+              {"emptyNotices"}
             </p>
           </div>
         </div>
-      )} */}
+      )}
     </>
   );
 };
