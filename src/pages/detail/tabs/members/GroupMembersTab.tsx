@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { getGroupMember } from "@/apis/group";
 import { useParams } from "react-router-dom";
 import { GroupInfo } from "@/types/interfaces";
-
+import UserCircle from "@/assets/icons/user-circle.svg?react"
 interface GroupMemberProps {
   group: GroupInfo;
 }
@@ -21,19 +21,22 @@ const GroupMembersTab = ({group}:GroupMemberProps) => {
     return <Card className={"mt-6"}>Failed to load members.</Card>;
   }
   return <div className="flex flex-col items-center">
-  {/* <UserCircle></UserCircle> */}
-  <div className={"text-[20px] text-greyDark"}>{group.memberCount}명</div>
+  <div className="flex">
+    <UserCircle></UserCircle>
+    <div className={"text-[20px] text-greyDark"}>{group.memberCount}명</div>
+  </div>
+  
 
   {members.map(({name,email, role}:{name: string, email: string, role: string}, idx : string)=> 
-  <div key={email ?? idx} className={"flex items-center justify-between my-6 w-1/2 rounded-2xl bg-greyLight px-5 py-[15px] text-lg "}>
+  <Card key={email ?? idx} className={"flex items-center justify-between mt-6 w-2/3"}>
     <div>
       <p>{name}</p>
       <p>{email}</p>
     </div>
-    <div className={"text-greyDark"}>
+    <div>
       {role}
     </div>
-  </div>
+  </Card>
   )}
 </div>
 };
