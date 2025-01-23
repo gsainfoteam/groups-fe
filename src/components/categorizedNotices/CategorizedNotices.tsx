@@ -1,13 +1,13 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
-import axios from "axios";
 import Zabo from "../zabo/Zabo";
 import { ex_data } from "./example";
 import { Notice } from "@/types/interfaces";
 import SearchNoResult from '@/assets/icons/search-no-result.svg?react'
 import Loading from "../loading/Loading";
 import Error from "@/assets/error/Error";
+import ziggleapi from "@/apis/ziggle";
 const API_ZIGGLE = import.meta.env.VITE_ZIGGLE_URL;
 
 interface Notices {
@@ -17,13 +17,12 @@ interface Notices {
 
 const ITEMS_PER_PAGE = 30;
 const fetcher = async (url: string) => {
-  const res = await axios.get(url)
-  return res.data
+  return ziggleapi.get(url).then(({data})=>data.list)
 }
 
 const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
   const { t } = useTranslation();
-  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}/notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=deadline`,fetcher)
+  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=recent`,fetcher)
   if (isLoading){
     return <Loading></Loading>
   }
