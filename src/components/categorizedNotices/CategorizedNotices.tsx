@@ -8,7 +8,7 @@ import SearchNoResult from '@/assets/icons/search-no-result.svg?react'
 import Loading from "../loading/Loading";
 import Error from "@/assets/error/Error";
 import ziggleapi from "@/apis/ziggle";
-const API_ZIGGLE = import.meta.env.VITE_ZIGGLE_URL;
+const API_ZIGGLE = import.meta.env.VITE_ZIGGLE_API;
 
 interface Notices {
   list: Notice[];
@@ -17,12 +17,11 @@ interface Notices {
 
 const ITEMS_PER_PAGE = 30;
 const fetcher = async (url: string) => {
-  return ziggleapi.get(url).then(({data})=>data.list)
+  return ziggleapi.get(url, { withCredentials: true }).then(({data})=>data)
 }
-
 const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
   const { t } = useTranslation();
-  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=recent`,fetcher)
+  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=en&orderBy=recent`,fetcher)
   if (isLoading){
     return <Loading></Loading>
   }
