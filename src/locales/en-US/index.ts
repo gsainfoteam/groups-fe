@@ -118,6 +118,11 @@ export const main = {
     intro: {
       notExist: "The group introduction page does not exist yet.",
     },
+    emptyNotices: "No notices found",
+    members: {
+      loading: "Loading members...",
+      error: "Failed to load members.",
+    },
   },
   groupInvitation: {
     title: "Group Member Invitation Link",

@@ -4,7 +4,7 @@ import useSWR from "swr";
 import Zabo from "../zabo/Zabo";
 import { ex_data } from "./example";
 import { Notice } from "@/types/interfaces";
-import SearchNoResult from '@/assets/icons/search-no-result.svg?react'
+import SearchNoResult from "@/assets/icons/search-no-result.svg?react";
 import Loading from "../loading/Loading";
 import Error from "@/assets/error/Error";
 import ziggleapi from "@/apis/ziggle";
@@ -17,27 +17,42 @@ interface Notices {
 
 const ITEMS_PER_PAGE = 30;
 const fetcher = async (url: string) => {
-  return ziggleapi.get(url, { withCredentials: true }).then(({data})=>data)
-}
-const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
+  return ziggleapi.get(url, { withCredentials: true }).then(({ data }) => data);
+};
+const CategorizedNotices = ({ uuid }: { uuid: undefined | string }) => {
   const { t } = useTranslation();
-  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}notice/group/${uuid}?offset=10&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=recent`,fetcher)
-  if (isLoading){
-    return <Loading></Loading>
+  const {
+    data: notices,
+    error,
+    isLoading,
+  } = useSWR<Notices>(
+    `${API_ZIGGLE}notice/group/${uuid}?offset=10&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=recent`,
+    fetcher,
+  );
+  if (isLoading) {
+    return <Loading></Loading>;
   }
-  if(error){
-    return <div className="flex flex-col items-center"><Error>{"Fail to find group notices"}</Error></div>
+  if (error) {
+    return (
+      <div className="flex flex-col items-center">
+        <Error>{"Fail to find group notices"}</Error>
+      </div>
+    );
   }
-  if(!notices){
-    return <div className="flex flex-col items-center"><Error>{"There is no notices"}</Error></div>
+  if (!notices) {
+    return (
+      <div className="flex flex-col items-center">
+        <Error>{"There is no notices"}</Error>
+      </div>
+    );
   }
-  
+
   return (
     <>
       {notices.list.length ? (
         <>
           <div className="flex w-full flex-col md:max-w-[800px]">
-            {...notices.list.map((notice : Notice) => (
+            {...notices.list.map((notice: Notice) => (
               <React.Fragment key={notice.id}>
                 <Zabo key={notice.id} {...notice} />
                 <div className="my-[30px] h-[1px] bg-greyLight dark:bg-d_greyBorder" />
@@ -59,7 +74,7 @@ const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
             <SearchNoResult />
 
             <p className="font-lg md:font-2xl pt-5 text-center font-bold text-secondaryText">
-              {"emptyNotices"}
+              {t("group.emptyNotices")}
             </p>
           </div>
         </div>

@@ -123,8 +123,3 @@ export const grantMemberRole = async (
   );
 };
 
-export const getGroupMember = async (url: string) => {
-  return groupsApi
-    .get(url)
-    .then(({data}) => data.list);
-};

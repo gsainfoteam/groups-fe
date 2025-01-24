@@ -20,7 +20,9 @@ interface GroupDetailPageProps {
 const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { uuid } = useParams<{ uuid: string }>();
 
-  const { data: group } = useSWR(uuid, getGroup);
+  const { data: group } = useSWR(["group", uuid || ""], ([_, uuid]) =>
+    getGroup(uuid),
+  );
 
   const [tab, setTab] = useState("info");
 
@@ -30,7 +32,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
 
   return (
     <main className={"flex flex-col items-center mt-[20px] md:mt-[48px]"}>
-      <div className={"content flex max-w-[800px] flex-col"}>
+      <div className={"content flex max-w-[800px] flex-col mb-[100px]"}>
         <GroupProfile group={group} />
 
         <Card className="my-[25px]">{group.description}</Card>
@@ -38,7 +40,7 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
         <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
         {tab === "info" && <GroupIntroTab />}
         {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
-        {tab === "member" && <GroupMembersTab group={group}/>}
+        {tab === "member" && <GroupMembersTab group={group} />}
       </div>
     </main>
   );
