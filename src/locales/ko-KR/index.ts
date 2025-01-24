@@ -109,6 +109,11 @@ export const main = {
     intro: {
       notExist: "아직 소개 페이지가 없습니다.",
     },
+    emptyNotices: "공지가 없습니다",
+    members: {
+      loading: "멤버 로딩 중...",
+      error: "멤버 로딩 실패",
+    },
   },
   groupInvitation: {
     title: "그룹 멤버 초대 링크",
