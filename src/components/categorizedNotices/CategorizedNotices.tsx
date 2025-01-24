@@ -21,7 +21,7 @@ const fetcher = async (url: string) => {
 }
 const CategorizedNotices = ({ uuid }: {uuid: undefined|string}) => {
   const { t } = useTranslation();
-  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}notice/group/${uuid}?offset=5&limit=${ITEMS_PER_PAGE}&lang=en&orderBy=recent`,fetcher)
+  const {data : notices, error, isLoading} = useSWR<Notices>(`${API_ZIGGLE}notice/group/${uuid}?offset=10&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=recent`,fetcher)
   if (isLoading){
     return <Loading></Loading>
   }
