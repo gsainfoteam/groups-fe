@@ -26,7 +26,7 @@ const GroupMembersTab = ({ group }: GroupMemberProps) => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex">
-        <UserCircle></UserCircle>
+        <UserCircle />
         <div className={"text-[20px] text-greyDark"}>{group.memberCount}명</div>
       </div>
 
