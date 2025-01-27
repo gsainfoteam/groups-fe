@@ -101,7 +101,7 @@ const ManageGroupInfoPage: React.FC = () => {
         <div className="w-full flex flex-col items-end gap-2.5">
           <div className="flex flex-col w-full gap-1.5">
             <textarea
-              className="h-[100px] w-full px-4 py-2.5 rounded-xl border border-primary border-[1.5px]"
+              className="h-[100px] w-full px-4 py-2.5 rounded-xl border-primary border-[1.5px]"
               placeholder={group.description || "그룹 설명 없음"}
               value={newGroupDes}
               onChange={(e) => setNewGroupDes(e.target.value)}

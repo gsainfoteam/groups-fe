@@ -101,6 +101,7 @@ export const main = {
     favorite: "즐겨찾기",
     memberCount: "멤버 {{count}}명",
     noticeCount: "게시글 {{count}}개",
+    manage: "그룹 관리",
     tabs: {
       intro: "소개",
       notices: "공지",
