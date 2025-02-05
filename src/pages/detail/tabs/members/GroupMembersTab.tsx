@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { ExpandedGroupInfo } from "@/types/interfaces";
 import UserCircle from "@/assets/icons/user-circle.svg?react";
 import Loading from "@/components/loading/Loading";
+import { useTranslation } from "react-i18next";
 interface GroupMemberProps {
   group: ExpandedGroupInfo;
 }
