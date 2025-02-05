@@ -1,14 +1,19 @@
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
-import { GroupInfo } from "@/types/interfaces";
+import useAuth from "@/hooks/useAuth";
+import { ExpandedGroupInfo } from "@/types/interfaces";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 interface GroupProfileProps {
-  group: GroupInfo;
+  group: ExpandedGroupInfo;
 }
 
 const GroupProfile = ({ group }: GroupProfileProps) => {
   const { t } = useTranslation();
+  const { userInfo } = useAuth();
+
+  const isPresident = userInfo?.uuid === group.president.uuid;
 
   return (
     <div className={"flex items-center gap-[25px]"}>
@@ -33,12 +38,25 @@ const GroupProfile = ({ group }: GroupProfileProps) => {
           })}
         </p>
 
-        <Button
-          variant="emphasized"
-          className={"mt-3 rounded-[10px] md:px-6 md:py-2"}
-        >
-          <p>{t("group.favorite")}</p>
-        </Button>
+        <div className="flex items-center gap-2.5">
+          <Button
+            variant="emphasized"
+            className={"mt-3 rounded-[10px] md:px-6 md:py-2"}
+          >
+            <p>{t("group.favorite")}</p>
+          </Button>
+
+          {isPresident && (
+            <Link to={`/manage/${group.uuid}`}>
+              <Button
+                variant="contained"
+                className="mt-3 rounded-[10px] md:px-6 md:py-2"
+              >
+                <p>{t("group.manage")}</p>
+              </Button>
+            </Link>
+          )}
+        </div>
       </div>
     </div>
   );

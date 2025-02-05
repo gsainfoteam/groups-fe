@@ -1,18 +1,24 @@
-import { GroupInfo } from "src/types/interfaces";
+import { GroupInfoWithPresidentUuid } from "src/types/interfaces";
 
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import Crown from "@/assets/icons/crown.svg?react";
+import Settings from "@/assets/icons/settings.svg?react";
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Card from "@/components/card/Card";
+import useAuth from "@/hooks/useAuth";
+import { Link } from "react-router-dom";
 
 const GroupItem = ({
   groupParams,
 }: {
   groupParams: {
-    group: GroupInfo;
+    group: GroupInfoWithPresidentUuid;
   };
 }) => {
   const group = groupParams.group;
+  const { userInfo } = useAuth();
+
+  const isPresident = userInfo?.uuid === group.presidentUuid;
 
   return (
     <Card>
@@ -28,11 +34,17 @@ const GroupItem = ({
           {group.name}
         </p>
 
-        {group.president && (
+        {isPresident && (
           <Crown className="ml-1 inline stroke-dark dark:stroke-d_white" />
         )}
 
         <div className="flex-grow" />
+
+        {isPresident && (
+          <Link to={`/manage/${group.uuid}`}>
+            <Settings className="fill-greyDark mr-2" />
+          </Link>
+        )}
 
         <ArrowRight className="h-[30px] stroke-dark dark:stroke-d_white" />
       </a>

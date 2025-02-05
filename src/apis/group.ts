@@ -1,14 +1,14 @@
 import groupsApi from "./interceptor";
-import { CompactGroupInfo, GroupInfo, MemberResDto } from "@/types/interfaces";
+import { CompactGroupInfo, ExpandedGroupInfo, GroupInfo, GroupInfoWithPresidentUuid, MemberResDto } from "@/types/interfaces";
 
-export const getGroupContainingMe = async (): Promise<GroupInfo[]> => {
+export const getGroupContainingMe = async (): Promise<GroupInfoWithPresidentUuid[]> => {
   return groupsApi
-    .get<{ list: GroupInfo[] }>("/group")
+    .get<{ list: GroupInfoWithPresidentUuid[] }>("/group")
     .then(({ data }) => data.list);
 };
 
-export const getGroup = async (uuid: string): Promise<GroupInfo> => {
-  return groupsApi.get<GroupInfo>(`/group/${uuid}`).then(({ data }) => data);
+export const getGroup = async (uuid: string): Promise<ExpandedGroupInfo> => {
+  return groupsApi.get<ExpandedGroupInfo>(`/group/${uuid}`).then(({ data }) => data);
 };
 
 export interface InviteCode {

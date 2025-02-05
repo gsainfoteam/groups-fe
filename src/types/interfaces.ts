@@ -12,14 +12,20 @@ export interface GroupInfo {
   name: string;
   description: string;
   createdAt: dayjs.Dayjs | string;
-  deletedAt: dayjs.Dayjs | string;
-  verifiedAt: dayjs.Dayjs | string;
-  presidentUuid: string;
+  verifiedAt: dayjs.Dayjs | string | null;
+  notionPageId: string;
   profileImageKey: string | null;
   profileImageUrl: string | null;
-  president: UserInfo;
+  verified: boolean;
+}
+
+export interface GroupInfoWithPresidentUuid extends GroupInfo {
+  presidentUuid: string;
+}
+
+export interface ExpandedGroupInfo extends GroupInfo {
   memberCount: number;
-  notionPageId: string;
+  president: UserInfo;
 }
 
 export interface CompactGroupInfo {

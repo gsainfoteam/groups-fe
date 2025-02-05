@@ -110,6 +110,7 @@ export const main = {
     favorite: "Favorite",
     memberCount: "{{count}} members",
     noticeCount: "{{count}} notices",
+    manage: "Manage",
     tabs: {
       intro: "Intro",
       notices: "Notices",
