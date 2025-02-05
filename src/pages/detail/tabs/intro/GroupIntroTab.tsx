@@ -16,10 +16,14 @@ import NotionWrapper from "./NotionWrapper";
 //import NotionWrapper from "./NotionWrapper";
 const GroupIntroTab = () => {
   const { uuid } = useParams();
-  const { data: group, error: groupError, isLoading } = useSWR(uuid, getGroup);
+  const {
+    data: group,
+    error: groupError,
+    isLoading,
+  } = useSWR(["group", uuid || ""], ([_, uuid]) => getGroup(uuid));
   const { data: recordMap, error: recordMapError } = useSWR(
-    group && group.notionPageId,
-    getNotionPage,
+    ["notion", (group && group.notionPageId) || ""],
+    ([_, notionPageId]) => getNotionPage(notionPageId),
   );
   const { t } = useTranslation();
 

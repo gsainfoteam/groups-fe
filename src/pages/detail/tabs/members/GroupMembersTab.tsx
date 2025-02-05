@@ -1,44 +1,56 @@
 import { getUserInfo } from "@/apis/auth";
 import Card from "@/components/card/Card";
 import useSWR from "swr";
-import { getGroupMember } from "@/apis/group";
+import { getGroupMembers } from "@/apis/group";
 import { useParams } from "react-router-dom";
 import { GroupInfo } from "@/types/interfaces";
-import UserCircle from "@/assets/icons/user-circle.svg?react"
+import UserCircle from "@/assets/icons/user-circle.svg?react";
+import { useTranslation } from "react-i18next";
+
 interface GroupMemberProps {
   group: GroupInfo;
 }
 
-const GroupMembersTab = ({group}:GroupMemberProps) => {
+const GroupMembersTab = ({ group }: GroupMemberProps) => {
+  const { uuid } = useParams<{ uuid: string }>();
+  const {
+    data: members,
+    error,
+    isLoading,
+  } = useSWR(["members", uuid || ""], ([_, uuid]) => getGroupMembers(uuid));
 
-  const {uuid} = useParams<{uuid:string}>()
-  const { data } = useSWR("UserInfo", getUserInfo);
-  const {data : members, error, isLoading } = useSWR(`/group/${uuid}/member`, getGroupMember)
+  const { t } = useTranslation();
+
   if (isLoading) {
-    return <Card className={"mt-6"}>Loading members...</Card>;
+    return <Card className={"mt-6"}>{t("group.members.loading")}</Card>;
   }
-  if (error) {
-    return <Card className={"mt-6"}>Failed to load members.</Card>;
+  if (error || !members) {
+    return <Card className={"mt-6"}>{t("group.members.error")}</Card>;
   }
-  return <div className="flex flex-col items-center">
-  <div className="flex">
-    <UserCircle></UserCircle>
-    <div className={"text-[20px] text-greyDark"}>{group.memberCount}명</div>
-  </div>
-  
 
-  {members.map(({name,email, role}:{name: string, email: string, role: string}, idx : number)=> 
-  <Card key={email ?? idx} className={"flex items-center justify-between mt-6 w-2/3"}>
-    <div>
-      <p>{name}</p>
-      <p>{email}</p>
+  return (
+    <div className="flex flex-col items-center">
+      <div className="flex gap-1.5 mt-6">
+        <UserCircle />
+        <div className={"text-[18px] text-greyDark"}>{group.memberCount}명</div>
+      </div>
+
+      {members.map(({ name, email, role }, idx) => (
+        <Card
+          key={email ?? idx}
+          className={"flex items-center justify-between mt-6 w-2/3"}
+        >
+          <div>
+            <p className="font-semibold text-dark">{name}</p>
+            <p className="text-sm text-dark"> {email}</p>
+          </div>
+          <div className="text-sm text-greyDark font-medium">
+            {role.charAt(0).toUpperCase() + role.slice(1)}
+          </div>
+        </Card>
+      ))}
     </div>
-    <div>
-      {role}
-    </div>
-  </Card>
-  )}
-</div>
+  );
 };
 
 export default GroupMembersTab;
