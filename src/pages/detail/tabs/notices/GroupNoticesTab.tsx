@@ -9,7 +9,7 @@ interface GroupNoticesTabProps {
 }
 
 const GroupNoticesTab = ({}: GroupNoticesTabProps) => {
-  const {uuid} = useParams<{uuid: string}>()
+  const { uuid } = useParams<{ uuid: string }>();
   const params = new URLSearchParams();
   const page = parseInt(params.get("page") ?? "0");
 

@@ -10,33 +10,32 @@ import { getGroup } from "@/apis/group";
 import { getNotionPage } from "@/apis/notion";
 import Card from "@/components/card/Card";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router-dom";
+import { useOutletContext, useParams } from "react-router-dom";
 import useSWR from "swr";
 import NotionWrapper from "./NotionWrapper";
 import Loading from "@/components/loading/Loading";
+import { GroupDetailContext } from "../../DetailPageLayout";
 
 const GroupIntroTab = () => {
-  const { uuid } = useParams();
+  const { group } = useOutletContext<GroupDetailContext>();
+
   const {
-    data: group,
-    error: groupError,
-    isLoading,
-  } = useSWR(["group", uuid || ""], ([_, uuid]) => getGroup(uuid));
-  const { data: recordMap, error: recordMapError } = useSWR(
+    data: recordMap,
+    isLoading: isRecordMapLoading,
+    error: recordMapError,
+  } = useSWR(
     ["notion", (group && group.notionPageId) || ""],
     ([_, notionPageId]) => getNotionPage(notionPageId),
   );
   const { t } = useTranslation();
-
-  if (groupError) return <Card>Group introduce page not found</Card>;
-
-  if (isLoading) return <Loading />;
 
   if (!group || !recordMap || recordMapError)
     return <Card className={"mt-5"}>{t("group.intro.notExist")}</Card>;
 
   return (
     <div className={"mt-5"}>
+      {isRecordMapLoading && <Loading />}
+
       <NotionWrapper recordMap={recordMap} />
     </div>
   );
