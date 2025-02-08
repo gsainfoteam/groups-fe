@@ -6,7 +6,7 @@ import WarningSign from "@/assets/illustrations/warning-sign.svg?react";
 import { useTranslation } from "react-i18next";
 import LocalStorageKeys from "@/types/localstorage";
 import { oAuthGetToken } from "@/apis/auth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import Path from "@/types/paths";
 import Button from "@/components/button/Button";
 import Error from "@/assets/error/Error";
@@ -15,13 +15,21 @@ type AuthStatus = "loading" | "success" | "failed";
 
 const LoginPage = () => {
   const { t } = useTranslation();
-  const navigator = useNavigate();
+  const navigate = useNavigate();
 
   const { authStatus, errorMessage } = useOAuthSequence();
 
   useEffect(() => {
-    if (authStatus === "success") navigator(Path.Home);
-  }, [authStatus]);
+    if (authStatus === "success") {
+      const savedReturnTo = localStorage.getItem(LocalStorageKeys.ReturnTo);
+
+      localStorage.removeItem(LocalStorageKeys.ReturnTo);
+
+      if (savedReturnTo) {
+        navigate(savedReturnTo);
+      }
+    }
+  }, [authStatus, navigate]);
 
   return (
     <>

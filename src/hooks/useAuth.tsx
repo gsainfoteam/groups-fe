@@ -3,7 +3,7 @@ import apiKeys, { Methods } from "@/types/api-keys";
 import Path from "@/types/paths";
 
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useSWR from "swr";
 
 const useAuth = () => {
@@ -12,15 +12,20 @@ const useAuth = () => {
     getUserInfo,
   );
 
-  const navigator = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     if (error) {
-      console.error(error);
-      navigator(Path.Onboarding);
+      const returnPath = location.pathname + location.search;
+      if (returnPath !== Path.Onboarding) {
+        navigate(Path.Onboarding, {
+          state: { returnTo: returnPath },
+        });
+      }
       // TODO: add error toast
     }
-  }, [error]);
+  }, [error, location, navigate]);
 
   return {
     userInfo: data,

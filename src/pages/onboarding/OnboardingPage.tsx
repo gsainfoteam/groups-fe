@@ -2,11 +2,16 @@ import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
 import Button from "@/components/button/Button";
 import { useTranslation } from "react-i18next";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { generateOAuthLoginURL } from "@/apis/auth";
-
+import Path from "@/types/paths";
+import { useEffect } from "react";
+import LocalStorageKeys from "@/types/localstorage";
 const OnboardingPage = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <>
@@ -34,6 +39,11 @@ const OnboardingPage = () => {
               variant="outlined"
               size="cta"
               onClick={() => {
+                localStorage.setItem(
+                  LocalStorageKeys.ReturnTo,
+                  location.state.returnTo,
+                );
+
                 window.location.href = generateOAuthLoginURL();
               }}
             >
