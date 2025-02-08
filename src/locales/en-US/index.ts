@@ -246,6 +246,7 @@ export const main = {
         second: "After publishing your group introduction Notion on the web,",
         third: "please paste the link here.",
       },
+      placeholder: "paste notion link here",
       button: "Change",
       loading: "Loading Notion...",
       complete: "Complete",

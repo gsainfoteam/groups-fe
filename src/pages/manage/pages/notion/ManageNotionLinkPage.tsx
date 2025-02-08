@@ -1,16 +1,16 @@
 import Notion from "@/assets/icons/notion.svg?react";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Loading from "@/components/loading/Loading";
 import { getNotionPage } from "@/apis/notion";
-import { ExtendedRecordMap } from "notion-types";
-import { NotionRenderer } from "react-notion-x";
+
 import Input from "@/components/input/Input";
 import { changeGroupInfo, getGroup } from "@/apis/group";
 import { useTranslation } from "react-i18next";
 import { parseNotionPageId } from "@/utils/notionLinkTester";
 import useSWR from "swr";
+import NotionWrapper from "@/pages/detail/tabs/intro/NotionWrapper";
 
 const ManageNotionLinkPage = () => {
   const { t } = useTranslation();
@@ -85,7 +85,7 @@ const ManageNotionLinkPage = () => {
           <div className="flex w-full items-center gap-2.5">
             <Input
               width="100%"
-              placeholder={group.notionPageId}
+              placeholder={t("manageGroup.notionlink.placeholder")}
               buttonValue={t("manageGroup.notionlink.button")}
               value={newNotionLink}
               onChange={(e) => setNewNotionLink(e.target.value)}
@@ -108,11 +108,7 @@ const ManageNotionLinkPage = () => {
             className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200"
             style={{ maxHeight: "300px" }}
           >
-            <NotionRenderer
-              recordMap={recordMap}
-              fullPage={true}
-              darkMode={false}
-            />
+            <NotionWrapper recordMap={recordMap} />
           </div>
         ) : (
           <div className="text-center text-[#ff6e6e] text-base font-semibold font-['Pretendard']">
