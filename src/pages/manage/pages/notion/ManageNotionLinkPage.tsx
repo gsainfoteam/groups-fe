@@ -1,47 +1,34 @@
 import Notion from "@/assets/icons/notion.svg?react";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Loading from "@/components/loading/Loading";
 import { getNotionPage } from "@/apis/notion";
-import { ExtendedRecordMap } from "notion-types";
-import { NotionRenderer } from "react-notion-x";
+
 import Input from "@/components/input/Input";
 import { changeGroupInfo, getGroup } from "@/apis/group";
 import { useTranslation } from "react-i18next";
+import { parseNotionPageId } from "@/utils/notionLinkTester";
+import useSWR from "swr";
+import NotionWrapper from "@/pages/detail/tabs/intro/NotionWrapper";
 
 const ManageNotionLinkPage = () => {
   const { t } = useTranslation();
   const { group, setGroup } = useOutletContext<GroupContextType>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [notionData, setNotionData] = useState<null | ExtendedRecordMap>(null);
   const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
 
-  useEffect(() => {
-    if (group.notionPageId) {
-      const fetchData = async () => {
-        try {
-          setIsLoading(true);
-          const data = await getNotionPage(group.notionPageId);
-          setNotionData(data);
-          console.log(notionData?.block);
-        } catch (error) {
-          console.error(
-            "노션 데이터를 불러오는 중 오류가 발생했습니다:",
-            error,
-          );
-          setNotionData(null);
-        } finally {
-          setIsLoading(false);
-        }
-      };
-      fetchData();
-    }
-  }, [group.notionPageId]);
+  const {
+    data: recordMap,
+    isLoading,
+    error: recordMapError,
+  } = useSWR(
+    ["notion", (group && group.notionPageId) || ""],
+    ([_, notionPageId]) => getNotionPage(notionPageId),
+  );
 
   const handleNotionLinkChange = async () => {
     if (!newNotionLink.trim()) {
@@ -51,7 +38,14 @@ const ManageNotionLinkPage = () => {
 
     // TODO: useGroupNotionSequence.tsx 수정 후 노션 링크 검증 과정 추가
     try {
-      await changeGroupInfo(group.uuid, { notionPageId: newNotionLink });
+      const notionPageId = parseNotionPageId(newNotionLink);
+
+      if (!notionPageId) {
+        console.error("노션 링크의 형식이 잘못되었습니다.");
+        return;
+      }
+
+      await changeGroupInfo(group.uuid, { notionPageId });
       const updatedGroup = await getGroup(group.uuid);
       setGroup(updatedGroup);
       setNewNotionLink("");
@@ -91,7 +85,7 @@ const ManageNotionLinkPage = () => {
           <div className="flex w-full items-center gap-2.5">
             <Input
               width="100%"
-              placeholder={group.notionPageId}
+              placeholder={t("manageGroup.notionlink.placeholder")}
               buttonValue={t("manageGroup.notionlink.button")}
               value={newNotionLink}
               onChange={(e) => setNewNotionLink(e.target.value)}
@@ -109,16 +103,12 @@ const ManageNotionLinkPage = () => {
               textClassName="text-lg mt-4"
             />
           </div>
-        ) : notionData ? (
+        ) : recordMap ? (
           <div
             className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200"
             style={{ maxHeight: "300px" }}
           >
-            <NotionRenderer
-              recordMap={notionData}
-              fullPage={true}
-              darkMode={false}
-            />
+            <NotionWrapper recordMap={recordMap} />
           </div>
         ) : (
           <div className="text-center text-[#ff6e6e] text-base font-semibold font-['Pretendard']">

@@ -1,16 +1,18 @@
 import Card from "@/components/card/Card";
 import useSWR from "swr";
 import { getGroupMembers } from "@/apis/group";
-import { useParams } from "react-router-dom";
-import { ExpandedGroupInfo } from "@/types/interfaces";
-import UserCircle from "@/assets/icons/user-circle.svg?react";
-import { useTranslation } from "react-i18next";
-interface GroupMemberProps {
-  group: ExpandedGroupInfo;
-}
+import { useOutletContext, useParams } from "react-router-dom";
 
-const GroupMembersTab = ({ group }: GroupMemberProps) => {
+import UserCircle from "@/assets/icons/user-circle.svg?react";
+
+import { useTranslation } from "react-i18next";
+import { GroupDetailContext } from "../../DetailPageLayout";
+
+const GroupMembersTab = () => {
   const { uuid } = useParams<{ uuid: string }>();
+
+  const { group } = useOutletContext<GroupDetailContext>();
+
   const {
     data: members,
     error,
@@ -43,7 +45,8 @@ const GroupMembersTab = ({ group }: GroupMemberProps) => {
             <p className="text-sm text-dark"> {email}</p>
           </div>
           <div className="text-sm text-greyDark font-medium">
-            {role.charAt(0).toUpperCase() + role.slice(1)}
+            {role ? role.charAt(0).toUpperCase() + role.slice(1) : ""}
+            {/* role이 null이라 버그가 발생했다는 제보가 들어와 임시로 조치했습니다. 저는 재현에 실패했습니다. */}
           </div>
         </Card>
       ))}

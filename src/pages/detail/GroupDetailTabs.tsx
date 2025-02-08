@@ -1,32 +1,33 @@
 import { useTranslation } from "react-i18next";
 
-import Tabs from "@/components/tabs/Tabs";
+import Tabs, { NavLinkTabs } from "@/components/tabs/Tabs";
+import Path from "@/types/paths";
+import { useParams } from "react-router-dom";
 
-interface GroupDetailTabsProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-}
-
-const GroupDetailTabs = ({ activeTab, setActiveTab }: GroupDetailTabsProps) => {
+const GroupDetailTabs = () => {
   const { t } = useTranslation();
 
+  const { uuid } = useParams<{ uuid: string }>();
+
   const tabs = [
-    { key: "info", label: t("group.tabs.intro") },
+    {
+      key: "info",
+      label: t("group.tabs.intro"),
+      link: `${Path.Group + uuid + "/" + Path.GroupInfo}`,
+    },
     {
       key: "notice",
       label: t("group.tabs.notices"),
+      link: `${Path.Group + uuid + "/" + Path.GroupNotices}`,
     },
     {
-      key: "member",
+      key: "members",
       label: t("group.tabs.members"),
+      link: `${Path.Group + uuid + "/" + Path.GroupMembers}`,
     },
-  ] as const;
+  ];
 
-  return (
-    <>
-      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} />
-    </>
-  );
+  return <NavLinkTabs tabs={tabs} />;
 };
 
 export default GroupDetailTabs;

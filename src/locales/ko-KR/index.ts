@@ -235,6 +235,7 @@ export const main = {
         second: "작성하신 그룹 소개 노션을 웹에 퍼블리싱",
         third: "하신 다음, 그 링크를 여기에 붙여넣어 주세요.",
       },
+      placeholder: "여기에 노션 링크 입력",
       button: "변경",
       loading: "노션 불러오는 중...",
       complete: "완료",
