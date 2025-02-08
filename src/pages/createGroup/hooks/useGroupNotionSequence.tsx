@@ -6,7 +6,7 @@ const useGroupNotionSequence = () => {
   const [notionRecordMap, setNotionRecordMap] = useState(null);
 
   const notionRegex =
-    /^https:\/\/[a-zA-Z0-9-]+\.notion.site\/[a-zA-Z0-9-]+-([a-f0-9]{32})\??.*$/;
+    /^https:\/\/[a-zA-Z0-9-]+\.notion.site\/([a-zA-Z0-9-]+-)?([a-f0-9]{32})\??.*$/;
   const isInvalidNotionLink = !notionRegex.test(link) && link.length > 0;
 
   const urlRegex = /^https?:\/\/[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*.*/;
