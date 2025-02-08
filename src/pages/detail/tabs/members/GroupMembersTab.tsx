@@ -1,18 +1,18 @@
-import { getUserInfo } from "@/apis/auth";
 import Card from "@/components/card/Card";
 import useSWR from "swr";
 import { getGroupMembers } from "@/apis/group";
-import { useParams } from "react-router-dom";
-import { ExpandedGroupInfo } from "@/types/interfaces";
-import UserCircle from "@/assets/icons/user-circle.svg?react";
-import Loading from "@/components/loading/Loading";
-import { useTranslation } from "react-i18next";
-interface GroupMemberProps {
-  group: ExpandedGroupInfo;
-}
+import { useOutletContext, useParams } from "react-router-dom";
 
-const GroupMembersTab = ({ group }: GroupMemberProps) => {
+import UserCircle from "@/assets/icons/user-circle.svg?react";
+
+import { useTranslation } from "react-i18next";
+import { GroupDetailContext } from "../../DetailPageLayout";
+
+const GroupMembersTab = () => {
   const { uuid } = useParams<{ uuid: string }>();
+
+  const { group } = useOutletContext<GroupDetailContext>();
+
   const {
     data: members,
     error,

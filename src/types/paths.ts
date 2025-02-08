@@ -1,6 +1,11 @@
 enum Path {
   Home = "/",
+
   Group = "/group/",
+  GroupInfo = "info",
+  GroupNotices = "notices",
+  GroupMembers = "members",
+
   Onboarding = "/onboarding",
 
   Login = "/login",

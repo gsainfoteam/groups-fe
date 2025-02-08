@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import useSWR from "swr";
 
 import { getGroup } from "@/apis/group";
@@ -12,9 +12,14 @@ import GroupProfile from "./GroupProfile";
 import GroupIntroTab from "./tabs/intro/GroupIntroTab";
 import GroupMembersTab from "./tabs/members/GroupMembersTab";
 import GroupNoticesTab from "./tabs/notices/GroupNoticesTab";
+import { ExpandedGroupInfo } from "@/types/interfaces";
 
 interface GroupDetailPageProps {
   searchParams?: { tab: string; page: string };
+}
+
+export interface GroupDetailContext {
+  group: ExpandedGroupInfo;
 }
 
 const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
@@ -23,8 +28,6 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { data: group } = useSWR(["group", uuid || ""], ([_, uuid]) =>
     getGroup(uuid),
   );
-
-  const [tab, setTab] = useState("info");
 
   if (!group) {
     return <Loading />; // TODO: loading or error page
@@ -37,10 +40,9 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
 
         <Card className="my-[25px]">{group.description}</Card>
 
-        <GroupDetailTabs activeTab={tab} setActiveTab={setTab} />
-        {tab === "info" && <GroupIntroTab />}
-        {tab === "notice" && <GroupNoticesTab searchParams={searchParams} />}
-        {tab === "member" && <GroupMembersTab group={group} />}
+        <GroupDetailTabs />
+
+        <Outlet context={{ group }} />
       </div>
     </main>
   );

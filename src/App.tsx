@@ -9,7 +9,7 @@ import {
 import Layout from "./layout/Layout";
 
 import CreateGroupLayout from "./pages/createGroup/CreateGroupLayout";
-import GroupDetailPage from "./pages/detail/DetailPage";
+import GroupDetailPageLayout from "./pages/detail/DetailPageLayout";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
@@ -25,13 +25,21 @@ import CreateGroupNotionPage from "./pages/createGroup/pages/notion/CreateGroupN
 import CreateGroupCompletePage from "./pages/createGroup/pages/complete/CreateGroupCompletePage";
 import InvitePage from "./pages/invite/InvitePage";
 import ErrorPage from "./pages/error/ErrorPage";
+import GroupIntroTab from "./pages/detail/tabs/intro/GroupIntroTab";
+import GroupNoticesTab from "./pages/detail/tabs/notices/GroupNoticesTab";
+import GroupMembersTab from "./pages/detail/tabs/members/GroupMembersTab";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
       <Route element={<Layout />}>
         <Route path={Path.Home} element={<MainPage />} />
-        <Route path={Path.Group + ":uuid"} element={<GroupDetailPage />} />
+        <Route path={Path.Group + ":uuid"} element={<GroupDetailPageLayout />}>
+          <Route index element={<GroupIntroTab />} />
+          <Route path={Path.GroupInfo} element={<GroupIntroTab />} />
+          <Route path={Path.GroupNotices} element={<GroupNoticesTab />} />
+          <Route path={Path.GroupMembers} element={<GroupMembersTab />} />
+        </Route>
         <Route path={Path.Invite} element={<InvitePage />} />
 
         <Route element={<CreateGroupLayout />}>
