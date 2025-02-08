@@ -45,7 +45,8 @@ const GroupMembersTab = () => {
             <p className="text-sm text-dark"> {email}</p>
           </div>
           <div className="text-sm text-greyDark font-medium">
-            {role.charAt(0).toUpperCase() + role.slice(1)}
+            {role ? role.charAt(0).toUpperCase() + role.slice(1) : ""}
+            {/* role이 null이라 버그가 발생했다는 제보가 들어와 임시로 조치했습니다. 저는 재현에 실패했습니다. */}
           </div>
         </Card>
       ))}
