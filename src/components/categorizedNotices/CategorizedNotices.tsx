@@ -26,7 +26,7 @@ const CategorizedNotices = ({ uuid }: { uuid: undefined | string }) => {
     error,
     isLoading,
   } = useSWR<Notices>(
-    `${API_ZIGGLE}notice/?offset=10&limit=${ITEMS_PER_PAGE}&lang=kr&orderBy=recent&my=own&group-id=${uuid}`,
+    `${API_ZIGGLE}notice?offset=10&limit=${ITEMS_PER_PAGE}&lang=kr&order-by=recent&my=own&group-id=${uuid}`,
     fetcher,
   );
   if (isLoading) {
