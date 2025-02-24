@@ -28,9 +28,10 @@ const Zabo = (props: ZaboProps) => {
     props;
 
   const hasImage = imageUrls.length > 0;
+  const ziggleUrl = import.meta.env.VITE_ZIGGLE_URL;
 
   return (
-    <Link to={`/notice/${id}`}>
+    <Link to={`${ziggleUrl}/notice/${id}`}>
       <div
         className={
           "flex flex-col rounded-[10px] py-[10px] text-text transition hover:bg-greyLight dark:hover:bg-d_greyDark"
