@@ -89,7 +89,7 @@ const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
 
   return (
     <div className="flex flex-col md:w-[400px] justify-start items-center gap-2.5">
-      <p className="text-dark text-xl font-bold">
+      <p className="text-dark dark:text-grey text-xl font-bold">
         {t("groupInvitation.title")}
       </p>
 

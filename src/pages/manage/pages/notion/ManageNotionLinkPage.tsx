@@ -64,17 +64,17 @@ const ManageNotionLinkPage = () => {
           {/* 타이틀 */}
           <div className="flex justify-start items-center gap-2.5 inline-flex">
             <Notion className="w-[30px] h-[30px] md:w-10 md:h-10" />
-            <div className="text-dark text-2xl md:text-[28px] font-bold">
+            <div className="text-dark dark:text-grey text-2xl md:text-[28px] font-bold">
               {t("manageGroup.notionlink.title")}
             </div>
           </div>
           {/* 설명 */}
           <div className="flex flex-col">
-            <span className="text-dark text-base">
+            <span className="text-dark dark:text-grey text-base">
               {t("manageGroup.notionlink.description.first")}
               <br />
             </span>
-            <p className="text-dark text-base">
+            <p className="text-dark dark:text-grey text-base">
               <span className="text-primary text-base">
                 {t("manageGroup.notionlink.description.second")}
               </span>

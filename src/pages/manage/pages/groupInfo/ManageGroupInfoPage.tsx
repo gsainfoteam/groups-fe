@@ -73,10 +73,10 @@ const ManageGroupInfoPage: React.FC = () => {
       <ImageSection group={group} setGroup={setGroup} />
       {/* 그룹명 관리 */}
       <div className="flex w-full flex-col items-start gap-4">
-        <p className="text-2xl font-bold text-dark">
+        <p className="text-2xl font-bold text-dark dark:text-grey">
           {t("manageGroup.groupInfo.groupName.title")}
         </p>
-        <p className="text-base font-medium text-dark">
+        <p className="text-base font-medium text-dark dark:text-grey">
           {t("manageGroup.groupInfo.groupName.description")}
         </p>
 
@@ -91,10 +91,10 @@ const ManageGroupInfoPage: React.FC = () => {
       </div>
       {/* 그룹 간단 소개 관리 */}
       <div className="flex w-full flex-col justify-center items-start gap-4">
-        <p className="text-2xl font-bold text-dark">
+        <p className="text-2xl font-bold text-dark dark:text-grey">
           {t("manageGroup.groupInfo.groupIntro.title")}
         </p>
-        <p className="text-base font-medium text-dark">
+        <p className="text-base font-medium text-dark dark:text-grey">
           {t("manageGroup.groupInfo.groupIntro.description")}
         </p>
 

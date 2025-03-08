@@ -91,7 +91,7 @@ const Select = <OptionType extends SelectOptionBase>({
     >
       <div
         className={cn(
-          "grow text-dark text-base font-medium",
+          "grow text-dark dark:text-grey text-base font-medium",
           withDefaultValue && selectedValue === options[0] && "text-greyDark",
         )}
       >
