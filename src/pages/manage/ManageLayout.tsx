@@ -62,7 +62,7 @@ const GroupHeader = ({ group }: { group: GroupInfo | null }) => {
 
   return (
     <div>
-      <p className="text-dark text-[26px] md:text-4xl font-bold">
+      <p className="text-dark dark:text-grey text-[26px] md:text-4xl font-bold">
         {group.name}
       </p>
     </div>

@@ -60,7 +60,7 @@ const InviteSection = () => {
 
   return (
     <div className="flex flex-col md:w-[400px] justify-start items-center gap-2.5">
-      <p className="text-dark text-xl font-bold">
+      <p className="text-dark dark:text-grey text-xl font-bold">
         {t("manageGroup.members.invite.title")}
       </p>
       <Select
@@ -68,7 +68,7 @@ const InviteSection = () => {
         options={expirationOptions}
         selectedValue={selectedOption}
         onOptionClick={handleOptionClick}
-        className="flex w-full bg-greyLight rounded-[10px] justify-start items-center gap-2.5 text-dark"
+        className="flex w-full bg-greyLight rounded-[10px] justify-start items-center gap-2.5 text-dark dark:text-grey"
       />
       <div
         className="w-full min-h px-[15px] py-2.5 bg-greyLight rounded-[10px] justify-center items-center"

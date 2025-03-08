@@ -41,8 +41,8 @@ const GroupMembersTab = () => {
           className={"flex items-center justify-between mt-6 w-2/3"}
         >
           <div>
-            <p className="font-semibold text-dark">{name}</p>
-            <p className="text-sm text-dark"> {email}</p>
+            <p className="font-semibold text-dark dark:text-grey ">{name}</p>
+            <p className="text-sm text-dark dark:text-grey"> {email}</p>
           </div>
           <div className="text-sm text-greyDark font-medium">
             {role ? role.charAt(0).toUpperCase() + role.slice(1) : ""}

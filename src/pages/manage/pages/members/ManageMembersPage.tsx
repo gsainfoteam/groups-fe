@@ -76,7 +76,7 @@ const ManageMembersPage = () => {
       <InviteSection />
       {/* 멤버 관리 */}
       <div className="flex flex-col w-full justify-start items-start gap-[15px] overflow-x-hidden">
-        <div className="text-dark text-[28px] font-bold">
+        <div className="text-dark dark:text-grey text-[28px] font-bold">
           {t("manageGroup.members.list.title")}
         </div>
         {/* 멤버 목록 */}
@@ -103,32 +103,32 @@ const ManageMembersPage = () => {
         </div>
         {/* 멤버 역할 */}
         <div className="w-full self-stretch px-6 py-[22px] bg-greyLight rounded-[10px] flex-col justify-start items-start gap-3.5 flex">
-          <div className="self-stretch justify-start items-start flex text-dark text-xl font-bold">
+          <div className="self-stretch justify-start items-start flex text-dark dark:text-grey text-xl font-bold">
             {t("manageGroup.members.role.title")}
           </div>
           <div className="self-stretch justify-start items-start flex flex-col gap-2.5">
             <div className="self-stretch justify-start items-start inline-flex">
-              <p className="text-dark text-base font-bold">
+              <p className="text-dark  dark:text-grey text-base font-bold">
                 {t("manageGroup.members.role.admin.title")}
-                <span className="text-dark text-base font-medium">
+                <span className="text-dark dark:text-grey text-base font-medium">
                   {" "}
                   - {t("manageGroup.members.role.admin.description")}
                 </span>
               </p>
             </div>
             <div className="self-stretch justify-start items-start inline-flex">
-              <p className="text-dark text-base font-bold">
+              <p className="text-dark  dark:text-grey text-base font-bold">
                 {t("manageGroup.members.role.manager.title")}
-                <span className="text-dark text-base font-medium">
+                <span className="text-dark dark:text-grey text-base font-medium">
                   {" "}
                   - {t("manageGroup.members.role.manager.description")}
                 </span>
               </p>
             </div>
             <div className="self-stretch justify-start items-start inline-flex">
-              <p className="text-dark text-base font-bold">
+              <p className="text-dark dark:text-grey text-base font-bold">
                 {t("manageGroup.members.role.normal.title")}
-                <span className="text-dark text-base font-medium">
+                <span className="text-dark dark:text-grey text-base font-medium">
                   {" "}
                   - {t("manageGroup.members.role.normal.description")}
                 </span>

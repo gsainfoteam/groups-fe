@@ -76,7 +76,7 @@ const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
           options={roleOptions}
           selectedValue={selectedRole}
           onOptionClick={handleOptionClick}
-          className="flex w-full bg-greyLight rounded-[5px] justify-start items-center gap-2.5 text-dark"
+          className="flex w-full bg-greyLight rounded-[5px] justify-start items-center gap-2.5 text-dark dark:text-grey"
         />
       </div>
       {/* 추방 버튼 */}

@@ -27,7 +27,7 @@ const CreateGroupComplete = () => {
           </Trans>
         </h2>
 
-        <p className="text-greyDark">{t("createGroup.complete.description")}</p>
+        <p className="text-greyDark dark:text-grey">{t("createGroup.complete.description")}</p>
 
         <div className="h-16" />
 
