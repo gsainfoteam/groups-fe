@@ -17,14 +17,14 @@ const GroupItem = ({
 }) => {
   const group = groupParams.group;
   const { userInfo } = useAuth();
-
+  
   const isPresident = userInfo?.uuid === group.presidentUuid;
 
   return (
     <Card>
       <a href={`/group/${group.uuid}`} className={"flex items-center"}>
         <img
-          src={GroupProfileDefault}
+          src={group.profileImageUrl || GroupProfileDefault}
           alt="group-default-profile"
           width={40}
           height={40}
