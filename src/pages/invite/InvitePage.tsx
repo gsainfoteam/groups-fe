@@ -1,4 +1,4 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import JoinGroupAnimation from "@/assets/animations/JoinGroup.json";
 import Lottie from "lottie-react";
 import useSWR from "swr";
@@ -13,12 +13,11 @@ import { isAxiosError } from "axios";
 import Error from "@/assets/error/Error";
 
 const InvitePage = () => {
-  const [searchParams] = useSearchParams();
-  const code = searchParams.get("code");
+  const {code} = useParams()
   const navigator = useNavigate();
-
+  
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-
+ 
   const { t } = useTranslation();
 
   useEffect(() => {

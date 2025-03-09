@@ -16,7 +16,7 @@ enum Path {
   CreateNotion = "/create/notion",
   CreateComplete = "/create/complete",
 
-  Invite = "/invite",
+  Invite = "/invite/",
 
   Manage = "/manage/",
   ManageGroupInfo = "groupinfo",
