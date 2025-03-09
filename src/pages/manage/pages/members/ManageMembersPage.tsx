@@ -14,7 +14,9 @@ const ManageMembersPage = () => {
   const { group } = useOutletContext<GroupContextType>();
   const [members, setMembers] = useState<MemberResDto[]>([]);
   const [loading, setLoading] = useState(false);
-  const [roleChanges, setRoleChanges] = useState<{ [key: string]: number }>({});
+  const [roleChanges, setRoleChanges] = useState<{ [key: string]: number[] }>(
+    {},
+  );
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
@@ -35,12 +37,25 @@ const ManageMembersPage = () => {
     }
   }, [group?.uuid]);
 
-  const handleRoleChange = (memberId: string, prevRoleId: number ,newRoleId: number) => {
-    setRoleChanges((prev) => ({
-      ...prev,
-      [memberId]: newRoleId,
-    }));
+  const handleRoleChange = (
+    memberId: string,
+    prevRoleId: number,
+    newRoleId: number,
+  ) => {
+    if (prevRoleId === newRoleId) {
+      setRoleChanges((prev) => {
+        const newRoleChanges = { ...prev };
+        delete newRoleChanges[memberId];
+        return newRoleChanges;
+      });
+    } else {
+      setRoleChanges((prev) => ({
+        ...prev,
+        [memberId]: [prevRoleId, newRoleId],
+      }));
+    }
   };
+  console.log(roleChanges);
 
   // 전체 완료 버튼 핸들
   const handleComplete = async () => {
@@ -51,8 +66,8 @@ const ManageMembersPage = () => {
 
       // 변경 사항 DB에 업데이트
       const updatePromises = Object.entries(roleChanges).map(
-        ([memberUuid, roleId]) =>
-          grantMemberRole(group.uuid, memberUuid, roleId),
+        ([memberUuid, roleChange]) =>
+          grantMemberRole(group.uuid, memberUuid, roleChange),
       );
 
       await Promise.all(updatePromises);

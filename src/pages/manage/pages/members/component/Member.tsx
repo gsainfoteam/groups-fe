@@ -7,7 +7,7 @@ import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
 
 interface MemberProps extends MemberResDto {
-  onRoleChange: (memberId: string, prevRole: number,newRole: number) => void;
+  onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;
 }
 
 export const roleOptions = [
