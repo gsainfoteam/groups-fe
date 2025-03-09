@@ -29,7 +29,7 @@ const InviteSection = () => {
           group.uuid,
           selectedOption.id * 86400,
         );
-        const link = `https://inviteGroup.ziggle.gistory.me/${data.code}`;
+        const link = `${import.meta.env.VITE_BASE_URL}invite/${data.code}`;
         setInviteLink(link);
       } catch (error) {
         console.error("링크 생성 실패:", error);
