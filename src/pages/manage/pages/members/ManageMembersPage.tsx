@@ -35,7 +35,7 @@ const ManageMembersPage = () => {
     }
   }, [group?.uuid]);
 
-  const handleRoleChange = (memberId: string, newRoleId: number) => {
+  const handleRoleChange = (memberId: string, prevRoleId: number ,newRoleId: number) => {
     setRoleChanges((prev) => ({
       ...prev,
       [memberId]: newRoleId,
