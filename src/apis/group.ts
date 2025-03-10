@@ -124,5 +124,15 @@ export const grantMemberRole = async (
   memberUuid: string,
   roleChange: number[],
 ): Promise<void> => {
-  return groupsApi.patch(`/group/${groupUuid}/member/${memberUuid}/role`);
+  try {
+    groupsApi.delete(
+      `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[0]}`,
+    ),
+      groupsApi.patch(
+        `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[1]}`,
+      );
+  } catch (error) {
+    console.error("Error updating member roles:", error);
+    throw new Error("Error updating member roles:");
+  }
 };
