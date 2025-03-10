@@ -55,8 +55,6 @@ const ManageMembersPage = () => {
       }));
     }
   };
-  console.log(roleChanges);
-
   // 전체 완료 버튼 핸들
   const handleComplete = async () => {
     try {
