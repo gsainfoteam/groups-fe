@@ -1,14 +1,24 @@
 import groupsApi from "./interceptor";
-import { CompactGroupInfo, ExpandedGroupInfo, GroupInfo, GroupInfoWithPresidentUuid, MemberResDto } from "@/types/interfaces";
+import {
+  CompactGroupInfo,
+  ExpandedGroupInfo,
+  GroupInfo,
+  GroupInfoWithPresidentUuid,
+  MemberResDto,
+} from "@/types/interfaces";
 
-export const getGroupContainingMe = async (): Promise<GroupInfoWithPresidentUuid[]> => {
+export const getGroupContainingMe = async (): Promise<
+  GroupInfoWithPresidentUuid[]
+> => {
   return groupsApi
     .get<{ list: GroupInfoWithPresidentUuid[] }>("/group")
     .then(({ data }) => data.list);
 };
 
 export const getGroup = async (uuid: string): Promise<ExpandedGroupInfo> => {
-  return groupsApi.get<ExpandedGroupInfo>(`/group/${uuid}`).then(({ data }) => data);
+  return groupsApi
+    .get<ExpandedGroupInfo>(`/group/${uuid}`)
+    .then(({ data }) => data);
 };
 
 export interface InviteCode {
@@ -112,14 +122,17 @@ export const leavingGroup = async (
 export const grantMemberRole = async (
   groupUuid: string,
   memberUuid: string,
-  roleId: number,
+  roleChange: number[],
 ): Promise<void> => {
-  return groupsApi.patch(
-    `/group/${groupUuid}/member/${memberUuid}/role`,
-    null,
-    {
-      params: { roleId },
-    },
-  );
+  try {
+    await groupsApi.delete(
+      `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[0]}`,
+    );
+    return groupsApi.patch(
+      `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[1]}`,
+    );
+  } catch (error) {
+    console.error("Error updating member roles:", error);
+    throw new Error("Error updating member roles:");
+  }
 };
-

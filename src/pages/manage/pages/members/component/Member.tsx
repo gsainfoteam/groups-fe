@@ -7,7 +7,7 @@ import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
 
 interface MemberProps extends MemberResDto {
-  onRoleChange: (memberId: string, newRole: number) => void;
+  onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;
 }
 
 export const roleOptions = [
@@ -33,7 +33,7 @@ const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
 
   const handleOptionClick = (option: SelectOptionBase) => {
     setSelectedRole(option);
-    onRoleChange(uuid, option.id);
+    onRoleChange(uuid, defaultRole.id, option.id);
   };
 
   // 추방하기 클릭 시
