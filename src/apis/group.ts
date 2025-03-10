@@ -1,3 +1,4 @@
+import { group } from "console";
 import groupsApi from "./interceptor";
 import {
   CompactGroupInfo,
@@ -135,4 +136,19 @@ export const grantMemberRole = async (
     console.error("Error updating member roles:", error);
     throw new Error("Error updating member roles:");
   }
+};
+
+export const createRole = async (
+  groupUuid: string,
+  roleName: string,
+  authorities: string[],
+): Promise<void> => {
+  return groupsApi
+    .post(`/group/${groupUuid}/role`, {
+      name: roleName,
+      authorities: authorities,
+    })
+    .then(() => {
+      console.log(`Default role ${roleName} set successfully.`);
+    });
 };
