@@ -44,14 +44,6 @@ const CreateGroupNotionPage = () => {
   };
 
   const handleNextClick = async () => {
-    const manager = {
-      name: "manager",
-      authorities: ["MEMBER_UPDATE"],
-    };
-    const member = {
-      name: "member",
-      authorities: [],
-    };
     try {
       const response = await createGroup({
         name: location.state.groupName,
@@ -75,6 +67,15 @@ const CreateGroupNotionPage = () => {
         console.error("profile image upload failed:", error);
         // TODO: 사용자에게 이미지 업로드 실패 알림
       }
+
+      const manager = {
+        name: "manager",
+        authorities: ["MEMBER_UPDATE"],
+      };
+      const member = {
+        name: "member",
+        authorities: [],
+      };
       try {
         await createRole(groupUuid, manager.name, manager.authorities);
         await createRole(groupUuid, member.name, member.authorities);
