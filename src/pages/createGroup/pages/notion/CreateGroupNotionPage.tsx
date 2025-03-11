@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import Button from "@/components/button/Button";
 import { NotionRenderer } from "react-notion-x";
-import { createGroup, setGroupProfileImage } from "@/apis/group";
+import { createGroup, createRole, setGroupProfileImage } from "@/apis/group";
 import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
 import { dataUrlToFile } from "@/utils/dataURLtoFile";
 
@@ -66,6 +66,21 @@ const CreateGroupNotionPage = () => {
       } catch (error) {
         console.error("profile image upload failed:", error);
         // TODO: 사용자에게 이미지 업로드 실패 알림
+      }
+
+      const manager = {
+        name: "manager",
+        authorities: ["MEMBER_UPDATE"],
+      };
+      const member = {
+        name: "member",
+        authorities: [],
+      };
+      try {
+        await createRole(groupUuid, manager.name, manager.authorities);
+        await createRole(groupUuid, member.name, member.authorities);
+      } catch (error) {
+        console.error("Failed to create role:", error);
       }
 
       navigate(Path.CreateComplete, {
