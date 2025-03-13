@@ -154,3 +154,9 @@ export const createRole = async (
       console.log(`Default role ${roleName} set successfully.`);
     });
 };
+
+export const getRoles = async (groupUuid: string) => {
+  return groupsApi
+    .get(`/group/${groupUuid}/role`)
+    .then(({data})=> data)
+}
