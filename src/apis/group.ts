@@ -29,9 +29,10 @@ export interface InviteCode {
 export const generateInviteCode = async (
   uuid: string,
   duration: number,
+  roleId: number,
 ): Promise<InviteCode> => {
   return groupsApi
-    .post<InviteCode>(`/group/${uuid}/invite?duration=${duration}`)
+    .post<InviteCode>(`/group/${uuid}/invite?duration=${duration}&roleId=${roleId}`)
     .then(({ data }) => data);
 };
 
@@ -126,9 +127,10 @@ export const grantMemberRole = async (
   roleChange: number[],
 ): Promise<void> => {
   try {
-    await groupsApi.delete(
-      `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[0]}`,
-    );
+    if (roleChange[0] !== 0)
+      await groupsApi.delete(
+        `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[0]}`,
+      );
     return groupsApi.patch(
       `/group/${groupUuid}/member/${memberUuid}/role?roleId=${roleChange[1]}`,
     );

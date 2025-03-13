@@ -28,6 +28,7 @@ const InviteSection = () => {
         const data = await generateInviteCode(
           group.uuid,
           selectedOption.id * 86400,
+          3,  
         );
         const link = `${import.meta.env.VITE_BASE_URL}invite/${data.code}/${group.uuid}`;
         setInviteLink(link);

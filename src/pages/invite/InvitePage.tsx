@@ -3,7 +3,10 @@ import JoinGroupAnimation from "@/assets/animations/JoinGroup.json";
 import Lottie from "lottie-react";
 import useSWR from "swr";
 import apiKeys from "@/types/api-keys";
-import { createRole, getInvitationInfoByInvitationCode, joinGroup } from "@/apis/group";
+import {
+  getInvitationInfoByInvitationCode,
+  joinGroup,
+} from "@/apis/group";
 import { Trans, useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
 import Path from "@/types/paths";
@@ -13,11 +16,11 @@ import { isAxiosError } from "axios";
 import Error from "@/assets/error/Error";
 
 const InvitePage = () => {
-  const {code, groupId} = useParams()
+  const { code, groupId } = useParams();
   const navigator = useNavigate();
-  console.log(groupId)
+
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
- 
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -39,7 +42,6 @@ const InvitePage = () => {
 
     try {
       await joinGroup(code);
-      // await createRole
       navigator(Path.Home, {
         state: {
           joinedGroupName: data.name,

@@ -62,6 +62,7 @@ const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
       generateInviteCode(
         groupUuid,
         expirationOption.expirationTime * A_DAY_SECOND,
+        3
       ),
   );
 
