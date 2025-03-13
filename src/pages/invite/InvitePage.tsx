@@ -16,7 +16,7 @@ import { isAxiosError } from "axios";
 import Error from "@/assets/error/Error";
 
 const InvitePage = () => {
-  const { code, groupId } = useParams();
+  const { code } = useParams();
   const navigator = useNavigate();
 
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
