@@ -25,7 +25,7 @@ const FireButton = ({ id, fire }: FireButtonProps) => {
     <div className={"flex items-center gap-1"}>
       <Fire
         width={36}
-        className="stroke-text duration-150 hover:scale-125 dark:stroke-d_white"
+        className="stroke-text duration-150 hover:scale-125 stroke-black dark:stroke-d_white"
       />
       <p className={"font-semibold dark:text-d_white"}>{currentFire.count}</p>
     </div>
@@ -59,7 +59,7 @@ const ShareButton = ({ title }: ShareButtonProps) => {
     >
       <ShareIcon
         width={26}
-        className="stroke-text stroke-2 duration-150 hover:scale-125 dark:stroke-d_white"
+        className="stroke-text stroke-2 duration-150 hover:scale-125 stroke-black dark:stroke-d_white"
       />
     </Button>
   );
