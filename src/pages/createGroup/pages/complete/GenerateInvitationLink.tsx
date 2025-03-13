@@ -69,7 +69,7 @@ const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
 
   useEffect(() => {
     if (!data) return;
-    setInvitationLink(invitationLinkGenerator(data.code));
+    setInvitationLink(invitationLinkGenerator(data.code,groupUuid));
   }, [data]);
 
   const [isCopyAnimationPlay, setIsCopyAnimationPlay] = useState(false);

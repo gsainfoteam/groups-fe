@@ -29,7 +29,7 @@ const InviteSection = () => {
           group.uuid,
           selectedOption.id * 86400,
         );
-        const link = `${import.meta.env.VITE_BASE_URL}invite/${data.code}`;
+        const link = `${import.meta.env.VITE_BASE_URL}invite/${data.code}/${group.uuid}`;
         setInviteLink(link);
       } catch (error) {
         console.error("링크 생성 실패:", error);
