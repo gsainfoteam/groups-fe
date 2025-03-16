@@ -12,9 +12,8 @@ interface GroupProfileProps {
 
 const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
   const { t } = useTranslation();
-  const { userInfo } = useAuth();
 
-  const isPresident = userInfo?.uuid === group.president.uuid;
+  const isAdmin = userRole === "admin";
 
   return (
     <div className={"flex items-center gap-[25px]"}>
@@ -47,7 +46,7 @@ const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
             <p>{t("group.favorite")}</p>
           </Button>
 
-          {isPresident && (
+          {isAdmin && (
             <Link to={`/manage/${group.uuid}`}>
               <Button
                 variant="contained"
