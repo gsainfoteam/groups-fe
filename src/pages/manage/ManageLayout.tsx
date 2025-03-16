@@ -8,7 +8,7 @@ import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
 
 const ManageLayout = () => {
-  const { uuid, role } = useParams<{ uuid: string, role: string }>();
+  const { uuid, role } = useParams<{ uuid: string; role: string }>();
   const [group, setGroup] = useState<GroupInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
@@ -24,6 +24,8 @@ const ManageLayout = () => {
   }, [uuid]);
 
   if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
+
+  if (!role) return <p>유저의 역할을 불러오는데 실패했습니다.</p>;
 
   if (loading) return <p>데이터를 불러오는 중...</p>;
 
@@ -45,7 +47,7 @@ const ManageLayout = () => {
             <GroupHeader group={group} />
           </div>
           {/* 네비게이터 */}
-          <Navigator />
+          <Navigator role={role} />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
         <Outlet context={{ group, setGroup }} />

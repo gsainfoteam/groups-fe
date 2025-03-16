@@ -2,7 +2,8 @@ import { NavLinkTabs } from "@/components/tabs/Tabs";
 import Path from "@/types/paths";
 import { useParams, useNavigate } from "react-router-dom";
 
-const Navigator = () => {
+const Navigator = ({ role }: { role: string }) => {
+  console.log(role);
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
   if (!uuid) {
@@ -18,17 +19,17 @@ const Navigator = () => {
     {
       key: "groupInfo",
       label: "기본 정보",
-      link: `${Path.Manage + uuid + "/" + Path.ManageGroupInfo}`,
+      link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageGroupInfo}`,
     },
     {
       key: "notionLink",
       label: "소개 페이지",
-      link: `${Path.Manage + uuid + "/" + Path.ManageNotionLink}`,
+      link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageNotionLink}`,
     },
     {
       key: "members",
       label: "멤버",
-      link: `${Path.Manage + uuid + "/" + Path.ManageMembers}`,
+      link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageMembers}`,
     },
   ];
 
