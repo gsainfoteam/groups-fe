@@ -28,6 +28,7 @@ import ErrorPage from "./pages/error/ErrorPage";
 import GroupIntroTab from "./pages/detail/tabs/intro/GroupIntroTab";
 import GroupNoticesTab from "./pages/detail/tabs/notices/GroupNoticesTab";
 import GroupMembersTab from "./pages/detail/tabs/members/GroupMembersTab";
+import OnlyInvitePage from "./pages/manage/pages/onlyInvite/onlyInvite";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -76,6 +77,7 @@ const router = createBrowserRouter(
           element={<ManageNotionLinkPage />}
         />
         <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
+        <Route path={Path.ManageOnlyInvite} element={<OnlyInvitePage/>}/>
       </Route>
     </>,
   ),

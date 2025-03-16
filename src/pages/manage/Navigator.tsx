@@ -3,7 +3,6 @@ import Path from "@/types/paths";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Navigator = ({ role }: { role: string }) => {
-  console.log(role);
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
   if (!uuid) {
@@ -14,24 +13,39 @@ const Navigator = ({ role }: { role: string }) => {
       </div>
     );
   }
-
-  const tabs = [
-    {
-      key: "groupInfo",
-      label: "기본 정보",
-      link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageGroupInfo}`,
-    },
-    {
-      key: "notionLink",
-      label: "소개 페이지",
-      link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageNotionLink}`,
-    },
-    {
-      key: "members",
-      label: "멤버",
-      link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageMembers}`,
-    },
-  ];
+  interface TabInfo {
+    key: string;
+    label: string;
+    link: string;
+  }
+  let tabs: TabInfo[] = [];
+  if (role === "admin") {
+    tabs = [
+      {
+        key: "groupInfo",
+        label: "기본 정보",
+        link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageGroupInfo}`,
+      },
+      {
+        key: "notionLink",
+        label: "소개 페이지",
+        link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageNotionLink}`,
+      },
+      {
+        key: "members",
+        label: "멤버",
+        link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageMembers}`,
+      },
+    ];
+  } else if (role === "manager") {
+    tabs = [
+      {
+        key: "manager",
+        label: "초대",
+        link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageOnlyInvite}`,
+      },
+    ];
+  }
 
   return (
     <div className="w-full">

@@ -13,7 +13,7 @@ interface GroupProfileProps {
 const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
   const { t } = useTranslation();
 
-  const isAdmin = userRole === "admin";
+  const isAdminOrManager = userRole === "admin" || userRole === "manager";
 
   return (
     <div className={"flex items-center gap-[25px]"}>
@@ -46,7 +46,7 @@ const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
             <p>{t("group.favorite")}</p>
           </Button>
 
-          {isAdmin && (
+          {isAdminOrManager && (
             <Link to={`/manage/${group.uuid}/${userRole}`}>
               <Button
                 variant="contained"

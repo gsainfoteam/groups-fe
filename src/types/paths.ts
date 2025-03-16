@@ -22,6 +22,7 @@ enum Path {
   ManageGroupInfo = "groupinfo",
   ManageNotionLink = "notionlink",
   ManageMembers = "members",
+  ManageOnlyInvite = "onlyInvite",
 }
 
 export default Path;

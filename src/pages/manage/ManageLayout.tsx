@@ -6,12 +6,13 @@ import { getGroup } from "@/apis/group";
 import { GroupInfo } from "@/types/interfaces";
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
-
+import { useNavigate } from "react-router-dom";
 const ManageLayout = () => {
   const { uuid, role } = useParams<{ uuid: string; role: string }>();
   const [group, setGroup] = useState<GroupInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
+  const navigate = useNavigate();
   useEffect(() => {
     if (uuid) {
       getGroup(uuid)
@@ -28,6 +29,10 @@ const ManageLayout = () => {
   if (!role) return <p>유저의 역할을 불러오는데 실패했습니다.</p>;
 
   if (loading) return <p>데이터를 불러오는 중...</p>;
+
+  if (role === "manager") {
+    navigate(Path.Manage + uuid + "/manager/onlyInvite");
+  }
 
   return (
     <div className="flex flex-col items-center">
