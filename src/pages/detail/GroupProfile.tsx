@@ -4,6 +4,7 @@ import useAuth from "@/hooks/useAuth";
 import { ExpandedGroupInfo } from "@/types/interfaces";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import GroupLeaveComponent from "../manage/pages/groupInfo/component/GroupLeaving";
 
 interface GroupProfileProps {
   group: ExpandedGroupInfo;
@@ -12,8 +13,6 @@ interface GroupProfileProps {
 
 const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
   const { t } = useTranslation();
-
-  const isAdminOrManager = userRole === "admin" || userRole === "manager";
 
   return (
     <div className={"flex items-center gap-[25px]"}>
@@ -46,16 +45,14 @@ const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
             <p>{t("group.favorite")}</p>
           </Button>
 
-          {isAdminOrManager && (
-            <Link to={`/manage/${group.uuid}/${userRole}`}>
-              <Button
-                variant="contained"
-                className="mt-3 rounded-[10px] md:px-6 md:py-2"
-              >
-                <p>{t("group.manage")}</p>
-              </Button>
-            </Link>
-          )}
+          <Link to={`/manage/${group.uuid}/${userRole}`}>
+            <Button
+              variant="contained"
+              className="mt-3 rounded-[10px] md:px-6 md:py-2"
+            >
+              <p>{t("group.manage")}</p>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

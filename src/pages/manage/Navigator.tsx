@@ -45,6 +45,14 @@ const Navigator = ({ role }: { role: string }) => {
         link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageOnlyInvite}`,
       },
     ];
+  } else {
+    tabs = [
+      {
+        key: "member",
+        label: "나가기",
+        link: `${Path.Manage + uuid + "/" + role + "/" + Path.ManageOnlyLeave}`,
+      },
+    ];
   }
 
   return (
