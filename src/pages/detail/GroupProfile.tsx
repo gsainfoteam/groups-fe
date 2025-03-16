@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 
 interface GroupProfileProps {
   group: ExpandedGroupInfo;
+  userRole: string;
 }
 
-const GroupProfile = ({ group }: GroupProfileProps) => {
+const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
   const { t } = useTranslation();
   const { userInfo } = useAuth();
 
