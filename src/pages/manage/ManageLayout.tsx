@@ -8,8 +8,7 @@ import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
 
 const ManageLayout = () => {
-  const { uuid } = useParams<{ uuid: string }>();
-
+  const { uuid, role } = useParams<{ uuid: string, role: string }>();
   const [group, setGroup] = useState<GroupInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();

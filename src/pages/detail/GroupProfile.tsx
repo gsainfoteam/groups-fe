@@ -47,7 +47,7 @@ const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
           </Button>
 
           {isAdmin && (
-            <Link to={`/manage/${group.uuid}`}>
+            <Link to={`/manage/${group.uuid}/${userRole}`}>
               <Button
                 variant="contained"
                 className="mt-3 rounded-[10px] md:px-6 md:py-2"

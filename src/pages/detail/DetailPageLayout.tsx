@@ -34,7 +34,6 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   if (!group || !userRole) {
     return <Loading />; // TODO: loading or error page
   }
-  console.log(userRole.name)
 
   return (
     <main className={"flex flex-col items-center mt-[20px] md:mt-[48px]"}>
