@@ -1,18 +1,21 @@
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import Path from "@/types/paths";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getGroup } from "@/apis/group";
 import { GroupInfo } from "@/types/interfaces";
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
-
 const ManageLayout = () => {
   const { uuid } = useParams<{ uuid: string }>();
-
   const [group, setGroup] = useState<GroupInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
+  const location = useLocation();
+  const isAdmin = location.pathname.includes("admin");
+  const isManager = location.pathname.includes("manager");
+  const isMember = location.pathname.includes("member");
+
   useEffect(() => {
     if (uuid) {
       getGroup(uuid)
@@ -46,7 +49,9 @@ const ManageLayout = () => {
             <GroupHeader group={group} />
           </div>
           {/* 네비게이터 */}
-          <Navigator />
+          <Navigator
+            role={isAdmin ? "admin" : isManager ? "manager" : "member"}
+          />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
         <Outlet context={{ group, setGroup }} />
