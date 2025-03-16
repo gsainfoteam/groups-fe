@@ -1,18 +1,20 @@
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import Path from "@/types/paths";
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Link, Outlet, useLocation, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getGroup } from "@/apis/group";
 import { GroupInfo } from "@/types/interfaces";
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 const ManageLayout = () => {
-  const { uuid, role } = useParams<{ uuid: string; role: string }>();
+  const { uuid} = useParams<{ uuid: string}>();
   const [group, setGroup] = useState<GroupInfo | null>(null);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
-  const navigate = useNavigate();
+  const location = useLocation();
+  const isAdmin = location.pathname.includes("admin");
+  const isManager = location.pathname.includes("manager");
+
   useEffect(() => {
     if (uuid) {
       getGroup(uuid)
@@ -26,13 +28,8 @@ const ManageLayout = () => {
 
   if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
 
-  if (!role) return <p>유저의 역할을 불러오는데 실패했습니다.</p>;
 
   if (loading) return <p>데이터를 불러오는 중...</p>;
-
-  if (role === "manager") {
-    navigate(Path.Manage + uuid + "/manager/onlyInvite");
-  }
 
   return (
     <div className="flex flex-col items-center">
@@ -52,7 +49,7 @@ const ManageLayout = () => {
             <GroupHeader group={group} />
           </div>
           {/* 네비게이터 */}
-          <Navigator role={role} />
+          <Navigator role={isAdmin?"admin":"manager"}/>
         </div>
         {/* 개별 페이지의 콘텐츠 */}
         <Outlet context={{ group, setGroup }} />

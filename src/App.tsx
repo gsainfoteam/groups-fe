@@ -69,7 +69,7 @@ const router = createBrowserRouter(
       <Route path={"*"} element={<ErrorPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
 
-      <Route path={Path.Manage + ":uuid" + "/:role"} element={<ManageLayout />}>
+      <Route path={Path.Manage + ":uuid" + "/admin"} element={<ManageLayout />}>
         <Route index element={<ManageGroupInfoPage />} />
         <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
         <Route
@@ -77,7 +77,13 @@ const router = createBrowserRouter(
           element={<ManageNotionLinkPage />}
         />
         <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
-        <Route path={Path.ManageOnlyInvite} element={<OnlyInvitePage/>}/>
+      </Route>
+      <Route
+        path={Path.Manage + ":uuid" + "/manager"}
+        element={<ManageLayout />}
+      >
+        <Route index element={<OnlyInvitePage />} />
+        <Route path={Path.ManageOnlyInvite} element={<OnlyInvitePage />} />
       </Route>
     </>,
   ),
