@@ -18,14 +18,21 @@ const GroupItem = ({
 }) => {
   const group = groupParams.group;
 
-  const { data: userRole } = useSWR(["userRole", group.uuid || ""], ([_, uuid]) =>
-    getUserRole(uuid),
+  const { data: userRole } = useSWR(
+    ["userRole", group.uuid || ""],
+    ([_, uuid]) => getUserRole(uuid),
   );
+
+  if (!userRole) return <></>;
+  
   const isAdmin = userRole.name === "admin";
 
   return (
     <Card>
-      <a href={`/group/${group.uuid}`} className={"flex items-center"}>
+      <a
+        href={`/group/${group.uuid}`}
+        className={"flex items-center"}
+      >
         <img
           src={group.profileImageUrl || GroupProfileDefault}
           alt="group-default-profile"
@@ -44,7 +51,7 @@ const GroupItem = ({
         <div className="flex-grow" />
 
         {isAdmin && (
-          <Link to={`/manage/${group.uuid}`}>
+          <Link to={`/manage/${group.uuid}/${userRole.name}`}>
             <Settings className="fill-greyDark mr-2" />
           </Link>
         )}
