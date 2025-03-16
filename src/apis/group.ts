@@ -155,8 +155,8 @@ export const createRole = async (
     });
 };
 
-export const getRoles = async (groupUuid: string) => {
+export const getUserRole = async (groupId: string) => {
   return groupsApi
-    .get(`/group/${groupUuid}/role`)
-    .then(({data})=> data)
+    .get(`/group/${groupId}/role`)
+    .then(({data}) => data);
 }

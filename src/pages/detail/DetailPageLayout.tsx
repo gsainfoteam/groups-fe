@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 import useSWR from "swr";
 
-import { getGroup } from "@/apis/group";
+import { getGroup, getUserRole } from "@/apis/group";
 
 import GroupDetailTabs from "./GroupDetailTabs";
 
@@ -28,8 +28,10 @@ const GroupDetailPage = ({ searchParams }: GroupDetailPageProps) => {
   const { data: group } = useSWR(["group", uuid || ""], ([_, uuid]) =>
     getGroup(uuid),
   );
-
-  if (!group) {
+  const { data: userRole } = useSWR(["userRole", uuid || ""], ([_, uuid]) =>
+    getUserRole(uuid),
+  );
+  if (!group || !userRole) {
     return <Loading />; // TODO: loading or error page
   }
 
