@@ -5,8 +5,9 @@ import Crown from "@/assets/icons/crown.svg?react";
 import Settings from "@/assets/icons/settings.svg?react";
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Card from "@/components/card/Card";
-import useAuth from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
+import useSWR from "swr";
+import { getUserRole } from "@/apis/group";
 
 const GroupItem = ({
   groupParams,
@@ -16,9 +17,11 @@ const GroupItem = ({
   };
 }) => {
   const group = groupParams.group;
-  const { userInfo } = useAuth();
-  
-  const isPresident = userInfo?.uuid === group.presidentUuid;
+
+  const { data: userRole } = useSWR(["userRole", group.uuid || ""], ([_, uuid]) =>
+    getUserRole(uuid),
+  );
+  const isAdmin = userRole.name === "admin";
 
   return (
     <Card>
@@ -34,13 +37,13 @@ const GroupItem = ({
           {group.name}
         </p>
 
-        {isPresident && (
+        {isAdmin && (
           <Crown className="ml-1 inline stroke-dark dark:stroke-d_white" />
         )}
 
         <div className="flex-grow" />
 
-        {isPresident && (
+        {isAdmin && (
           <Link to={`/manage/${group.uuid}`}>
             <Settings className="fill-greyDark mr-2" />
           </Link>
