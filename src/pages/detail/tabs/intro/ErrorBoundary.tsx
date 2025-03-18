@@ -2,7 +2,7 @@ import React, { Component, ReactNode } from "react";
 interface ErrorBoundaryProps {
   children: ReactNode;
 }
-import Error from "@/assets/error/Error";
+import ErrorComponent from "@/assets/error/Error";
 interface ErrorBoundaryState {
   hasError: boolean;
 }
@@ -22,7 +22,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
   render() {
     if (this.state.hasError) {
-      return <Error>{"Fail to load Notion Page"}</Error>;
+      return <ErrorComponent>{"Fail to load Notion Page"}</ErrorComponent>;
     }
     return this.props.children;
   }
