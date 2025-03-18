@@ -13,7 +13,7 @@ import { Pdf } from "react-notion-x/build/third-party/pdf";
 
 import { ExtendedRecordMap } from "notion-types";
 import { NotionRenderer } from "react-notion-x";
-
+import ErrorBoundary from "./ErrorBoundary";
 const NotionWrapper = ({ recordMap }: { recordMap: ExtendedRecordMap }) => {
   if (!recordMap) {
     return null;
@@ -21,18 +21,20 @@ const NotionWrapper = ({ recordMap }: { recordMap: ExtendedRecordMap }) => {
   console.log(recordMap);
   const mediaQeury = window.matchMedia("(prefers-color-scheme: dark)");
   return (
-    <NotionRenderer
-      recordMap={recordMap}
-      components={{
-        Code,
-        Collection,
-        Equation,
-        Modal,
-        Pdf,
-      }}
-      fullPage={false}
-      darkMode={mediaQeury.matches}
-    />
+    <ErrorBoundary>
+      <NotionRenderer
+        recordMap={recordMap}
+        components={{
+          Code,
+          Collection,
+          Equation,
+          Modal,
+          Pdf,
+        }}
+        fullPage={false}
+        darkMode={mediaQeury.matches}
+      />
+    </ErrorBoundary>
   );
 };
 
