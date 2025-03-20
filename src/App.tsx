@@ -36,12 +36,14 @@ const router = createBrowserRouter(
     <>
       <Route element={<Layout />}>
         <Route path={Path.Home} element={<MainPage />} />
+
         <Route path={Path.Group + ":uuid"} element={<GroupDetailPageLayout />}>
-          <Route index element={<GroupIntroTab />} />
+          <Route index element={<Navigate to={Path.GroupInfo} replace />} />
           <Route path={Path.GroupInfo} element={<GroupIntroTab />} />
           <Route path={Path.GroupNotices} element={<GroupNoticesTab />} />
           <Route path={Path.GroupMembers} element={<GroupMembersTab />} />
         </Route>
+
         <Route
           path={Path.Invite + ":code" + "/" + ":groupId"}
           element={<InvitePage />}
