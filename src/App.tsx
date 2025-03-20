@@ -73,7 +73,7 @@ const router = createBrowserRouter(
       <Route path={Path.Login} element={<LoginPage />} />
 
       <Route path={Path.Manage + ":uuid" + "/admin"} element={<ManageLayout />}>
-        <Route index element={<ManageGroupInfoPage />} />
+        <Route index element={<Navigate to={Path.ManageGroupInfo} replace />} />
         <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
         <Route
           path={Path.ManageNotionLink}
