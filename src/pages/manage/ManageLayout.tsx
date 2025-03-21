@@ -22,6 +22,8 @@ const ManageLayout = () => {
   const isAdmin = location.pathname.includes("admin");
   const isManager = location.pathname.includes("manager");
   const isMember = location.pathname.includes("member");
+  const userRole = isAdmin ? "admin" : isManager ? "manager" : "member";
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,11 +38,7 @@ const ManageLayout = () => {
   }, [uuid]);
 
   const handleGoBack = () => {
-    if (window.history.state && window.history.state.idx > 0) {
-      navigate(-1);
-    } else {
-      navigate(Path.Home);
-    }
+    navigate(`/group/${uuid}`);
   };
 
   if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
@@ -65,9 +63,7 @@ const ManageLayout = () => {
             <GroupHeader group={group} />
           </div>
           {/* 네비게이터 */}
-          <Navigator
-            role={isAdmin ? "admin" : isManager ? "manager" : "member"}
-          />
+          <Navigator role={userRole} />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
         <Outlet context={{ group, setGroup }} />
