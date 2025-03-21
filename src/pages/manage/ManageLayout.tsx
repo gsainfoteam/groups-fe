@@ -1,6 +1,12 @@
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import Path from "@/types/paths";
-import { Link, Outlet, useLocation, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useParams,
+  useNavigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getGroup } from "@/apis/group";
 import { GroupInfo } from "@/types/interfaces";
@@ -16,6 +22,9 @@ const ManageLayout = () => {
   const isAdmin = location.pathname.includes("admin");
   const isManager = location.pathname.includes("manager");
   const isMember = location.pathname.includes("member");
+  const userRole = isAdmin ? "admin" : isManager ? "manager" : "member";
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (uuid) {
@@ -28,6 +37,10 @@ const ManageLayout = () => {
     }
   }, [uuid]);
 
+  const handleGoBack = () => {
+    navigate(`/group/${uuid}`);
+  };
+
   if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
 
   if (loading) return <p>데이터를 불러오는 중...</p>;
@@ -39,20 +52,18 @@ const ManageLayout = () => {
         <div className="flex flex-col items-start gap-5 self-stretch">
           {/* 뒤로 가기 및 그룹 이름 */}
           <div className="flex flex-col items-start gap-2.5 self-stretch">
-            <Link to={Path.Home}>
+            <div onClick={handleGoBack} className="cursor-pointer">
               <div className="flex items-center">
                 <ArrowRight className="h-5 w-5 md:h-6 md:w-6 stroke-primary scale-x-[-1]" />
                 <p className="text-primary text-base md:text-xl font-medium">
                   {t("manageGroup.goBack")}
                 </p>
               </div>
-            </Link>
+            </div>
             <GroupHeader group={group} />
           </div>
           {/* 네비게이터 */}
-          <Navigator
-            role={isAdmin ? "admin" : isManager ? "manager" : "member"}
-          />
+          <Navigator role={userRole} />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
         <Outlet context={{ group, setGroup }} />
