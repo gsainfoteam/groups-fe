@@ -67,34 +67,43 @@ const router = createBrowserRouter(
         </Route>
 
         <Route path={Path.Onboarding} element={<OnboardingPage />} />
+
+        <Route
+          path={Path.Manage + ":uuid" + "/admin"}
+          element={<ManageLayout />}
+        >
+          <Route
+            index
+            element={<Navigate to={Path.ManageGroupInfo} replace />}
+          />
+          <Route
+            path={Path.ManageGroupInfo}
+            element={<ManageGroupInfoPage />}
+          />
+          <Route
+            path={Path.ManageNotionLink}
+            element={<ManageNotionLinkPage />}
+          />
+          <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
+        </Route>
+        <Route
+          path={Path.Manage + ":uuid" + "/manager"}
+          element={<ManageLayout />}
+        >
+          <Route index element={<OnlyInvitePage />} />
+          <Route path={Path.ManageOnlyInvite} element={<OnlyInvitePage />} />
+        </Route>
+        <Route
+          path={Path.Manage + ":uuid" + "/member"}
+          element={<ManageLayout />}
+        >
+          <Route index element={<OnlyLeavePage />} />
+          <Route path={Path.ManageOnlyLeave} element={<OnlyLeavePage />} />
+        </Route>
       </Route>
 
       <Route path={"*"} element={<ErrorPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
-
-      <Route path={Path.Manage + ":uuid" + "/admin"} element={<ManageLayout />}>
-        <Route index element={<Navigate to={Path.ManageGroupInfo} replace />} />
-        <Route path={Path.ManageGroupInfo} element={<ManageGroupInfoPage />} />
-        <Route
-          path={Path.ManageNotionLink}
-          element={<ManageNotionLinkPage />}
-        />
-        <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
-      </Route>
-      <Route
-        path={Path.Manage + ":uuid" + "/manager"}
-        element={<ManageLayout />}
-      >
-        <Route index element={<OnlyInvitePage />} />
-        <Route path={Path.ManageOnlyInvite} element={<OnlyInvitePage />} />
-      </Route>
-      <Route
-        path={Path.Manage + ":uuid" + "/member"}
-        element={<ManageLayout />}
-      >
-        <Route index element={<OnlyLeavePage />} />
-        <Route path={Path.ManageOnlyLeave} element={<OnlyLeavePage />} />
-      </Route>
     </>,
   ),
 );
