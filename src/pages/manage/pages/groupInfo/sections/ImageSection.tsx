@@ -4,7 +4,8 @@ import Button from "@/components/button/Button";
 import { setGroupProfileImage, getGroup } from "@/apis/group";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import authorityChecker from "@/utils/authorityChecker";
-import { RoleAuthorities } from "@/types/interfaces";
+import { RoleAuthorities, RoleNames } from "@/types/interfaces";
+import LockedSign from "@/pages/manage/components/lockedSign";
 interface ImageSectionProps extends GroupContextType {}
 
 const ImageSection = ({ group, setGroup, userRole }: ImageSectionProps) => {
@@ -121,6 +122,8 @@ const ImageSection = ({ group, setGroup, userRole }: ImageSectionProps) => {
           />
         </div>
       )}
+
+      {!isAuthorized && <LockedSign requiredRoleName={RoleNames.ADMIN} />}
     </div>
   );
 };

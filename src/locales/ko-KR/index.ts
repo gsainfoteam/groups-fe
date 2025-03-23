@@ -276,6 +276,7 @@ export const main = {
       },
       complete: "완료",
     },
+    noPermission: "{{requiredRoleName}} 이상만 이 작업을 수행할 수 있습니다.",
   },
   installApp: {
     title: "모바일 앱을 설치해보세요!",
