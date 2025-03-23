@@ -16,6 +16,7 @@ const Input = forwardRef(
       onButtonClick,
       title,
       errorText,
+      disabled,
       ...rest
     }: InputProps,
     ref?: React.ForwardedRef<HTMLInputElement> | undefined,
@@ -29,18 +30,21 @@ const Input = forwardRef(
             ref={ref}
             {...rest}
             aria-label={title}
+            disabled={disabled}
             className={[
-              "grow rounded-[10px] border-[1.5px] border-solid border-primary py-1 pl-4 pr-[10px] bg-white",
+              "grow rounded-[10px] border-[1.5px] border-solid py-1 pl-4 pr-[10px] bg-white",
+              disabled ? "border-grey" : "border-primary",
               rest.className,
             ].join(" ")}
           />
 
           {buttonValue && (
             <Button
-              variant="emphasized"
+              variant={disabled ? "disabled" : "emphasized"}
               onClick={onButtonClick}
               size="big"
               className="px-[20px] rounded-[10px]"
+              disabled={disabled}
             >
               {buttonValue}
             </Button>
