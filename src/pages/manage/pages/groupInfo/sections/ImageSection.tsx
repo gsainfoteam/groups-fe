@@ -2,20 +2,22 @@ import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/button/Button";
 import { setGroupProfileImage, getGroup } from "@/apis/group";
-import { GroupInfo } from "@/types/interfaces";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
+import authorityChecker from "@/utils/authorityChecker";
+import { RoleAuthorities } from "@/types/interfaces";
+interface ImageSectionProps extends GroupContextType {}
 
-type ImageSectionProps = {
-  group: GroupInfo;
-  setGroup: React.Dispatch<React.SetStateAction<GroupInfo | null>>;
-};
-
-const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
+const ImageSection = ({ group, setGroup, userRole }: ImageSectionProps) => {
   const { t } = useTranslation();
   const [isEditingProfileImage, setIsEditingProfileImage] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
+
+  const isAuthorized = authorityChecker(userRole.authorities, [
+    RoleAuthorities.GROUP_UPDATE,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -102,7 +104,8 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
         <div>
           <Button
             size="big"
-            variant="contained"
+            variant={isAuthorized ? "contained" : "disabled"}
+            disabled={!isAuthorized}
             onClick={() =>
               document.getElementById("profileImageUpload")?.click()
             }

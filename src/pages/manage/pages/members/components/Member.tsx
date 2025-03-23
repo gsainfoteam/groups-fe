@@ -4,7 +4,7 @@ import { useState } from "react";
 import DeleteConfirmationModal from "../../groupInfo/components/ConfirmModal";
 import { leavingGroup } from "@/apis/group";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../../groupInfo";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
 
 interface MemberProps extends MemberResDto {
   onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;

@@ -1,23 +1,19 @@
 import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import { useOutletContext } from "react-router-dom";
-import { GroupInfo } from "@/types/interfaces";
+import { GroupInfo, RoleAuthorities, RoleNames } from "@/types/interfaces";
 import { getGroup } from "@/apis/group";
 import { useState } from "react";
 import { changeGroupInfo } from "@/apis/group";
 import GroupLeaveComponent from "./components/GroupLeaving";
 import GroupDeleteComponent from "./components/GroupDelete";
-import ImageSection from "./components/ImageSection";
+import ImageSection from "./sections/ImageSection";
 import { useTranslation } from "react-i18next";
+import { GroupContextType } from "../../ManageLayout";
 
-export type GroupContextType = {
-  group: GroupInfo | null;
-  setGroup: React.Dispatch<React.SetStateAction<GroupInfo | null>>;
-};
-
-const ManageGroupInfoPage: React.FC = () => {
+const ManageGroupInfoPage = () => {
   const { t } = useTranslation();
-  const { group, setGroup } = useOutletContext<GroupContextType>();
+  const { group, setGroup, userRole } = useOutletContext<GroupContextType>();
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupDes, setNewGroupDes] = useState("");
 
@@ -70,7 +66,7 @@ const ManageGroupInfoPage: React.FC = () => {
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       {/* 그룹 이미지 관리 */}
-      <ImageSection group={group} setGroup={setGroup} />
+      <ImageSection group={group} setGroup={setGroup} userRole={userRole} />
       {/* 그룹명 관리 */}
       <div className="flex w-full flex-col items-start gap-4">
         <p className="text-2xl font-bold text-dark dark:text-grey">

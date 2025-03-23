@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { generateInviteCode } from "@/apis/group";
-import { GroupContextType } from "../../groupInfo";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

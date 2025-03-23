@@ -1,12 +1,26 @@
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
-import Path from "@/types/paths";
-import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { Outlet, useParams, useNavigate } from "react-router-dom";
 import { getGroup, getUserRole } from "@/apis/group";
-import { ExpandedGroupInfo, GroupInfo } from "@/types/interfaces";
+import {
+  ExpandedGroupInfo,
+  GroupInfo,
+  RoleAuthorities,
+  RoleNames,
+} from "@/types/interfaces";
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
+
+export interface UserRole {
+  roleName: (typeof RoleNames)[keyof typeof RoleNames];
+  authorities: (typeof RoleAuthorities)[keyof typeof RoleAuthorities][];
+}
+
+export type GroupContextType = {
+  group: GroupInfo;
+  setGroup: React.Dispatch<React.SetStateAction<GroupInfo>>;
+  userRole: UserRole;
+};
 
 const ManageLayout = () => {
   const { uuid } = useParams<{ uuid: string }>();
@@ -23,7 +37,10 @@ const ManageLayout = () => {
     () => getUserRole(uuid as string),
   );
 
-  const userRole = roleData?.role?.toLowerCase() || "member";
+  const userRole = {
+    roleName: roleData?.name ?? "member",
+    authorities: roleData?.authorities ?? [],
+  };
   const isLoading = !group || !roleData;
 
   const handleGoBack = () => {
@@ -58,7 +75,7 @@ const ManageLayout = () => {
           <Navigator />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
-        <Outlet context={{ group }} />
+        <Outlet context={{ group, userRole }} />
       </div>
     </div>
   );

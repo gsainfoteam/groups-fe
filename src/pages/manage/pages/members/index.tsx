@@ -2,7 +2,7 @@ import MembersHeader from "./components/MembersHeader";
 import Member from "./components/Member";
 import InviteSection from "./components/InviteSection";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../groupInfo";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { getGroupMembers, grantMemberRole } from "@/apis/group";
 import { useEffect, useState } from "react";
 import { MemberResDto } from "@/types/interfaces";
