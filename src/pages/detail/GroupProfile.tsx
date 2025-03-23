@@ -8,10 +8,9 @@ import GroupLeaveComponent from "../manage/pages/groupInfo/component/GroupLeavin
 
 interface GroupProfileProps {
   group: ExpandedGroupInfo;
-  userRole: string;
 }
 
-const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
+const GroupProfile = ({ group }: GroupProfileProps) => {
   const { t } = useTranslation();
 
   return (
@@ -45,7 +44,7 @@ const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
             <p>{t("group.favorite")}</p>
           </Button>
 
-          <Link to={`/manage/${group.uuid}/${userRole}`}>
+          <Link to={`/manage/${group.uuid}`}>
             <Button
               variant="contained"
               className="mt-3 rounded-[10px] md:px-6 md:py-2"

@@ -28,8 +28,6 @@ import ErrorPage from "./pages/error/ErrorPage";
 import GroupIntroTab from "./pages/detail/tabs/intro/GroupIntroTab";
 import GroupNoticesTab from "./pages/detail/tabs/notices/GroupNoticesTab";
 import GroupMembersTab from "./pages/detail/tabs/members/GroupMembersTab";
-import OnlyInvitePage from "./pages/manage/pages/onlyInvite/onlyInvite";
-import OnlyLeavePage from "./pages/manage/pages/onlyLeave/onlyLeave";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -68,10 +66,7 @@ const router = createBrowserRouter(
 
         <Route path={Path.Onboarding} element={<OnboardingPage />} />
 
-        <Route
-          path={Path.Manage + ":uuid" + "/admin"}
-          element={<ManageLayout />}
-        >
+        <Route path={Path.Manage + ":uuid"} element={<ManageLayout />}>
           <Route
             index
             element={<Navigate to={Path.ManageGroupInfo} replace />}
@@ -85,20 +80,6 @@ const router = createBrowserRouter(
             element={<ManageNotionLinkPage />}
           />
           <Route path={Path.ManageMembers} element={<ManageMembersPage />} />
-        </Route>
-        <Route
-          path={Path.Manage + ":uuid" + "/manager"}
-          element={<ManageLayout />}
-        >
-          <Route index element={<OnlyInvitePage />} />
-          <Route path={Path.ManageOnlyInvite} element={<OnlyInvitePage />} />
-        </Route>
-        <Route
-          path={Path.Manage + ":uuid" + "/member"}
-          element={<ManageLayout />}
-        >
-          <Route index element={<OnlyLeavePage />} />
-          <Route path={Path.ManageOnlyLeave} element={<OnlyLeavePage />} />
         </Route>
       </Route>
 
