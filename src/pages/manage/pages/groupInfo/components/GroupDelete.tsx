@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useState } from "react";
 import ConfirmationModal from "./ConfirmModal";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { GroupContextType } from "./../ManageGroupInfoPage";
+import { GroupContextType } from "..";
 import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
 

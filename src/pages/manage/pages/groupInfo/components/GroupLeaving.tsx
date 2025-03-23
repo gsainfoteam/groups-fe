@@ -3,7 +3,7 @@ import { useState } from "react";
 import ConfirmationModal from "./ConfirmModal";
 import { getUserInfo } from "@/apis/auth";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { GroupContextType } from "./../ManageGroupInfoPage";
+import { GroupContextType } from "..";
 import Button from "@/components/button/Button";
 import { leavingGroup } from "@/apis/group";
 

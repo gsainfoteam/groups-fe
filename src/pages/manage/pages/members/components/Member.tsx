@@ -1,10 +1,10 @@
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { MemberResDto } from "@/types/interfaces";
 import { useState } from "react";
-import DeleteConfirmationModal from "../../groupInfo/component/ConfirmModal";
+import DeleteConfirmationModal from "../../groupInfo/components/ConfirmModal";
 import { leavingGroup } from "@/apis/group";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "../../groupInfo";
 
 interface MemberProps extends MemberResDto {
   onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;

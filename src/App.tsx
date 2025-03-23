@@ -15,9 +15,9 @@ import MainPage from "./pages/main/MainPage";
 import OnboardingPage from "./pages/onboarding/OnboardingPage";
 import Path from "./types/paths";
 import ManageLayout from "./pages/manage/ManageLayout";
-import ManageGroupInfoPage from "./pages/manage/pages/groupInfo/ManageGroupInfoPage";
-import ManageNotionLinkPage from "./pages/manage/pages/notion/ManageNotionLinkPage";
-import ManageMembersPage from "./pages/manage/pages/members/ManageMembersPage";
+import ManageGroupInfoPage from "./pages/manage/pages/groupInfo";
+import ManageNotionLinkPage from "./pages/manage/pages/notion";
+import ManageMembersPage from "./pages/manage/pages/members";
 
 import CreateGroupName from "./pages/createGroup/pages/name/CreateGroupNamePage";
 import CreateGroupDescriptionPage from "./pages/createGroup/pages/description/CreateGroupDescriptionPage";

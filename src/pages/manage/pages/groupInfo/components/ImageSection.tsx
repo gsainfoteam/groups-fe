@@ -91,18 +91,18 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
         <p className="text-greyDark">프로필 사진을 변경하는 중입니다...</p>
       ) : isEditingProfileImage ? (
         <div className="flex gap-4">
-          <Button size="cta" variant="emphasized" onClick={handleConfirmChange}>
+          <Button size="big" variant="emphasized" onClick={handleConfirmChange}>
             변경 확정
           </Button>
-          <Button size="cta" variant="outlined" onClick={handleCancelChange}>
+          <Button size="big" variant="outlined" onClick={handleCancelChange}>
             취소
           </Button>
         </div>
       ) : (
         <div>
           <Button
-            size="cta"
-            variant="outlined"
+            size="big"
+            variant="contained"
             onClick={() =>
               document.getElementById("profileImageUpload")?.click()
             }

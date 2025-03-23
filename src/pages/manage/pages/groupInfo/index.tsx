@@ -5,9 +5,9 @@ import { GroupInfo } from "@/types/interfaces";
 import { getGroup } from "@/apis/group";
 import { useState } from "react";
 import { changeGroupInfo } from "@/apis/group";
-import GroupLeaveComponent from "./component/GroupLeaving";
-import GroupDeleteComponent from "./component/GroupDelete";
-import ImageSection from "./component/ImageSection";
+import GroupLeaveComponent from "./components/GroupLeaving";
+import GroupDeleteComponent from "./components/GroupDelete";
+import ImageSection from "./components/ImageSection";
 import { useTranslation } from "react-i18next";
 
 export type GroupContextType = {

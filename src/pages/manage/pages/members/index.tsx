@@ -1,8 +1,8 @@
-import MembersHeader from "./component/MembersHeader";
-import Member from "./component/Member";
-import InviteSection from "./component/InviteSection";
+import MembersHeader from "./components/MembersHeader";
+import Member from "./components/Member";
+import InviteSection from "./components/InviteSection";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "../groupInfo";
 import { getGroupMembers, grantMemberRole } from "@/apis/group";
 import { useEffect, useState } from "react";
 import { MemberResDto } from "@/types/interfaces";

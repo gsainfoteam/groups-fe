@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { generateInviteCode } from "@/apis/group";
-import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "../../groupInfo";
 import { useOutletContext } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
@@ -28,7 +28,7 @@ const InviteSection = () => {
         const data = await generateInviteCode(
           group.uuid,
           selectedOption.id * 86400,
-          3,  
+          3,
         );
         const link = `${import.meta.env.VITE_BASE_URL}invite/${data.code}/${group.uuid}`;
         setInviteLink(link);

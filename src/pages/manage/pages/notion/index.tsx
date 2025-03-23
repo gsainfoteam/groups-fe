@@ -1,6 +1,6 @@
 import Notion from "@/assets/icons/notion.svg?react";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "../groupInfo";
 import { useState } from "react";
 import Loading from "@/components/loading/Loading";
 import { getNotionPage } from "@/apis/notion";

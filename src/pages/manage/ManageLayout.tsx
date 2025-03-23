@@ -55,7 +55,7 @@ const ManageLayout = () => {
             <GroupHeader group={group} />
           </div>
           {/* 네비게이터 */}
-          <Navigator role={userRole} />
+          <Navigator />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
         <Outlet context={{ group }} />
