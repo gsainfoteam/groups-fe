@@ -1,41 +1,30 @@
 import ArrowRight from "@/assets/icons/arrow-right.svg?react";
 import Path from "@/types/paths";
-import {
-  Link,
-  Outlet,
-  useLocation,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
-import { useState, useEffect } from "react";
-import { getGroup } from "@/apis/group";
-import { GroupInfo } from "@/types/interfaces";
+import { Link, Outlet, useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getGroup, getUserRole } from "@/apis/group";
+import { ExpandedGroupInfo, GroupInfo } from "@/types/interfaces";
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
+import useSWR from "swr";
 
 const ManageLayout = () => {
   const { uuid } = useParams<{ uuid: string }>();
-  const [group, setGroup] = useState<GroupInfo | null>(null);
-  const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
-  const location = useLocation();
-  const isAdmin = location.pathname.includes("admin");
-  const isManager = location.pathname.includes("manager");
-  const isMember = location.pathname.includes("member");
-  const userRole = isAdmin ? "admin" : isManager ? "manager" : "member";
-
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (uuid) {
-      getGroup(uuid)
-        .then((data) => {
-          setGroup(data);
-        })
-        .catch((error) => console.error("Failed to fetch group info:", error))
-        .finally(() => setLoading(false));
-    }
-  }, [uuid]);
+  const { data: group, error: groupError } = useSWR<ExpandedGroupInfo>(
+    uuid ? `group-${uuid}` : null,
+    () => getGroup(uuid as string),
+  );
+
+  const { data: roleData, error: roleError } = useSWR(
+    uuid ? `role-${uuid}` : null,
+    () => getUserRole(uuid as string),
+  );
+
+  const userRole = roleData?.role?.toLowerCase() || "member";
+  const isLoading = !group || !roleData;
 
   const handleGoBack = () => {
     navigate(`/group/${uuid}`);
@@ -43,7 +32,10 @@ const ManageLayout = () => {
 
   if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
 
-  if (loading) return <p>데이터를 불러오는 중...</p>;
+  if (isLoading) return <p>데이터를 불러오는 중...</p>;
+
+  if (groupError || roleError)
+    return <p>데이터를 불러오는 데 문제가 발생했습니다.</p>;
 
   return (
     <div className="flex flex-col items-center">
@@ -66,7 +58,7 @@ const ManageLayout = () => {
           <Navigator role={userRole} />
         </div>
         {/* 개별 페이지의 콘텐츠 */}
-        <Outlet context={{ group, setGroup }} />
+        <Outlet context={{ group }} />
       </div>
     </div>
   );
