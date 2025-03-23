@@ -3,15 +3,14 @@ import { useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
 import { GroupInfo } from "@/types/interfaces";
 import { useGroupInfoUpdate } from "../hooks/useGroupInfoUpdate";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
 
-interface GroupDescriptionSectionProps {
-  group: GroupInfo;
-  setGroup: (group: GroupInfo) => void;
-}
+interface GroupDescriptionSectionProps extends GroupContextType {}
 
 const GroupDescriptionSection = ({
   group,
   setGroup,
+  userRole,
 }: GroupDescriptionSectionProps) => {
   const { t } = useTranslation();
   const [newGroupDes, setNewGroupDes] = useState("");
