@@ -25,6 +25,12 @@ export const RoleNames = {
   MEMBER: "member",
 } as const;
 
+export const ROLE_HIERARCHY = {
+  [RoleNames.ADMIN]: 1,
+  [RoleNames.MANAGER]: 2,
+  [RoleNames.MEMBER]: 3,
+} as const;
+
 export const RoleAuthorities = {
   MEMBER_UPDATE: "MEMBER_UPDATE",
   MEMBER_DELETE: "MEMBER_DELETE",

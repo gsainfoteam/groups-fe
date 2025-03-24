@@ -7,6 +7,8 @@ import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
 import DeleteConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
+import LockedSign from "@/pages/manage/components/lockedSign";
+
 const GroupDeleteComponent = () => {
   const { t } = useTranslation();
   const { group, userRole } = useOutletContext<GroupContextType>();
@@ -54,6 +56,8 @@ const GroupDeleteComponent = () => {
           <h4 className="self-stretch text-primary font-semibold text-xl">
             {t("manageGroup.groupInfo.groupDelete.title")}
           </h4>
+          {!isAuthorized && <LockedSign requiredRoleName="admin" />}
+
           <p className="self-stretch text-greyDark text-base">
             {t("manageGroup.groupInfo.groupDelete.description")}
           </p>
@@ -61,9 +65,9 @@ const GroupDeleteComponent = () => {
 
         <Button
           size="small"
-          variant="outlined"
+          variant={isAuthorized ? "outlined" : "disabled"}
           onClick={handleDeleteClick}
-          disabled={isDeleting}
+          disabled={isDeleting || !isAuthorized}
         >
           {isDeleting ? "삭제 중..." : "삭제하기"}
         </Button>

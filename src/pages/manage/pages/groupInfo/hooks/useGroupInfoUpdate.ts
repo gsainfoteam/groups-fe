@@ -1,9 +1,9 @@
-import { GroupInfo } from "@/types/interfaces";
+import { ExpandedGroupInfo, GroupInfo } from "@/types/interfaces";
 import { updateGroupInfo } from "../services/updateGroupInfo";
 
 interface UseGroupInfoUpdateProps {
-  group: GroupInfo;
-  setGroup: (group: GroupInfo) => void;
+  group: ExpandedGroupInfo;
+  setGroup: (group: ExpandedGroupInfo) => void;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 }

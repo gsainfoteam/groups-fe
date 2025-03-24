@@ -1,5 +1,5 @@
 import { getGroup, changeGroupInfo } from "@/apis/group";
-import { GroupInfo } from "@/types/interfaces";
+import { ExpandedGroupInfo, GroupInfo } from "@/types/interfaces";
 
 interface GroupInfoUpdateParams {
   field: "name" | "description";
@@ -11,7 +11,7 @@ export const updateGroupInfo = async ({
   field,
   value,
   groupId,
-}: GroupInfoUpdateParams): Promise<GroupInfo> => {
+}: GroupInfoUpdateParams): Promise<ExpandedGroupInfo> => {
   if (!value.trim()) {
     throw new Error(`New ${field} is required`);
   }

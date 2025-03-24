@@ -6,10 +6,14 @@ import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
 import { leavingGroup } from "@/apis/group";
 import ConfirmationModal from "../../components/ConfirmModal";
+import authorityChecker from "@/utils/authorityChecker";
+import LockedSign from "@/pages/manage/components/lockedSign";
+import useAuth from "@/hooks/useAuth";
 
 const GroupLeaveComponent = () => {
   const { t } = useTranslation();
-  const { group } = useOutletContext<GroupContextType>();
+  const { userInfo } = useAuth();
+  const { group, userRole } = useOutletContext<GroupContextType>();
   const navigate = useNavigate();
 
   const [isLeaving, setIsLeaving] = useState(false);
@@ -18,6 +22,10 @@ const GroupLeaveComponent = () => {
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
+
+  const isPresident = group.president.uuid === userInfo?.uuid;
+  const isAuthorized =
+    authorityChecker(userRole.authorities, []) && !isPresident;
 
   // 나가기 클릭 시
   const handleLeaveClick = () => {
@@ -52,6 +60,19 @@ const GroupLeaveComponent = () => {
           <h4 className="self-stretch text-primary font-semibold text-xl">
             {t("manageGroup.groupInfo.groupLeave.title")}
           </h4>
+
+          {!isAuthorized && (
+            <>
+              {isPresident && (
+                <LockedSign
+                  requiredRoleName="member"
+                  customText="그룹장은 이 작업을 수행할 수 없습니다."
+                />
+              )}
+              {!isPresident && <LockedSign requiredRoleName="member" />}
+            </>
+          )}
+
           <p className="self-stretch text-greyDark text-base">
             {t("manageGroup.groupInfo.groupLeave.description")}
           </p>
@@ -59,9 +80,9 @@ const GroupLeaveComponent = () => {
 
         <Button
           size="small"
-          variant="outlined"
+          variant={isAuthorized ? "outlined" : "disabled"}
           onClick={handleLeaveClick}
-          disabled={isLeaving}
+          disabled={isLeaving || !isAuthorized}
         >
           {isLeaving ? "나가는 중..." : "나가기"}
         </Button>
