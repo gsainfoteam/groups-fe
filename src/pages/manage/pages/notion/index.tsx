@@ -11,15 +11,19 @@ import { useTranslation } from "react-i18next";
 import { parseNotionPageId } from "@/utils/notionLinkTester";
 import useSWR from "swr";
 import NotionWrapper from "@/pages/detail/tabs/intro/NotionWrapper";
+import authorityChecker from "@/utils/authorityChecker";
+import LockedSign from "../../components/lockedSign";
 
 const ManageNotionLinkPage = () => {
   const { t } = useTranslation();
-  const { group, setGroup } = useOutletContext<GroupContextType>();
+  const { group, setGroup, userRole } = useOutletContext<GroupContextType>();
   const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
+
+  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_UPDATE"]);
 
   const {
     data: recordMap,
@@ -62,7 +66,7 @@ const ManageNotionLinkPage = () => {
       <div className="flex flex-col w-full gap-[30px]">
         <div className="w-full flex-col justify-start items-start gap-[15px] flex">
           {/* 타이틀 */}
-          <div className="flex justify-start items-center gap-2.5 inline-flex">
+          <div className="flex justify-start items-center gap-2.5">
             <Notion className="w-[30px] h-[30px] md:w-10 md:h-10" />
             <div className="text-dark dark:text-grey text-2xl md:text-[28px] font-bold">
               {t("manageGroup.notionlink.title")}
@@ -81,6 +85,9 @@ const ManageNotionLinkPage = () => {
               {t("manageGroup.notionlink.description.third")}
             </p>
           </div>
+
+          {!isAuthorized && <LockedSign requiredRoleName="admin" />}
+
           {/* 링크 입력 및 제출 */}
           <div className="flex w-full items-center gap-2.5">
             <Input
@@ -90,6 +97,7 @@ const ManageNotionLinkPage = () => {
               value={newNotionLink}
               onChange={(e) => setNewNotionLink(e.target.value)}
               onButtonClick={handleNotionLinkChange}
+              disabled={!isAuthorized}
             />
           </div>
         </div>

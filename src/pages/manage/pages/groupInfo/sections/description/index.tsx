@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
-import { GroupInfo } from "@/types/interfaces";
+
 import { useGroupInfoUpdate } from "../../hooks/useGroupInfoUpdate";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import authorityChecker from "@/utils/authorityChecker";
