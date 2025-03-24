@@ -1,6 +1,6 @@
 import MembersHeader from "./components/MembersHeader";
 import Member from "./components/Member";
-import InviteSection from "./components/InviteSection";
+
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { getGroupMembers, grantMemberRole } from "@/apis/group";
@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { MemberResDto } from "@/types/interfaces";
 import Button from "@/components/button/Button";
 import { useTranslation } from "react-i18next";
+import GenerateInvitationLink from "@/pages/createGroup/pages/complete/GenerateInvitationLink";
 
 const ManageMembersPage = () => {
   const { t } = useTranslation();
@@ -85,8 +86,8 @@ const ManageMembersPage = () => {
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
-      {/* 초대 */}
-      <InviteSection />
+      <GenerateInvitationLink groupUuid={group.uuid} />
+
       {/* 멤버 관리 */}
       <div className="flex flex-col w-full justify-start items-start gap-[15px] overflow-x-hidden">
         <div className="text-dark dark:text-grey text-[28px] font-bold">

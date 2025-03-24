@@ -112,10 +112,7 @@ const ManageNotionLinkPage = () => {
             />
           </div>
         ) : recordMap ? (
-          <div
-            className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200"
-            style={{ maxHeight: "300px" }}
-          >
+          <div className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200">
             <NotionWrapper recordMap={recordMap} />
           </div>
         ) : (
