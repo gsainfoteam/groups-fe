@@ -51,8 +51,8 @@ const GroupDeleteComponent = () => {
 
   return (
     <>
-      <div className="flex items-center gap-5 self-stretch">
-        <div className="flex flex-col items-start gap-2.5 flex-1">
+      <div className="flex items-center gap-5 self-stretch flex-wrap md:flex-nowrap">
+        <div className="flex flex-col items-start gap-2.5 md:flex-1">
           <h4 className="self-stretch text-primary font-semibold text-xl">
             {t("manageGroup.groupInfo.groupDelete.title")}
           </h4>

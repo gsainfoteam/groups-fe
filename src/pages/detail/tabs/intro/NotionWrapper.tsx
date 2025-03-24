@@ -18,7 +18,7 @@ const NotionWrapper = ({ recordMap }: { recordMap: ExtendedRecordMap }) => {
   if (!recordMap) {
     return null;
   }
-  console.log(recordMap);
+
   const mediaQeury = window.matchMedia("(prefers-color-scheme: dark)");
   return (
     <ErrorBoundary>

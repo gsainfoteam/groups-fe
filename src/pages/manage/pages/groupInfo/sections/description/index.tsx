@@ -44,7 +44,7 @@ const GroupDescriptionSection = ({
         {t("manageGroup.groupInfo.groupIntro.title")}
       </h3>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 flex-wrap">
         <p className="text-base font-medium text-dark dark:text-grey">
           {t("manageGroup.groupInfo.groupIntro.description")}
         </p>
