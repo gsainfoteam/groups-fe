@@ -1,9 +1,9 @@
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "../../ManageLayout";
-import ImageSection from "./sections/ImageSection";
-import GroupNameSection from "./sections/GroupNameSection";
-import GroupDescriptionSection from "./sections/GroupDescriptionSection";
-import GroupManagementSection from "./sections/GroupManagementSection";
+import ImageSection from "./sections/image";
+import GroupNameSection from "./sections/name";
+import GroupDescriptionSection from "./sections/description";
+import GroupManagementSection from "./sections/management";
 
 const ManageGroupInfoPage = () => {
   const groupContext = useOutletContext<GroupContextType>();

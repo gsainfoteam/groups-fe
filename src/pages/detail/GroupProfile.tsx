@@ -1,10 +1,9 @@
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
-import useAuth from "@/hooks/useAuth";
+
 import { ExpandedGroupInfo } from "@/types/interfaces";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import GroupLeaveComponent from "../manage/pages/groupInfo/components/GroupLeaving";
 
 interface GroupProfileProps {
   group: ExpandedGroupInfo;

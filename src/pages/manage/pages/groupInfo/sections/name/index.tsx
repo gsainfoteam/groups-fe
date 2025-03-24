@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Input from "@/components/input/Input";
 import { GroupInfo } from "@/types/interfaces";
-import { useGroupInfoUpdate } from "../hooks/useGroupInfoUpdate";
+import { useGroupInfoUpdate } from "../../hooks/useGroupInfoUpdate";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import authorityChecker from "@/utils/authorityChecker";
