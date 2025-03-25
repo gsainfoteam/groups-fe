@@ -7,7 +7,7 @@ const RoleDescriptionSection = () => {
 
   return (
     <div className="w-full self-stretch px-6 py-[22px] bg-greyLight rounded-[10px] flex-col justify-start items-start gap-3.5 flex">
-      <div className="self-stretch justify-start items-start flex text-dark dark:text-grey text-xl font-bold">
+      <div className="self-stretch justify-start items-start flex text-dark dark:text-grey text-xl font-semibold">
         {t("manageGroup.members.role.title")}
       </div>
       <div className="self-stretch justify-start items-start flex flex-col gap-2.5">

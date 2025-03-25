@@ -11,9 +11,9 @@ const RoleItem = ({ titleKey, descriptionKey }: RoleItemProps) => {
 
   return (
     <div className="self-stretch justify-start items-start inline-flex">
-      <p className="text-dark dark:text-grey text-base font-bold">
+      <p className="text-dark dark:text-grey text-base font-semibold">
         {t(titleKey)}
-        <span className="text-dark dark:text-grey text-base font-medium">
+        <span className="text-dark dark:text-grey font-normal">
           {" "}
           - {t(descriptionKey)}
         </span>
