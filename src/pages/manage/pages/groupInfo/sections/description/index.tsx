@@ -12,7 +12,6 @@ interface GroupDescriptionSectionProps extends GroupContextType {}
 
 const GroupDescriptionSection = ({
   group,
-  setGroup,
   userRole,
 }: GroupDescriptionSectionProps) => {
   const { t } = useTranslation();
@@ -24,7 +23,6 @@ const GroupDescriptionSection = ({
 
   const { updateInfo } = useGroupInfoUpdate({
     group,
-    setGroup,
     onSuccess: () => {
       setNewGroupDes("");
       alert("그룹 설명이 변경되었습니다.");

@@ -3,14 +3,13 @@ import { updateGroupInfo } from "../services/updateGroupInfo";
 
 interface UseGroupInfoUpdateProps {
   group: ExpandedGroupInfo;
-  setGroup: (group: ExpandedGroupInfo) => void;
   onSuccess?: () => void;
   onError?: (error: Error) => void;
 }
 
 export const useGroupInfoUpdate = ({
   group,
-  setGroup,
+
   onSuccess,
   onError,
 }: UseGroupInfoUpdateProps) => {
@@ -21,7 +20,6 @@ export const useGroupInfoUpdate = ({
         value,
         groupId: group.uuid,
       });
-      setGroup(updatedGroup);
       onSuccess?.();
     } catch (error) {
       const errorMessage =

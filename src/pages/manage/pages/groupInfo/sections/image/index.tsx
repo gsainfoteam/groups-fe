@@ -1,14 +1,14 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/button/Button";
-import { setGroupProfileImage, getGroup } from "@/apis/group";
+import { setGroupProfileImage } from "@/apis/group";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import authorityChecker from "@/utils/authorityChecker";
 import { RoleAuthorities, RoleNames } from "@/types/interfaces";
 import LockedSign from "@/pages/manage/components/lockedSign";
 interface ImageSectionProps extends GroupContextType {}
 
-const ImageSection = ({ group, setGroup, userRole }: ImageSectionProps) => {
+const ImageSection = ({ group, userRole }: ImageSectionProps) => {
   const { t } = useTranslation();
   const [isEditingProfileImage, setIsEditingProfileImage] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
@@ -46,8 +46,6 @@ const ImageSection = ({ group, setGroup, userRole }: ImageSectionProps) => {
       setIsUploading(true);
       try {
         await setGroupProfileImage(group.uuid, newProfileImage);
-        const updatedGroup = await getGroup(group.uuid);
-        setGroup(updatedGroup);
         alert("프로필 사진이 성공적으로 변경되었습니다!");
       } catch {
         alert("프로필 사진 변경 중 문제가 발생했습니다.");

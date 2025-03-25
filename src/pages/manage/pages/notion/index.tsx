@@ -16,7 +16,7 @@ import LockedSign from "../../components/lockedSign";
 
 const ManageNotionLinkPage = () => {
   const { t } = useTranslation();
-  const { group, setGroup, userRole } = useOutletContext<GroupContextType>();
+  const { group, userRole } = useOutletContext<GroupContextType>();
   const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
@@ -50,8 +50,7 @@ const ManageNotionLinkPage = () => {
       }
 
       await changeGroupInfo(group.uuid, { notionPageId });
-      const updatedGroup = await getGroup(group.uuid);
-      setGroup(updatedGroup);
+
       setNewNotionLink("");
       alert("노션 링크가 변경 되었습니다.");
     } catch (error) {

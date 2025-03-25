@@ -8,7 +8,7 @@ import GroupManagementSection from "./sections/management";
 const ManageGroupInfoPage = () => {
   const groupContext = useOutletContext<GroupContextType>();
 
-  const { group, setGroup, userRole } = groupContext;
+  const { group, userRole } = groupContext;
 
   if (!group) return <p>데이터를 불러오는 중...</p>;
 

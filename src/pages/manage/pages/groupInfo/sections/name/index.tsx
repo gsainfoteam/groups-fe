@@ -9,11 +9,7 @@ import authorityChecker from "@/utils/authorityChecker";
 
 interface GroupNameSectionProps extends GroupContextType {}
 
-const GroupNameSection = ({
-  group,
-  setGroup,
-  userRole,
-}: GroupNameSectionProps) => {
+const GroupNameSection = ({ group, userRole }: GroupNameSectionProps) => {
   const { t } = useTranslation();
   const [newGroupName, setNewGroupName] = useState("");
 
@@ -21,7 +17,6 @@ const GroupNameSection = ({
 
   const { updateInfo } = useGroupInfoUpdate({
     group,
-    setGroup,
     onSuccess: () => {
       setNewGroupName("");
       alert("그룹명이 변경되었습니다.");

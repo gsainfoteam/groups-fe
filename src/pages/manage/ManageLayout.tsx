@@ -18,7 +18,6 @@ export interface UserRole {
 
 export type GroupContextType = {
   group: ExpandedGroupInfo;
-  setGroup: React.Dispatch<React.SetStateAction<ExpandedGroupInfo>>;
   userRole: UserRole;
 };
 
