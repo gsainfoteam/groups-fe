@@ -4,13 +4,18 @@ import Button from "@/components/button/Button";
 import MemberTableRow from "./MemberTableRow";
 import MemberTableHead from "./MemberTableHead";
 import { useMemberManagement } from "./hooks/useMemberManagement";
+import authorityChecker from "@/utils/authorityChecker";
+import roleNameChecker from "@/utils/roleNameChecker";
+import { UserRole } from "@/pages/manage/ManageLayout";
 
 interface MemberManagementSectionProps {
   groupUuid: string;
+  userRole: UserRole;
 }
 
 const MemberManagementSection = ({
   groupUuid,
+  userRole,
 }: MemberManagementSectionProps) => {
   const { t } = useTranslation();
   const {
@@ -21,6 +26,18 @@ const MemberManagementSection = ({
     handleComplete,
     fetchMembers,
   } = useMemberManagement({ groupUuid });
+
+  const isAuthorizedForRoleChange = authorityChecker(userRole.authorities, [
+    "ROLE_GRANT",
+    "ROLE_REVOKE",
+  ]);
+
+  const isAuthorizedForMemberBanishment = authorityChecker(
+    userRole.authorities,
+    ["MEMBER_DELETE"],
+  );
+
+  const isAdmin = roleNameChecker(userRole.roleName, "admin");
 
   useEffect(() => {
     if (groupUuid) {
@@ -35,7 +52,7 @@ const MemberManagementSection = ({
       </div>
 
       <div className="w-full overflow-x-scroll overflow-y-visible">
-        <table className="min-w-[600px]">
+        <table className="min-w-[800px]">
           <thead>
             <MemberTableHead />
           </thead>
@@ -54,6 +71,11 @@ const MemberManagementSection = ({
                       : "일반"
                 }
                 onRoleChange={handleRoleChange}
+                isAuthorizedForRoleChange={isAuthorizedForRoleChange}
+                isAuthorizedForMemberBanishment={
+                  isAuthorizedForMemberBanishment
+                }
+                isAdmin={isAdmin}
               />
             ))}
           </tbody>

@@ -1,18 +1,15 @@
 import GenerateInvitationLink from "@/pages/createGroup/pages/complete/GenerateInvitationLink";
 import LockedSign from "@/pages/manage/components/lockedSign";
-import { RoleAuthorities } from "@/types/interfaces";
+import { UserRole } from "@/pages/manage/ManageLayout";
 import authorityChecker from "@/utils/authorityChecker";
 
 interface InvitationSectionProps {
   groupUuid: string;
-  userAuthorities: (typeof RoleAuthorities)[keyof typeof RoleAuthorities][];
+  userRole: UserRole;
 }
 
-const InvitationSection = ({
-  groupUuid,
-  userAuthorities,
-}: InvitationSectionProps) => {
-  const isAuthorizedForInvitation = authorityChecker(userAuthorities, [
+const InvitationSection = ({ groupUuid, userRole }: InvitationSectionProps) => {
+  const isAuthorizedForInvitation = authorityChecker(userRole.authorities, [
     "MEMBER_UPDATE",
     "ROLE_GRANT",
   ]);
