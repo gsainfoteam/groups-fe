@@ -108,7 +108,7 @@ export const getGroupMembers = async (
     .then(({ data }) => data.list);
 };
 
-export const leavingGroup = async (
+export const banishMember = async (
   groupUuid: string,
   memberUuid: string,
 ): Promise<void> => {
@@ -159,4 +159,11 @@ export const getUserRole = async (groupId: string) => {
   return groupsApi
     .get(`/group/${groupId}/role`)
     .then(({data}) => data);
+}
+
+export const leavingGroup = async (GroupUuid: string) => {
+  return groupsApi
+    .delete(`/group/${GroupUuid}`)
+    .then(()=>{console.log(`Successfully withdrew from the group`)})
+    .catch((err)=>console.error(err))
 }

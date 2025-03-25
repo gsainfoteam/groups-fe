@@ -5,7 +5,7 @@ import { getUserInfo } from "@/apis/auth";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "./../ManageGroupInfoPage";
 import Button from "@/components/button/Button";
-import { leavingGroup } from "@/apis/group";
+import { banishMember } from "@/apis/group";
 
 const GroupLeaveComponent = () => {
   const { t } = useTranslation();
@@ -31,7 +31,7 @@ const GroupLeaveComponent = () => {
     try {
       const userInfo = await getUserInfo();
       const userUuid = userInfo.uuid;
-      await leavingGroup(group.uuid, userUuid);
+      await banishMember(group.uuid, userUuid);
       alert("그룹에서 성공적으로 나갔습니다.");
       navigate("/");
     } catch (error) {
