@@ -70,7 +70,7 @@ const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
         {email}
       </td>
       {/* 역할 */}
-      <td className="p-2.5 min-w-[250px] text-left border-b-2 border-greyBorder">
+      <td className="p-2.5 min-w-[160px] text-left border-b-2 border-greyBorder">
         <Select
           size="small"
           options={roleOptions}
