@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import { getUserInfo } from "@/apis/auth";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
@@ -37,9 +36,7 @@ const GroupLeaveComponent = () => {
     setIsModalOpen(false);
     setIsLeaving(true);
     try {
-      const userInfo = await getUserInfo();
-      const userUuid = userInfo.uuid;
-      await leavingGroup(group.uuid, userUuid);
+      await leavingGroup(group.uuid);
       alert("그룹에서 성공적으로 나갔습니다.");
       navigate("/");
     } catch (error) {

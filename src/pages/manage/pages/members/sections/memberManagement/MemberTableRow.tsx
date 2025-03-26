@@ -1,8 +1,8 @@
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { MemberResDto } from "@/types/interfaces";
 import { useState } from "react";
+import { banishMember } from "@/apis/group";
 import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal";
-import { leavingGroup } from "@/apis/group";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { ClassValue } from "clsx";
@@ -61,7 +61,7 @@ const Member = ({
     setIsModalOpen(false);
     setIsBanishing(true);
     try {
-      await leavingGroup(group.uuid, uuid);
+      await banishMember(group.uuid, uuid);
       alert(`멤버 ${name}의 추방이 성공적으로 이뤄졌습니다.`);
     } catch (error) {
       alert("추방에 실패했습니다. 다시 시도해주세요.");
