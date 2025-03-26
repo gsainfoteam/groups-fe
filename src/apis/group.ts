@@ -163,7 +163,7 @@ export const getUserRole = async (groupId: string) => {
 
 export const leavingGroup = async (GroupUuid: string) => {
   return groupsApi
-    .delete(`/group/${GroupUuid}`)
+    .delete(`/group/${GroupUuid}/member/leave`)
     .then(()=>{console.log(`Successfully withdrew from the group`)})
     .catch((err)=>console.error(err))
 }
