@@ -1,14 +1,17 @@
 import { useTranslation } from "react-i18next";
 import { useState } from "react";
-import ConfirmationModal from "./ConfirmModal";
+
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { GroupContextType } from "./../ManageGroupInfoPage";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
+import DeleteConfirmationModal from "../../components/ConfirmModal";
+import authorityChecker from "@/utils/authorityChecker";
+import LockedSign from "@/pages/manage/components/lockedSign";
 
 const GroupDeleteComponent = () => {
   const { t } = useTranslation();
-  const { group } = useOutletContext<GroupContextType>();
+  const { group, userRole } = useOutletContext<GroupContextType>();
   const navigate = useNavigate();
 
   const [isDeleting, setIsDeleting] = useState(false);
@@ -17,6 +20,8 @@ const GroupDeleteComponent = () => {
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
+
+  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_DELETE"]);
 
   // 그룹 삭제하기 클릭 시
   const handleDeleteClick = () => {
@@ -46,28 +51,30 @@ const GroupDeleteComponent = () => {
 
   return (
     <>
-      <div className="flex items-center gap-5 self-stretch">
-        <div className="flex flex-col items-start gap-2.5 flex-1">
-          <p className="self-stretch text-primary font-bold text-xl">
+      <div className="flex items-center gap-5 self-stretch flex-wrap md:flex-nowrap">
+        <div className="flex flex-col items-start gap-2.5 md:flex-1">
+          <h4 className="self-stretch text-primary font-semibold text-xl">
             {t("manageGroup.groupInfo.groupDelete.title")}
-          </p>
-          <p className="self-stretch text-greyDark font-medium text-base">
+          </h4>
+          {!isAuthorized && <LockedSign requiredRoleName="admin" />}
+
+          <p className="self-stretch text-greyDark text-base">
             {t("manageGroup.groupInfo.groupDelete.description")}
           </p>
         </div>
 
         <Button
           size="small"
-          variant="outlined"
+          variant={isAuthorized ? "outlined" : "disabled"}
           onClick={handleDeleteClick}
-          disabled={isDeleting}
+          disabled={isDeleting || !isAuthorized}
         >
           {isDeleting ? "삭제 중..." : "삭제하기"}
         </Button>
       </div>
 
       {/* 그룹 삭제 확인 모달 */}
-      <ConfirmationModal
+      <DeleteConfirmationModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}

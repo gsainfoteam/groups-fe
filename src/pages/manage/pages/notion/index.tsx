@@ -1,6 +1,6 @@
 import Notion from "@/assets/icons/notion.svg?react";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { useState } from "react";
 import Loading from "@/components/loading/Loading";
 import { getNotionPage } from "@/apis/notion";
@@ -11,15 +11,19 @@ import { useTranslation } from "react-i18next";
 import { parseNotionPageId } from "@/utils/notionLinkTester";
 import useSWR from "swr";
 import NotionWrapper from "@/pages/detail/tabs/intro/NotionWrapper";
+import authorityChecker from "@/utils/authorityChecker";
+import LockedSign from "../../components/lockedSign";
 
 const ManageNotionLinkPage = () => {
   const { t } = useTranslation();
-  const { group, setGroup } = useOutletContext<GroupContextType>();
+  const { group, userRole } = useOutletContext<GroupContextType>();
   const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
     return <p>데이터를 불러오는 중...</p>;
   }
+
+  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_UPDATE"]);
 
   const {
     data: recordMap,
@@ -46,8 +50,7 @@ const ManageNotionLinkPage = () => {
       }
 
       await changeGroupInfo(group.uuid, { notionPageId });
-      const updatedGroup = await getGroup(group.uuid);
-      setGroup(updatedGroup);
+
       setNewNotionLink("");
       alert("노션 링크가 변경 되었습니다.");
     } catch (error) {
@@ -62,7 +65,7 @@ const ManageNotionLinkPage = () => {
       <div className="flex flex-col w-full gap-[30px]">
         <div className="w-full flex-col justify-start items-start gap-[15px] flex">
           {/* 타이틀 */}
-          <div className="flex justify-start items-center gap-2.5 inline-flex">
+          <div className="flex justify-start items-center gap-2.5">
             <Notion className="w-[30px] h-[30px] md:w-10 md:h-10" />
             <div className="text-dark dark:text-grey text-2xl md:text-[28px] font-bold">
               {t("manageGroup.notionlink.title")}
@@ -81,6 +84,9 @@ const ManageNotionLinkPage = () => {
               {t("manageGroup.notionlink.description.third")}
             </p>
           </div>
+
+          {!isAuthorized && <LockedSign requiredRoleName="admin" />}
+
           {/* 링크 입력 및 제출 */}
           <div className="flex w-full items-center gap-2.5">
             <Input
@@ -90,6 +96,7 @@ const ManageNotionLinkPage = () => {
               value={newNotionLink}
               onChange={(e) => setNewNotionLink(e.target.value)}
               onButtonClick={handleNotionLinkChange}
+              disabled={!isAuthorized}
             />
           </div>
         </div>
@@ -104,10 +111,7 @@ const ManageNotionLinkPage = () => {
             />
           </div>
         ) : recordMap ? (
-          <div
-            className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200"
-            style={{ maxHeight: "300px" }}
-          >
+          <div className="w-full overflow-auto bg-white p-4 rounded-xl border border-gray-200">
             <NotionWrapper recordMap={recordMap} />
           </div>
         ) : (

@@ -1,21 +1,24 @@
 import { useTranslation } from "react-i18next";
 import React, { useEffect, useState } from "react";
 import Button from "@/components/button/Button";
-import { setGroupProfileImage, getGroup } from "@/apis/group";
-import { GroupInfo } from "@/types/interfaces";
+import { setGroupProfileImage } from "@/apis/group";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
+import authorityChecker from "@/utils/authorityChecker";
+import { RoleAuthorities, RoleNames } from "@/types/interfaces";
+import LockedSign from "@/pages/manage/components/lockedSign";
+interface ImageSectionProps extends GroupContextType {}
 
-type ImageSectionProps = {
-  group: GroupInfo;
-  setGroup: React.Dispatch<React.SetStateAction<GroupInfo | null>>;
-};
-
-const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
+const ImageSection = ({ group, userRole }: ImageSectionProps) => {
   const { t } = useTranslation();
   const [isEditingProfileImage, setIsEditingProfileImage] = useState(false);
   const [newProfileImage, setNewProfileImage] = useState<File | null>(null);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
+
+  const isAuthorized = authorityChecker(userRole.authorities, [
+    RoleAuthorities.GROUP_UPDATE,
+  ]);
 
   useEffect(() => {
     return () => {
@@ -43,8 +46,6 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
       setIsUploading(true);
       try {
         await setGroupProfileImage(group.uuid, newProfileImage);
-        const updatedGroup = await getGroup(group.uuid);
-        setGroup(updatedGroup);
         alert("프로필 사진이 성공적으로 변경되었습니다!");
       } catch {
         alert("프로필 사진 변경 중 문제가 발생했습니다.");
@@ -91,18 +92,19 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
         <p className="text-greyDark">프로필 사진을 변경하는 중입니다...</p>
       ) : isEditingProfileImage ? (
         <div className="flex gap-4">
-          <Button size="cta" variant="emphasized" onClick={handleConfirmChange}>
+          <Button size="big" variant="emphasized" onClick={handleConfirmChange}>
             변경 확정
           </Button>
-          <Button size="cta" variant="outlined" onClick={handleCancelChange}>
+          <Button size="big" variant="outlined" onClick={handleCancelChange}>
             취소
           </Button>
         </div>
       ) : (
         <div>
           <Button
-            size="cta"
-            variant="outlined"
+            size="big"
+            variant={isAuthorized ? "contained" : "disabled"}
+            disabled={!isAuthorized}
             onClick={() =>
               document.getElementById("profileImageUpload")?.click()
             }
@@ -118,6 +120,8 @@ const ImageSection: React.FC<ImageSectionProps> = ({ group, setGroup }) => {
           />
         </div>
       )}
+
+      {!isAuthorized && <LockedSign requiredRoleName={RoleNames.ADMIN} />}
     </div>
   );
 };

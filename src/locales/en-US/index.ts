@@ -288,6 +288,7 @@ export const main = {
       },
       complete: "Complete",
     },
+    noPermission: "{{requiredRoleName}} or higher can perform this operation.",
   },
 
   installApp: {
