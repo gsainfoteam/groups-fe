@@ -19,6 +19,30 @@ export interface GroupInfo {
   verified: boolean;
 }
 
+export const RoleNames = {
+  ADMIN: "admin",
+  MANAGER: "manager",
+  MEMBER: "member",
+} as const;
+
+export const ROLE_HIERARCHY = {
+  [RoleNames.ADMIN]: 1,
+  [RoleNames.MANAGER]: 2,
+  [RoleNames.MEMBER]: 3,
+} as const;
+
+export const RoleAuthorities = {
+  MEMBER_UPDATE: "MEMBER_UPDATE",
+  MEMBER_DELETE: "MEMBER_DELETE",
+  ROLE_CREATE: "ROLE_CREATE",
+  ROLE_UPDATE: "ROLE_UPDATE",
+  ROLE_DELETE: "ROLE_DELETE",
+  ROLE_GRANT: "ROLE_GRANT",
+  ROLE_REVOKE: "ROLE_REVOKE",
+  GROUP_UPDATE: "GROUP_UPDATE",
+  GROUP_DELETE: "GROUP_DELETE",
+} as const;
+
 export interface GroupInfoWithPresidentUuid extends GroupInfo {
   presidentUuid: string;
 }

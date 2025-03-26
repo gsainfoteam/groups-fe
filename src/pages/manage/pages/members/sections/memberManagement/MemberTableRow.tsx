@@ -1,13 +1,19 @@
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { MemberResDto } from "@/types/interfaces";
 import { useState } from "react";
-import DeleteConfirmationModal from "../../groupInfo/component/ConfirmModal";
+import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal";
 import { leavingGroup } from "@/apis/group";
 import { useOutletContext } from "react-router-dom";
-import { GroupContextType } from "../../groupInfo/ManageGroupInfoPage";
+import { GroupContextType } from "@/pages/manage/ManageLayout";
+import { ClassValue } from "clsx";
+import { cn } from "@/utils/clsx";
+import LockedSign from "@/pages/manage/components/lockedSign";
 
 interface MemberProps extends MemberResDto {
   onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;
+  isAuthorizedForRoleChange: boolean;
+  isAuthorizedForMemberBanishment: boolean;
+  isAdmin: boolean;
 }
 
 export const roleOptions = [
@@ -16,7 +22,16 @@ export const roleOptions = [
   { id: 3, value: "일반" },
 ];
 
-const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
+const Member = ({
+  uuid,
+  name,
+  email,
+  role,
+  onRoleChange,
+  isAuthorizedForRoleChange,
+  isAuthorizedForMemberBanishment,
+  isAdmin,
+}: MemberProps) => {
   const { group } = useOutletContext<GroupContextType>();
 
   const defaultRole =
@@ -59,37 +74,59 @@ const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
   // 모달에서 취소 시
   const handleCloseModal = () => setIsModalOpen(false);
 
+  const cellStyle: ClassValue =
+    "p-2.5 text-left font-medium border-b-2 border-greyBorder";
+
   return (
-    <div className="flex h-[50px] justify-start items-center">
+    <tr>
       {/* 이름 */}
-      <div className="flex p-2.5 w-[72px] md:w-[72px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
-        {name}
-      </div>
+      <th className={cn(cellStyle, "text-greyDark")}>{name}</th>
       {/* 이메일 */}
-      <div className="flex p-2.5 w-[242px] md:w-[242px] h-[50px] justify-start items-center text-greyDark text-base font-medium border-b-2 border-greyBorder">
-        {email}
-      </div>
+      <td className={cn(cellStyle, "text-greyDark")}>
+        {isAdmin ? (
+          email
+        ) : (
+          <LockedSign
+            requiredRoleName="admin"
+            customText="관리자만 볼 수 있습니다."
+          />
+        )}
+      </td>
       {/* 역할 */}
-      <div className="flex justify-start p-2.5 w-[200px] md:w-[200px] h-[50px] border-b-2 border-greyBorder">
-        <Select
-          size="small"
-          options={roleOptions}
-          selectedValue={selectedRole}
-          onOptionClick={handleOptionClick}
-          className="flex w-full bg-greyLight rounded-[5px] justify-start items-center gap-2.5 text-dark dark:text-grey"
-        />
-      </div>
+      <td className={cn(cellStyle, "min-w-[160px]")}>
+        {isAuthorizedForRoleChange ? (
+          <Select
+            size="small"
+            options={roleOptions}
+            selectedValue={selectedRole}
+            onOptionClick={handleOptionClick}
+            className="bg-greyLight rounded-[5px] text-dark dark:text-grey"
+          />
+        ) : (
+          <LockedSign
+            requiredRoleName="admin"
+            customText="관리자만 변경할 수 있습니다."
+          />
+        )}
+      </td>
       {/* 추방 버튼 */}
-      <div className="flex p-2.5 w-[86px] md:w-[86px] h-[50px] justify-start items-center border-b-2 border-greyBorder">
-        <button
-          className="underline text-grey text-base font-medium"
-          onClick={handleBanishClick}
-          aria-label={`${name} 멤버 추방하기`}
-          disabled={isBanishing}
-        >
-          {isBanishing ? "추방 중..." : "추방하기"}
-        </button>
-      </div>
+      <td className={cn(cellStyle)}>
+        {isAuthorizedForMemberBanishment ? (
+          <button
+            className="underline text-grey text-base font-medium"
+            onClick={handleBanishClick}
+            aria-label={`${name} 멤버 추방하기`}
+            disabled={isBanishing}
+          >
+            {isBanishing ? "추방 중..." : "추방하기"}
+          </button>
+        ) : (
+          <LockedSign
+            requiredRoleName="admin"
+            customText="관리자만 추방할 수 있습니다."
+          />
+        )}
+      </td>
       {/* 추방 확인 모달 */}
       <DeleteConfirmationModal
         isOpen={isModalOpen}
@@ -98,7 +135,7 @@ const Member = ({ uuid, name, email, role, onRoleChange }: MemberProps) => {
         title="⚠️ 추방 경고 ⚠️"
         message={`정말로 멤버 ${name}을/를 추방하시겠습니까?`}
       />
-    </div>
+    </tr>
   );
 };
 

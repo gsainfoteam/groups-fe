@@ -1,17 +1,15 @@
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
-import useAuth from "@/hooks/useAuth";
+
 import { ExpandedGroupInfo } from "@/types/interfaces";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import GroupLeaveComponent from "../manage/pages/groupInfo/component/GroupLeaving";
 
 interface GroupProfileProps {
   group: ExpandedGroupInfo;
-  userRole: string;
 }
 
-const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
+const GroupProfile = ({ group }: GroupProfileProps) => {
   const { t } = useTranslation();
 
   return (
@@ -45,7 +43,7 @@ const GroupProfile = ({ group, userRole }: GroupProfileProps) => {
             <p>{t("group.favorite")}</p>
           </Button>
 
-          <Link to={`/manage/${group.uuid}/${userRole}`}>
+          <Link to={`/manage/${group.uuid}`}>
             <Button
               variant="contained"
               className="mt-3 rounded-[10px] md:px-6 md:py-2"

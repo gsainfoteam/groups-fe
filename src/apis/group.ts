@@ -6,6 +6,8 @@ import {
   GroupInfo,
   GroupInfoWithPresidentUuid,
   MemberResDto,
+  RoleAuthorities,
+  RoleNames,
 } from "@/types/interfaces";
 
 export const getGroupContainingMe = async (): Promise<
@@ -32,7 +34,9 @@ export const generateInviteCode = async (
   roleId: number,
 ): Promise<InviteCode> => {
   return groupsApi
-    .post<InviteCode>(`/group/${uuid}/invite?duration=${duration}&roleId=${roleId}`)
+    .post<InviteCode>(
+      `/group/${uuid}/invite?duration=${duration}&roleId=${roleId}`,
+    )
     .then(({ data }) => data);
 };
 
@@ -155,8 +159,15 @@ export const createRole = async (
     });
 };
 
+interface GetUserRoleResponse {
+  id: number;
+  name: (typeof RoleNames)[keyof typeof RoleNames];
+  groupUuid: string;
+  authorities: (typeof RoleAuthorities)[keyof typeof RoleAuthorities][];
+}
+
 export const getUserRole = async (groupId: string) => {
   return groupsApi
-    .get(`/group/${groupId}/role`)
-    .then(({data}) => data);
-}
+    .get<GetUserRoleResponse>(`/group/${groupId}/role`)
+    .then(({ data }) => data);
+};
