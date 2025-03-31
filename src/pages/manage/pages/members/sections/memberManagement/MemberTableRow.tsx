@@ -8,6 +8,7 @@ import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { ClassValue } from "clsx";
 import { cn } from "@/utils/clsx";
 import LockedSign from "@/pages/manage/components/lockedSign";
+import { useTranslation } from "react-i18next";
 
 interface MemberProps extends MemberResDto {
   onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;
@@ -15,12 +16,6 @@ interface MemberProps extends MemberResDto {
   isAuthorizedForMemberBanishment: boolean;
   isAdmin: boolean;
 }
-
-export const roleOptions = [
-  { id: 1, value: "관리자" },
-  { id: 2, value: "매니저" },
-  { id: 3, value: "일반" },
-];
 
 const Member = ({
   uuid,
@@ -33,6 +28,15 @@ const Member = ({
   isAdmin,
 }: MemberProps) => {
   const { group } = useOutletContext<GroupContextType>();
+  const { t } = useTranslation();
+
+  const getRoleOptions = () => [
+    { id: 1, value: t("role.admin") },
+    { id: 2, value: t("role.manager") },
+    { id: 3, value: t("role.member") },
+  ];
+
+  const roleOptions = getRoleOptions();
 
   const defaultRole =
     roleOptions.find((option) => option.value === role) || roleOptions[0];
@@ -43,7 +47,7 @@ const Member = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
-    return <p>데이터를 불러오는 중...</p>;
+    return <p>{t("common.loading")}</p>;
   }
 
   const handleOptionClick = (option: SelectOptionBase) => {
@@ -62,9 +66,9 @@ const Member = ({
     setIsBanishing(true);
     try {
       await banishMember(group.uuid, uuid);
-      alert(`멤버 ${name}의 추방이 성공적으로 이뤄졌습니다.`);
+      alert(t("manage.members.banishSuccess", { name }));
     } catch (error) {
-      alert("추방에 실패했습니다. 다시 시도해주세요.");
+      alert(t("manage.members.banishFailed"));
     } finally {
       setIsBanishing(false);
       setIsModalOpen(false);
@@ -88,7 +92,7 @@ const Member = ({
         ) : (
           <LockedSign
             requiredRoleName="admin"
-            customText="관리자만 볼 수 있습니다."
+            customText={t("role.adminOnly.view")}
           />
         )}
       </td>
@@ -105,7 +109,7 @@ const Member = ({
         ) : (
           <LockedSign
             requiredRoleName="admin"
-            customText="관리자만 변경할 수 있습니다."
+            customText={t("role.adminOnly.change")}
           />
         )}
       </td>
@@ -115,15 +119,17 @@ const Member = ({
           <button
             className="underline text-grey text-base font-medium"
             onClick={handleBanishClick}
-            aria-label={`${name} 멤버 추방하기`}
+            aria-label={t("manage.members.banishAriaLabel", { name })}
             disabled={isBanishing}
           >
-            {isBanishing ? "추방 중..." : "추방하기"}
+            {isBanishing
+              ? t("manage.members.banishing")
+              : t("manage.members.banish")}
           </button>
         ) : (
           <LockedSign
             requiredRoleName="admin"
-            customText="관리자만 추방할 수 있습니다."
+            customText={t("role.adminOnly.banish")}
           />
         )}
       </td>
@@ -132,8 +138,8 @@ const Member = ({
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmBanish}
-        title="⚠️ 추방 경고 ⚠️"
-        message={`정말로 멤버 ${name}을/를 추방하시겠습니까?`}
+        title={t("manage.members.banishWarning")}
+        message={t("manage.members.banishConfirm", { name })}
       />
     </tr>
   );

@@ -3,12 +3,14 @@ import { GroupContextType } from "@/pages/manage/ManageLayout";
 import InvitationSection from "./sections/invitation";
 import MemberManagementSection from "./sections/memberManagement";
 import RoleDescriptionSection from "./sections/roleDescription";
+import { useTranslation } from "react-i18next";
 
 const ManageMembersPage = () => {
   const { group, userRole } = useOutletContext<GroupContextType>();
+  const { t } = useTranslation();
 
   if (!group) {
-    return <p>데이터를 불러오는 중...</p>;
+    return <p>{t("common.loading")}</p>;
   }
 
   return (

@@ -46,9 +46,9 @@ const ImageSection = ({ group, userRole }: ImageSectionProps) => {
       setIsUploading(true);
       try {
         await setGroupProfileImage(group.uuid, newProfileImage);
-        alert("프로필 사진이 성공적으로 변경되었습니다!");
+        alert(t("manage.groupInfo.image.success"));
       } catch {
-        alert("프로필 사진 변경 중 문제가 발생했습니다.");
+        alert(t("manage.groupInfo.image.error"));
       } finally {
         setIsUploading(false);
         setIsEditingProfileImage(false);
@@ -71,32 +71,36 @@ const ImageSection = ({ group, userRole }: ImageSectionProps) => {
           previewImage ? (
             <img
               src={previewImage}
-              alt="새 프로필 미리보기"
+              alt={t("manage.groupInfo.image.newPreview")}
               className="w-full h-full object-cover rounded-full"
             />
           ) : (
-            <span className="text-greyDark">새 이미지를 선택하세요</span>
+            <span className="text-greyDark">
+              {t("manage.groupInfo.image.selectNew")}
+            </span>
           )
         ) : group.profileImageUrl ? (
           <img
             src={group.profileImageUrl}
-            alt="그룹 프로필"
+            alt={t("manage.groupInfo.image.profile")}
             className="w-full h-full object-cover rounded-full"
           />
         ) : (
-          <span className="text-greyDark">이미지 없음</span>
+          <span className="text-greyDark">
+            {t("manage.groupInfo.image.none")}
+          </span>
         )}
       </div>
 
       {isUploading ? (
-        <p className="text-greyDark">프로필 사진을 변경하는 중입니다...</p>
+        <p className="text-greyDark">{t("manage.groupInfo.image.changing")}</p>
       ) : isEditingProfileImage ? (
         <div className="flex gap-4">
           <Button size="big" variant="emphasized" onClick={handleConfirmChange}>
-            변경 확정
+            {t("manage.groupInfo.image.confirm")}
           </Button>
           <Button size="big" variant="outlined" onClick={handleCancelChange}>
-            취소
+            {t("manage.groupInfo.image.cancel")}
           </Button>
         </div>
       ) : (

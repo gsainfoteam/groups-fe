@@ -41,7 +41,7 @@ const OnboardingPage = () => {
               onClick={() => {
                 localStorage.setItem(
                   LocalStorageKeys.ReturnTo,
-                  location.state?.returnTo ?? '/',
+                  location.state?.returnTo ?? "/",
                 );
 
                 window.location.href = generateOAuthLoginURL();

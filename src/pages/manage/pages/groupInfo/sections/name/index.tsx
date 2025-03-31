@@ -19,10 +19,10 @@ const GroupNameSection = ({ group, userRole }: GroupNameSectionProps) => {
     group,
     onSuccess: () => {
       setNewGroupName("");
-      alert("그룹명이 변경되었습니다.");
+      alert(t("manage.groupInfo.name.success"));
     },
     onError: (error) => {
-      alert(`그룹명 변경에 실패했습니다: ${error.message}`);
+      alert(t("manage.groupInfo.name.error", { message: error.message }));
     },
   });
 

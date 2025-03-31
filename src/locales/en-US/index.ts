@@ -1,21 +1,17 @@
 export const main = {
   lang: "en",
-  metadata: {
-    title: "Ziggle",
-    description: "All Notices in GIST at a glance",
-  },
   common: {
     optional: "Optional",
     sortByDeadline: "Sort by deadline",
-    error: "Frontend Error Occurred",
+    error: "Frontend error occurred",
     loading: "Loading...",
-    overdue: "OVERDUE",
-    backToMain: "Back to Main",
+    overdue: "Overdue",
+    backToMain: "Go back",
+    backToHome: "Back to Home",
+    loadingError: "There was a problem loading data.",
+    translationLoading: "Translation loading",
   },
   navbar: {
-    all: "All Notices",
-    write: "Write Notice",
-    query: "Search Notice",
     login: "Login",
     button: {
       goBackToZiggle: "Back to Ziggle",
@@ -117,9 +113,14 @@ export const main = {
       members: "Members",
     },
     intro: {
-      notExist: "The group introduction page does not exist yet.",
+      notExist: "No introduction page yet.",
+      loadError: "Failed to load Notion page.",
     },
-    emptyNotices: "No notices found",
+    emptyNotices: "No notices",
+    notices: {
+      error: "Failed to find group notices",
+      empty: "There are no notices",
+    },
     members: {
       loading: "Loading members...",
       error: "Failed to load members.",
@@ -156,7 +157,7 @@ export const main = {
   },
   createGroup: {
     createGroup: "Create Group",
-    previous: "Prev",
+    previous: "Previous",
     next: "Next",
     skip: "Skip",
     goBack: "Go back",
@@ -207,16 +208,14 @@ export const main = {
   },
 
   manageGroup: {
-    goBack: "Go back",
+    goBack: "Back",
     groupInfo: {
-      name: "Group Info",
+      name: "Basic Info",
       groupPic: {
-        title: "Change Group Profile Image",
+        title: "Change Group Profile Picture",
       },
       groupName: {
         title: "Group Name",
-        description: "Change Group Name",
-        button: "Change",
       },
       groupIntro: {
         title: "Group Introduction",
@@ -296,5 +295,90 @@ export const main = {
     text: "You can use more convenient service.",
     open: "Open App or Install App",
     cancel: "Never mind",
+  },
+
+  role: {
+    admin: "Admin",
+    manager: "Manager",
+    member: "Member",
+    adminOnly: {
+      view: "Only admins can view this.",
+      change: "Only admins can change this.",
+      banish: "Only admins can banish members.",
+    },
+  },
+
+  pagination: {
+    of: "of",
+  },
+
+  manage: {
+    invalidGroupId: "Invalid group ID.",
+    invalidGroup: "Invalid group.",
+    tabs: {
+      groupInfo: "Basic Info",
+      intro: "Introduction",
+      members: "Members",
+    },
+    members: {
+      banishing: "Banishing...",
+      banish: "Banish",
+      banishWarning: "⚠️ Banish Warning ⚠️",
+      banishSuccess: "Member {{name}} has been successfully banished.",
+      banishFailed: "Failed to banish member. Please try again.",
+      banishConfirm: "Are you sure you want to banish member {{name}}?",
+      banishAriaLabel: "Banish member {{name}}",
+      createInviteLink: "Create Invitation Link",
+    },
+    groupInfo: {
+      image: {
+        selectNew: "Select a new image",
+        none: "No image",
+        changing: "Changing profile picture...",
+        success: "Profile picture has been successfully changed!",
+        error: "An error occurred while changing the profile picture.",
+        confirm: "Confirm Change",
+        cancel: "Cancel",
+        newPreview: "New profile preview",
+        profile: "Group profile",
+      },
+      name: {
+        success: "Group name has been changed.",
+        error: "Failed to change group name: {{message}}",
+      },
+      description: {
+        success: "Group description has been changed.",
+        error: "Failed to change group description: {{message}}",
+        noDescription: "No group description",
+      },
+      delete: {
+        success: "Group has been successfully deleted.",
+        error: "An error occurred while deleting the group.",
+        deleting: "Deleting...",
+        warning: "⚠️ Group Deletion Warning ⚠️",
+        confirm: "Are you sure you want to delete this group?",
+        console: {
+          error: "Error while deleting group:",
+        },
+      },
+      leave: {
+        success: "You have successfully left the group.",
+        error: "Failed to leave the group. Please try again.",
+        leaving: "Leaving...",
+        warning: "⚠️ Leave Group Warning ⚠️",
+        confirm: "Are you sure you want to leave this group?",
+        presidentCannot: "Group president cannot perform this action.",
+      },
+    },
+    notion: {
+      emptyLink: "Please enter a new Notion link.",
+      success: "Notion link has been changed.",
+      error: "Failed to change Notion link. Please try again.",
+      loadError: "Failed to load Notion page.",
+      console: {
+        invalidFormat: "Invalid Notion link format.",
+        changeFailed: "Failed to change Notion link:",
+      },
+    },
   },
 };

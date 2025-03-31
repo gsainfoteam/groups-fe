@@ -32,7 +32,9 @@ const GroupMembersTab = () => {
     <div className="flex flex-col items-center">
       <div className="flex gap-1.5 mt-6">
         <UserCircle />
-        <div className={"text-[18px] text-greyDark"}>{group.memberCount}명</div>
+        <div className={"text-[18px] text-greyDark"}>
+          {t("group.memberCount", { count: group.memberCount })}
+        </div>
       </div>
 
       {members.map(({ name, email, role }, idx) => (
