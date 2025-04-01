@@ -1,7 +1,7 @@
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import "react-datetime-picker/dist/DateTimePicker.css";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Trans, useTranslation } from "react-i18next";
 import useSWR from "swr";
@@ -13,6 +13,7 @@ import GroupItem from "./GroupItem";
 import NotInGroup from "./NotInGroup";
 import Card from "@/components/card/Card";
 import Path from "@/types/paths";
+import { LOCAL_STORAGE_KEY_GROUP_CREATION_STATE } from "../createGroup/context/GroupCreationContext";
 
 const MainPage = () => {
   const { t } = useTranslation();
@@ -21,9 +22,16 @@ const MainPage = () => {
 
   const { data: groupList } = useSWR("groupContainingMe", getGroupContainingMe);
 
+  const navigate = useNavigate();
+
   if (!groupList) {
     return <div></div>; // TODO: loading or error page
   }
+
+  const handleCreateGroupClick = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY_GROUP_CREATION_STATE);
+    navigate(Path.CreateName);
+  };
 
   return (
     <main className="flex flex-col items-center py-10">
@@ -51,16 +59,15 @@ const MainPage = () => {
           {t("group.mainDescription")}
         </Card>
 
-        <Link to={Path.CreateName}>
-          <Button
-            variant="emphasized"
-            className="mb-4 w-60 rounded-[10px] py-2"
-          >
-            <p className="mx-3 my-1 text-base font-bold">
-              {t("group.createGroup")}
-            </p>
-          </Button>
-        </Link>
+        <Button
+          variant="emphasized"
+          className="mb-4 w-60 rounded-[10px] py-2"
+          onClick={handleCreateGroupClick}
+        >
+          <p className="mx-3 my-1 text-base font-bold">
+            {t("group.createGroup")}
+          </p>
+        </Button>
       </div>
     </main>
   );
