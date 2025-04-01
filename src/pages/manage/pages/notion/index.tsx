@@ -6,7 +6,7 @@ import Loading from "@/components/loading/Loading";
 import { getNotionPage } from "@/apis/notion";
 
 import Input from "@/components/input/Input";
-import { changeGroupInfo, getGroup } from "@/apis/group";
+import { changeGroupInfo } from "@/apis/group";
 import { useTranslation } from "react-i18next";
 import { parseNotionPageId } from "@/utils/notionLinkTester";
 import useSWR from "swr";
@@ -20,20 +20,12 @@ const ManageNotionLinkPage = () => {
   const [newNotionLink, setNewNotionLink] = useState("");
 
   if (!group) {
-<<<<<<< Updated upstream
-    return <p>데이터를 불러오는 중...</p>;
-=======
     return <Loading />;
->>>>>>> Stashed changes
   }
 
   const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_UPDATE"]);
 
-  const {
-    data: recordMap,
-    isLoading,
-    error: recordMapError,
-  } = useSWR(
+  const { data: recordMap, isLoading } = useSWR(
     ["notion", (group && group.notionPageId) || ""],
     ([_, notionPageId]) => getNotionPage(notionPageId),
   );

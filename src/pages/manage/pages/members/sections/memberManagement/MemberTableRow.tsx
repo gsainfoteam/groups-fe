@@ -8,11 +8,7 @@ import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { ClassValue } from "clsx";
 import { cn } from "@/utils/clsx";
 import LockedSign from "@/pages/manage/components/lockedSign";
-<<<<<<< Updated upstream
-=======
-import { useTranslation } from "react-i18next";
 import Loading from "@/components/loading/Loading";
->>>>>>> Stashed changes
 
 interface MemberProps extends MemberResDto {
   onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;
@@ -48,11 +44,7 @@ const Member = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
-<<<<<<< Updated upstream
-    return <p>데이터를 불러오는 중...</p>;
-=======
     return <Loading />;
->>>>>>> Stashed changes
   }
 
   const handleOptionClick = (option: SelectOptionBase) => {

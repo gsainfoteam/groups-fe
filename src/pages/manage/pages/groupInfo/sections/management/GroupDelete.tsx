@@ -19,11 +19,7 @@ const GroupDeleteComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
-<<<<<<< Updated upstream
-    return <p>데이터를 불러오는 중...</p>;
-=======
     return <Loading />;
->>>>>>> Stashed changes
   }
 
   const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_DELETE"]);
