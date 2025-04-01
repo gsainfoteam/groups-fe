@@ -1,6 +1,7 @@
 import Modal, { ModalProps } from "../modal";
-
+import "react-spring-bottom-sheet/dist/style.css";
 import { BottomSheet, BottomSheetProps } from "react-spring-bottom-sheet";
+import useIsMobile from "@/hooks/useIsMobile";
 
 interface ResponsiveModalProps {
   commonProps: {
@@ -13,25 +14,25 @@ interface ResponsiveModalProps {
 
 const ResponsiveModal = (props: ResponsiveModalProps) => {
   const { commonProps, modalProps, bottomSheetProps } = props;
+  const isMobile = useIsMobile();
 
-  return (
-    <>
-      <div className="block md:hidden">
-        <Modal {...modalProps} onClose={commonProps.onClose}>
-          {modalProps.children}
-        </Modal>
-      </div>
-      <div className="hidden md:block">
-        <BottomSheet
-          open={commonProps.isOpen}
-          onDismiss={commonProps.onClose}
-          {...bottomSheetProps}
-        >
-          {bottomSheetProps.children}
-        </BottomSheet>
-      </div>
-    </>
-  );
+  if (isMobile) {
+    return (
+      <BottomSheet
+        open={commonProps.isOpen}
+        onDismiss={commonProps.onClose}
+        {...bottomSheetProps}
+      >
+        {bottomSheetProps.children}
+      </BottomSheet>
+    );
+  }
+
+  return commonProps.isOpen ? (
+    <Modal {...modalProps} onClose={commonProps.onClose}>
+      {modalProps.children}
+    </Modal>
+  ) : null;
 };
 
 export default ResponsiveModal;
