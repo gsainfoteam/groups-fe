@@ -8,7 +8,6 @@ import ConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import useAuth from "@/hooks/useAuth";
-import Loading from "@/components/loading/Loading";
 
 const GroupLeaveComponent = () => {
   const { t } = useTranslation();
@@ -20,11 +19,7 @@ const GroupLeaveComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
-<<<<<<< Updated upstream
     return <p>데이터를 불러오는 중...</p>;
-=======
-    return <Loading />;
->>>>>>> Stashed changes
   }
 
   const isPresident = group.president.uuid === userInfo?.uuid;

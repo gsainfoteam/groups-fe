@@ -8,7 +8,6 @@ import { deleteGroup } from "@/apis/group";
 import DeleteConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
-import Loading from "@/components/loading/Loading";
 
 const GroupDeleteComponent = () => {
   const { t } = useTranslation();
@@ -19,11 +18,7 @@ const GroupDeleteComponent = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
-<<<<<<< Updated upstream
     return <p>데이터를 불러오는 중...</p>;
-=======
-    return <Loading />;
->>>>>>> Stashed changes
   }
 
   const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_DELETE"]);
