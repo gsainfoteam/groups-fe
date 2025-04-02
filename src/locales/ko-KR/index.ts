@@ -11,6 +11,7 @@ export const main = {
     loadingError: "데이터를 불러오는 데 문제가 발생했습니다.",
     translationLoading: "번역 로딩 중",
     complete: "완료",
+    warning: "주의",
   },
   navbar: {
     login: "로그인",
@@ -288,6 +289,10 @@ export const main = {
       createInviteLink: "초대 링크 생성",
       list: {
         title: "멤버 관리",
+        changeRoleModal: {
+          title: "멤버 역할 변경",
+          warningDescription: "당신의 권한은 관리자로 변경됩니다.",
+        },
         table: {
           name: "이름",
           email: "이메일",
@@ -332,6 +337,7 @@ export const main = {
     cancel: "괜찮아요",
   },
   role: {
+    president: "그룹장",
     admin: "관리자",
     manager: "매니저",
     member: "일반",

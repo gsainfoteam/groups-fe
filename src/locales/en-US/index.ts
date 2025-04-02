@@ -11,6 +11,7 @@ export const main = {
     loadingError: "There was a problem loading data.",
     translationLoading: "Translation loading",
     complete: "Complete",
+    warning: "Warning",
   },
   navbar: {
     login: "Login",
@@ -299,6 +300,10 @@ export const main = {
       createInviteLink: "Create Invitation Link",
       list: {
         title: "Manage Members",
+        changeRoleModal: {
+          title: "Change Member Role",
+          warningDescription: "Your role will be changed to admin.",
+        },
         table: {
           name: "Name",
           email: "Email",
@@ -346,6 +351,7 @@ export const main = {
   },
 
   role: {
+    president: "Group President",
     admin: "Admin",
     manager: "Manager",
     member: "Member",

@@ -1,8 +1,6 @@
 import Select, { SelectOptionBase } from "@/components/select/Select";
 import { MemberResDto } from "@/types/interfaces";
 import { useState } from "react";
-import { banishMember } from "@/apis/group";
-import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal";
 import { useOutletContext } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { ClassValue } from "clsx";
@@ -10,74 +8,46 @@ import { cn } from "@/utils/clsx";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import Loading from "@/components/loading/Loading";
 import { useTranslation } from "react-i18next";
+import { RoleOption } from "./hooks/useRoleOptions";
+import Button from "@/components/button/Button";
+import { ArrowRight, NavArrowRight } from "iconoir-react";
 
-interface MemberProps extends MemberResDto {
+interface MemberTableRowProps {
+  member: MemberResDto;
   onRoleChange: (memberId: string, prevRole: number, newRole: number) => void;
   isAuthorizedForRoleChange: boolean;
   isAuthorizedForMemberBanishment: boolean;
   isAdmin: boolean;
+  roleOptions: RoleOption[];
+  onRoleChangeClick: (member: MemberResDto, role: RoleOption) => void;
+  onDeleteClick: (member: MemberResDto) => void;
 }
 
-const Member = ({
-  uuid,
-  name,
-  email,
-  role,
+const MemberTableRow = ({
+  member,
   onRoleChange,
   isAuthorizedForRoleChange,
   isAuthorizedForMemberBanishment,
   isAdmin,
-}: MemberProps) => {
+  roleOptions,
+  onRoleChangeClick,
+  onDeleteClick,
+}: MemberTableRowProps) => {
   const { group } = useOutletContext<GroupContextType>();
   const { t } = useTranslation();
 
-  const getRoleOptions = () => [
-    { id: 1, value: t("role.admin") },
-    { id: 2, value: t("role.manager") },
-    { id: 3, value: t("role.member") },
-  ];
-
-  const roleOptions = getRoleOptions();
-
   const defaultRole =
-    roleOptions.find((option) => option.value === role) || roleOptions[0];
+    roleOptions.find((option) => option.name === member.role) || roleOptions[0];
 
   const [selectedRole, setSelectedRole] = useState(defaultRole);
-
-  const [isBanishing, setIsBanishing] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
     return <Loading />;
   }
 
-  const handleOptionClick = (option: SelectOptionBase) => {
-    setSelectedRole(option);
-    onRoleChange(uuid, defaultRole.id, option.id);
-  };
-
-  // 추방하기 클릭 시
   const handleBanishClick = () => {
-    setIsModalOpen(true);
+    onDeleteClick(member);
   };
-
-  // 모달에서 추방 확인 시
-  const handleConfirmBanish = async () => {
-    setIsModalOpen(false);
-    setIsBanishing(true);
-    try {
-      await banishMember(group.uuid, uuid);
-      alert(t("manageGroup.members.banish.banishSuccess", { name }));
-    } catch (error) {
-      alert(t("manageGroup.members.banish.banishFailed"));
-    } finally {
-      setIsBanishing(false);
-      setIsModalOpen(false);
-    }
-  };
-
-  // 모달에서 취소 시
-  const handleCloseModal = () => setIsModalOpen(false);
 
   const cellStyle: ClassValue =
     "p-2.5 text-left font-medium border-b-2 border-greyBorder";
@@ -85,11 +55,11 @@ const Member = ({
   return (
     <tr>
       {/* 이름 */}
-      <th className={cn(cellStyle, "text-greyDark")}>{name}</th>
+      <th className={cn(cellStyle, "text-greyDark")}>{member.name}</th>
       {/* 이메일 */}
       <td className={cn(cellStyle, "text-greyDark")}>
         {isAdmin ? (
-          email
+          member.email
         ) : (
           <LockedSign
             requiredRoleName="admin"
@@ -98,15 +68,22 @@ const Member = ({
         )}
       </td>
       {/* 역할 */}
-      <td className={cn(cellStyle, "min-w-[160px]")}>
+      <td className={cn(cellStyle, "min-w-[100px]")}>
         {isAuthorizedForRoleChange ? (
-          <Select
-            size="small"
-            options={roleOptions}
-            selectedValue={selectedRole}
-            onOptionClick={handleOptionClick}
-            className="bg-greyLight rounded-[5px] text-dark dark:text-grey"
-          />
+          <>
+            <Button
+              onClick={() => onRoleChangeClick(member, selectedRole)}
+              className="flex justify-start items-center pl-3 pr-1 py-[5px] bg-greyLight rounded-[5px] text-dark w-full"
+            >
+              <div className="flex gap-2 grow font-medium items-center">
+                <selectedRole.icon className="w-5 h-5" />
+
+                <div>{selectedRole.value}</div>
+              </div>
+
+              <NavArrowRight className="w-5 h-5" />
+            </Button>
+          </>
         ) : (
           <LockedSign
             requiredRoleName="admin"
@@ -121,13 +98,10 @@ const Member = ({
             className="underline text-grey text-base font-medium"
             onClick={handleBanishClick}
             aria-label={t("manageGroup.members.banish.banishAriaLabel", {
-              name,
+              name: member.name,
             })}
-            disabled={isBanishing}
           >
-            {isBanishing
-              ? t("manageGroup.members.banish.banishing")
-              : t("manageGroup.members.banish.banish")}
+            {t("manageGroup.members.banish.banish")}
           </button>
         ) : (
           <LockedSign
@@ -136,16 +110,8 @@ const Member = ({
           />
         )}
       </td>
-      {/* 추방 확인 모달 */}
-      <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmBanish}
-        title={t("manageGroup.members.banish.banishWarning")}
-        message={t("manageGroup.members.banish.banishConfirm", { name })}
-      />
     </tr>
   );
 };
 
-export default Member;
+export default MemberTableRow;
