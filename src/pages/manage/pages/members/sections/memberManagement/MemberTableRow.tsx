@@ -67,9 +67,9 @@ const Member = ({
     setIsBanishing(true);
     try {
       await banishMember(group.uuid, uuid);
-      alert(t("manage.members.banishSuccess", { name }));
+      alert(t("manageGroup.members.banish.banishSuccess", { name }));
     } catch (error) {
-      alert(t("manage.members.banishFailed"));
+      alert(t("manageGroup.members.banish.banishFailed"));
     } finally {
       setIsBanishing(false);
       setIsModalOpen(false);
@@ -120,12 +120,14 @@ const Member = ({
           <button
             className="underline text-grey text-base font-medium"
             onClick={handleBanishClick}
-            aria-label={t("manage.members.banishAriaLabel", { name })}
+            aria-label={t("manageGroup.members.banish.banishAriaLabel", {
+              name,
+            })}
             disabled={isBanishing}
           >
             {isBanishing
-              ? t("manage.members.banishing")
-              : t("manage.members.banish")}
+              ? t("manageGroup.members.banish.banishing")
+              : t("manageGroup.members.banish.banish")}
           </button>
         ) : (
           <LockedSign
@@ -139,8 +141,8 @@ const Member = ({
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmBanish}
-        title={t("manage.members.banishWarning")}
-        message={t("manage.members.banishConfirm", { name })}
+        title={t("manageGroup.members.banish.banishWarning")}
+        message={t("manageGroup.members.banish.banishConfirm", { name })}
       />
     </tr>
   );

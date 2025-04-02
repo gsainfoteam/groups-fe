@@ -17,7 +17,7 @@ const Navigator = () => {
   if (!uuid) {
     return (
       <div>
-        <p>{t("manage.invalidGroupId")}</p>
+        <p>{t("manageGroup.invalidGroupId")}</p>
         <button onClick={() => navigate("/")}>{t("common.backToHome")}</button>
       </div>
     );
@@ -25,17 +25,17 @@ const Navigator = () => {
   const tabs: TabInfo[] = [
     {
       key: "groupInfo",
-      label: t("manage.tabs.groupInfo"),
+      label: t("manageGroup.tabs.groupInfo"),
       link: `${Path.Manage + uuid + "/" + Path.ManageGroupInfo}`,
     },
     {
       key: "notionLink",
-      label: t("manage.tabs.intro"),
+      label: t("manageGroup.tabs.intro"),
       link: `${Path.Manage + uuid + "/" + Path.ManageNotionLink}`,
     },
     {
       key: "members",
-      label: t("manage.tabs.members"),
+      label: t("manageGroup.tabs.members"),
       link: `${Path.Manage + uuid + "/" + Path.ManageMembers}`,
     },
   ];

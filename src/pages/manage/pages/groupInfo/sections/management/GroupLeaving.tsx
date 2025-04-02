@@ -38,10 +38,10 @@ const GroupLeaveComponent = () => {
     setIsLeaving(true);
     try {
       await leavingGroup(group.uuid);
-      alert(t("manage.groupInfo.leave.success"));
+      alert(t("manageGroup.groupInfo.groupLeave.success"));
       navigate("/");
     } catch (error) {
-      alert(t("manage.groupInfo.leave.error"));
+      alert(t("manageGroup.groupInfo.groupLeave.error"));
     } finally {
       setIsLeaving(false);
       setIsModalOpen(false);
@@ -64,7 +64,9 @@ const GroupLeaveComponent = () => {
               {isPresident && (
                 <LockedSign
                   requiredRoleName="member"
-                  customText={t("manage.groupInfo.leave.presidentCannot")}
+                  customText={t(
+                    "manageGroup.groupInfo.groupLeave.presidentCannot",
+                  )}
                 />
               )}
               {!isPresident && <LockedSign requiredRoleName="member" />}
@@ -83,7 +85,7 @@ const GroupLeaveComponent = () => {
           disabled={isLeaving || !isAuthorized}
         >
           {isLeaving
-            ? t("manage.groupInfo.leave.leaving")
+            ? t("manageGroup.groupInfo.groupLeave.leaving")
             : t("manageGroup.groupInfo.groupLeave.button")}
         </Button>
       </div>
@@ -93,8 +95,8 @@ const GroupLeaveComponent = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmLeave}
-        title={t("manage.groupInfo.leave.warning")}
-        message={t("manage.groupInfo.leave.confirm")}
+        title={t("manageGroup.groupInfo.groupLeave.warning")}
+        message={t("manageGroup.groupInfo.groupLeave.confirm")}
       />
     </>
   );

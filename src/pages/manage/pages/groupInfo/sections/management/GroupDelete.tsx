@@ -35,12 +35,15 @@ const GroupDeleteComponent = () => {
     setIsDeleting(true);
     deleteGroup(group.uuid)
       .then(() => {
-        alert(t("manage.groupInfo.delete.success"));
+        alert(t("manageGroup.groupInfo.groupDelete.success"));
         navigate("/");
       })
       .catch((error) => {
-        console.error(t("manage.groupInfo.delete.console.error"), error);
-        alert(t("manage.groupInfo.delete.error"));
+        console.error(
+          t("manageGroup.groupInfo.groupDelete.console.error"),
+          error,
+        );
+        alert(t("manageGroup.groupInfo.groupDelete.error"));
       })
       .finally(() => {
         setIsDeleting(false);
@@ -71,7 +74,7 @@ const GroupDeleteComponent = () => {
           disabled={isDeleting || !isAuthorized}
         >
           {isDeleting
-            ? t("manage.groupInfo.delete.deleting")
+            ? t("manageGroup.groupInfo.groupDelete.deleting")
             : t("manageGroup.groupInfo.groupDelete.button")}
         </Button>
       </div>
@@ -81,8 +84,8 @@ const GroupDeleteComponent = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmDelete}
-        title={t("manage.groupInfo.delete.warning")}
-        message={t("manage.groupInfo.delete.confirm")}
+        title={t("manageGroup.groupInfo.groupDelete.warning")}
+        message={t("manageGroup.groupInfo.groupDelete.confirm")}
       />
     </>
   );

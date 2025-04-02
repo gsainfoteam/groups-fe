@@ -4,7 +4,7 @@ const headerItems = [
   { label: "name" },
   { label: "email" },
   { label: "role" },
-  { label: "expel" },
+  { label: "banish" },
 ] as const;
 
 const MembersHeader = () => {

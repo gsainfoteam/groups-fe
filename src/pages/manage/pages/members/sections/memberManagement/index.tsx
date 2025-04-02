@@ -65,10 +65,10 @@ const MemberManagementSection = ({
                 email={member.email}
                 role={
                   member.role === "admin"
-                    ? "관리자"
+                    ? t("role.admin")
                     : member.role === "manager"
-                      ? "매니저"
-                      : "일반"
+                      ? t("role.manager")
+                      : t("role.member")
                 }
                 onRoleChange={handleRoleChange}
                 isAuthorizedForRoleChange={isAuthorizedForRoleChange}
@@ -90,7 +90,7 @@ const MemberManagementSection = ({
           onClick={handleComplete}
           disabled={loading || Object.keys(roleChanges).length === 0}
         >
-          {loading ? "처리 중..." : "완료"}
+          {loading ? t("common.loading") : t("common.complete")}
         </Button>
       </div>
     </div>
