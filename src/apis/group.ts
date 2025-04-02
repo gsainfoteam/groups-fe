@@ -152,7 +152,7 @@ export const createRole = async (
   return groupsApi
     .post(`/group/${groupUuid}/role`, {
       name: roleName,
-      authorities: authorities,
+      authorities: [...authorities, "ROLE_GRANT"]
     })
     .then(() => {
       console.log(`Default role ${roleName} set successfully.`);
