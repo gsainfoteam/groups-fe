@@ -10,6 +10,7 @@ import {
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
+import Loading from "@/components/loading/Loading";
 
 export interface UserRole {
   roleName: (typeof RoleNames)[keyof typeof RoleNames];
@@ -48,7 +49,7 @@ const ManageLayout = () => {
 
   if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
 
-  if (isLoading) return <p>데이터를 불러오는 중...</p>;
+  if (isLoading) return <Loading />;
 
   if (groupError || roleError)
     return <p>데이터를 불러오는 데 문제가 발생했습니다.</p>;
@@ -82,7 +83,7 @@ const ManageLayout = () => {
 
 const GroupHeader = ({ group }: { group: GroupInfo | null }) => {
   if (!group) {
-    return <p className="text-gray-500">데이터를 불러오는 중...</p>;
+    return <Loading />;
   }
 
   return (
