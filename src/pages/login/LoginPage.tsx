@@ -10,6 +10,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import Path from "@/types/paths";
 import Button from "@/components/button/Button";
 import Error from "@/assets/error/Error";
+import Loading from "@/components/loading/Loading";
 
 type AuthStatus = "loading" | "success" | "failed";
 
@@ -45,7 +46,7 @@ const LoginPage = () => {
 
               <div className="h-1" />
 
-              <p className="text-lg">{t("common.loading")}</p>
+              <Loading />
             </>
           )}
 

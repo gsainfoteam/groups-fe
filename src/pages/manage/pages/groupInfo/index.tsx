@@ -4,15 +4,14 @@ import ImageSection from "./sections/image";
 import GroupNameSection from "./sections/name";
 import GroupDescriptionSection from "./sections/description";
 import GroupManagementSection from "./sections/management";
-import { useTranslation } from "react-i18next";
+import Loading from "@/components/loading/Loading";
 
 const ManageGroupInfoPage = () => {
   const groupContext = useOutletContext<GroupContextType>();
-  const { t } = useTranslation();
 
-  const { group, userRole } = groupContext;
+  const { group } = groupContext;
 
-  if (!group) return <p>{t("common.loading")}</p>;
+  if (!group) return <Loading />;
 
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">

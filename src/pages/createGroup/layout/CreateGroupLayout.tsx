@@ -1,14 +1,25 @@
-import { useTranslation } from "react-i18next";
 import { Outlet, useLocation } from "react-router-dom";
-import StatusBar from "./components/StatusBar";
-import stepGetter from "./components/stepGetter";
+import { useTranslation } from "react-i18next";
+import {
+  GroupCreationProvider,
+  useGroupCreation,
+} from "../context/GroupCreationContext";
+import StatusBar from "../components/StatusBar";
+import stepGetter from "../components/stepGetter";
+import { useEffect } from "react";
 
-const CreateGroupLayout = () => {
+const CreateGroupLayoutContent = () => {
   const { t } = useTranslation();
-
   const pathname = useLocation().pathname;
   const stepParam = pathname.split("/").pop();
   const step = stepGetter(stepParam);
+  const { resetState } = useGroupCreation();
+
+  useEffect(() => {
+    return () => {
+      resetState();
+    };
+  }, []);
 
   return (
     <main className="flex flex-col items-center py-10">
@@ -36,6 +47,14 @@ const CreateGroupLayout = () => {
         <Outlet />
       </div>
     </main>
+  );
+};
+
+const CreateGroupLayout = () => {
+  return (
+    <GroupCreationProvider>
+      <CreateGroupLayoutContent />
+    </GroupCreationProvider>
   );
 };
 

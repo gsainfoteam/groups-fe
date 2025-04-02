@@ -5,12 +5,14 @@ import Button from "@/components/button/Button";
 import Input from "@/components/input/Input";
 import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import useGroupProfileSequence from "../../hooks/useGroupProfileSequence";
 import isValidImage from "../../utils/isValidImage";
+import { useGroupCreation } from "../../context/GroupCreationContext";
 
 const CreateGroupName = () => {
   const { t } = useTranslation();
+  const { state, updateState } = useGroupCreation();
   const {
     name,
     setName,
@@ -23,33 +25,26 @@ const CreateGroupName = () => {
   } = useGroupProfileSequence();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const groupNameFromState = location.state?.groupName || "";
-  const profileImageFromState = location.state?.profileImageUrl || "";
-
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (groupNameFromState) {
-      setName(groupNameFromState);
+    if (state.groupName) {
+      setName(state.groupName);
     }
-  }, [groupNameFromState, setName]);
+  }, [state.groupName, setName]);
 
   useEffect(() => {
-    if (profileImageFromState) {
-      setProfileImageUrl(profileImageFromState);
+    if (state.profileImageUrl) {
+      setProfileImageUrl(state.profileImageUrl);
     }
-  }, [profileImageFromState, setProfileImageUrl]);
+  }, [state.profileImageUrl, setProfileImageUrl]);
 
   const handleNextClick = () => {
-    navigate(Path.CreateDescription, {
-      state: {
-        groupName: debouncedName,
-        description: location.state?.description || "",
-        notionPageId: location.state?.notionPageId || "",
-        profileImageUrl: profileImageUrl || profileImageFromState,
-      },
+    updateState({
+      groupName: debouncedName,
+      profileImageUrl: profileImageUrl || "",
     });
+    navigate(Path.CreateDescription);
   };
 
   return (

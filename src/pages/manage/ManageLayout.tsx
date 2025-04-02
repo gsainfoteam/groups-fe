@@ -10,6 +10,7 @@ import {
 import Navigator from "./Navigator";
 import { useTranslation } from "react-i18next";
 import useSWR from "swr";
+import Loading from "@/components/loading/Loading";
 
 export interface UserRole {
   roleName: (typeof RoleNames)[keyof typeof RoleNames];
@@ -48,7 +49,7 @@ const ManageLayout = () => {
 
   if (!uuid) return <p>{t("manage.invalidGroup")}</p>;
 
-  if (isLoading) return <p>{t("common.loading")}</p>;
+  if (isLoading) return <Loading />;
 
   if (groupError || roleError) return <p>{t("common.loadingError")}</p>;
 

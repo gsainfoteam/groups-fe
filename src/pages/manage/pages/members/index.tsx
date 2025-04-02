@@ -3,14 +3,13 @@ import { GroupContextType } from "@/pages/manage/ManageLayout";
 import InvitationSection from "./sections/invitation";
 import MemberManagementSection from "./sections/memberManagement";
 import RoleDescriptionSection from "./sections/roleDescription";
-import { useTranslation } from "react-i18next";
+import Loading from "@/components/loading/Loading";
 
 const ManageMembersPage = () => {
   const { group, userRole } = useOutletContext<GroupContextType>();
-  const { t } = useTranslation();
 
   if (!group) {
-    return <p>{t("common.loading")}</p>;
+    return <Loading />;
   }
 
   return (

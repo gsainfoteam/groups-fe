@@ -3,16 +3,18 @@ import Input from "@/components/input/Input";
 import Path from "@/types/paths";
 import { useEffect, useState } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@/components/button/Button";
 import { NotionRenderer } from "react-notion-x";
 import { createGroup, createRole, setGroupProfileImage } from "@/apis/group";
 import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
 import { dataUrlToFile } from "@/utils/dataURLtoFile";
+import { useGroupCreation } from "../../context/GroupCreationContext";
 
 const CreateGroupNotionPage = () => {
   const { t } = useTranslation();
+  const { state, updateState } = useGroupCreation();
   const {
     setLink,
     isValidLink,
@@ -22,32 +24,25 @@ const CreateGroupNotionPage = () => {
     notionPageId,
   } = useGroupNotionSequence();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const notionPageIdFromState = location.state?.notionPageId || "";
 
   useEffect(() => {
-    if (notionPageIdFromState) {
-      setLink(notionPageIdFromState);
+    if (state.notionPageId) {
+      setLink(state.notionPageId);
     }
-  }, [notionPageIdFromState, setLink]);
+  }, [state.notionPageId, setLink]);
 
   const handlePreviousClick = () => {
-    navigate(Path.CreateDescription, {
-      state: {
-        groupName: location.state.groupName,
-        description: location.state.description,
-        notionPageId: notionPageId || "",
-        profileImageUrl: location.state.profileImageUrl,
-      },
+    updateState({
+      notionPageId: notionPageId || "",
     });
+    navigate(Path.CreateDescription);
   };
 
   const handleNextClick = async () => {
     try {
       const response = await createGroup({
-        name: location.state.groupName,
-        description: location.state.description,
+        name: state.groupName,
+        description: state.description,
         notionPageId: notionPageId || "",
       });
 
@@ -55,12 +50,9 @@ const CreateGroupNotionPage = () => {
 
       try {
         const filename = `profile_${Date.now()}`;
-        const image = await dataUrlToFile(
-          location.state.profileImageUrl,
-          filename,
-        );
+        const image = await dataUrlToFile(state.profileImageUrl, filename);
 
-        if (groupUuid && location.state.profileImageUrl) {
+        if (groupUuid && state.profileImageUrl) {
           await setGroupProfileImage(groupUuid, image);
         }
       } catch (error) {
@@ -83,9 +75,10 @@ const CreateGroupNotionPage = () => {
         console.error("Failed to create role:", error);
       }
 
-      navigate(Path.CreateComplete, {
-        state: { groupName: location.state.groupName, groupUuid },
+      updateState({
+        groupUuid,
       });
+      navigate(Path.CreateComplete);
     } catch (error) {
       console.error("Failed to create group:", error);
     }

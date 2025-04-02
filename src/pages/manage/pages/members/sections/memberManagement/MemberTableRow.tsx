@@ -8,6 +8,7 @@ import { GroupContextType } from "@/pages/manage/ManageLayout";
 import { ClassValue } from "clsx";
 import { cn } from "@/utils/clsx";
 import LockedSign from "@/pages/manage/components/lockedSign";
+import Loading from "@/components/loading/Loading";
 import { useTranslation } from "react-i18next";
 
 interface MemberProps extends MemberResDto {
@@ -47,7 +48,7 @@ const Member = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   if (!group) {
-    return <p>{t("common.loading")}</p>;
+    return <Loading />;
   }
 
   const handleOptionClick = (option: SelectOptionBase) => {
