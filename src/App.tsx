@@ -8,7 +8,7 @@ import {
 
 import Layout from "./layout/Layout";
 
-import CreateGroupLayout from "./pages/createGroup/CreateGroupLayout";
+import CreateGroupLayout from "./pages/createGroup/layout/CreateGroupLayout";
 import GroupDetailPageLayout from "./pages/detail/DetailPageLayout";
 import LoginPage from "./pages/login/LoginPage";
 import MainPage from "./pages/main/MainPage";

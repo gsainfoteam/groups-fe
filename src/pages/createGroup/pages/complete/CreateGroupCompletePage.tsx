@@ -1,18 +1,21 @@
 import Button from "@/components/button/Button";
 import Path from "@/types/paths";
 import { Trans, useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import CompleteAnimation from "../../components/CompleteAnimation";
 import GenerateInvitationLink from "./GenerateInvitationLink";
+import { useGroupCreation } from "../../context/GroupCreationContext";
+import { useEffect } from "react";
 
 const CreateGroupComplete = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const groupName = location.state.groupName || "Your Group";
-  const groupUuid: string | undefined = location.state.groupUuid;
+  const { state, resetState } = useGroupCreation();
+  const groupName = state.groupName || "Your Group";
+  const groupUuid = state.groupUuid;
 
   const handleCompleteClick = () => {
+    resetState(); // TODO: 유저가 돌아가기를 누르지 않고 이탈하는 경우, 어떻게 로컬스토리지 함태를 초기화할지 고민해봐야 함
     navigate(Path.Home);
   };
 
@@ -27,7 +30,9 @@ const CreateGroupComplete = () => {
           </Trans>
         </h2>
 
-        <p className="text-greyDark dark:text-grey">{t("createGroup.complete.description")}</p>
+        <p className="text-greyDark dark:text-grey">
+          {t("createGroup.complete.description")}
+        </p>
 
         <div className="h-16" />
 

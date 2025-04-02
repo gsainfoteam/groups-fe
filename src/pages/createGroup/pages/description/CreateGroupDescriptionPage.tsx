@@ -2,45 +2,37 @@ import Button from "@/components/button/Button";
 import Path from "@/types/paths";
 import { useEffect } from "react";
 import { Trans, useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import useGroupDescriptionSequence from "../../hooks/useGroupDescriptionSequence";
+import { useGroupCreation } from "../../context/GroupCreationContext";
 
 const CreateGroupDescriptionPage = () => {
   const { t } = useTranslation();
+  const { state, updateState } = useGroupCreation();
   const { descriptionLength, setDescription, isNextButtonValid, description } =
     useGroupDescriptionSequence();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const groupDesFromState = location.state?.description || "";
 
   useEffect(() => {
-    if (groupDesFromState) {
-      setDescription(groupDesFromState);
+    if (state.description) {
+      setDescription(state.description);
     }
-  }, [groupDesFromState, setDescription]);
+  }, [state.description, setDescription]);
 
   const handlePreviousClick = () => {
-    navigate(Path.CreateName, {
-      state: {
-        groupName: location.state.groupName,
-        description: description || "",
-        notionPageId: location.state?.notionPageId || "",
-        profileImageUrl: location.state.profileImageUrl,
-      },
+    updateState({
+      description: description || "",
     });
+    navigate(Path.CreateName);
   };
 
   const handleNextClick = () => {
-    navigate(Path.CreateNotion, {
-      state: {
-        groupName: location.state.groupName,
-        description: description,
-        notionPageId: location.state?.notionPageId || "",
-        profileImageUrl: location.state.profileImageUrl,
-      },
+    updateState({
+      description: description || "",
     });
+    navigate(Path.CreateNotion);
   };
 
   return (
