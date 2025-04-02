@@ -38,10 +38,10 @@ const GroupLeaveComponent = () => {
     setIsLeaving(true);
     try {
       await leavingGroup(group.uuid);
-      alert("그룹에서 성공적으로 나갔습니다.");
+      alert(t("manage.groupInfo.leave.success"));
       navigate("/");
     } catch (error) {
-      alert("그룹 나가기에 실패했습니다. 다시 시도해주세요.");
+      alert(t("manage.groupInfo.leave.error"));
     } finally {
       setIsLeaving(false);
       setIsModalOpen(false);
@@ -64,7 +64,7 @@ const GroupLeaveComponent = () => {
               {isPresident && (
                 <LockedSign
                   requiredRoleName="member"
-                  customText="그룹장은 이 작업을 수행할 수 없습니다."
+                  customText={t("manage.groupInfo.leave.presidentCannot")}
                 />
               )}
               {!isPresident && <LockedSign requiredRoleName="member" />}
@@ -82,7 +82,9 @@ const GroupLeaveComponent = () => {
           onClick={handleLeaveClick}
           disabled={isLeaving || !isAuthorized}
         >
-          {isLeaving ? "나가는 중..." : "나가기"}
+          {isLeaving
+            ? t("manage.groupInfo.leave.leaving")
+            : t("manageGroup.groupInfo.groupLeave.button")}
         </Button>
       </div>
 
@@ -91,8 +93,8 @@ const GroupLeaveComponent = () => {
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onConfirm={handleConfirmLeave}
-        title="⚠️ 그룹 나가기 경고 ⚠️"
-        message="정말로 그룹에서 나가시겠습니까?"
+        title={t("manage.groupInfo.leave.warning")}
+        message={t("manage.groupInfo.leave.confirm")}
       />
     </>
   );

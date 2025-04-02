@@ -1,11 +1,22 @@
 import React, { Component, ReactNode } from "react";
-interface ErrorBoundaryProps {
+import { withTranslation, WithTranslation } from "react-i18next";
+
+interface ErrorBoundaryProps extends WithTranslation {
   children: ReactNode;
+  fallback?: ReactNode;
 }
-import ErrorComponent from "@/assets/error/Error";
+
 interface ErrorBoundaryState {
   hasError: boolean;
 }
+
+const ErrorComponent = ({ children }: { children: ReactNode }) => {
+  return (
+    <div className="flex items-center justify-center p-4 text-red-500">
+      {children}
+    </div>
+  );
+};
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   constructor(props: ErrorBoundaryProps) {
@@ -13,18 +24,17 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+  static getDerivedStateFromError() {
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
-    console.error(error, errorInfo);
-  }
   render() {
+    const { t } = this.props;
     if (this.state.hasError) {
-      return <ErrorComponent>{"Fail to load Notion Page"}</ErrorComponent>;
+      return <ErrorComponent>{t("group.intro.loadError")}</ErrorComponent>;
     }
     return this.props.children;
   }
 }
-export default ErrorBoundary;
+
+export default withTranslation()(ErrorBoundary);

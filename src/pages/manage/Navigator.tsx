@@ -1,6 +1,7 @@
 import { NavLinkTabs } from "@/components/tabs/Tabs";
 import Path from "@/types/paths";
 import { useParams, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 interface TabInfo {
   key: string;
@@ -11,28 +12,30 @@ interface TabInfo {
 const Navigator = () => {
   const { uuid } = useParams<{ uuid: string }>();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+
   if (!uuid) {
     return (
       <div>
-        <p>유효하지 않은 그룹 ID입니다.</p>
-        <button onClick={() => navigate("/")}>홈으로 돌아가기</button>
+        <p>{t("manage.invalidGroupId")}</p>
+        <button onClick={() => navigate("/")}>{t("common.backToHome")}</button>
       </div>
     );
   }
   const tabs: TabInfo[] = [
     {
       key: "groupInfo",
-      label: "기본 정보",
+      label: t("manage.tabs.groupInfo"),
       link: `${Path.Manage + uuid + "/" + Path.ManageGroupInfo}`,
     },
     {
       key: "notionLink",
-      label: "소개 페이지",
+      label: t("manage.tabs.intro"),
       link: `${Path.Manage + uuid + "/" + Path.ManageNotionLink}`,
     },
     {
       key: "members",
-      label: "멤버",
+      label: t("manage.tabs.members"),
       link: `${Path.Manage + uuid + "/" + Path.ManageMembers}`,
     },
   ];

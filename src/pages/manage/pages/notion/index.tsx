@@ -32,7 +32,7 @@ const ManageNotionLinkPage = () => {
 
   const handleNotionLinkChange = async () => {
     if (!newNotionLink.trim()) {
-      alert("새 노션 링크를 입력해주세요.");
+      alert(t("manage.notion.emptyLink"));
       return;
     }
 
@@ -41,17 +41,17 @@ const ManageNotionLinkPage = () => {
       const notionPageId = parseNotionPageId(newNotionLink);
 
       if (!notionPageId) {
-        console.error("노션 링크의 형식이 잘못되었습니다.");
+        console.error(t("manage.notion.console.invalidFormat"));
         return;
       }
 
       await changeGroupInfo(group.uuid, { notionPageId });
 
       setNewNotionLink("");
-      alert("노션 링크가 변경 되었습니다.");
+      alert(t("manage.notion.success"));
     } catch (error) {
-      console.error("노션 링크 변경 실패:", error);
-      alert("노션 링크 변경에 실패했습니다. 다시 시도해주세요.");
+      console.error(t("manage.notion.console.changeFailed"), error);
+      alert(t("manage.notion.error"));
     }
   };
 
@@ -112,7 +112,7 @@ const ManageNotionLinkPage = () => {
           </div>
         ) : (
           <div className="text-center text-[#ff6e6e] text-base font-semibold font-['Pretendard']">
-            노션 페이지를 불러오지 못했습니다.
+            {t("manage.notion.loadError")}
           </div>
         )}
       </div>

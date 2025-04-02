@@ -1,9 +1,5 @@
 export const main = {
   lang: "ko",
-  metadata: {
-    title: "지글",
-    description: "지스트의 모든 공지를 한눈에",
-  },
   common: {
     optional: "선택",
     sortByDeadline: "마감시간 순으로 보기",
@@ -11,11 +7,11 @@ export const main = {
     loading: "로딩 중...",
     overdue: "기한 지남",
     backToMain: "돌아가기",
+    backToHome: "홈으로 돌아가기",
+    loadingError: "데이터를 불러오는 데 문제가 발생했습니다.",
+    translationLoading: "번역 로딩 중",
   },
   navbar: {
-    all: "전체 공지",
-    write: "공지 작성",
-    query: "공지 검색",
     login: "로그인",
     button: {
       goBackToZiggle: "지글로 돌아가기",
@@ -109,8 +105,13 @@ export const main = {
     },
     intro: {
       notExist: "아직 소개 페이지가 없습니다.",
+      loadError: "노션 페이지 로드에 실패했습니다.",
     },
     emptyNotices: "공지가 없습니다",
+    notices: {
+      error: "그룹 공지를 찾을 수 없습니다.",
+      empty: "공지가 없습니다",
+    },
     members: {
       loading: "멤버 로딩 중...",
       error: "멤버 로딩 실패",
@@ -278,10 +279,92 @@ export const main = {
     },
     noPermission: "{{requiredRoleName}} 이상만 이 작업을 수행할 수 있습니다.",
   },
+  manage: {
+    invalidGroupId: "유효하지 않은 그룹 ID입니다.",
+    invalidGroup: "유효하지 않은 그룹입니다.",
+    tabs: {
+      groupInfo: "기본 정보",
+      intro: "소개 페이지",
+      members: "멤버",
+    },
+    members: {
+      banishing: "추방 중...",
+      banish: "추방하기",
+      banishWarning: "⚠️ 추방 경고 ⚠️",
+      banishSuccess: "멤버 {{name}}의 추방이 성공적으로 이뤄졌습니다.",
+      banishFailed: "추방에 실패했습니다. 다시 시도해주세요.",
+      banishConfirm: "정말로 멤버 {{name}}을/를 추방하시겠습니까?",
+      banishAriaLabel: "{{name}} 멤버 추방하기",
+      createInviteLink: "초대 링크 생성",
+    },
+    groupInfo: {
+      image: {
+        selectNew: "새 이미지를 선택하세요",
+        none: "이미지 없음",
+        changing: "프로필 사진을 변경하는 중입니다...",
+        success: "프로필 사진이 성공적으로 변경되었습니다!",
+        error: "프로필 사진 변경 중 문제가 발생했습니다.",
+        confirm: "변경 확정",
+        cancel: "취소",
+        newPreview: "새 프로필 미리보기",
+        profile: "그룹 프로필",
+      },
+      name: {
+        success: "그룹명이 변경되었습니다.",
+        error: "그룹명 변경에 실패했습니다: {{message}}",
+      },
+      description: {
+        success: "그룹 설명이 변경되었습니다.",
+        error: "그룹 설명 변경에 실패했습니다: {{message}}",
+        noDescription: "그룹 설명 없음",
+      },
+      delete: {
+        success: "그룹이 성공적으로 삭제되었습니다.",
+        error: "그룹 삭제 중 문제가 발생했습니다.",
+        deleting: "삭제 중...",
+        warning: "⚠️ 그룹 삭제 경고 ⚠️",
+        confirm: "정말로 그룹을 삭제하시겠습니까?",
+        console: {
+          error: "그룹 삭제 중 오류 발생:",
+        },
+      },
+      leave: {
+        success: "그룹에서 성공적으로 나갔습니다.",
+        error: "그룹 나가기에 실패했습니다. 다시 시도해주세요.",
+        leaving: "나가는 중...",
+        warning: "⚠️ 그룹 나가기 경고 ⚠️",
+        confirm: "정말로 그룹에서 나가시겠습니까?",
+        presidentCannot: "그룹장은 이 작업을 수행할 수 없습니다.",
+      },
+    },
+    notion: {
+      emptyLink: "새 노션 링크를 입력해주세요.",
+      success: "노션 링크가 변경 되었습니다.",
+      error: "노션 링크 변경에 실패했습니다. 다시 시도해주세요.",
+      loadError: "노션 페이지를 불러오지 못했습니다.",
+      console: {
+        invalidFormat: "노션 링크의 형식이 잘못되었습니다.",
+        changeFailed: "노션 링크 변경 실패:",
+      },
+    },
+  },
   installApp: {
     title: "모바일 앱을 설치해보세요!",
     text: "더욱 편리한 서비스를 이용하실 수 있습니다.",
     open: "지글 앱을 열거나 설치하기",
     cancel: "괜찮아요",
+  },
+  role: {
+    admin: "관리자",
+    manager: "매니저",
+    member: "일반",
+    adminOnly: {
+      view: "관리자만 볼 수 있습니다.",
+      change: "관리자만 변경할 수 있습니다.",
+      banish: "관리자만 추방할 수 있습니다.",
+    },
+  },
+  pagination: {
+    of: "of",
   },
 };

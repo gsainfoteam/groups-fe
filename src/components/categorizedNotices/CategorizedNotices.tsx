@@ -35,14 +35,14 @@ const CategorizedNotices = ({ uuid }: { uuid: undefined | string }) => {
   if (error) {
     return (
       <div className="flex flex-col items-center">
-        <Error>{"Fail to find group notices"}</Error>
+        <Error>{t("group.notices.error")}</Error>
       </div>
     );
   }
   if (!notices) {
     return (
       <div className="flex flex-col items-center">
-        <Error>{"There is no notices"}</Error>
+        <Error>{t("group.notices.empty")}</Error>
       </div>
     );
   }

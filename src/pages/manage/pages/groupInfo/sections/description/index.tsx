@@ -25,10 +25,12 @@ const GroupDescriptionSection = ({
     group,
     onSuccess: () => {
       setNewGroupDes("");
-      alert("그룹 설명이 변경되었습니다.");
+      alert(t("manage.groupInfo.description.success"));
     },
     onError: (error) => {
-      alert(`그룹 설명 변경에 실패했습니다: ${error.message}`);
+      alert(
+        t("manage.groupInfo.description.error", { message: error.message }),
+      );
     },
   });
 
@@ -57,7 +59,10 @@ const GroupDescriptionSection = ({
               "h-[100px] w-full px-4 py-2.5 rounded-xl border-[1.5px] dark:text-black",
               isAuthorized ? "border-primary" : "border-grey bg-white",
             )}
-            placeholder={group.description ?? "그룹 설명 없음"}
+            placeholder={
+              group.description ??
+              t("manage.groupInfo.description.noDescription")
+            }
             value={newGroupDes}
             onChange={(e) => setNewGroupDes(e.target.value)}
             disabled={!isAuthorized}

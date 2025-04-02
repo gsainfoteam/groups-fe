@@ -47,12 +47,11 @@ const ManageLayout = () => {
     navigate(`/group/${uuid}`);
   };
 
-  if (!uuid) return <p>유효하지 않은 그룹입니다.</p>;
+  if (!uuid) return <p>{t("manage.invalidGroup")}</p>;
 
   if (isLoading) return <Loading />;
 
-  if (groupError || roleError)
-    return <p>데이터를 불러오는 데 문제가 발생했습니다.</p>;
+  if (groupError || roleError) return <p>{t("common.loadingError")}</p>;
 
   return (
     <div className="flex flex-col items-center">
@@ -82,8 +81,10 @@ const ManageLayout = () => {
 };
 
 const GroupHeader = ({ group }: { group: GroupInfo | null }) => {
+  const { t } = useTranslation();
+
   if (!group) {
-    return <Loading />;
+    return <p className="text-gray-500">{t("common.loading")}</p>;
   }
 
   return (
