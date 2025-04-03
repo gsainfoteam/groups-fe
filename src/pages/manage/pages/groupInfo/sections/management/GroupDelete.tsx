@@ -9,6 +9,8 @@ import DeleteConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import Loading from "@/components/loading/Loading";
+import ResponsiveModal from "@/components/responsiveModal";
+import GroupDeleteModal from "./GroupDeleteModal";
 
 const GroupDeleteComponent = () => {
   const { t } = useTranslation();
@@ -79,13 +81,27 @@ const GroupDeleteComponent = () => {
         </Button>
       </div>
 
-      {/* 그룹 삭제 확인 모달 */}
-      <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
-        title={t("manageGroup.groupInfo.groupDelete.warning")}
-        message={t("manageGroup.groupInfo.groupDelete.confirm")}
+      <ResponsiveModal
+        commonProps={{
+          isOpen: isModalOpen,
+          onClose: handleCloseModal,
+        }}
+        modalProps={{
+          children: (
+            <GroupDeleteModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmDelete}
+            />
+          ),
+        }}
+        bottomSheetProps={{
+          children: (
+            <GroupDeleteModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmDelete}
+            />
+          ),
+        }}
       />
     </>
   );

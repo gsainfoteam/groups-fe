@@ -256,7 +256,6 @@ export const main = {
         success: "Group has been successfully deleted.",
         error: "An error occurred while deleting the group.",
         deleting: "Deleting...",
-        warning: "⚠️ Group Deletion Warning ⚠️",
         confirm: "Are you sure you want to delete this group?",
         console: {
           error: "Error while deleting group:",
@@ -270,7 +269,6 @@ export const main = {
         success: "You have successfully left the group.",
         error: "Failed to leave the group. Please try again.",
         leaving: "Leaving...",
-        warning: "⚠️ Leave Group Warning ⚠️",
         confirm: "Are you sure you want to leave this group?",
         presidentCannot: "Group president cannot perform this action.",
       },

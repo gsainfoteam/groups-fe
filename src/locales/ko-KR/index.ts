@@ -246,7 +246,6 @@ export const main = {
         success: "그룹이 성공적으로 삭제되었습니다.",
         error: "그룹 삭제 중 문제가 발생했습니다.",
         deleting: "삭제 중...",
-        warning: "⚠️ 그룹 삭제 경고 ⚠️",
         confirm: "정말로 그룹을 삭제하시겠습니까?",
         console: {
           error: "그룹 삭제 중 오류 발생:",
@@ -260,7 +259,6 @@ export const main = {
         success: "그룹에서 성공적으로 나갔습니다.",
         error: "그룹 나가기에 실패했습니다. 다시 시도해주세요.",
         leaving: "나가는 중...",
-        warning: "⚠️ 그룹 나가기 경고 ⚠️",
         confirm: "정말로 그룹에서 나가시겠습니까?",
         presidentCannot: "그룹장은 이 작업을 수행할 수 없습니다.",
       },

@@ -9,7 +9,8 @@ import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import useAuth from "@/hooks/useAuth";
 import Loading from "@/components/loading/Loading";
-
+import ResponsiveModal from "@/components/responsiveModal";
+import GroupLeavingModal from "./GroupLeavingModal";
 const GroupLeaveComponent = () => {
   const { t } = useTranslation();
   const { userInfo } = useAuth();
@@ -90,13 +91,27 @@ const GroupLeaveComponent = () => {
         </Button>
       </div>
 
-      {/* 그룹 나가기 확인 모달 */}
-      <ConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmLeave}
-        title={t("manageGroup.groupInfo.groupLeave.warning")}
-        message={t("manageGroup.groupInfo.groupLeave.confirm")}
+      <ResponsiveModal
+        commonProps={{
+          isOpen: isModalOpen,
+          onClose: handleCloseModal,
+        }}
+        modalProps={{
+          children: (
+            <GroupLeavingModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmLeave}
+            />
+          ),
+        }}
+        bottomSheetProps={{
+          children: (
+            <GroupLeavingModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmLeave}
+            />
+          ),
+        }}
       />
     </>
   );
