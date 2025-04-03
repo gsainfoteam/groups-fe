@@ -182,6 +182,7 @@ const MemberManagementSection = ({
           ),
         }}
         bottomSheetProps={{
+          isWithDefaultFrame: false,
           children: (
             <div>
               <div className="w-full flex justify-end px-6 mb-2">
