@@ -47,10 +47,6 @@ const MemberTableRow = ({
     return <Loading />;
   }
 
-  const handleBanishClick = () => {
-    onDeleteClick(member);
-  };
-
   const cellStyle: ClassValue =
     "p-2.5 text-left font-medium border-b-2 border-greyBorder";
 
@@ -99,7 +95,7 @@ const MemberTableRow = ({
         {isAuthorizedForMemberBanishment ? (
           <button
             className="underline text-grey text-base font-medium"
-            onClick={handleBanishClick}
+            onClick={() => onDeleteClick(member)}
             aria-label={t("manageGroup.members.banish.banishAriaLabel", {
               name: member.name,
             })}

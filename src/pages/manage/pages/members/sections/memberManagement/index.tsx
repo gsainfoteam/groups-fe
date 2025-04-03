@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Button from "@/components/button/Button";
 import MemberTableRow from "./MemberTableRow";
@@ -11,10 +11,8 @@ import RoleSelectionModal from "./RoleSelectionModal";
 import useRoleOptions from "./hooks/useRoleOptions";
 import ResponsiveModal from "@/components/responsiveModal";
 import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal";
-import { MemberResDto } from "@/types/interfaces";
-import { RoleOption } from "./hooks/useRoleOptions";
-import { banishMember } from "@/apis/group";
 import { Xmark } from "iconoir-react";
+import { RoleOption } from "./hooks/useRoleOptions";
 
 interface MemberManagementSectionProps {
   groupUuid: string;
@@ -26,18 +24,36 @@ const MemberManagementSection = ({
   userRole,
 }: MemberManagementSectionProps) => {
   const { t } = useTranslation();
+  const roleOptions = useRoleOptions();
+
+  // 멤버 관리 훅 사용
   const {
+    // 상태
     members,
     loading,
     roleChanges,
-    handleRoleChange,
-    handleComplete,
+    selectedMember,
+    selectedRole,
+    isRoleModalOpen,
+    isDeleteModalOpen,
+
+    // API 상호작용 함수
     fetchMembers,
-    setRoleChanges,
+    applyRoleChanges,
+    deleteMember,
+
+    // 역할 변경 관련 함수
+    selectRole,
+    cancelRoleChanges,
+
+    // 모달 상태 관리 함수
+    openRoleModal,
+    closeRoleModal,
+    openDeleteModal,
+    closeDeleteModal,
   } = useMemberManagement({ groupUuid });
 
-  const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
-
+  // 권한 체크
   const isAuthorizedForRoleChange = authorityChecker(userRole.authorities, [
     "ROLE_GRANT",
     "ROLE_REVOKE",
@@ -50,65 +66,40 @@ const MemberManagementSection = ({
 
   const isAdmin = roleNameChecker(userRole.roleName, "admin");
 
-  const roleOptions = useRoleOptions();
-
+  // 초기 데이터 로드
   useEffect(() => {
     if (groupUuid) {
       fetchMembers();
     }
   }, [groupUuid]);
 
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedMember, setSelectedMember] = useState<MemberResDto | null>(
-    null,
-  );
-  const [selectedRole, setSelectedRole] = useState<RoleOption | null>(null);
-
-  const handleRoleChangeClick = (member: MemberResDto, role: RoleOption) => {
-    setSelectedMember(member);
-    setSelectedRole(role);
-    setIsRoleModalOpen(true);
-  };
-
+  // 역할 선택 핸들러
   const handleRoleSelect = (role: RoleOption) => {
-    if (!selectedMember) return;
-    const defaultRole =
-      roleOptions.find((option) => option.name === selectedMember.role) ??
-      roleOptions[0];
-
-    handleRoleChange(selectedMember.uuid, defaultRole.id, role.id);
-    setSelectedRole(role);
+    selectRole(role, roleOptions);
   };
 
-  const handleDeleteClick = (member: MemberResDto) => {
-    setSelectedMember(member);
-    setIsDeleteModalOpen(true);
-  };
-
+  // 멤버 삭제 핸들러
   const handleDeleteConfirm = async () => {
-    if (selectedMember) {
-      try {
-        await banishMember(groupUuid, selectedMember.uuid);
-        alert(
-          t("manageGroup.members.banish.banishSuccess", {
-            name: selectedMember.name,
-          }),
-        );
-      } catch (error) {
-        alert(t("manageGroup.members.banish.banishFailed"));
-      } finally {
-        setIsDeleteModalOpen(false);
-        setSelectedMember(null);
-      }
+    const success = await deleteMember();
+    if (success) {
+      alert(
+        t("manageGroup.members.banish.banishSuccess", {
+          name: selectedMember?.name,
+        }),
+      );
+    } else {
+      alert(t("manageGroup.members.banish.banishFailed"));
     }
   };
 
   return (
     <div className="flex flex-col w-full justify-start items-start">
+      {/* 타이틀 */}
       <div className="text-dark dark:text-grey text-[28px] font-bold mb-4">
         {t("manageGroup.members.list.title")}
       </div>
 
+      {/* 멤버 테이블 */}
       <div className="w-full overflow-x-scroll overflow-y-visible mb-8">
         <table className="min-w-[800px]">
           <thead>
@@ -125,8 +116,8 @@ const MemberManagementSection = ({
                 }
                 isAdmin={isAdmin}
                 roleOptions={roleOptions}
-                onRoleChangeClick={handleRoleChangeClick}
-                onDeleteClick={handleDeleteClick}
+                onRoleChangeClick={openRoleModal}
+                onDeleteClick={openDeleteModal}
                 roleChanges={roleChanges}
               />
             ))}
@@ -134,18 +125,14 @@ const MemberManagementSection = ({
         </table>
       </div>
 
+      {/* 액션 버튼 영역 */}
       <div className="flex justify-center self-stretch gap-4">
         {Object.keys(roleChanges).length > 0 && (
           <Button
             size="big"
             variant="outlined"
             className="w-full md:w-40"
-            onClick={() => {
-              setRoleChanges({});
-              setIsRoleModalOpen(false);
-              setSelectedMember(null);
-              setSelectedRole(null);
-            }}
+            onClick={cancelRoleChanges}
           >
             {t("common.cancel")}
           </Button>
@@ -155,34 +142,25 @@ const MemberManagementSection = ({
           size="big"
           variant="emphasized"
           className="w-full md:w-40"
-          onClick={handleComplete}
+          onClick={applyRoleChanges}
           disabled={loading || Object.keys(roleChanges).length === 0}
         >
           {loading ? t("common.loading") : t("common.complete")}
         </Button>
       </div>
 
+      {/* 역할 선택 모달 */}
       <ResponsiveModal
         commonProps={{
           isOpen: isRoleModalOpen,
-          onClose: () => {
-            setIsRoleModalOpen(false);
-            setSelectedMember(null);
-            setSelectedRole(null);
-          },
+          onClose: closeRoleModal,
         }}
         modalProps={{
           isWithDefaultFrame: false,
           children: (
             <div className="bg-white py-6 rounded-3xl w-[300px]">
               <div className="w-full flex justify-end px-6 mb-2">
-                <Button
-                  onClick={() => {
-                    setIsRoleModalOpen(false);
-                    setSelectedMember(null);
-                    setSelectedRole(null);
-                  }}
-                >
+                <Button onClick={closeRoleModal}>
                   <Xmark className="w-6 h-6" />
                 </Button>
               </div>
@@ -200,13 +178,7 @@ const MemberManagementSection = ({
           children: (
             <div>
               <div className="w-full flex justify-end px-6 mb-2">
-                <Button
-                  onClick={() => {
-                    setIsRoleModalOpen(false);
-                    setSelectedMember(null);
-                    setSelectedRole(null);
-                  }}
-                >
+                <Button onClick={closeRoleModal}>
                   <Xmark className="w-6 h-6" />
                 </Button>
               </div>
@@ -221,12 +193,10 @@ const MemberManagementSection = ({
         }}
       />
 
+      {/* 삭제 확인 모달 */}
       <DeleteConfirmationModal
         isOpen={isDeleteModalOpen}
-        onClose={() => {
-          setIsDeleteModalOpen(false);
-          setSelectedMember(null);
-        }}
+        onClose={closeDeleteModal}
         onConfirm={handleDeleteConfirm}
         title={t("manageGroup.members.banish.banishWarning")}
         message={t("manageGroup.members.banish.banishConfirm", {
