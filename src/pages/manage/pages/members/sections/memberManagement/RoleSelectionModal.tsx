@@ -53,20 +53,6 @@ const RoleSelectionModal = ({
           );
         })}
       </div>
-
-      {selectedRole.id === 0 && (
-        <div className="w-full px-6 flex flex-col">
-          <div className="w-full flex justify-center items-center text-primary gap-1">
-            <WarningTriangle className="w-5 h-5" />
-
-            <div>{t("common.warning")}</div>
-          </div>
-
-          <div className="text-sm text-greyDark">
-            {t("manageGroup.members.list.changeRoleModal.warningDescription")}
-          </div>
-        </div>
-      )}
     </div>
   );
 };
