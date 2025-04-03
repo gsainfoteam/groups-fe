@@ -15,7 +15,7 @@ const ManageMembersPage = () => {
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       <InvitationSection groupUuid={group.uuid} userRole={userRole} />
-      <MemberManagementSection groupUuid={group.uuid} userRole={userRole} />
+      <MemberManagementSection group={group} userRole={userRole} />
       <RoleDescriptionSection />
     </div>
   );

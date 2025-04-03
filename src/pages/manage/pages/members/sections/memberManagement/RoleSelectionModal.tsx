@@ -3,7 +3,7 @@ import { RoleOption } from "./hooks/useRoleOptions";
 import { useTranslation } from "react-i18next";
 
 import { cn } from "@/utils/clsx";
-import { Check, WarningTriangle } from "iconoir-react";
+import { Check } from "iconoir-react";
 
 interface RoleSelectionModalProps {
   roleOptions: RoleOption[];

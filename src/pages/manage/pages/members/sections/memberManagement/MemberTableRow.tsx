@@ -8,13 +8,14 @@ import Loading from "@/components/loading/Loading";
 import { useTranslation } from "react-i18next";
 import { RoleOption } from "./hooks/useRoleOptions";
 import Button from "@/components/button/Button";
-import { NavArrowRight } from "iconoir-react";
+import { Crown, NavArrowRight } from "iconoir-react";
 
 interface MemberTableRowProps {
   member: MemberResDto;
   isAuthorizedForRoleChange: boolean;
   isAuthorizedForMemberBanishment: boolean;
   isAdmin: boolean;
+  isThisMemberPresident: boolean;
   roleOptions: RoleOption[];
   onRoleChangeClick: (member: MemberResDto, role: RoleOption) => void;
   onDeleteClick: (member: MemberResDto) => void;
@@ -26,6 +27,7 @@ const MemberTableRow = ({
   isAuthorizedForRoleChange,
   isAuthorizedForMemberBanishment,
   isAdmin,
+  isThisMemberPresident,
   roleOptions,
   onRoleChangeClick,
   onDeleteClick,
@@ -53,7 +55,11 @@ const MemberTableRow = ({
   return (
     <tr>
       {/* 이름 */}
-      <th className={cn(cellStyle, "text-greyDark")}>{member.name}</th>
+      <th className={cn(cellStyle, "text-greyDark")}>
+        <div className="flex items-center gap-2">
+          {member.name} {isThisMemberPresident && <Crown />}
+        </div>
+      </th>
       {/* 이메일 */}
       <td className={cn(cellStyle, "text-greyDark")}>
         {isAdmin ? (
@@ -71,9 +77,11 @@ const MemberTableRow = ({
           <>
             <Button
               onClick={() => onRoleChangeClick(member, displayRole)}
+              disabled={isThisMemberPresident}
               className={cn(
                 "flex justify-start items-center pl-3 pr-2.5 py-[5px] bg-greyLight rounded-[5px] w-full",
                 changedRole ? "text-primary" : "text-dark",
+                isThisMemberPresident && "text-grey",
               )}
             >
               <div className="flex gap-2 grow font-medium items-center">
@@ -92,7 +100,7 @@ const MemberTableRow = ({
       </td>
       {/* 추방 버튼 */}
       <td className={cn(cellStyle)}>
-        {isAuthorizedForMemberBanishment ? (
+        {isThisMemberPresident ? null : isAuthorizedForMemberBanishment ? (
           <button
             className="underline text-grey text-base font-medium"
             onClick={() => onDeleteClick(member)}

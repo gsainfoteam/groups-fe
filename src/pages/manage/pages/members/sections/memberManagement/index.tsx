@@ -13,14 +13,14 @@ import ResponsiveModal from "@/components/responsiveModal";
 import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal";
 import { Xmark } from "iconoir-react";
 import { RoleOption } from "./hooks/useRoleOptions";
-
+import { ExpandedGroupInfo } from "@/types/interfaces";
 interface MemberManagementSectionProps {
-  groupUuid: string;
+  group: ExpandedGroupInfo;
   userRole: UserRole;
 }
 
 const MemberManagementSection = ({
-  groupUuid,
+  group,
   userRole,
 }: MemberManagementSectionProps) => {
   const { t } = useTranslation();
@@ -51,7 +51,7 @@ const MemberManagementSection = ({
     closeRoleModal,
     openDeleteModal,
     closeDeleteModal,
-  } = useMemberManagement({ groupUuid });
+  } = useMemberManagement({ groupUuid: group.uuid });
 
   // 권한 체크
   const isAuthorizedForRoleChange = authorityChecker(userRole.authorities, [
@@ -68,10 +68,10 @@ const MemberManagementSection = ({
 
   // 초기 데이터 로드
   useEffect(() => {
-    if (groupUuid) {
+    if (group.uuid) {
       fetchMembers();
     }
-  }, [groupUuid]);
+  }, [group.uuid]);
 
   // 역할 선택 핸들러
   const handleRoleSelect = (role: RoleOption) => {
@@ -106,21 +106,27 @@ const MemberManagementSection = ({
             <MemberTableHead />
           </thead>
           <tbody>
-            {members.map((member) => (
-              <MemberTableRow
-                key={member.uuid}
-                member={member}
-                isAuthorizedForRoleChange={isAuthorizedForRoleChange}
-                isAuthorizedForMemberBanishment={
-                  isAuthorizedForMemberBanishment
-                }
-                isAdmin={isAdmin}
-                roleOptions={roleOptions}
-                onRoleChangeClick={openRoleModal}
-                onDeleteClick={openDeleteModal}
-                roleChanges={roleChanges}
-              />
-            ))}
+            {members.map((member) => {
+              const isThisMemberPresident =
+                member.uuid === group.president.uuid;
+
+              return (
+                <MemberTableRow
+                  key={member.uuid}
+                  member={member}
+                  isAuthorizedForRoleChange={isAuthorizedForRoleChange}
+                  isAuthorizedForMemberBanishment={
+                    isAuthorizedForMemberBanishment
+                  }
+                  isAdmin={isAdmin}
+                  isThisMemberPresident={isThisMemberPresident}
+                  roleOptions={roleOptions}
+                  onRoleChangeClick={openRoleModal}
+                  onDeleteClick={openDeleteModal}
+                  roleChanges={roleChanges}
+                />
+              );
+            })}
           </tbody>
         </table>
       </div>

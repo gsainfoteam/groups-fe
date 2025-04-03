@@ -29,7 +29,11 @@ const ResponsiveModal = (props: ResponsiveModalProps) => {
   }
 
   return commonProps.isOpen ? (
-    <Modal {...modalProps} onClose={commonProps.onClose}>
+    <Modal
+      {...modalProps}
+      onClose={commonProps.onClose}
+      isOpen={commonProps.isOpen}
+    >
       {modalProps.children}
     </Modal>
   ) : null;

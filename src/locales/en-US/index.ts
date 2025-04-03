@@ -309,8 +309,8 @@ export const main = {
           name: "Name",
           email: "Email",
           role: "Role",
-          expel: "Expel",
-          expelButton: "Expel",
+          banish: "Banish",
+          banishButton: "Banish",
         },
       },
       banish: {
