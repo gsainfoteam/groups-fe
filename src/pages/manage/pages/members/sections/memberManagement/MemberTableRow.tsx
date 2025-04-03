@@ -17,6 +17,7 @@ interface MemberTableRowProps {
   isAdmin: boolean;
   isPresident: boolean;
   isThisMemberPresident: boolean;
+  isThisMemberMe: boolean;
   roleOptions: RoleOption[];
   onRoleChangeClick: (member: MemberResDto, role: RoleOption) => void;
   onDeleteClick: (member: MemberResDto) => void;
@@ -31,6 +32,7 @@ const MemberTableRow = ({
   isAdmin,
   isPresident,
   isThisMemberPresident,
+  isThisMemberMe,
   roleOptions,
   onRoleChangeClick,
   onDeleteClick,
@@ -104,7 +106,8 @@ const MemberTableRow = ({
       </td>
       {/* 추방 버튼 */}
       <td className={cn(cellStyle)}>
-        {isThisMemberPresident ? null : isAuthorizedForMemberBanishment ? (
+        {isThisMemberPresident ||
+        isThisMemberMe ? null : isAuthorizedForMemberBanishment ? (
           <Button
             className="underline text-grey text-base font-medium"
             onClick={() => onDeleteClick(member)}

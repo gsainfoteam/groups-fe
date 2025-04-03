@@ -131,7 +131,7 @@ const MemberManagementSection = ({
             {members.map((member) => {
               const isThisMemberPresident =
                 member.uuid === group.president.uuid;
-
+              const isThisMemberMe = member.uuid === userInfo?.uuid;
               return (
                 <MemberTableRow
                   key={member.uuid}
@@ -143,6 +143,7 @@ const MemberManagementSection = ({
                   isAdmin={isAdmin}
                   isPresident={isPresident}
                   isThisMemberPresident={isThisMemberPresident}
+                  isThisMemberMe={isThisMemberMe}
                   roleOptions={roleOptions}
                   onRoleChangeClick={openRoleModal}
                   onDeleteClick={openBanishModal}
