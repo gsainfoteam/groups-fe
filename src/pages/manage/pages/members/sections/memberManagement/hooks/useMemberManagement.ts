@@ -22,7 +22,7 @@ export const useMemberManagement = ({
   );
   const [selectedRole, setSelectedRole] = useState<RoleOption | null>(null);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isBanishModalOpen, setIsBanishModalOpen] = useState(false);
 
   const fetchMembers = async () => {
     try {
@@ -66,7 +66,7 @@ export const useMemberManagement = ({
       console.error("멤버 추방 중 오류 발생:", error);
       return false;
     } finally {
-      closeDeleteModal();
+      closeBanishModal();
     }
   };
 
@@ -117,13 +117,13 @@ export const useMemberManagement = ({
     setSelectedRole(null);
   };
 
-  const openDeleteModal = (member: MemberResDto) => {
+  const openBanishModal = (member: MemberResDto) => {
     setSelectedMember(member);
-    setIsDeleteModalOpen(true);
+    setIsBanishModalOpen(true);
   };
 
-  const closeDeleteModal = () => {
-    setIsDeleteModalOpen(false);
+  const closeBanishModal = () => {
+    setIsBanishModalOpen(false);
     setSelectedMember(null);
   };
 
@@ -134,7 +134,7 @@ export const useMemberManagement = ({
     selectedMember,
     selectedRole,
     isRoleModalOpen,
-    isDeleteModalOpen,
+    isBanishModalOpen,
 
     fetchMembers,
     applyRoleChanges,
@@ -146,7 +146,7 @@ export const useMemberManagement = ({
 
     openRoleModal,
     closeRoleModal,
-    openDeleteModal,
-    closeDeleteModal,
+    openBanishModal,
+    closeBanishModal,
   };
 };

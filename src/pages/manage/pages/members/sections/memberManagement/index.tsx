@@ -14,6 +14,7 @@ import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal"
 import { Xmark } from "iconoir-react";
 import { RoleOption } from "./hooks/useRoleOptions";
 import { ExpandedGroupInfo } from "@/types/interfaces";
+import BanishModal from "./BanishModal";
 interface MemberManagementSectionProps {
   group: ExpandedGroupInfo;
   userRole: UserRole;
@@ -35,7 +36,7 @@ const MemberManagementSection = ({
     selectedMember,
     selectedRole,
     isRoleModalOpen,
-    isDeleteModalOpen,
+    isBanishModalOpen,
 
     // API 상호작용 함수
     fetchMembers,
@@ -49,8 +50,8 @@ const MemberManagementSection = ({
     // 모달 상태 관리 함수
     openRoleModal,
     closeRoleModal,
-    openDeleteModal,
-    closeDeleteModal,
+    openBanishModal,
+    closeBanishModal,
   } = useMemberManagement({ groupUuid: group.uuid });
 
   // 권한 체크
@@ -122,7 +123,7 @@ const MemberManagementSection = ({
                   isThisMemberPresident={isThisMemberPresident}
                   roleOptions={roleOptions}
                   onRoleChangeClick={openRoleModal}
-                  onDeleteClick={openDeleteModal}
+                  onDeleteClick={openBanishModal}
                   roleChanges={roleChanges}
                 />
               );
@@ -199,15 +200,29 @@ const MemberManagementSection = ({
         }}
       />
 
-      {/* 삭제 확인 모달 */}
-      <DeleteConfirmationModal
-        isOpen={isDeleteModalOpen}
-        onClose={closeDeleteModal}
-        onConfirm={handleDeleteConfirm}
-        title={t("manageGroup.members.banish.banishWarning")}
-        message={t("manageGroup.members.banish.banishConfirm", {
-          name: selectedMember?.name,
-        })}
+      <ResponsiveModal
+        commonProps={{
+          isOpen: isBanishModalOpen,
+          onClose: closeBanishModal,
+        }}
+        modalProps={{
+          children: (
+            <BanishModal
+              onClose={closeBanishModal}
+              onConfirm={handleDeleteConfirm}
+              targetMemberName={selectedMember?.name || ""}
+            />
+          ),
+        }}
+        bottomSheetProps={{
+          children: (
+            <BanishModal
+              onClose={closeBanishModal}
+              onConfirm={handleDeleteConfirm}
+              targetMemberName={selectedMember?.name || ""}
+            />
+          ),
+        }}
       />
     </div>
   );

@@ -9,7 +9,7 @@ const DefaultCard = forwardRef(
     ref: ForwardedRef<HTMLDivElement>,
   ) => {
     return (
-      <div ref={ref} className="bg-white w-[600px] p-6 rounded-2xl box-border">
+      <div ref={ref} className="bg-white w-[400px] p-6 rounded-2xl box-border">
         <div className="w-full flex justify-end mb-2">
           <Button onClick={onClose}>
             <Xmark className="w-6 h-6 text-dark" />

@@ -305,10 +305,9 @@ export const main = {
       banish: {
         banishing: "추방 중...",
         banish: "추방하기",
-        banishWarning: "⚠️ 추방 경고 ⚠️",
         banishSuccess: "멤버 {{name}}의 추방이 성공적으로 이뤄졌습니다.",
         banishFailed: "추방에 실패했습니다. 다시 시도해주세요.",
-        banishConfirm: "정말로 멤버 {{name}}을/를 추방하시겠습니까?",
+        banishConfirm: "정말로 {{name}}님을 추방하시겠습니까?",
         banishAriaLabel: "{{name}} 멤버 추방하기",
       },
       role: {

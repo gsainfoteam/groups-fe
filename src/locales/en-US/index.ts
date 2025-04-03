@@ -316,7 +316,6 @@ export const main = {
       banish: {
         banishing: "Banishing...",
         banish: "Banish",
-        banishWarning: "⚠️ Banish Warning ⚠️",
         banishSuccess: "Member {{name}} has been successfully banished.",
         banishFailed: "Failed to banish member. Please try again.",
         banishConfirm: "Are you sure you want to banish member {{name}}?",
