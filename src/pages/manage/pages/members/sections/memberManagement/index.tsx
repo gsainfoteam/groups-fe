@@ -14,6 +14,7 @@ import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal"
 import { MemberResDto } from "@/types/interfaces";
 import { RoleOption } from "./hooks/useRoleOptions";
 import { banishMember } from "@/apis/group";
+import { Xmark } from "iconoir-react";
 
 interface MemberManagementSectionProps {
   groupUuid: string;
@@ -32,14 +33,10 @@ const MemberManagementSection = ({
     handleRoleChange,
     handleComplete,
     fetchMembers,
+    setRoleChanges,
   } = useMemberManagement({ groupUuid });
 
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [selectedMember, setSelectedMember] = useState<MemberResDto | null>(
-    null,
-  );
-  const [selectedRole, setSelectedRole] = useState<RoleOption | null>(null);
 
   const isAuthorizedForRoleChange = authorityChecker(userRole.authorities, [
     "ROLE_GRANT",
@@ -61,23 +58,26 @@ const MemberManagementSection = ({
     }
   }, [groupUuid]);
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<MemberResDto | null>(
+    null,
+  );
+  const [selectedRole, setSelectedRole] = useState<RoleOption | null>(null);
+
   const handleRoleChangeClick = (member: MemberResDto, role: RoleOption) => {
     setSelectedMember(member);
     setSelectedRole(role);
     setIsRoleModalOpen(true);
   };
 
-  const handleRoleChangeConfirm = () => {
-    if (selectedMember && selectedRole) {
-      const defaultRole =
-        roleOptions.find((option) => option.value === selectedMember.role) ||
-        roleOptions[0];
+  const handleRoleSelect = (role: RoleOption) => {
+    if (!selectedMember) return;
+    const defaultRole =
+      roleOptions.find((option) => option.name === selectedMember.role) ??
+      roleOptions[0];
 
-      handleRoleChange(selectedMember.uuid, defaultRole.id, selectedRole.id);
-      setIsRoleModalOpen(false);
-      setSelectedMember(null);
-      setSelectedRole(null);
-    }
+    handleRoleChange(selectedMember.uuid, defaultRole.id, role.id);
+    setSelectedRole(role);
   };
 
   const handleDeleteClick = (member: MemberResDto) => {
@@ -104,12 +104,12 @@ const MemberManagementSection = ({
   };
 
   return (
-    <div className="flex flex-col w-full justify-start items-start gap-[15px]">
-      <div className="text-dark dark:text-grey text-[28px] font-bold">
+    <div className="flex flex-col w-full justify-start items-start">
+      <div className="text-dark dark:text-grey text-[28px] font-bold mb-4">
         {t("manageGroup.members.list.title")}
       </div>
 
-      <div className="w-full overflow-x-scroll overflow-y-visible">
+      <div className="w-full overflow-x-scroll overflow-y-visible mb-8">
         <table className="min-w-[800px]">
           <thead>
             <MemberTableHead />
@@ -119,7 +119,6 @@ const MemberManagementSection = ({
               <MemberTableRow
                 key={member.uuid}
                 member={member}
-                onRoleChange={handleRoleChange}
                 isAuthorizedForRoleChange={isAuthorizedForRoleChange}
                 isAuthorizedForMemberBanishment={
                   isAuthorizedForMemberBanishment
@@ -128,17 +127,34 @@ const MemberManagementSection = ({
                 roleOptions={roleOptions}
                 onRoleChangeClick={handleRoleChangeClick}
                 onDeleteClick={handleDeleteClick}
+                roleChanges={roleChanges}
               />
             ))}
           </tbody>
         </table>
       </div>
 
-      <div className="flex justify-center self-stretch">
+      <div className="flex justify-center self-stretch gap-4">
+        {Object.keys(roleChanges).length > 0 && (
+          <Button
+            size="big"
+            variant="outlined"
+            className="w-full md:w-40"
+            onClick={() => {
+              setRoleChanges({});
+              setIsRoleModalOpen(false);
+              setSelectedMember(null);
+              setSelectedRole(null);
+            }}
+          >
+            {t("common.cancel")}
+          </Button>
+        )}
+
         <Button
-          size="cta"
+          size="big"
           variant="emphasized"
-          className="w-full md:w-60"
+          className="w-full md:w-40"
           onClick={handleComplete}
           disabled={loading || Object.keys(roleChanges).length === 0}
         >
@@ -158,30 +174,49 @@ const MemberManagementSection = ({
         modalProps={{
           isWithDefaultFrame: false,
           children: (
-            <RoleSelectionModal
-              roleOptions={roleOptions}
-              selectedRole={selectedRole || roleOptions[0]}
-              targetMemberName={selectedMember?.name || ""}
-              onClose={() => {
-                setIsRoleModalOpen(false);
-                setSelectedMember(null);
-                setSelectedRole(null);
-              }}
-            />
+            <div className="bg-white py-6 rounded-3xl w-[300px]">
+              <div className="w-full flex justify-end px-6 mb-2">
+                <Button
+                  onClick={() => {
+                    setIsRoleModalOpen(false);
+                    setSelectedMember(null);
+                    setSelectedRole(null);
+                  }}
+                >
+                  <Xmark className="w-6 h-6" />
+                </Button>
+              </div>
+
+              <RoleSelectionModal
+                roleOptions={roleOptions}
+                selectedRole={selectedRole || roleOptions[0]}
+                targetMemberName={selectedMember?.name || ""}
+                onRoleSelect={handleRoleSelect}
+              />
+            </div>
           ),
         }}
         bottomSheetProps={{
           children: (
-            <RoleSelectionModal
-              roleOptions={roleOptions}
-              selectedRole={selectedRole || roleOptions[0]}
-              targetMemberName={selectedMember?.name || ""}
-              onClose={() => {
-                setIsRoleModalOpen(false);
-                setSelectedMember(null);
-                setSelectedRole(null);
-              }}
-            />
+            <div>
+              <div className="w-full flex justify-end px-6 mb-2">
+                <Button
+                  onClick={() => {
+                    setIsRoleModalOpen(false);
+                    setSelectedMember(null);
+                    setSelectedRole(null);
+                  }}
+                >
+                  <Xmark className="w-6 h-6" />
+                </Button>
+              </div>
+              <RoleSelectionModal
+                roleOptions={roleOptions}
+                selectedRole={selectedRole || roleOptions[0]}
+                targetMemberName={selectedMember?.name || ""}
+                onRoleSelect={handleRoleSelect}
+              />
+            </div>
           ),
         }}
       />

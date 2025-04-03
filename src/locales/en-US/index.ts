@@ -12,6 +12,7 @@ export const main = {
     translationLoading: "Translation loading",
     complete: "Complete",
     warning: "Warning",
+    cancel: "Cancel",
   },
   navbar: {
     login: "Login",

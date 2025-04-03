@@ -73,5 +73,6 @@ export const useMemberManagement = ({
     handleRoleChange,
     handleComplete,
     fetchMembers,
+    setRoleChanges,
   };
 };

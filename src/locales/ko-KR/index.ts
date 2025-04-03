@@ -12,6 +12,7 @@ export const main = {
     translationLoading: "번역 로딩 중",
     complete: "완료",
     warning: "주의",
+    cancel: "취소",
   },
   navbar: {
     login: "로그인",

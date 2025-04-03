@@ -1,21 +1,22 @@
 import Button from "@/components/button/Button";
 import { RoleOption } from "./hooks/useRoleOptions";
 import { useTranslation } from "react-i18next";
-import { ModalProps } from "@/components/modal";
+
 import { cn } from "@/utils/clsx";
 import { Check, WarningTriangle } from "iconoir-react";
 
-interface RoleSelectionModalProps extends Pick<ModalProps, "onClose"> {
+interface RoleSelectionModalProps {
   roleOptions: RoleOption[];
   selectedRole: RoleOption;
   targetMemberName: string;
+  onRoleSelect: (role: RoleOption) => void;
 }
 
 const RoleSelectionModal = ({
   roleOptions,
   selectedRole,
   targetMemberName,
-  onClose,
+  onRoleSelect,
 }: RoleSelectionModalProps) => {
   const { t } = useTranslation();
 
@@ -39,6 +40,7 @@ const RoleSelectionModal = ({
                 "py-3 px-6 bg-greyLight flex justify-between items-center border-t border-solid border-t-greyBorder w-full",
                 isThisRoleSelected ? "text-primary" : "text-dark",
               )}
+              onClick={() => onRoleSelect(roleOption)}
             >
               <div className="flex items-center gap-4">
                 <roleOption.icon className="w-6 h-6" />
