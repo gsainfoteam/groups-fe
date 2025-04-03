@@ -5,7 +5,6 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
-import DeleteConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import Loading from "@/components/loading/Loading";

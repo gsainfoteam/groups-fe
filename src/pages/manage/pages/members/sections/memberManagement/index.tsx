@@ -10,7 +10,6 @@ import { UserRole } from "@/pages/manage/ManageLayout";
 import RoleSelectionModal from "./RoleSelectionModal";
 import useRoleOptions from "./hooks/useRoleOptions";
 import ResponsiveModal from "@/components/responsiveModal";
-import DeleteConfirmationModal from "../../../groupInfo/components/ConfirmModal";
 import { Xmark } from "iconoir-react";
 import { RoleOption } from "./hooks/useRoleOptions";
 import { ExpandedGroupInfo } from "@/types/interfaces";

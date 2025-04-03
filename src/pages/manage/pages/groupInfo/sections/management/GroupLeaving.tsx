@@ -4,7 +4,6 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
 import { leavingGroup } from "@/apis/group";
-import ConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import useAuth from "@/hooks/useAuth";
