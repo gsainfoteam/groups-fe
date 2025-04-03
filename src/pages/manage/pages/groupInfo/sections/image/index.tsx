@@ -46,9 +46,9 @@ const ImageSection = ({ group, userRole }: ImageSectionProps) => {
       setIsUploading(true);
       try {
         await setGroupProfileImage(group.uuid, newProfileImage);
-        alert(t("manage.groupInfo.image.success"));
+        alert(t("manageGroup.groupInfo.groupPic.success"));
       } catch {
-        alert(t("manage.groupInfo.image.error"));
+        alert(t("manageGroup.groupInfo.groupPic.error"));
       } finally {
         setIsUploading(false);
         setIsEditingProfileImage(false);
@@ -71,36 +71,38 @@ const ImageSection = ({ group, userRole }: ImageSectionProps) => {
           previewImage ? (
             <img
               src={previewImage}
-              alt={t("manage.groupInfo.image.newPreview")}
+              alt={t("manageGroup.groupInfo.groupPic.newPreview")}
               className="w-full h-full object-cover rounded-full"
             />
           ) : (
             <span className="text-greyDark">
-              {t("manage.groupInfo.image.selectNew")}
+              {t("manageGroup.groupInfo.groupPic.selectNew")}
             </span>
           )
         ) : group.profileImageUrl ? (
           <img
             src={group.profileImageUrl}
-            alt={t("manage.groupInfo.image.profile")}
+            alt={t("manageGroup.groupInfo.groupPic.profile")}
             className="w-full h-full object-cover rounded-full"
           />
         ) : (
           <span className="text-greyDark">
-            {t("manage.groupInfo.image.none")}
+            {t("manageGroup.groupInfo.groupPic.none")}
           </span>
         )}
       </div>
 
       {isUploading ? (
-        <p className="text-greyDark">{t("manage.groupInfo.image.changing")}</p>
+        <p className="text-greyDark">
+          {t("manageGroup.groupInfo.groupPic.changing")}
+        </p>
       ) : isEditingProfileImage ? (
         <div className="flex gap-4">
           <Button size="big" variant="emphasized" onClick={handleConfirmChange}>
-            {t("manage.groupInfo.image.confirm")}
+            {t("manageGroup.groupInfo.groupPic.confirm")}
           </Button>
           <Button size="big" variant="outlined" onClick={handleCancelChange}>
-            {t("manage.groupInfo.image.cancel")}
+            {t("manageGroup.groupInfo.groupPic.cancel")}
           </Button>
         </div>
       ) : (

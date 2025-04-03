@@ -10,6 +10,9 @@ export const main = {
     backToHome: "Back to Home",
     loadingError: "There was a problem loading data.",
     translationLoading: "Translation loading",
+    complete: "Complete",
+    warning: "Warning",
+    cancel: "Cancel",
   },
   navbar: {
     login: "Login",
@@ -189,8 +192,8 @@ export const main = {
         "You can attach your beautiful Notion link to the group introduction. \nAfter publishing your group introduction Notion on the web, please paste the link here.",
       placeholder: "Paste your Notion link here",
       exceptions: {
-        invalidLink: "Invalid Notion link.",
-        customDomain: "Custom domains are not supported.",
+        invalidNotionLink: "Invalid Notion link.",
+        customDomainNotSupported: "Custom domains are not supported.",
       },
     },
     complete: {
@@ -209,32 +212,66 @@ export const main = {
 
   manageGroup: {
     goBack: "Back",
+    invalidGroupId: "Invalid group ID.",
+    invalidGroup: "Invalid group.",
+    tabs: {
+      groupInfo: "Basic Info",
+      intro: "Introduction",
+      members: "Members",
+    },
     groupInfo: {
       name: "Basic Info",
       groupPic: {
         title: "Change Group Profile Picture",
+        selectNew: "Select a new image",
+        none: "No image",
+        changing: "Changing profile picture...",
+        success: "Profile picture has been successfully changed!",
+        error: "An error occurred while changing the profile picture.",
+        confirm: "Confirm Change",
+        cancel: "Cancel",
+        newPreview: "New profile preview",
+        profile: "Group profile",
       },
       groupName: {
         title: "Group Name",
+        description: "Change Group Name",
+        button: "Change",
+        success: "Group name has been changed.",
+        error: "Failed to change group name: {{message}}",
       },
       groupIntro: {
         title: "Group Introduction",
         description: "Change Group Introduction",
         button: "Change",
+        success: "Group description has been changed.",
+        error: "Failed to change group description: {{message}}",
+        noDescription: "No group description",
       },
       groupDelete: {
         title: "Delete Group",
         description:
           "Notices posted under this group name will not be affected. This action cannot be undone.",
         button: "Delete",
+        success: "Group has been successfully deleted.",
+        error: "An error occurred while deleting the group.",
+        deleting: "Deleting...",
+        confirm: "Are you sure you want to delete this group?",
+        console: {
+          error: "Error while deleting group:",
+        },
       },
       groupLeave: {
         title: "Leave Group",
         description:
           "Notices posted under this group name will not be affected. You can rejoin if invited again after leaving the group.",
         button: "Leave",
+        success: "You have successfully left the group.",
+        error: "Failed to leave the group. Please try again.",
+        leaving: "Leaving...",
+        confirm: "Are you sure you want to leave this group?",
+        presidentCannot: "Group president cannot perform this action.",
       },
-      complete: "Complete",
     },
     notionlink: {
       name: "Notion Link",
@@ -248,24 +285,50 @@ export const main = {
       placeholder: "paste notion link here",
       button: "Change",
       loading: "Loading Notion...",
-      complete: "Complete",
+      emptyLink: "Please enter a new Notion link.",
+      success: "Notion link has been changed.",
+      error: "Failed to change Notion link. Please try again.",
+      loadError: "Failed to load Notion page.",
+      console: {
+        invalidFormat: "Invalid Notion link format.",
+        changeFailed: "Failed to change Notion link:",
+      },
     },
     members: {
       name: "Member",
-      invite: {
-        title: "Group Member Invitation Link",
-        expire: "Expires in 1 day",
-        description: "Click the link to copy it.",
-      },
+      createInviteLink: "Create Invitation Link",
       list: {
         title: "Manage Members",
+        changeRoleModal: {
+          title: "Change Member Role",
+          warningDescription: "Your role will be changed to admin.",
+        },
         table: {
           name: "Name",
           email: "Email",
           role: "Role",
-          expel: "Expel",
-          expelButton: "Expel",
+          banish: "Banish",
+          president: "Appoint President",
+          banishButton: "Banish",
+          appointPresident: "Appoint President",
+          presidentRequired:
+            "Only the group president can perform this operation.",
         },
+      },
+      banish: {
+        banishing: "Banishing...",
+        banish: "Banish",
+        banishSuccess: "Member {{name}} has been successfully banished.",
+        banishFailed: "Failed to banish member. Please try again.",
+        banishConfirm: "Are you sure you want to banish member {{name}}?",
+        banishAriaLabel: "Banish member {{name}}",
+      },
+      changePresident: {
+        title: "Appoint {{name}} as the group president?",
+        description: "Your role will be changed to admin.",
+        success:
+          "{{name}} has been successfully appointed as the group president.",
+        error: "Failed to appoint group president. Please try again.",
       },
       role: {
         title: "💡 Member Roles",
@@ -285,7 +348,6 @@ export const main = {
             "Can only leave the group but is displayed as a group member on the group intro page.",
         },
       },
-      complete: "Complete",
     },
     noPermission: "{{requiredRoleName}} or higher can perform this operation.",
   },
@@ -298,6 +360,7 @@ export const main = {
   },
 
   role: {
+    president: "Group President",
     admin: "Admin",
     manager: "Manager",
     member: "Member",
@@ -310,75 +373,5 @@ export const main = {
 
   pagination: {
     of: "of",
-  },
-
-  manage: {
-    invalidGroupId: "Invalid group ID.",
-    invalidGroup: "Invalid group.",
-    tabs: {
-      groupInfo: "Basic Info",
-      intro: "Introduction",
-      members: "Members",
-    },
-    members: {
-      banishing: "Banishing...",
-      banish: "Banish",
-      banishWarning: "⚠️ Banish Warning ⚠️",
-      banishSuccess: "Member {{name}} has been successfully banished.",
-      banishFailed: "Failed to banish member. Please try again.",
-      banishConfirm: "Are you sure you want to banish member {{name}}?",
-      banishAriaLabel: "Banish member {{name}}",
-      createInviteLink: "Create Invitation Link",
-    },
-    groupInfo: {
-      image: {
-        selectNew: "Select a new image",
-        none: "No image",
-        changing: "Changing profile picture...",
-        success: "Profile picture has been successfully changed!",
-        error: "An error occurred while changing the profile picture.",
-        confirm: "Confirm Change",
-        cancel: "Cancel",
-        newPreview: "New profile preview",
-        profile: "Group profile",
-      },
-      name: {
-        success: "Group name has been changed.",
-        error: "Failed to change group name: {{message}}",
-      },
-      description: {
-        success: "Group description has been changed.",
-        error: "Failed to change group description: {{message}}",
-        noDescription: "No group description",
-      },
-      delete: {
-        success: "Group has been successfully deleted.",
-        error: "An error occurred while deleting the group.",
-        deleting: "Deleting...",
-        warning: "⚠️ Group Deletion Warning ⚠️",
-        confirm: "Are you sure you want to delete this group?",
-        console: {
-          error: "Error while deleting group:",
-        },
-      },
-      leave: {
-        success: "You have successfully left the group.",
-        error: "Failed to leave the group. Please try again.",
-        leaving: "Leaving...",
-        warning: "⚠️ Leave Group Warning ⚠️",
-        confirm: "Are you sure you want to leave this group?",
-        presidentCannot: "Group president cannot perform this action.",
-      },
-    },
-    notion: {
-      emptyLink: "Please enter a new Notion link.",
-      success: "Notion link has been changed.",
-      error: "Failed to change Notion link. Please try again.",
-      loadError: "Failed to load Notion page.",
-      console: {
-        invalidFormat: "Invalid Notion link format.",
-        changeFailed: "Failed to change Notion link:",
-      },
-    },
   },
 };

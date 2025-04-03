@@ -5,10 +5,11 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
 import { deleteGroup } from "@/apis/group";
-import DeleteConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import Loading from "@/components/loading/Loading";
+import ResponsiveModal from "@/components/responsiveModal";
+import GroupDeleteModal from "./GroupDeleteModal";
 
 const GroupDeleteComponent = () => {
   const { t } = useTranslation();
@@ -35,12 +36,15 @@ const GroupDeleteComponent = () => {
     setIsDeleting(true);
     deleteGroup(group.uuid)
       .then(() => {
-        alert(t("manage.groupInfo.delete.success"));
+        alert(t("manageGroup.groupInfo.groupDelete.success"));
         navigate("/");
       })
       .catch((error) => {
-        console.error(t("manage.groupInfo.delete.console.error"), error);
-        alert(t("manage.groupInfo.delete.error"));
+        console.error(
+          t("manageGroup.groupInfo.groupDelete.console.error"),
+          error,
+        );
+        alert(t("manageGroup.groupInfo.groupDelete.error"));
       })
       .finally(() => {
         setIsDeleting(false);
@@ -71,18 +75,32 @@ const GroupDeleteComponent = () => {
           disabled={isDeleting || !isAuthorized}
         >
           {isDeleting
-            ? t("manage.groupInfo.delete.deleting")
+            ? t("manageGroup.groupInfo.groupDelete.deleting")
             : t("manageGroup.groupInfo.groupDelete.button")}
         </Button>
       </div>
 
-      {/* 그룹 삭제 확인 모달 */}
-      <DeleteConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmDelete}
-        title={t("manage.groupInfo.delete.warning")}
-        message={t("manage.groupInfo.delete.confirm")}
+      <ResponsiveModal
+        commonProps={{
+          isOpen: isModalOpen,
+          onClose: handleCloseModal,
+        }}
+        modalProps={{
+          children: (
+            <GroupDeleteModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmDelete}
+            />
+          ),
+        }}
+        bottomSheetProps={{
+          children: (
+            <GroupDeleteModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmDelete}
+            />
+          ),
+        }}
       />
     </>
   );

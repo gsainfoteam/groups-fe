@@ -169,12 +169,23 @@ interface GetUserRoleResponse {
 export const getUserRole = async (groupId: string) => {
   return groupsApi
     .get<GetUserRoleResponse>(`/group/${groupId}/role`)
-    .then(({data}) => data);
-}
+    .then(({ data }) => data);
+};
 
 export const leavingGroup = async (GroupUuid: string) => {
   return groupsApi
     .delete(`/group/${GroupUuid}/member/leave`)
-    .then(()=>{console.log(`Successfully withdrew from the group`)})
-    .catch((err)=>console.error(err))
-}
+    .then(() => {
+      console.log(`Successfully withdrew from the group`);
+    })
+    .catch((err) => console.error(err));
+};
+
+export const changePresident = async (
+  groupUuid: string,
+  newPresidentUuid: string,
+) => {
+  return groupsApi.patch(`/group/${groupUuid}/president`, {
+    newPresidentUuid,
+  });
+};

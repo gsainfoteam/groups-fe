@@ -19,10 +19,12 @@ const GroupNameSection = ({ group, userRole }: GroupNameSectionProps) => {
     group,
     onSuccess: () => {
       setNewGroupName("");
-      alert(t("manage.groupInfo.name.success"));
+      alert(t("manageGroup.groupInfo.groupName.success"));
     },
     onError: (error) => {
-      alert(t("manage.groupInfo.name.error", { message: error.message }));
+      alert(
+        t("manageGroup.groupInfo.groupName.error", { message: error.message }),
+      );
     },
   });
 

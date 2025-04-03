@@ -32,7 +32,7 @@ const ManageNotionLinkPage = () => {
 
   const handleNotionLinkChange = async () => {
     if (!newNotionLink.trim()) {
-      alert(t("manage.notion.emptyLink"));
+      alert(t("manageGroup.notionlink.emptyLink"));
       return;
     }
 
@@ -41,17 +41,17 @@ const ManageNotionLinkPage = () => {
       const notionPageId = parseNotionPageId(newNotionLink);
 
       if (!notionPageId) {
-        console.error(t("manage.notion.console.invalidFormat"));
+        console.error(t("manageGroup.notionlink.console.invalidFormat"));
         return;
       }
 
       await changeGroupInfo(group.uuid, { notionPageId });
 
       setNewNotionLink("");
-      alert(t("manage.notion.success"));
+      alert(t("manageGroup.notionlink.success"));
     } catch (error) {
-      console.error(t("manage.notion.console.changeFailed"), error);
-      alert(t("manage.notion.error"));
+      console.error(t("manageGroup.notionlink.console.changeFailed"), error);
+      alert(t("manageGroup.notionlink.error"));
     }
   };
 
@@ -112,7 +112,7 @@ const ManageNotionLinkPage = () => {
           </div>
         ) : (
           <div className="text-center text-[#ff6e6e] text-base font-semibold font-['Pretendard']">
-            {t("manage.notion.loadError")}
+            {t("manageGroup.notionlink.loadError")}
           </div>
         )}
       </div>

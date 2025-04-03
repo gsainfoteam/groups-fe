@@ -25,11 +25,11 @@ const GroupDescriptionSection = ({
     group,
     onSuccess: () => {
       setNewGroupDes("");
-      alert(t("manage.groupInfo.description.success"));
+      alert(t("manageGroup.groupInfo.groupIntro.success"));
     },
     onError: (error) => {
       alert(
-        t("manage.groupInfo.description.error", { message: error.message }),
+        t("manageGroup.groupInfo.groupIntro.error", { message: error.message }),
       );
     },
   });
@@ -61,7 +61,7 @@ const GroupDescriptionSection = ({
             )}
             placeholder={
               group.description ??
-              t("manage.groupInfo.description.noDescription")
+              t("manageGroup.groupInfo.groupIntro.noDescription")
             }
             value={newGroupDes}
             onChange={(e) => setNewGroupDes(e.target.value)}

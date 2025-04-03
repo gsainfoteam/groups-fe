@@ -4,12 +4,12 @@ import { useOutletContext, useNavigate } from "react-router-dom";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import Button from "@/components/button/Button";
 import { leavingGroup } from "@/apis/group";
-import ConfirmationModal from "../../components/ConfirmModal";
 import authorityChecker from "@/utils/authorityChecker";
 import LockedSign from "@/pages/manage/components/lockedSign";
 import useAuth from "@/hooks/useAuth";
 import Loading from "@/components/loading/Loading";
-
+import ResponsiveModal from "@/components/responsiveModal";
+import GroupLeavingModal from "./GroupLeavingModal";
 const GroupLeaveComponent = () => {
   const { t } = useTranslation();
   const { userInfo } = useAuth();
@@ -38,10 +38,10 @@ const GroupLeaveComponent = () => {
     setIsLeaving(true);
     try {
       await leavingGroup(group.uuid);
-      alert(t("manage.groupInfo.leave.success"));
+      alert(t("manageGroup.groupInfo.groupLeave.success"));
       navigate("/");
     } catch (error) {
-      alert(t("manage.groupInfo.leave.error"));
+      alert(t("manageGroup.groupInfo.groupLeave.error"));
     } finally {
       setIsLeaving(false);
       setIsModalOpen(false);
@@ -64,7 +64,9 @@ const GroupLeaveComponent = () => {
               {isPresident && (
                 <LockedSign
                   requiredRoleName="member"
-                  customText={t("manage.groupInfo.leave.presidentCannot")}
+                  customText={t(
+                    "manageGroup.groupInfo.groupLeave.presidentCannot",
+                  )}
                 />
               )}
               {!isPresident && <LockedSign requiredRoleName="member" />}
@@ -83,18 +85,32 @@ const GroupLeaveComponent = () => {
           disabled={isLeaving || !isAuthorized}
         >
           {isLeaving
-            ? t("manage.groupInfo.leave.leaving")
+            ? t("manageGroup.groupInfo.groupLeave.leaving")
             : t("manageGroup.groupInfo.groupLeave.button")}
         </Button>
       </div>
 
-      {/* 그룹 나가기 확인 모달 */}
-      <ConfirmationModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        onConfirm={handleConfirmLeave}
-        title={t("manage.groupInfo.leave.warning")}
-        message={t("manage.groupInfo.leave.confirm")}
+      <ResponsiveModal
+        commonProps={{
+          isOpen: isModalOpen,
+          onClose: handleCloseModal,
+        }}
+        modalProps={{
+          children: (
+            <GroupLeavingModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmLeave}
+            />
+          ),
+        }}
+        bottomSheetProps={{
+          children: (
+            <GroupLeavingModal
+              onClose={handleCloseModal}
+              onConfirm={handleConfirmLeave}
+            />
+          ),
+        }}
       />
     </>
   );

@@ -20,7 +20,7 @@ const InvitationSection = ({ groupUuid, userRole }: InvitationSectionProps) => {
   ) : (
     <div className="flex flex-col gap-2 justify-center md:w-[400px] items-center p-6 bg-greyLight rounded-[10px]">
       <h3 className="text-grey font-semibold text-lg">
-        {t("manage.members.createInviteLink")}
+        {t("manageGroup.members.createInviteLink")}
       </h3>
       <LockedSign requiredRoleName="manager" />
     </div>
