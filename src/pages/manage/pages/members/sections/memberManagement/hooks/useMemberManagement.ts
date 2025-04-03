@@ -1,4 +1,9 @@
-import { getGroupMembers, grantMemberRole, banishMember } from "@/apis/group";
+import {
+  getGroupMembers,
+  grantMemberRole,
+  banishMember,
+  changePresident,
+} from "@/apis/group";
 import { MemberResDto } from "@/types/interfaces";
 import { useState } from "react";
 import { RoleOption } from "./useRoleOptions";
@@ -23,6 +28,8 @@ export const useMemberManagement = ({
   const [selectedRole, setSelectedRole] = useState<RoleOption | null>(null);
   const [isRoleModalOpen, setIsRoleModalOpen] = useState(false);
   const [isBanishModalOpen, setIsBanishModalOpen] = useState(false);
+  const [isAppointPresidentModalOpen, setIsAppointPresidentModalOpen] =
+    useState(false);
 
   const fetchMembers = async () => {
     try {
@@ -105,6 +112,20 @@ export const useMemberManagement = ({
     closeRoleModal();
   };
 
+  const appointPresident = async () => {
+    if (!selectedMember) return false;
+
+    try {
+      await changePresident(groupUuid, selectedMember.uuid);
+      return true;
+    } catch (error) {
+      console.error("그룹장 임명 중 오류 발생:", error);
+      return false;
+    } finally {
+      closeAppointPresidentModal();
+    }
+  };
+
   const openRoleModal = (member: MemberResDto, role: RoleOption) => {
     setSelectedMember(member);
     setSelectedRole(role);
@@ -127,6 +148,16 @@ export const useMemberManagement = ({
     setSelectedMember(null);
   };
 
+  const openAppointPresidentModal = (member: MemberResDto) => {
+    setSelectedMember(member);
+    setIsAppointPresidentModalOpen(true);
+  };
+
+  const closeAppointPresidentModal = () => {
+    setIsAppointPresidentModalOpen(false);
+    setSelectedMember(null);
+  };
+
   return {
     members,
     loading,
@@ -135,10 +166,12 @@ export const useMemberManagement = ({
     selectedRole,
     isRoleModalOpen,
     isBanishModalOpen,
+    isAppointPresidentModalOpen,
 
     fetchMembers,
     applyRoleChanges,
     deleteMember,
+    appointPresident,
 
     updateRoleChange,
     selectRole,
@@ -148,5 +181,8 @@ export const useMemberManagement = ({
     closeRoleModal,
     openBanishModal,
     closeBanishModal,
+
+    openAppointPresidentModal,
+    closeAppointPresidentModal,
   };
 };

@@ -5,6 +5,7 @@ const headerItems = [
   { label: "email" },
   { label: "role" },
   { label: "banish" },
+  { label: "president" },
 ] as const;
 
 const MembersHeader = () => {

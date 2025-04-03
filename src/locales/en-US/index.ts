@@ -308,7 +308,11 @@ export const main = {
           email: "Email",
           role: "Role",
           banish: "Banish",
+          president: "Appoint President",
           banishButton: "Banish",
+          appointPresident: "Appoint President",
+          presidentRequired:
+            "Only the group president can perform this operation.",
         },
       },
       banish: {
@@ -318,6 +322,13 @@ export const main = {
         banishFailed: "Failed to banish member. Please try again.",
         banishConfirm: "Are you sure you want to banish member {{name}}?",
         banishAriaLabel: "Banish member {{name}}",
+      },
+      changePresident: {
+        title: "Appoint {{name}} as the group president?",
+        description: "Your role will be changed to admin.",
+        success:
+          "{{name}} has been successfully appointed as the group president.",
+        error: "Failed to appoint group president. Please try again.",
       },
       role: {
         title: "💡 Member Roles",

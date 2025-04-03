@@ -14,6 +14,9 @@ import { Xmark } from "iconoir-react";
 import { RoleOption } from "./hooks/useRoleOptions";
 import { ExpandedGroupInfo } from "@/types/interfaces";
 import BanishModal from "./BanishModal";
+import useAuth from "@/hooks/useAuth";
+import ChangePresidentModal from "./ChangePresidentModal";
+
 interface MemberManagementSectionProps {
   group: ExpandedGroupInfo;
   userRole: UserRole;
@@ -25,6 +28,7 @@ const MemberManagementSection = ({
 }: MemberManagementSectionProps) => {
   const { t } = useTranslation();
   const roleOptions = useRoleOptions();
+  const { userInfo } = useAuth();
 
   // 멤버 관리 훅 사용
   const {
@@ -36,12 +40,12 @@ const MemberManagementSection = ({
     selectedRole,
     isRoleModalOpen,
     isBanishModalOpen,
-
+    isAppointPresidentModalOpen,
     // API 상호작용 함수
     fetchMembers,
     applyRoleChanges,
     deleteMember,
-
+    appointPresident,
     // 역할 변경 관련 함수
     selectRole,
     cancelRoleChanges,
@@ -51,6 +55,10 @@ const MemberManagementSection = ({
     closeRoleModal,
     openBanishModal,
     closeBanishModal,
+
+    // 그룹장 임명 모달 상태 관리 함수
+    openAppointPresidentModal,
+    closeAppointPresidentModal,
   } = useMemberManagement({ groupUuid: group.uuid });
 
   // 권한 체크
@@ -65,6 +73,7 @@ const MemberManagementSection = ({
   );
 
   const isAdmin = roleNameChecker(userRole.roleName, "admin");
+  const isPresident = group.president.uuid === userInfo?.uuid;
 
   // 초기 데이터 로드
   useEffect(() => {
@@ -92,6 +101,19 @@ const MemberManagementSection = ({
     }
   };
 
+  const handleAppointPresidentConfirm = async () => {
+    const success = await appointPresident();
+    if (success) {
+      alert(
+        t("manageGroup.members.changePresident.success", {
+          name: selectedMember?.name,
+        }),
+      );
+    } else {
+      alert(t("manageGroup.members.changePresident.error"));
+    }
+  };
+
   return (
     <div className="flex flex-col w-full justify-start items-start">
       {/* 타이틀 */}
@@ -100,8 +122,8 @@ const MemberManagementSection = ({
       </div>
 
       {/* 멤버 테이블 */}
-      <div className="w-full overflow-x-scroll overflow-y-visible mb-8">
-        <table className="min-w-[800px]">
+      <div className="w-full mb-8 overflow-auto">
+        <table className="w-[1200px]">
           <thead>
             <MemberTableHead />
           </thead>
@@ -119,10 +141,12 @@ const MemberManagementSection = ({
                     isAuthorizedForMemberBanishment
                   }
                   isAdmin={isAdmin}
+                  isPresident={isPresident}
                   isThisMemberPresident={isThisMemberPresident}
                   roleOptions={roleOptions}
                   onRoleChangeClick={openRoleModal}
                   onDeleteClick={openBanishModal}
+                  onAppointPresidentClick={openAppointPresidentModal}
                   roleChanges={roleChanges}
                 />
               );
@@ -173,8 +197,8 @@ const MemberManagementSection = ({
 
               <RoleSelectionModal
                 roleOptions={roleOptions}
-                selectedRole={selectedRole || roleOptions[0]}
-                targetMemberName={selectedMember?.name || ""}
+                selectedRole={selectedRole ?? roleOptions[0]}
+                targetMemberName={selectedMember?.name ?? ""}
                 onRoleSelect={handleRoleSelect}
               />
             </div>
@@ -191,8 +215,8 @@ const MemberManagementSection = ({
               </div>
               <RoleSelectionModal
                 roleOptions={roleOptions}
-                selectedRole={selectedRole || roleOptions[0]}
-                targetMemberName={selectedMember?.name || ""}
+                selectedRole={selectedRole ?? roleOptions[0]}
+                targetMemberName={selectedMember?.name ?? ""}
                 onRoleSelect={handleRoleSelect}
               />
             </div>
@@ -210,7 +234,7 @@ const MemberManagementSection = ({
             <BanishModal
               onClose={closeBanishModal}
               onConfirm={handleDeleteConfirm}
-              targetMemberName={selectedMember?.name || ""}
+              targetMemberName={selectedMember?.name ?? ""}
             />
           ),
         }}
@@ -219,7 +243,32 @@ const MemberManagementSection = ({
             <BanishModal
               onClose={closeBanishModal}
               onConfirm={handleDeleteConfirm}
-              targetMemberName={selectedMember?.name || ""}
+              targetMemberName={selectedMember?.name ?? ""}
+            />
+          ),
+        }}
+      />
+
+      <ResponsiveModal
+        commonProps={{
+          isOpen: isAppointPresidentModalOpen,
+          onClose: closeAppointPresidentModal,
+        }}
+        modalProps={{
+          children: (
+            <ChangePresidentModal
+              onClose={closeAppointPresidentModal}
+              onConfirm={handleAppointPresidentConfirm}
+              targetMemberName={selectedMember?.name ?? ""}
+            />
+          ),
+        }}
+        bottomSheetProps={{
+          children: (
+            <ChangePresidentModal
+              onClose={closeAppointPresidentModal}
+              onConfirm={handleAppointPresidentConfirm}
+              targetMemberName={selectedMember?.name ?? ""}
             />
           ),
         }}

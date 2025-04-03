@@ -15,10 +15,12 @@ interface MemberTableRowProps {
   isAuthorizedForRoleChange: boolean;
   isAuthorizedForMemberBanishment: boolean;
   isAdmin: boolean;
+  isPresident: boolean;
   isThisMemberPresident: boolean;
   roleOptions: RoleOption[];
   onRoleChangeClick: (member: MemberResDto, role: RoleOption) => void;
   onDeleteClick: (member: MemberResDto) => void;
+  onAppointPresidentClick: (member: MemberResDto) => void;
   roleChanges: { [key: string]: number[] };
 }
 
@@ -27,10 +29,12 @@ const MemberTableRow = ({
   isAuthorizedForRoleChange,
   isAuthorizedForMemberBanishment,
   isAdmin,
+  isPresident,
   isThisMemberPresident,
   roleOptions,
   onRoleChangeClick,
   onDeleteClick,
+  onAppointPresidentClick,
   roleChanges,
 }: MemberTableRowProps) => {
   const { group } = useOutletContext<GroupContextType>();
@@ -101,7 +105,7 @@ const MemberTableRow = ({
       {/* 추방 버튼 */}
       <td className={cn(cellStyle)}>
         {isThisMemberPresident ? null : isAuthorizedForMemberBanishment ? (
-          <button
+          <Button
             className="underline text-grey text-base font-medium"
             onClick={() => onDeleteClick(member)}
             aria-label={t("manageGroup.members.banish.banishAriaLabel", {
@@ -109,11 +113,28 @@ const MemberTableRow = ({
             })}
           >
             {t("manageGroup.members.banish.banish")}
-          </button>
+          </Button>
         ) : (
           <LockedSign
             requiredRoleName="admin"
             customText={t("role.adminOnly.banish")}
+          />
+        )}
+      </td>
+
+      {/* 그룹장 임명 */}
+      <td className={cn(cellStyle)}>
+        {isThisMemberPresident ? null : isPresident ? (
+          <Button
+            className="underline text-grey text-base font-medium"
+            onClick={() => onAppointPresidentClick(member)}
+          >
+            {t("manageGroup.members.list.table.appointPresident")}
+          </Button>
+        ) : (
+          <LockedSign
+            requiredRoleName="admin"
+            customText={t("manageGroup.members.list.table.presidentRequired")}
           />
         )}
       </td>
