@@ -74,7 +74,7 @@ const CreateGroupNotionPage = () => {
       };
       const member = {
         name: "member",
-        authorities: [],
+        authorities: ["ROLE_GRANT"],
       };
       try {
         await createRole(groupUuid, manager.name, manager.authorities);
