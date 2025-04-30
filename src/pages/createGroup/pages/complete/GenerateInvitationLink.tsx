@@ -64,6 +64,11 @@ const GenerateInvitationLink = ({ groupUuid }: GenerateInvitationLinkProps) => {
         expirationOption.expirationTime * A_DAY_SECOND,
         3,
       ),
+    {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false,
+    },
   );
 
   const [invitationLink, setInvitationLink] = useState<string | null>(null);

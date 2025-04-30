@@ -47,7 +47,7 @@ const ManageLayout = () => {
     navigate(`/group/${uuid}`);
   };
 
-  if (!uuid) return <p>{t("manage.invalidGroup")}</p>;
+  if (!uuid) return <p>{t("manageGroup.invalidGroupId")}</p>;
 
   if (isLoading) return <Loading />;
 

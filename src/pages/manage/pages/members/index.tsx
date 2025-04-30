@@ -4,7 +4,6 @@ import InvitationSection from "./sections/invitation";
 import MemberManagementSection from "./sections/memberManagement";
 import RoleDescriptionSection from "./sections/roleDescription";
 import Loading from "@/components/loading/Loading";
-
 const ManageMembersPage = () => {
   const { group, userRole } = useOutletContext<GroupContextType>();
 
@@ -15,7 +14,7 @@ const ManageMembersPage = () => {
   return (
     <div className="flex w-full flex-col items-center gap-[30px] md:gap-16">
       <InvitationSection groupUuid={group.uuid} userRole={userRole} />
-      <MemberManagementSection groupUuid={group.uuid} userRole={userRole} />
+      <MemberManagementSection group={group} userRole={userRole} />
       <RoleDescriptionSection />
     </div>
   );

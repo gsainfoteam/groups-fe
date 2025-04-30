@@ -2,6 +2,7 @@ import Modal, { ModalProps } from "../modal";
 import "react-spring-bottom-sheet/dist/style.css";
 import { BottomSheet, BottomSheetProps } from "react-spring-bottom-sheet";
 import useIsMobile from "@/hooks/useIsMobile";
+import DefaultBottomSheet from "./DefaultBottomSheet";
 
 interface ResponsiveModalProps {
   commonProps: {
@@ -9,11 +10,20 @@ interface ResponsiveModalProps {
     onClose: () => void;
   };
   modalProps: Omit<ModalProps, "onClose">;
-  bottomSheetProps: Omit<BottomSheetProps, "open" | "onDismiss">;
+  bottomSheetProps: Omit<BottomSheetProps, "open" | "onDismiss"> & {
+    isWithDefaultFrame?: boolean;
+  };
 }
 
 const ResponsiveModal = (props: ResponsiveModalProps) => {
-  const { commonProps, modalProps, bottomSheetProps } = props;
+  const {
+    commonProps,
+    modalProps,
+    bottomSheetProps: {
+      isWithDefaultFrame: isBottomSheetWithDefaultFrame = true,
+      ...bottomSheetProps
+    },
+  } = props;
   const isMobile = useIsMobile();
 
   if (isMobile) {
@@ -23,13 +33,23 @@ const ResponsiveModal = (props: ResponsiveModalProps) => {
         onDismiss={commonProps.onClose}
         {...bottomSheetProps}
       >
-        {bottomSheetProps.children}
+        {isBottomSheetWithDefaultFrame ? (
+          <DefaultBottomSheet onClose={commonProps.onClose}>
+            {bottomSheetProps.children}
+          </DefaultBottomSheet>
+        ) : (
+          bottomSheetProps.children
+        )}
       </BottomSheet>
     );
   }
 
   return commonProps.isOpen ? (
-    <Modal {...modalProps} onClose={commonProps.onClose}>
+    <Modal
+      {...modalProps}
+      onClose={commonProps.onClose}
+      isOpen={commonProps.isOpen}
+    >
       {modalProps.children}
     </Modal>
   ) : null;
