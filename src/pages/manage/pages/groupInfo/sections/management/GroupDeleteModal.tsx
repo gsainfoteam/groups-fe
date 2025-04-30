@@ -12,7 +12,7 @@ const GroupDeleteModal = ({ onClose, onConfirm }: GroupDeleteModalProps) => {
     <div>
       <h2
         id="modal-title"
-        className="text-dark text-xl font-semibold mb-2 text-center"
+        className="text-dark dark:text-grey text-xl font-semibold mb-2 text-center"
       >
         {t("manageGroup.groupInfo.groupDelete.confirm")}
       </h2>

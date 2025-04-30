@@ -86,7 +86,7 @@ const MemberTableRow = ({
               disabled={isThisMemberPresident}
               className={cn(
                 "flex justify-start items-center pl-3 pr-2.5 py-[5px] bg-greyLight rounded-[5px] w-full",
-                changedRole ? "text-primary" : "text-dark",
+                changedRole ? "text-primary" : "text-dark dark:text-grey",
                 isThisMemberPresident && "text-grey",
               )}
             >

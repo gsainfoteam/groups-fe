@@ -36,16 +36,16 @@ const GroupProfile = ({ group }: GroupProfileProps) => {
         </p>
 
         <div className="flex items-center gap-2.5">
-          <Button
+          {/* <Button
             variant="emphasized"
             className={"mt-3 rounded-[10px] md:px-6 md:py-2"}
           >
             <p>{t("group.favorite")}</p>
-          </Button>
+          </Button> */}
 
           <Link to={`/manage/${group.uuid}`}>
             <Button
-              variant="contained"
+              variant="emphasized"
               className="mt-3 rounded-[10px] md:px-6 md:py-2"
             >
               <p>{t("group.manage")}</p>
