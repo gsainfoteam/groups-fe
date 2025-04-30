@@ -12,7 +12,7 @@ const GroupLeavingModal = ({ onClose, onConfirm }: GroupLeavingModalProps) => {
     <div>
       <h2
         id="modal-title"
-        className="text-dark text-xl font-semibold mb-2 text-center"
+        className="text-dark dark:text-grey text-xl font-semibold mb-2 text-center"
       >
         {t("manageGroup.groupInfo.groupLeave.confirm")}
       </h2>

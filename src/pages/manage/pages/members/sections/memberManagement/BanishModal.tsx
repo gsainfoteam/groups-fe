@@ -17,7 +17,7 @@ const BanishModal = ({
     <div>
       <h2
         id="modal-title"
-        className="text-dark text-xl font-semibold mb-2 text-center"
+        className="text-dark dark:text-grey text-xl font-semibold mb-2 text-center "
       >
         <Trans i18nKey="manageGroup.members.banish.banishConfirm">
           {{ name: targetMemberName }}
