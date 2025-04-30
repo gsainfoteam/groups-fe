@@ -22,7 +22,7 @@ const RoleSelectionModal = ({
 
   return (
     <div className="flex flex-col w-full text-center">
-      <h2 className="text-dark w-full px-6 font-semibold text-2xl">
+      <h2 className="text-dark w-full dark:text-grey px-6 font-semibold text-2xl">
         {t("manageGroup.members.list.changeRoleModal.title")}
       </h2>
       <p className="text-greyDark w-full px-6 font-regular mt-2">
@@ -38,7 +38,7 @@ const RoleSelectionModal = ({
               key={roleOption.id}
               className={cn(
                 "py-3 px-6 bg-greyLight flex justify-between items-center border-t border-solid border-t-greyBorder w-full",
-                isThisRoleSelected ? "text-primary" : "text-dark",
+                isThisRoleSelected ? "text-primary" : "text-dark dark:text-grey",
               )}
               onClick={() => onRoleSelect(roleOption)}
             >
