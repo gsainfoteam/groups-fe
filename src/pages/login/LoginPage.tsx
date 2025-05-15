@@ -125,7 +125,7 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
   try {
     const currentURL = new URL(window.location.href);
     const tokenResponse = await oAuthGetToken(state,currentURL);
-    console.log("tokenResponse", tokenResponse);
+
     if (!tokenResponse) {
       return {
         isSuccessful: false,
@@ -135,7 +135,7 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
     localStorage.removeItem(LocalStorageKeys.OAuthState);
     localStorage.removeItem(LocalStorageKeys.CodeVerifier);
     localStorage.removeItem(LocalStorageKeys.OAuthNonce);
-    localStorage.setItem(LocalStorageKeys.AccessToken, "");
+    localStorage.setItem(LocalStorageKeys.AccessToken, tokenResponse.access_token);
 
     return {
       isSuccessful: true,

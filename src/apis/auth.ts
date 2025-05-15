@@ -23,7 +23,6 @@ export const generateOAuthLoginURL = async () => {
     let code_challenge = await client.calculatePKCECodeChallenge(code_verifier);
 
     localStorage.setItem(LocalStorageKeys.CodeVerifier, code_verifier);
-    console.log("code_verifier", code_verifier);
     sessionStorage.setItem(LocalStorageKeys.CodeVerifier, code_verifier);
 
     let parameters: Record<string, string> = {
@@ -53,7 +52,6 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
   const server: URL = new URL(`${IDP_API_URL}.well-known/openid-configuration`);
   const config = await client.discovery(server, CLIENT_ID);
 
-  console.log(config);
   const local_state = localStorage.getItem(LocalStorageKeys.OAuthState);
   const code_verifier = localStorage.getItem(LocalStorageKeys.CodeVerifier);
   const code_nonce = localStorage.getItem(LocalStorageKeys.OAuthNonce);
@@ -72,11 +70,7 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
   if (!local_state) {
     throw new Error("Missing local state");
   }
-  console.log("currentURL", currentURL);
-  console.log("code_verifier", code_verifier);
-  console.log("local_state", local_state);
-  console.log("server_state", state);
-  console.log("seession_code_verifier", seession_code_verifier);
+
   try {
     const token = await client.authorizationCodeGrant(config, currentURL, {
       pkceCodeVerifier: code_verifier,
@@ -90,9 +84,13 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
 };
 
 export const getUserInfo = async () => {
-  const response = await api.get<UserInfo>(apiKeys.auth.info);
-
-  return response.data;
+  try {
+    const response = await api.get<UserInfo>(apiKeys.auth.info);
+    return response.data
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    throw new Error("Failed to fetch user info");
+  }
 };
 
 export const generateLoginURLHandler = async (location: Location) => {
