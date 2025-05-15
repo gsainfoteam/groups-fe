@@ -1,4 +1,4 @@
-import { generateOAuthLoginURL } from "@/apis/auth";
+import { generateLoginURLHandler, generateOAuthLoginURL } from "@/apis/auth";
 import AccountIcon from "@/assets/icons/account.svg?react";
 import GroupsCompactLogoDark from "@/assets/logos/groups-compact-dark.svg?react";
 import GroupsCompactLogo from "@/assets/logos/groups-compact.svg?react";
@@ -58,14 +58,7 @@ const Navbar = () => {
         </div>
 
         <Button
-          onClick={async () => {
-            localStorage.setItem(
-              LocalStorageKeys.ReturnTo,
-              location.state?.returnTo ?? "",
-            );
-
-            window.location.href = await generateOAuthLoginURL();
-          }}
+          onClick={() => generateLoginURLHandler(location)}
           className="hidden items-center justify-center gap-2 md:flex"
         >
           <AccountIcon className="flex h-6" />

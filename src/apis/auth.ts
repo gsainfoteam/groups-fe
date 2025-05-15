@@ -3,11 +3,11 @@ import api from "./interceptor";
 import apiKeys from "@/types/api-keys";
 import LocalStorageKeys from "@/types/localstorage";
 import * as client from "openid-client";
+import { Location } from "react-router-dom";
 
 const IDP_API_URL = import.meta.env.VITE_IPD_API_URL;
 const CLIENT_ID = import.meta.env.VITE_IDP_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_IDP_REDIRECT_URI;
-
 export const generateOAuthLoginURL = async () => {
   try {
     let server: URL = new URL(`${IDP_API_URL}.well-known/openid-configuration`);
@@ -24,6 +24,7 @@ export const generateOAuthLoginURL = async () => {
 
     localStorage.setItem(LocalStorageKeys.CodeVerifier, code_verifier);
     console.log("code_verifier", code_verifier);
+    sessionStorage.setItem(LocalStorageKeys.CodeVerifier, code_verifier);
 
     let parameters: Record<string, string> = {
       response_type: "code",
@@ -48,17 +49,17 @@ export interface OAuthGetTokenResponse {
   accessToken: string;
 }
 
-export const oAuthGetToken = async (state: string,currentURL: URL) => {
-
-
+export const oAuthGetToken = async (state: string, currentURL: URL) => {
   const server: URL = new URL(`${IDP_API_URL}.well-known/openid-configuration`);
   const config = await client.discovery(server, CLIENT_ID);
-
 
   console.log(config);
   const local_state = localStorage.getItem(LocalStorageKeys.OAuthState);
   const code_verifier = localStorage.getItem(LocalStorageKeys.CodeVerifier);
   const code_nonce = localStorage.getItem(LocalStorageKeys.OAuthNonce);
+  const seession_code_verifier = sessionStorage.getItem(
+    LocalStorageKeys.CodeVerifier,
+  );
   if (!state) {
     throw new Error("Missing state");
   }
@@ -75,6 +76,7 @@ export const oAuthGetToken = async (state: string,currentURL: URL) => {
   console.log("code_verifier", code_verifier);
   console.log("local_state", local_state);
   console.log("server_state", state);
+  console.log("seession_code_verifier", seession_code_verifier);
   try {
     const token = await client.authorizationCodeGrant(config, currentURL, {
       pkceCodeVerifier: code_verifier,
@@ -91,4 +93,12 @@ export const getUserInfo = async () => {
   const response = await api.get<UserInfo>(apiKeys.auth.info);
 
   return response.data;
+};
+
+export const generateLoginURLHandler = async (location: Location) => {
+  localStorage.setItem(
+    LocalStorageKeys.ReturnTo,
+    location.state?.returnTo ?? "/",
+  );
+  window.location.href = await generateOAuthLoginURL();
 };

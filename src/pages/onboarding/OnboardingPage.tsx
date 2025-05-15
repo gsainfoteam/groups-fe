@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 
 import LocalStorageKeys from "@/types/localstorage";
-import { generateOAuthLoginURL } from "@/apis/auth";
+import { generateLoginURLHandler, generateOAuthLoginURL } from "@/apis/auth";
 const OnboardingPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
@@ -35,14 +35,7 @@ const OnboardingPage = () => {
             <Button
               variant="outlined"
               size="cta"
-              onClick={async () => {
-                localStorage.setItem(
-                  LocalStorageKeys.ReturnTo,
-                  location.state?.returnTo ?? "/",
-                );
-
-                window.location.href = await generateOAuthLoginURL();
-              }}
+              onClick={() => generateLoginURLHandler(location)}
             >
               {t("onboarding.cta")}
             </Button>
