@@ -107,19 +107,14 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
   const urlParams = new URLSearchParams(window.location.search);
 
   const state = urlParams.get("state");
-  console.log("state", state);
-  console.log("local state", localStorage.getItem(LocalStorageKeys.OAuthState));
-  const oauthStateFromLocal = localStorage.getItem(LocalStorageKeys.OAuthState);
-  // if (state !== oauthStateFromLocal) {
-  //   return {
-  //     isSuccessful: false,
-  //     errorMessage: "Requested state and local state are different",
-  //   };
-  // }
-  localStorage.removeItem(LocalStorageKeys.OAuthState);
+  if (!state) {
+    return {
+      isSuccessful: false,
+      errorMessage: "There is no state from OAuth",
+    };
+  }
 
   const code = urlParams.get("code");
-
   if (!code) {
     return {
       isSuccessful: false,
@@ -128,18 +123,19 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
   }
 
   try {
-    const tokenResponse = await oAuthGetToken(code);
-    if (!tokenResponse.accessToken) {
+    const currentURL = new URL(window.location.href);
+    const tokenResponse = await oAuthGetToken(state,currentURL);
+    console.log("tokenResponse", tokenResponse);
+    if (!tokenResponse) {
       return {
         isSuccessful: false,
-        errorMessage: "Missing AccessToken",
+        errorMessage: "Missing TokenResponse",
       };
     }
-
-    localStorage.setItem(
-      LocalStorageKeys.AccessToken,
-      tokenResponse.accessToken,
-    );
+    localStorage.removeItem(LocalStorageKeys.OAuthState);
+    localStorage.removeItem(LocalStorageKeys.CodeVerifier);
+    localStorage.removeItem(LocalStorageKeys.OAuthNonce);
+    localStorage.setItem(LocalStorageKeys.AccessToken, "");
 
     return {
       isSuccessful: true,
