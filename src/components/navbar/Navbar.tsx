@@ -11,6 +11,7 @@ import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import Button from "../button/Button";
 import LocalStorageKeys from "@/types/localstorage";
+import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const { userInfo } = useAuth();
@@ -18,6 +19,16 @@ const Navbar = () => {
   const { t } = useTranslation();
 
   const location = useLocation();
+
+  const [OAuthLoginURL, setOAuthLoginURL] = useState<string>("");
+  useEffect(() => {
+    const fetchOAuthLoginURL = async () => {
+      const url = await generateOAuthLoginURL();
+      console.log("OAuthLoginURL", url);
+      setOAuthLoginURL(url);
+    };
+    fetchOAuthLoginURL();
+  }, []);
 
   return (
     <header
@@ -64,7 +75,7 @@ const Navbar = () => {
               location.state?.returnTo ?? "",
             );
 
-            window.location.href = generateOAuthLoginURL();
+            window.location.href = OAuthLoginURL;
           }}
           className="hidden items-center justify-center gap-2 md:flex"
         >

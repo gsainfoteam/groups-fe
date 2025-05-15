@@ -6,13 +6,22 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { generateOAuthLoginURL } from "@/apis/auth";
 import Path from "@/types/paths";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import LocalStorageKeys from "@/types/localstorage";
 const OnboardingPage = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [OAuthLoginURL, setOAuthLoginURL] = useState<string>("");
+  useEffect(() => {
+    const fetchOAuthLoginURL = async () => {
+      const url = await generateOAuthLoginURL();
+      console.log("OAuthLoginURL", url);
+      setOAuthLoginURL(url);
+    };
+    fetchOAuthLoginURL();
+  }, []);
   return (
     <>
       <main className="area">
@@ -44,7 +53,7 @@ const OnboardingPage = () => {
                   location.state?.returnTo ?? "/",
                 );
 
-                window.location.href = generateOAuthLoginURL();
+                window.location.href = OAuthLoginURL;
               }}
             >
               {t("onboarding.cta")}

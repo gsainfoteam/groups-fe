@@ -23,6 +23,7 @@
     "iconoir-react": "^7.10.1",
     "lottie-react": "^2.4.0",
     "notion-client": "^6.16.0",
+    "openid-client": "^6.5.0",
     "prettier": "^3.2.4",
     "react": "^18.2.0",
     "react-calendar": "^5.0.0",
