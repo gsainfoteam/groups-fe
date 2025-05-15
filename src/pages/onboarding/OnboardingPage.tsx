@@ -2,26 +2,14 @@ import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
 import Button from "@/components/button/Button";
 import { useTranslation } from "react-i18next";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-import { generateOAuthLoginURL } from "@/apis/auth";
-import Path from "@/types/paths";
-import { useEffect, useState } from "react";
 import LocalStorageKeys from "@/types/localstorage";
+import { generateOAuthLoginURL } from "@/apis/auth";
 const OnboardingPage = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const location = useLocation();
 
-  const [OAuthLoginURL, setOAuthLoginURL] = useState<string>("");
-  useEffect(() => {
-    const fetchOAuthLoginURL = async () => {
-      const url = await generateOAuthLoginURL();
-      console.log("OAuthLoginURL", url);
-      setOAuthLoginURL(url);
-    };
-    fetchOAuthLoginURL();
-  }, []);
   return (
     <>
       <main className="area">
@@ -47,13 +35,13 @@ const OnboardingPage = () => {
             <Button
               variant="outlined"
               size="cta"
-              onClick={() => {
+              onClick={async () => {
                 localStorage.setItem(
                   LocalStorageKeys.ReturnTo,
                   location.state?.returnTo ?? "/",
                 );
 
-                window.location.href = OAuthLoginURL;
+                window.location.href = await generateOAuthLoginURL();
               }}
             >
               {t("onboarding.cta")}
