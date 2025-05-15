@@ -55,9 +55,7 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
   const local_state = localStorage.getItem(LocalStorageKeys.OAuthState);
   const code_verifier = localStorage.getItem(LocalStorageKeys.CodeVerifier);
   const code_nonce = localStorage.getItem(LocalStorageKeys.OAuthNonce);
-  const seession_code_verifier = sessionStorage.getItem(
-    LocalStorageKeys.CodeVerifier,
-  );
+
   if (!state) {
     throw new Error("Missing state");
   }
