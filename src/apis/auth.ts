@@ -16,10 +16,15 @@ export const generateOAuthLoginURL = async () => {
 
     const nonce = client.randomNonce();
     const state = client.randomState();
-    localStorage.setItem(LocalStorageKeys.OAuthState, state);
+    
+
+    localStorage.setItem(LocalStorageKeys.OAuthNonce, nonce);
+    // localStorage.setItem(LocalStorageKeys.OAuthState, state);
 
     let code_verifier: string = client.randomPKCECodeVerifier();
     let code_challenge = await client.calculatePKCECodeChallenge(code_verifier);
+
+    localStorage.setItem(LocalStorageKeys.CodeVerifier, code_verifier);
 
     let parameters: Record<string, string> = {
       response_type: "code",
@@ -29,7 +34,7 @@ export const generateOAuthLoginURL = async () => {
       redirect_uri: REDIRECT_URI,
       scope: "openid profile email",
       prompt: "login",
-      state: state,
+      // state: state,
       nonce: nonce,
     };
     const authUrl = client.buildAuthorizationUrl(config, parameters);

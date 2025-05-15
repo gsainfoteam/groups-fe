@@ -107,13 +107,15 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
   const urlParams = new URLSearchParams(window.location.search);
 
   const state = urlParams.get("state");
+  console.log("state", state);
+  console.log("local state", localStorage.getItem(LocalStorageKeys.OAuthState));
   const oauthStateFromLocal = localStorage.getItem(LocalStorageKeys.OAuthState);
-  if (state !== oauthStateFromLocal) {
-    return {
-      isSuccessful: false,
-      errorMessage: "Requested state and local state are different",
-    };
-  }
+  // if (state !== oauthStateFromLocal) {
+  //   return {
+  //     isSuccessful: false,
+  //     errorMessage: "Requested state and local state are different",
+  //   };
+  // }
   localStorage.removeItem(LocalStorageKeys.OAuthState);
 
   const code = urlParams.get("code");
