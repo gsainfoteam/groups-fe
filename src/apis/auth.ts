@@ -5,7 +5,7 @@ import LocalStorageKeys from "@/types/localstorage";
 import * as client from "openid-client";
 import { Location } from "react-router-dom";
 
-const IDP_API_URL = import.meta.env.VITE_IPD_API_URL;
+const IDP_API_URL = import.meta.env.VITE_IDP_API_URL;
 const CLIENT_ID = import.meta.env.VITE_IDP_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_IDP_REDIRECT_URI;
 export const generateOAuthLoginURL = async () => {
