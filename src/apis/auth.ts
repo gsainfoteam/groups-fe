@@ -56,9 +56,6 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
   const code_verifier = localStorage.getItem(LocalStorageKeys.CodeVerifier);
   const code_nonce = localStorage.getItem(LocalStorageKeys.OAuthNonce);
 
-  if (!state) {
-    throw new Error("Missing state");
-  }
   if (!code_verifier) {
     throw new Error("Missing code verifier");
   }
@@ -67,6 +64,8 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
   }
   if (!local_state) {
     throw new Error("Missing local state");
+  } else if (local_state !== state) {
+    throw new Error("State mismatch");
   }
 
   try {
@@ -78,13 +77,14 @@ export const oAuthGetToken = async (state: string, currentURL: URL) => {
     return token;
   } catch (err) {
     console.error("OAuth token error:", err);
+    throw err;
   }
 };
 
 export const getUserInfo = async () => {
   try {
     const response = await api.get<UserInfo>(apiKeys.auth.info);
-    return response.data
+    return response.data;
   } catch (error) {
     console.error("Error fetching user info:", error);
     throw new Error("Failed to fetch user info");
@@ -92,9 +92,14 @@ export const getUserInfo = async () => {
 };
 
 export const generateLoginURLHandler = async (location: Location) => {
-  localStorage.setItem(
-    LocalStorageKeys.ReturnTo,
-    location.state?.returnTo ?? "/",
-  );
-  window.location.href = await generateOAuthLoginURL();
+  try {
+    localStorage.setItem(
+      LocalStorageKeys.ReturnTo,
+      location.state?.returnTo ?? "/",
+    );
+    window.location.href = await generateOAuthLoginURL();
+  } catch (error) {
+    console.error("Error generating login URL:", error);
+    throw new Error("Failed to generate login URL");
+  }
 };

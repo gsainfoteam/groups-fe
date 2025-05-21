@@ -105,15 +105,19 @@ interface OAuthSequenceResult {
 
 const oauthSequence = async (): Promise<OAuthSequenceResult> => {
   const urlParams = new URLSearchParams(window.location.search);
-
+  const localState = localStorage.getItem(LocalStorageKeys.OAuthState);
   const state = urlParams.get("state");
   if (!state) {
     return {
       isSuccessful: false,
       errorMessage: "There is no state from OAuth",
     };
+  } else if (localState !== state) {
+    return {
+      isSuccessful: false,
+      errorMessage: "State mismatch",
+    };
   }
-
   const code = urlParams.get("code");
   if (!code) {
     return {
@@ -124,7 +128,7 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
 
   try {
     const currentURL = new URL(window.location.href);
-    const tokenResponse = await oAuthGetToken(state,currentURL);
+    const tokenResponse = await oAuthGetToken(state, currentURL);
 
     if (!tokenResponse) {
       return {
@@ -135,7 +139,10 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
     localStorage.removeItem(LocalStorageKeys.OAuthState);
     localStorage.removeItem(LocalStorageKeys.CodeVerifier);
     localStorage.removeItem(LocalStorageKeys.OAuthNonce);
-    localStorage.setItem(LocalStorageKeys.AccessToken, tokenResponse.access_token);
+    localStorage.setItem(
+      LocalStorageKeys.AccessToken,
+      tokenResponse.access_token,
+    );
 
     return {
       isSuccessful: true,
