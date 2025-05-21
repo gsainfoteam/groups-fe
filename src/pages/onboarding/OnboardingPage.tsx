@@ -47,3 +47,4 @@ const OnboardingPage = () => {
 };
 
 export default OnboardingPage;
+//onboarding
