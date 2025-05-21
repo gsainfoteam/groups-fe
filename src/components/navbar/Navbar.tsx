@@ -1,16 +1,16 @@
-import { generateOAuthLoginURL } from "@/apis/auth";
+import { generateLoginURLHandler, generateOAuthLoginURL } from "@/apis/auth";
 import AccountIcon from "@/assets/icons/account.svg?react";
 import GroupsCompactLogoDark from "@/assets/logos/groups-compact-dark.svg?react";
 import GroupsCompactLogo from "@/assets/logos/groups-compact.svg?react";
 import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
 import useAuth from "@/hooks/useAuth";
+import LocalStorageKeys from "@/types/localstorage";
 import Path from "@/types/paths";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 import Button from "../button/Button";
-import LocalStorageKeys from "@/types/localstorage";
 
 const Navbar = () => {
   const { userInfo } = useAuth();
@@ -58,14 +58,7 @@ const Navbar = () => {
         </div>
 
         <Button
-          onClick={() => {
-            localStorage.setItem(
-              LocalStorageKeys.ReturnTo,
-              location.state?.returnTo ?? "",
-            );
-
-            window.location.href = generateOAuthLoginURL();
-          }}
+          onClick={() => generateLoginURLHandler(location)}
           className="hidden items-center justify-center gap-2 md:flex"
         >
           <AccountIcon className="flex h-6" />
