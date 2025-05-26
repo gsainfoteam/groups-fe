@@ -11,6 +11,7 @@ import { createGroup, createRole, setGroupProfileImage } from "@/apis/group";
 import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
 import { dataUrlToFile } from "@/utils/dataURLtoFile";
 import { useGroupCreation } from "../../context/GroupCreationContext";
+import NotionWrapper from "@/pages/detail/tabs/intro/NotionWrapper";
 
 const CreateGroupNotionPage = () => {
   const { t } = useTranslation();
@@ -115,11 +116,8 @@ const CreateGroupNotionPage = () => {
       </div>
 
       {notionRecordMap && Object.keys(notionRecordMap).length > 0 && (
-        <NotionRenderer
-          recordMap={notionRecordMap}
-          fullPage={true}
-          darkMode={false}
-        />
+        <NotionWrapper recordMap={notionRecordMap} />
+        //there is some url that notionrenderer cannot hanldle,TODO: fix it
       )}
 
       <div className={"flex gap-[10px] w-full mt-[30px] justify-center"}>
