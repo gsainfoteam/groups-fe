@@ -28,7 +28,7 @@ const useGroupNotionSequence = () => {
     setLink,
     isValidLink: _isValidLink,
     isInvalidNotionLink: _isInvalidNotionLink,
-    isNextButtonValid: _isValidLink && !isInvalidNotionLink && link.length > 0,
+    isNextButtonValid: _isValidLink && !_isInvalidNotionLink && link.length > 0,
     notionRecordMap,
   };
 };
