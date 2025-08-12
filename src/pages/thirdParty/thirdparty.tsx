@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { ArrowRight, User, Lock } from "iconoir-react";
+import { thirdPartyAuthorize } from "@/apis/group";
 export default function ThirdParty() {
-  // State for username and password inputs
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  // State for clientId and redirectURI inputs
+  const [clientId, setclientId] = useState("");
+  const [redirectURI, setredirectURI] = useState("");
 
   // State for handling messages (e.g., success or error)
   const [message, setMessage] = useState("");
@@ -15,19 +16,16 @@ export default function ThirdParty() {
     e.preventDefault();
     setIsLoading(true);
     setMessage("");
-
-    // Simulate a network request with a delay
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-
-    // Simple validation
-    if (username === "user" && password === "password") {
-      setIsSuccess(true);
-      setMessage("Login successful! Redirecting...");
-    } else {
-      setIsSuccess(false);
-      setMessage("Invalid username or password.");
+    try {
+        await thirdPartyAuthorize(clientId, redirectURI)
+        setIsSuccess(true)
+        setMessage("Login successful! Redirecting...");
+    } catch (err) {
+        setIsSuccess(false)
+        setMessage("Invalid clientId or redirectURI.");
+    } finally {
+        setIsLoading(false)
     }
-    setIsLoading(false);
   };
 
   return (
@@ -39,7 +37,7 @@ export default function ThirdParty() {
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {/* Username Input Field */}
+          {/* clientId Input Field */}
           <div>
             <label className="sr-only">ClientID</label>
             <div className="relative">
@@ -47,19 +45,19 @@ export default function ThirdParty() {
                 <User className="h-5 w-5 text-gray-500" aria-hidden="true" />
               </div>
               <input
-                id="username"
-                name="username"
+                id="clientId"
+                name="clientId"
                 type="text"
                 required
                 className="bg-grey block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="ClientID"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={clientId}
+                onChange={(e) => setclientId(e.target.value)}
               />
             </div>
           </div>
 
-          {/* Password Input Field */}
+          {/* redirectURI Input Field */}
           <div>
             <label className="sr-only">RedirectURI</label>
             <div className="relative">
@@ -67,15 +65,15 @@ export default function ThirdParty() {
                 <Lock className="h-5 w-5 text-gray-500" aria-hidden="true" />
               </div>
               <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
+                id="redirectURI"
+                name="redirectURI"
+                type="redirectURI"
+                autoComplete="current-redirectURI"
                 required
                 className="bg-grey block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="RedirectURI"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={redirectURI}
+                onChange={(e) => setredirectURI(e.target.value)}
               />
             </div>
           </div>
