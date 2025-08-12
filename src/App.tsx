@@ -28,7 +28,7 @@ import ErrorPage from "./pages/error/ErrorPage";
 import GroupIntroTab from "./pages/detail/tabs/intro/GroupIntroTab";
 import GroupNoticesTab from "./pages/detail/tabs/notices/GroupNoticesTab";
 import GroupMembersTab from "./pages/detail/tabs/members/GroupMembersTab";
-
+import ThirdParty from "./pages/thirdParty/thirdparty";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
@@ -85,6 +85,7 @@ const router = createBrowserRouter(
 
       <Route path={"*"} element={<ErrorPage />} />
       <Route path={Path.Login} element={<LoginPage />} />
+      <Route path={Path.ThirdParty} element={<ThirdParty/>}/>
     </>,
   ),
 );
