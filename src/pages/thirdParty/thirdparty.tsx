@@ -34,7 +34,7 @@ export default function ThirdParty() {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="bg-white shadow-2xl rounded-xl p-8 max-w-sm w-full transition-all duration-300 hover:shadow-gray-700">
         <div className="text-center">
-          <h2 className="text-3xl font-extrabold text-white mb-2">Login</h2>
+          <h2 className="text-3xl font-extrabold mb-2">Login</h2>
           <p className="text-gray-400">Sign in to your account</p>
         </div>
 
@@ -51,7 +51,7 @@ export default function ThirdParty() {
                 name="username"
                 type="text"
                 required
-                className="bg-gray-700 block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="bg-grey block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="ClientID"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -72,7 +72,7 @@ export default function ThirdParty() {
                 type="password"
                 autoComplete="current-password"
                 required
-                className="bg-gray-700 block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="bg-grey block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="RedirectURI"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -96,19 +96,19 @@ export default function ThirdParty() {
             <button
               type="submit"
               disabled={isLoading}
-              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-                isLoading
-                  ? "bg-blue-400 cursor-not-allowed"
-                  : "bg-blue-600 hover:bg-blue-700"
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md ${
+                isLoading ? "bg-primary-100" : "bg-primary"
               } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-300`}
             >
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <ArrowRight
-                  className="h-5 w-5 text-blue-300 group-hover:text-white transition-all duration-300"
+                  className="h-5 w-5 group-hover:text-white transition-all duration-300"
                   aria-hidden="true"
                 />
               </span>
-              {isLoading ? "Signing In..." : "Sign in"}
+              <div className="group-hover:text-white duration-300">
+                {isLoading ? "Signing In..." : "Sign in"}
+              </div>
             </button>
           </div>
         </form>

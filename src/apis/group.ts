@@ -189,3 +189,12 @@ export const changePresident = async (
     newPresidentUuid,
   });
 };
+
+export const thirdPartyAuthorize = async (
+  clientId: string,
+  redirectURI: string,
+) => {
+  return groupsApi.get(
+    `/third-party/authorize?client_id=${clientId}&redirect_uri=${redirectURI}`,
+  );
+};
