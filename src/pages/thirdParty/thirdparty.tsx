@@ -44,7 +44,7 @@ export default function ThirdParty() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
-      <div className="bg-white shadow-2xl rounded-xl p-8 max-w-sm w-full transition-all duration-300 hover:shadow-gray-700">
+      <div className="bg-white shadow-2xl rounded-xl p-8 max-w-sm w-full transition-all duration-300 hover:shadow-primary">
         <div className="text-center">
           <h2 className="text-3xl font-extrabold mb-2">Login</h2>
           <p className="text-gray-400">Sign in to your account</p>
@@ -62,7 +62,7 @@ export default function ThirdParty() {
                 name="clientId"
                 type="text"
                 required
-                className="bg-grey block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="bg-white block w-full pl-10 pr-3 py-2 rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="ClientID"
                 value={clientId}
                 onChange={(e) => setclientId(e.target.value)}
@@ -82,7 +82,7 @@ export default function ThirdParty() {
                 type="redirectURI"
                 autoComplete="current-redirectURI"
                 required
-                className="bg-grey block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
+                className="bg-white block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="RedirectURI"
                 value={redirectURI}
                 onChange={(e) => setredirectURI(e.target.value)}
@@ -99,7 +99,11 @@ export default function ThirdParty() {
               {message}
             </div>
           )}
-
+          {message && queryClientId && queryRedirectURI && (
+            <div className="flex justify-center"><a href={queryRedirectURI}>Back to your service</a></div>
+            
+          )}
+          
           <div>
             <button
               type="submit"
