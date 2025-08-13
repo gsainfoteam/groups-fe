@@ -2,22 +2,20 @@ import React, { useState } from "react";
 import { ArrowRight, User, Lock } from "iconoir-react";
 import { thirdPartyAuthorize } from "@/apis/group";
 export default function ThirdParty() {
-  // State for clientId and redirectURI inputs
   const [clientId, setclientId] = useState("");
   const [redirectURI, setredirectURI] = useState("");
 
-  // State for handling messages (e.g., success or error)
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setMessage("");
     try {
-        await thirdPartyAuthorize(clientId, redirectURI)
+        const {data} = await thirdPartyAuthorize(clientId, redirectURI)
+        console.log(data)
         setIsSuccess(true)
         setMessage("Login successful! Redirecting...");
     } catch (err) {
@@ -37,7 +35,6 @@ export default function ThirdParty() {
         </div>
 
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {/* clientId Input Field */}
           <div>
             <label className="sr-only">ClientID</label>
             <div className="relative">
@@ -57,7 +54,6 @@ export default function ThirdParty() {
             </div>
           </div>
 
-          {/* redirectURI Input Field */}
           <div>
             <label className="sr-only">RedirectURI</label>
             <div className="relative">
@@ -78,7 +74,6 @@ export default function ThirdParty() {
             </div>
           </div>
 
-          {/* Conditional Message Display */}
           {message && (
             <div
               className={`p-3 rounded-md text-center transition-all duration-300 ${
@@ -89,7 +84,6 @@ export default function ThirdParty() {
             </div>
           )}
 
-          {/* Submit Button */}
           <div>
             <button
               type="submit"
