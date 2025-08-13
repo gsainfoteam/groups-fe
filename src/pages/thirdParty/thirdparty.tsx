@@ -1,30 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ArrowRight, User, Lock } from "iconoir-react";
 import { thirdPartyAuthorize } from "@/apis/group";
+import { useLocation } from "react-router-dom";
+
 export default function ThirdParty() {
-  const [clientId, setclientId] = useState("");
-  const [redirectURI, setredirectURI] = useState("");
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const queryClientId = queryParams.get("client_id");
+  const queryRedirectURI = queryParams.get("redirect_uri");
+
+  const [clientId, setclientId] = useState<string>(queryClientId || "");
+  const [redirectURI, setredirectURI] = useState<string>(
+    queryRedirectURI || "",
+  );
 
   const [message, setMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const authorize = async () => {
     setIsLoading(true);
     setMessage("");
     try {
-        const {data} = await thirdPartyAuthorize(clientId, redirectURI)
-        console.log(data)
-        setIsSuccess(true)
-        setMessage("Login successful! Redirecting...");
+      await thirdPartyAuthorize(clientId, redirectURI);
+      setIsSuccess(true);
+      setMessage("Login successful! Redirecting...");
     } catch (err) {
-        setIsSuccess(false)
-        setMessage("Invalid clientId or redirectURI.");
+      setIsSuccess(false);
+      setMessage("Invalid clientId or redirectURI.");
     } finally {
-        setIsLoading(false)
+      setIsLoading(false);
     }
   };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    authorize();
+  };
+
+  useEffect(() => {
+    if (queryClientId && queryRedirectURI) authorize();
+  },[]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
