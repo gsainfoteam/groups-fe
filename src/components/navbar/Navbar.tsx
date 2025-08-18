@@ -58,7 +58,7 @@ const Navbar = () => {
         </div>
 
         <Button
-          onClick={() => generateLoginURLHandler(location)}
+          onClick={() => generateLoginURLHandler(location.pathname)}
           className="hidden items-center justify-center gap-2 md:flex"
         >
           <AccountIcon className="flex h-6" />

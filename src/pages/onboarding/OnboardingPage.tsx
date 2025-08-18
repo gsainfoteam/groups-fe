@@ -2,13 +2,18 @@ import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
 import GroupsLogo from "@/assets/logos/groups.svg?react";
 import Button from "@/components/button/Button";
 import { useTranslation } from "react-i18next";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import LocalStorageKeys from "@/types/localstorage";
 import { generateLoginURLHandler, generateOAuthLoginURL } from "@/apis/auth";
+import useAuth from "@/hooks/useAuth";
+
 const OnboardingPage = () => {
   const { t } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
+  const { userInfo } = useAuth();
+  if (userInfo?.name) navigate("/");
 
   return (
     <>
@@ -35,7 +40,7 @@ const OnboardingPage = () => {
             <Button
               variant="outlined"
               size="cta"
-              onClick={() => generateLoginURLHandler(location)}
+              onClick={() => generateLoginURLHandler(location.pathname)}
             >
               {t("onboarding.cta")}
             </Button>

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { ArrowRight, User, Lock } from "iconoir-react";
 import { thirdPartyAuthorize } from "@/apis/group";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { generateLoginURLHandler } from "@/apis/auth";
+import useAuth from "@/hooks/useAuth";
 
 export default function ThirdParty() {
   const location = useLocation();
+  const { userInfo } = useAuth();
+  if (!userInfo) generateLoginURLHandler(location.pathname);
+
   const queryParams = new URLSearchParams(location.search);
   const queryClientId = queryParams.get("client_id");
   const queryRedirectURI = queryParams.get("redirect_uri");
@@ -40,7 +45,7 @@ export default function ThirdParty() {
 
   useEffect(() => {
     if (queryClientId && queryRedirectURI) authorize();
-  },[queryClientId, queryRedirectURI]);
+  }, [queryClientId, queryRedirectURI]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -100,10 +105,11 @@ export default function ThirdParty() {
             </div>
           )}
           {message && queryClientId && queryRedirectURI && (
-            <div className="flex justify-center"><a href={queryRedirectURI}>Back to your service</a></div>
-            
+            <div className="flex justify-center">
+              <a href={queryRedirectURI}>Back to your service</a>
+            </div>
           )}
-          
+
           <div>
             <button
               type="submit"

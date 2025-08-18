@@ -91,11 +91,11 @@ export const getUserInfo = async () => {
   }
 };
 
-export const generateLoginURLHandler = async (location: Location) => {
+export const generateLoginURLHandler = async (returnTo: string) => {
   try {
     localStorage.setItem(
       LocalStorageKeys.ReturnTo,
-      location.state?.returnTo ?? "/",
+      returnTo || "/",
     );
     window.location.href = await generateOAuthLoginURL();
   } catch (error) {
