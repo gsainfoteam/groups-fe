@@ -194,7 +194,8 @@ export const thirdPartyAuthorize = async (
   clientId: string,
   redirectURI: string,
 ) => {
+  const encodedRedirectURI = encodeURIComponent(redirectURI);
   return groupsApi.get(
-    `/third-party/authorize?client_id=${clientId}&redirect_uri=${redirectURI}`,
+    `/third-party/authorize?client_id=${clientId}&redirect_uri=${encodedRedirectURI}`,
   );
 };

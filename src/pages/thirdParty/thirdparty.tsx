@@ -40,7 +40,7 @@ export default function ThirdParty() {
 
   useEffect(() => {
     if (queryClientId && queryRedirectURI) authorize();
-  },[]);
+  },[queryClientId, queryRedirectURI]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4">
@@ -79,8 +79,8 @@ export default function ThirdParty() {
               <input
                 id="redirectURI"
                 name="redirectURI"
-                type="redirectURI"
-                autoComplete="current-redirectURI"
+                type="url"
+                autoComplete="url"
                 required
                 className="bg-white block w-full pl-10 pr-3 py-2 border-none rounded-md placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200"
                 placeholder="RedirectURI"
