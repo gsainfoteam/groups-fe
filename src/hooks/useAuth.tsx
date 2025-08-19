@@ -17,11 +17,11 @@ const useAuth = () => {
 
   useEffect(() => {
     if (error) {
-      const returnPath = location.pathname + location.search;
+      const returnPath = location.pathname;
+      const returnTo = returnPath + location.search;
       if (returnPath !== Path.Onboarding && returnPath !== Path.ThirdParty) {
-        console.log(returnPath);
         navigate(Path.Onboarding, {
-          state: { returnTo: returnPath },
+          state: { returnTo },
         });
       }
     }
