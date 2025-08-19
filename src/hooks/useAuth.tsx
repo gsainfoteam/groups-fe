@@ -18,12 +18,12 @@ const useAuth = () => {
   useEffect(() => {
     if (error) {
       const returnPath = location.pathname + location.search;
-      if (returnPath !== Path.Onboarding) {
+      if (returnPath !== Path.Onboarding && returnPath !== Path.ThirdParty) {
+        console.log(returnPath);
         navigate(Path.Onboarding, {
           state: { returnTo: returnPath },
         });
       }
-      // TODO: add error toast
     }
   }, [error, location, navigate]);
 

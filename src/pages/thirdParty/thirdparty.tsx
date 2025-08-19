@@ -7,9 +7,13 @@ import useAuth from "@/hooks/useAuth";
 
 export default function ThirdParty() {
   const location = useLocation();
-  const { userInfo } = useAuth();
-  if (!userInfo) generateLoginURLHandler(location.pathname);
-
+  const { userInfo, isLoading: LoadingUserInfo } = useAuth();
+  useEffect(() => {
+    if (LoadingUserInfo) return;
+    else if (userInfo == undefined) {
+      generateLoginURLHandler(location.pathname);
+    }
+  }, [userInfo, LoadingUserInfo]);
   const queryParams = new URLSearchParams(location.search);
   const queryClientId = queryParams.get("client_id");
   const queryRedirectURI = queryParams.get("redirect_uri");

@@ -24,7 +24,7 @@ enum Path {
   ManageMembers = "members",
   ManageOnlyInvite = "onlyInvite",
   ManageOnlyLeave = "onlyLeave",
-  ThirdParty = "thirdParty"
+  ThirdParty = "/thirdParty",
 }
 
 export default Path;
