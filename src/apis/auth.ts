@@ -4,7 +4,6 @@ import apiKeys from "@/types/api-keys";
 import LocalStorageKeys from "@/types/localstorage";
 import * as client from "openid-client";
 import { Location } from "react-router-dom";
-import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const IDP_API_URL = import.meta.env.VITE_IDP_API_URL;
@@ -107,8 +106,8 @@ export const generateLoginURLHandler = async (location: Location) => {
 };
 
 export const groupsLogin = async (token: string) => {
-  return axios
-    .get(`${API_URL}/auth/login?token=${token}`)
+  return api
+    .get(`/auth/login?token=${token}`)
     .then(({ data }) => data)
     .catch((err) => console.error(err));
 };
