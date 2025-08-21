@@ -5,6 +5,7 @@ import LocalStorageKeys from "@/types/localstorage";
 import * as client from "openid-client";
 import { Location } from "react-router-dom";
 
+const API_URL = import.meta.env.VITE_API_URL;
 const IDP_API_URL = import.meta.env.VITE_IDP_API_URL;
 const CLIENT_ID = import.meta.env.VITE_IDP_CLIENT_ID;
 const REDIRECT_URI = import.meta.env.VITE_IDP_REDIRECT_URI;
@@ -102,4 +103,11 @@ export const generateLoginURLHandler = async (location: Location) => {
     console.error("Error generating login URL:", error);
     throw new Error("Failed to generate login URL");
   }
+};
+
+export const groupsLogin = async (token: string) => {
+  return api
+    .get(`/auth/login?token=${token}`)
+    .then(({ data }) => data)
+    .catch((err) => console.error(err));
 };

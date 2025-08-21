@@ -5,7 +5,7 @@ import WarningSign from "@/assets/illustrations/warning-sign.svg?react";
 
 import { useTranslation } from "react-i18next";
 import LocalStorageKeys from "@/types/localstorage";
-import { oAuthGetToken } from "@/apis/auth";
+import { groupsLogin, oAuthGetToken } from "@/apis/auth";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import Path from "@/types/paths";
 import Button from "@/components/button/Button";
@@ -143,7 +143,7 @@ const oauthSequence = async (): Promise<OAuthSequenceResult> => {
       LocalStorageKeys.AccessToken,
       tokenResponse.access_token,
     );
-
+    await groupsLogin(tokenResponse.access_token);
     return {
       isSuccessful: true,
     };
