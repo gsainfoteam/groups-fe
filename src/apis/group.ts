@@ -1,4 +1,3 @@
-import { group } from "console";
 import groupsApi from "./interceptor";
 import {
   CompactGroupInfo,
