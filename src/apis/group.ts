@@ -162,7 +162,7 @@ interface GetUserRoleResponse {
   id: number;
   name: (typeof RoleNames)[keyof typeof RoleNames];
   groupUuid: string;
-  perminsions: (typeof RolePermissiosns)[keyof typeof RolePermissiosns][];
+  permissions: (typeof RolePermissiosns)[keyof typeof RolePermissiosns][];
 }
 
 export const getUserRole = async (groupId: string) => {

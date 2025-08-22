@@ -39,7 +39,7 @@ const ManageLayout = () => {
 
   const userRole = {
     roleName: roleData?.name ?? "member",
-    permissions: roleData?.perminsions ?? [],
+    permissions: roleData?.permissions ?? [],
   };
   const isLoading = !group || !roleData;
 
