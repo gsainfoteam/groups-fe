@@ -4,7 +4,7 @@ import Button from "@/components/button/Button";
 import { setGroupProfileImage } from "@/apis/group";
 import { GroupContextType } from "@/pages/manage/ManageLayout";
 import authorityChecker from "@/utils/authorityChecker";
-import { RolePermissiosns, RoleNames } from "@/types/interfaces";
+import { RolePermissions, RoleNames } from "@/types/interfaces";
 import LockedSign from "@/pages/manage/components/lockedSign";
 interface ImageSectionProps extends GroupContextType {}
 
@@ -17,7 +17,7 @@ const ImageSection = ({ group, userRole }: ImageSectionProps) => {
   const [objectUrl, setObjectUrl] = useState<string | null>(null);
 
   const isAuthorized = authorityChecker(userRole.permissions, [
-    RolePermissiosns.GROUP_UPDATE,
+    RolePermissions.GROUP_UPDATE,
   ]);
 
   useEffect(() => {

@@ -4,7 +4,7 @@ import { getGroup, getUserRole } from "@/apis/group";
 import {
   ExpandedGroupInfo,
   GroupInfo,
-  RolePermissiosns,
+  RolePermissions,
   RoleNames,
 } from "@/types/interfaces";
 import Navigator from "./Navigator";
@@ -14,7 +14,7 @@ import Loading from "@/components/loading/Loading";
 
 export interface UserRole {
   roleName: (typeof RoleNames)[keyof typeof RoleNames];
-  permissions: (typeof RolePermissiosns)[keyof typeof RolePermissiosns][];
+  permissions: (typeof RolePermissions)[keyof typeof RolePermissions][];
 }
 
 export type GroupContextType = {
@@ -42,7 +42,7 @@ const ManageLayout = () => {
     permissions: roleData?.permissions ?? [],
   };
   const isLoading = !group || !roleData;
-
+  console.log(userRole)
   const handleGoBack = () => {
     navigate(`/group/${uuid}`);
   };
