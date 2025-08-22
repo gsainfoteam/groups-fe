@@ -62,13 +62,13 @@ const MemberManagementSection = ({
   } = useMemberManagement({ groupUuid: group.uuid });
 
   // 권한 체크
-  const isAuthorizedForRoleChange = authorityChecker(userRole.authorities, [
+  const isAuthorizedForRoleChange = authorityChecker(userRole.permissions, [
     "ROLE_GRANT",
     "ROLE_REVOKE",
   ]);
 
   const isAuthorizedForMemberBanishment = authorityChecker(
-    userRole.authorities,
+    userRole.permissions,
     ["MEMBER_DELETE"],
   );
 

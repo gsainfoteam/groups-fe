@@ -5,7 +5,7 @@ import {
   GroupInfo,
   GroupInfoWithPresidentUuid,
   MemberResDto,
-  RoleAuthorities,
+  RolePermissiosns,
   RoleNames,
 } from "@/types/interfaces";
 
@@ -146,12 +146,12 @@ export const grantMemberRole = async (
 export const createRole = async (
   groupUuid: string,
   roleName: string,
-  authorities: string[],
+  perminsions: string[],
 ): Promise<void> => {
   return groupsApi
     .post(`/group/${groupUuid}/role`, {
       name: roleName,
-      authorities: authorities,
+      perminsions: perminsions,
     })
     .then(() => {
       console.log(`Default role ${roleName} set successfully.`);
@@ -162,13 +162,16 @@ interface GetUserRoleResponse {
   id: number;
   name: (typeof RoleNames)[keyof typeof RoleNames];
   groupUuid: string;
-  authorities: (typeof RoleAuthorities)[keyof typeof RoleAuthorities][];
+  perminsions: (typeof RolePermissiosns)[keyof typeof RolePermissiosns][];
 }
 
 export const getUserRole = async (groupId: string) => {
   return groupsApi
     .get<GetUserRoleResponse>(`/group/${groupId}/role`)
-    .then(({ data }) => data);
+    .then(({ data }) => {
+      console.log(data)
+      return data
+    });
 };
 
 export const leavingGroup = async (GroupUuid: string) => {

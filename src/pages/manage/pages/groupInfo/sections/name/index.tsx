@@ -13,7 +13,7 @@ const GroupNameSection = ({ group, userRole }: GroupNameSectionProps) => {
   const { t } = useTranslation();
   const [newGroupName, setNewGroupName] = useState("");
 
-  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_UPDATE"]);
+  const isAuthorized = authorityChecker(userRole.permissions, ["GROUP_UPDATE"]);
 
   const { updateInfo } = useGroupInfoUpdate({
     group,

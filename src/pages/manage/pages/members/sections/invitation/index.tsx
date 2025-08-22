@@ -11,7 +11,7 @@ interface InvitationSectionProps {
 
 const InvitationSection = ({ groupUuid, userRole }: InvitationSectionProps) => {
   const { t } = useTranslation();
-  const isAuthorizedForInvitation = authorityChecker(userRole.authorities, [
+  const isAuthorizedForInvitation = authorityChecker(userRole.permissions, [
     "MEMBER_UPDATE",
   ]);
 

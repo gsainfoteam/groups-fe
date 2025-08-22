@@ -63,15 +63,15 @@ const CreateGroupNotionPage = () => {
 
       const manager = {
         name: "manager",
-        authorities: ["MEMBER_UPDATE"],
+        permissions: ["MEMBER_UPDATE"],
       };
       const member = {
         name: "member",
-        authorities: ["ROLE_GRANT"],
+        permissions: ["ROLE_GRANT"],
       };
       try {
-        await createRole(groupUuid, manager.name, manager.authorities);
-        await createRole(groupUuid, member.name, member.authorities);
+        await createRole(groupUuid, manager.name, manager.permissions);
+        await createRole(groupUuid, member.name, member.permissions);
       } catch (error) {
         console.error("Failed to create role:", error);
       }

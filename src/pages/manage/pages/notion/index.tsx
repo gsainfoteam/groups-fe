@@ -23,7 +23,7 @@ const ManageNotionLinkPage = () => {
     return <Loading />;
   }
 
-  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_UPDATE"]);
+  const isAuthorized = authorityChecker(userRole.permissions, ["GROUP_UPDATE"]);
 
   const { data: recordMap, isLoading } = useSWR(
     ["notion", (group && group.notionPageId) || ""],

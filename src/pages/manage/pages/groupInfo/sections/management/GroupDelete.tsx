@@ -23,7 +23,7 @@ const GroupDeleteComponent = () => {
     return <Loading />;
   }
 
-  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_DELETE"]);
+  const isAuthorized = authorityChecker(userRole.permissions, ["GROUP_DELETE"]);
 
   // 그룹 삭제하기 클릭 시
   const handleDeleteClick = () => {
