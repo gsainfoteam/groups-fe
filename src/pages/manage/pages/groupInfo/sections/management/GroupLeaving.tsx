@@ -25,7 +25,7 @@ const GroupLeaveComponent = () => {
 
   const isPresident = group.president.uuid === userInfo?.uuid;
   const isAuthorized =
-    authorityChecker(userRole.authorities, []) && !isPresident;
+    authorityChecker(userRole.permissions, []) && !isPresident;
 
   // 나가기 클릭 시
   const handleLeaveClick = () => {

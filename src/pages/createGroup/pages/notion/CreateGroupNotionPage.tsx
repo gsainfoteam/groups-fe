@@ -12,7 +12,7 @@ import useGroupNotionSequence from "../../hooks/useGroupNotionSequence";
 import { dataUrlToFile } from "@/utils/dataURLtoFile";
 import { useGroupCreation } from "../../context/GroupCreationContext";
 import NotionWrapper from "@/pages/detail/tabs/intro/NotionWrapper";
-
+import { RolePermissions } from "@/types/interfaces";
 const CreateGroupNotionPage = () => {
   const { t } = useTranslation();
   const { state, updateState } = useGroupCreation();
@@ -63,15 +63,20 @@ const CreateGroupNotionPage = () => {
 
       const manager = {
         name: "manager",
-        authorities: ["MEMBER_UPDATE"],
+        permissions: [
+          RolePermissions.MEMBER_UPDATE,
+          RolePermissions.MEMBER_DELETE,
+          RolePermissions.ROLE_UPDATE,
+          RolePermissions.ROLE_GRANT,
+        ],
       };
       const member = {
         name: "member",
-        authorities: ["ROLE_GRANT"],
+        permissions: [],
       };
       try {
-        await createRole(groupUuid, manager.name, manager.authorities);
-        await createRole(groupUuid, member.name, member.authorities);
+        await createRole(groupUuid, manager.name, manager.permissions);
+        await createRole(groupUuid, member.name, member.permissions);
       } catch (error) {
         console.error("Failed to create role:", error);
       }

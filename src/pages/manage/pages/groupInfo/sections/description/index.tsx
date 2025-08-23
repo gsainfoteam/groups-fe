@@ -19,7 +19,7 @@ const GroupDescriptionSection = ({
 
   const MAX_DESCRIPTION_LENGTH = 500;
 
-  const isAuthorized = authorityChecker(userRole.authorities, ["GROUP_UPDATE"]);
+  const isAuthorized = authorityChecker(userRole.permissions, ["GROUP_UPDATE"]);
 
   const { updateInfo } = useGroupInfoUpdate({
     group,

@@ -1,8 +1,8 @@
-import { RoleAuthorities } from "@/types/interfaces";
+import { RolePermissions } from "@/types/interfaces";
 
 const authorityChecker = (
-  currentAuthorities: (typeof RoleAuthorities)[keyof typeof RoleAuthorities][],
-  requiredAuthorities: (typeof RoleAuthorities)[keyof typeof RoleAuthorities][],
+  currentAuthorities: (typeof RolePermissions)[keyof typeof RolePermissions][],
+  requiredAuthorities: (typeof RolePermissions)[keyof typeof RolePermissions][],
 ) => {
   return requiredAuthorities.every((authority) => {
     return currentAuthorities.includes(authority);
