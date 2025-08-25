@@ -68,6 +68,7 @@ const CreateGroupNotionPage = () => {
           RolePermissions.MEMBER_DELETE,
           RolePermissions.ROLE_UPDATE,
           RolePermissions.ROLE_GRANT,
+          RolePermissions.ROLE_REVOKE,
         ],
       };
       const member = {
