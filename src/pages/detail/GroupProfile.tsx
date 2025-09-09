@@ -2,6 +2,7 @@ import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Button from "@/components/button/Button";
 
 import { ExpandedGroupInfo } from "@/types/interfaces";
+import { cn } from "@/utils/clsx";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
@@ -16,9 +17,10 @@ const GroupProfile = ({ group }: GroupProfileProps) => {
     <div className={"flex items-center gap-[25px]"}>
       <img
         src={group.profileImageUrl || GroupProfileDefault}
-        className={"rounded-full aspect-square object-cover"}
-        width={160}
-        height={160}
+        className={cn(
+          "rounded-full aspect-square object-cover",
+          "size-28 md:size-40",
+        )}
         alt={"group default profile"}
       />
 
@@ -46,7 +48,7 @@ const GroupProfile = ({ group }: GroupProfileProps) => {
           <Link to={`/manage/${group.uuid}`}>
             <Button
               variant="emphasized"
-              className="mt-3 rounded-[10px] md:px-6 md:py-2"
+              className="mt-3 rounded-[10px] px-6 py-2"
             >
               <p>{t("group.manage")}</p>
             </Button>

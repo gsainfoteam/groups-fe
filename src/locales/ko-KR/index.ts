@@ -319,6 +319,11 @@ export const main = {
       },
       role: {
         title: "💡 멤버 역할",
+        president: {
+          title: "그룹장",
+          description:
+            "그룹의 최고 권한자입니다. 그룹장만이 그룹을 삭제하거나, 다른 멤버를 그룹장으로 임명할 수 있습니다.",
+        },
         admin: {
           title: "관리자",
           description:

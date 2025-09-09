@@ -332,6 +332,11 @@ export const main = {
       },
       role: {
         title: "💡 Member Roles",
+        president: {
+          title: "President",
+          description:
+            "The highest authority in the group. Only the president can delete the group or appoint another member as president.",
+        },
         admin: {
           title: "Admin",
           description:
