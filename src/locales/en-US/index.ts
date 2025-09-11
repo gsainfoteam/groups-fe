@@ -335,7 +335,7 @@ export const main = {
         president: {
           title: "President",
           description:
-            "The highest authority in the group. Only the president can delete the group or appoint another member as president.",
+            "The highest authority in the group. Can appoint other members as president, but cannot leave the group directly.",
         },
         admin: {
           title: "Admin",
