@@ -340,7 +340,7 @@ export const main = {
         admin: {
           title: "Admin",
           description:
-            "Has all permissions, including editing group info, changing roles, and expelling members.",
+            "Has full authority, including editing group info, deleting the group, changing member roles, and expelling members.",
         },
         manager: {
           title: "Manager",

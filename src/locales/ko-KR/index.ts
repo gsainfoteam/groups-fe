@@ -327,7 +327,7 @@ export const main = {
         admin: {
           title: "관리자",
           description:
-            "그룹 정보 수정, 삭제, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
+            "그룹 정보 수정, 그룹 삭제, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
         },
         manager: {
           title: "매니저",
