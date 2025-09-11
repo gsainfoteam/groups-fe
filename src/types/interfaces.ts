@@ -20,12 +20,14 @@ export interface GroupInfo {
 }
 
 export const RoleNames = {
+  PRESIDENT: "president",
   ADMIN: "admin",
   MANAGER: "manager",
   MEMBER: "member",
 } as const;
 
 export const ROLE_HIERARCHY = {
+  [RoleNames.PRESIDENT]: 0,
   [RoleNames.ADMIN]: 1,
   [RoleNames.MANAGER]: 2,
   [RoleNames.MEMBER]: 3,

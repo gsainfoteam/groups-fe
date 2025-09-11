@@ -17,7 +17,7 @@ const LockedSign = ({ requiredRoleName, customText }: LockedSignProps) => {
         <span className="text-grey">{customText}</span>
       ) : (
         <Trans t={t} i18nKey="manageGroup.noPermission">
-          {{ requiredRoleName }}
+          {{ requiredRoleName: t(`role.${requiredRoleName}`) }}
         </Trans>
       )}
     </div>

@@ -319,10 +319,15 @@ export const main = {
       },
       role: {
         title: "💡 멤버 역할",
+        president: {
+          title: "그룹장",
+          description:
+            "그룹의 최고 권한자입니다. 다른 멤버를 그룹장으로 임명할 수 있으며, 그룹을 직접 나갈 수는 없습니다.",
+        },
         admin: {
           title: "관리자",
           description:
-            "그룹 정보 수정, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
+            "그룹 정보 수정, 그룹 삭제, 멤버 역할 변경, 추방 등 모든 권한을 가집니다.",
         },
         manager: {
           title: "매니저",
