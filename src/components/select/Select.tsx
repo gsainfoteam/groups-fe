@@ -1,4 +1,4 @@
-import ArrowRight from "@/assets/icons/arrow-right.svg?react";
+import { NavArrowRight } from 'iconoir-react';
 import Check from "@/assets/icons/check.svg?react";
 import useClickOutside from "@/hooks/useClickOutside";
 import { cn } from "@/utils/clsx";
@@ -97,7 +97,7 @@ const Select = <OptionType extends SelectOptionBase>({
       >
         {selectedValue.value}
       </div>
-      <ArrowRight className={cn(IconVariants({ size }), "rotate-90")} />
+      <NavArrowRight className={cn(IconVariants({ size }), "rotate-90")} />
 
       {isOpen && (
         <ul

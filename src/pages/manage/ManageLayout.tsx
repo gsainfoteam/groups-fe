@@ -1,4 +1,4 @@
-import ArrowRight from "@/assets/icons/arrow-right.svg?react";
+import { NavArrowRight } from 'iconoir-react';
 import { Outlet, useParams, useNavigate } from "react-router-dom";
 import { getGroup, getUserRole } from "@/apis/group";
 import {
@@ -62,7 +62,7 @@ const ManageLayout = () => {
           <div className="flex flex-col items-start gap-2.5 self-stretch">
             <div onClick={handleGoBack} className="cursor-pointer">
               <div className="flex items-center">
-                <ArrowRight className="h-5 w-5 md:h-6 md:w-6 stroke-primary scale-x-[-1]" />
+                <NavArrowRight className="h-5 w-5 md:h-6 md:w-6 stroke-primary scale-x-[-1]" />
                 <p className="text-primary text-base md:text-xl font-medium">
                   {t("manageGroup.goBack")}
                 </p>

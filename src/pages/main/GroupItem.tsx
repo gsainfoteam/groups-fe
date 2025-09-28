@@ -1,8 +1,6 @@
 import { GroupInfoWithPresidentUuid } from "src/types/interfaces";
 
-import ArrowRight from "@/assets/icons/arrow-right.svg?react";
-import Crown from "@/assets/icons/crown.svg?react";
-import Settings from "@/assets/icons/settings.svg?react";
+import { NavArrowRight, Settings, Crown } from 'iconoir-react';
 import GroupProfileDefault from "@/assets/icons/group-profile-default.webp";
 import Card from "@/components/card/Card";
 import { Link } from "react-router-dom";
@@ -42,18 +40,18 @@ const GroupItem = ({
         </p>
 
         {isAdmin && (
-          <Crown className="ml-1 inline stroke-dark dark:stroke-d_white" />
+          <Crown color="rgb(235, 85, 40)" className="ml-1 inline stroke-dark dark:stroke-d_white" />
         )}
 
         <div className="flex-grow" />
 
         {isAdmin && (
           <Link to={`/manage/${group.uuid}/groupinfo`}>
-            <Settings className="fill-greyDark mr-2" />
+            <Settings color="rgb(110, 110, 115)" className="fill-greyDark mr-2" />
           </Link>
         )}
 
-        <ArrowRight className="h-[30px] stroke-dark dark:stroke-d_white" />
+        <NavArrowRight className="h-[30px] stroke-dark dark:stroke-d_white" />
       </a>
     </Card>
   );

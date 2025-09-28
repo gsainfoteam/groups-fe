@@ -1,4 +1,4 @@
-import Close from '@/assets/icons/close.svg';
+import { Xmark } from 'iconoir-react';
 
 interface MemberCardProps {
   name: string;
@@ -29,7 +29,7 @@ const MemberCard = ({
         </div>
       </div>
 
-      <Close onClick={onCloseClick} className="w-6" />
+      <Xmark color="rgb(110, 110, 115)" onClick={onCloseClick} className="w-6" />
     </li>
   );
 };
