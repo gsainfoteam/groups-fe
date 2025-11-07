@@ -3,7 +3,7 @@ import useSWR from "swr";
 import { getGroupMembers } from "@/apis/group";
 import { useOutletContext, useParams } from "react-router-dom";
 
-import UserCircle from "@/assets/icons/user-circle.svg?react";
+import { UserCircle } from 'iconoir-react';
 
 import { useTranslation } from "react-i18next";
 import { GroupDetailContext } from "../../DetailPageLayout";
@@ -31,7 +31,7 @@ const GroupMembersTab = () => {
   return (
     <div className="flex flex-col items-center">
       <div className="flex gap-1.5 mt-6">
-        <UserCircle />
+        <UserCircle color="rgb(110, 110, 115)" />
         <div className={"text-[18px] text-greyDark"}>
           {t("group.memberCount", { count: group.memberCount })}
         </div>

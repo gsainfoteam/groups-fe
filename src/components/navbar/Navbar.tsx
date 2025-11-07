@@ -1,5 +1,5 @@
 import { generateLoginURLHandler, generateOAuthLoginURL } from "@/apis/auth";
-import AccountIcon from "@/assets/icons/account.svg?react";
+import { ProfileCircle } from 'iconoir-react';
 import GroupsCompactLogoDark from "@/assets/logos/groups-compact-dark.svg?react";
 import GroupsCompactLogo from "@/assets/logos/groups-compact.svg?react";
 import GroupsLogoDark from "@/assets/logos/groups-dark.svg?react";
@@ -61,7 +61,7 @@ const Navbar = () => {
           onClick={() => generateLoginURLHandler(location.pathname)}
           className="hidden items-center justify-center gap-2 md:flex"
         >
-          <AccountIcon className="flex h-6" />
+          <ProfileCircle color="rgb(235, 85, 40)" className="flex h-6" />
           <div className="whitespace-nowrap align-middle font-medium text-primary">
             {userInfo?.name ?? t("navbar.login")}
           </div>

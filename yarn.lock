@@ -6225,12 +6225,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"iconoir-react@npm:^7.10.1":
-  version: 7.10.1
-  resolution: "iconoir-react@npm:7.10.1"
+"iconoir-react@npm:^7.11.0":
+  version: 7.11.0
+  resolution: "iconoir-react@npm:7.11.0"
   peerDependencies:
-    react: ^16.8.6 || ^17 || ^18
-  checksum: 10389400a67c55e9ab86ef3d1a753d043e3091a017c22a2fecf9663c0648a865c604a490620668a2699f3f5fb13e57759caf652f3ded250c3d27bdd934942a52
+    react: 18 || 19
+  checksum: ac0607a33da9050f01a2621d9e2f02b5c72bdc6d297eeec2d9872579ba00ad7e5a215c26a9b5dcf881f1f97a7481fb85ba040528ebc058f1f6d24ed25f4f111b
   languageName: node
   linkType: hard
 
@@ -9373,7 +9373,7 @@ __metadata:
     framer-motion: ^11.5.6
     i18next: ^23.7.16
     i18next-browser-languagedetector: ^7.2.0
-    iconoir-react: ^7.10.1
+    iconoir-react: ^7.11.0
     lottie-react: ^2.4.0
     notion-client: ^6.16.0
     openid-client: ^6.5.0
