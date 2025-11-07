@@ -30,12 +30,13 @@ const GroupItem = ({
   return (
     <Card>
       <a href={`/group/${group.uuid}`} className={"flex items-center"}>
+      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
         <img
           src={group.profileImageUrl || GroupProfileDefault}
           alt="group-default-profile"
-          width={40}
-          height={40}
+          className="w-full h-full object-cover" 
         />
+      </div>
 
         <p className="ml-[15px] mr-[5px] text-lg font-semibold text-dark dark:text-d_white">
           {group.name}
