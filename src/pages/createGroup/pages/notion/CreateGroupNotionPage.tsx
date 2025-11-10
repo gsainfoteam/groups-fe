@@ -68,11 +68,12 @@ const CreateGroupNotionPage = () => {
           RolePermissions.MEMBER_DELETE,
           RolePermissions.ROLE_UPDATE,
           RolePermissions.ROLE_GRANT,
+          RolePermissions.ROLE_REVOKE,
         ],
       };
       const member = {
         name: "member",
-        permissions: [],
+        permissions: [RolePermissions.MEMBER_UPDATE],
       };
       try {
         await createRole(groupUuid, manager.name, manager.permissions);
