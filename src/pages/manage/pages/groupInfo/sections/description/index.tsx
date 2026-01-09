@@ -56,7 +56,7 @@ const GroupDescriptionSection = ({
         <div className="flex flex-col w-full gap-1.5">
           <textarea
             className={cn(
-              "h-[100px] w-full px-4 py-2.5 rounded-xl border-[1.5px] dark:text-black",
+              "h-[100px] w-full px-4 py-2.5 rounded-xl border-[1.5px] dark:text-black bg-white",
               isAuthorized ? "border-primary" : "border-grey bg-white",
             )}
             placeholder={
